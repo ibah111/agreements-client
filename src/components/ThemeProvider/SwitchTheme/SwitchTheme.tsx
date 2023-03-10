@@ -14,7 +14,7 @@ export default function SwitchTheme() {
             color="default"
           />
         }
-        label={undefined}
+        label={"Сменить тему"}
       />
     </Box>
   );

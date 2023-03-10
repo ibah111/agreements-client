@@ -1,9 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-
-export default function Router() {
-  return (
-    <BrowserRouter>
-      <></>
-    </BrowserRouter>
-  );
-}
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import ThemeProvider from "./components/ThemeProvider/ThemeProvider";
+const root = ReactDOM.createRoot(document.getElementById("root")!);
+root.render(
+  <React.StrictMode>
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>
+);
