@@ -1,166 +1,206 @@
-import { Box, Grid, Slide, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Slide,
+  Typography,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid-premium";
-
+import React from "react";
+const rows = [{ id: 1, name: "Jon Snow" }];
 export default function AgreementTable() {
   const columns: GridColDef[] = [
-    { headerName: "id", field: "ID", width: 90 },
+    { headerName: "ID", field: "id", width: 90, type: "number" },
     {
       headerName: "Дате последней проверки",
       field: "last_check_date",
       width: 150,
       editable: true,
+      type: "date",
     },
     {
       headerName: "Дата заключения",
       field: "conclusion_date",
       width: 150,
       editable: true,
+      type: "date",
     },
     {
       headerName: "ФИО должника",
-      field: "FIO_debter",
+      field: "name",
       sortable: false,
       width: 160,
       editable: true,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+      type: "string",
     },
     {
       headerName: "Дата рождения",
       field: "birth_date",
       width: 150,
       editable: true,
+      type: "date",
     },
     {
       headerName: "КД",
       field: "KD",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "ID дела",
       field: "id_deal",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Проверено",
       field: "Check",
       width: 150,
       editable: true,
+      type: "boolean",
     },
     {
       headerName: "Реестр",
       field: "Register",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Назначение",
       field: "purpose",
       width: 150,
       editable: true,
+      type: "singleSelect",
+      valueOptions: [
+        "Задолженность взыскана банком",
+        "Задолженность взыскана НБК",
+        "Пересчет",
+        "Индексация",
+      ],
     },
     {
       headerName: "Сумма задолженности, переданная банком",
       field: "debt_bank_summ",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Сумма задолженности по судебному акту в пользу банка",
       field: "court_sum",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Сумма задолженности ОД взысканная в пользу НБК /Вымпел ",
       field: "debt_sum",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Сумма задолженности по пересчету",
       field: "recalculation_sum",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Сумма задолженности к погашению по соглашению с дисконтом",
       field: "law_act_debt",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Дисконт",
       field: "discount_sum",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Дата платежа по соглашению",
       field: "pay_date",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Cумма первого платежа по соглашению",
       field: "month_pay_day",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Сумма платежа каждого месяца",
       field: "month_pay_day",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Сумма последнего платежа",
       field: "month_pay_day",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Сумма платежей после соглашения",
       field: "month_pay_day",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Остаток основного долга",
       field: "month_pay_day",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Наличие ИД в исполнении",
       field: "month_pay_day",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Наличие ИД в регистраторе",
       field: "reg_doc",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Наличие ИД в архиве",
       field: "finish_doc",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Дата получения листа",
       field: "get_list_date",
       width: 150,
       editable: true,
+      type: "date",
     },
     {
       headerName: "Действия для получения или предъявления листа",
-      field: "actions_for_ge",
+      field: "actions_for_get",
       width: 150,
       editable: true,
     },
@@ -169,62 +209,98 @@ export default function AgreementTable() {
       field: "credit_mount",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Количество поручителей",
       field: "count_debt_guarantor",
       width: 150,
       editable: true,
+      type: "number",
     },
     {
       headerName: "Имущество",
       field: "inventory",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Дополнительная информация",
       field: "additional_information",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Комментарий",
       field: "comment",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Статус долга",
       field: "month_pay_day",
       width: 150,
       editable: true,
+      type: "singleSelect",
+      valueOptions: [
+        "Не распределен",
+        "Не обработан",
+        "Отказ",
+        "Контакт не установлен",
+        "Обещание",
+        "Завершено",
+        "Аннулировано",
+        "Отозван клиентом",
+        "Проблемный",
+        "К возврату клиенту",
+        "Возврат в работу",
+        "Без перспектив",
+        "Контакт не установлен",
+        "Аутсорсинг",
+        "Поиск информации",
+        "Возврат аутсорсинга",
+        "Цессия",
+        "Погашен с пересчетом",
+        "Банкрот освбожден",
+        "Умер, наследников нет",
+        "Нет перспектив юридического взыскания",
+        "Сумма меньше 3000руб",
+        "Мошенничество подтверждено",
+        "Автореализовано",
+        "Погашен",
+        "Оплата по графику",
+        "Банкорт в процедуре",
+        "Банкрот НЕ освобожден",
+        "Умер есть наследство",
+        "Погашен в архив",
+      ],
     },
     {
       headerName: "ФИО Взыскателя",
       field: "month_pay_day",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Ссылка на задачу",
       field: "task_link",
       width: 150,
       editable: true,
+      type: "string",
     },
   ];
-  const rows = [
-    { id: "", lastName: "", firstName: "", age: "" },
-    { id: "", lastName: "", firstName: "", age: "" },
-  ];
+
   return (
     <>
       <Box>
         <Grid item container alignItems="center">
           <Typography>Agreement Table</Typography>
         </Grid>
-
-        <DataGrid rows={rows} columns={columns} />
+        <DataGrid columns={columns} rows={rows} />
       </Box>
     </>
   );
