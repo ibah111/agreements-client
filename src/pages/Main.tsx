@@ -1,6 +1,8 @@
 import {
   Box,
+  Button,
   FormControlLabel,
+  Grid,
   Paper,
   Slide,
   Switch,
@@ -25,11 +27,11 @@ export default function Main() {
       <Box>
         <FormControlLabel
           control={<Switch onChange={handleChange} />}
-          label={"Показать таблицу соглашений"}
+          label={"Показать соглашения"}
         />
         <SwitchTheme />
       </Box>
-      <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+      <Slide direction="up" in={checked}>
         {AgrTable}
       </Slide>
     </>
