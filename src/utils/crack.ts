@@ -3,8 +3,7 @@ import moment from "moment";
 const expiryDate = moment().add(1, "y").toDate();
 const license = generateLicense({
   expiryDate,
-  orderNumber: "hooy",
-  licensingModel: "perpetual",
+  orderNumber: "MUI-45675676",
   scope: "premium",
 });
 LicenseInfo.setLicenseKey(license);
