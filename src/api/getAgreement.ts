@@ -1,5 +1,6 @@
 import axios from "axios";
 import { plainToInstance } from "class-transformer";
+import { baseRequest } from "./Utils/baseRequest";
 
 export class Agreement {
   r_law_act_id: number;
@@ -19,13 +20,12 @@ export class Agreement {
 }
 export default async function getAgreements() {
   try {
-    const res = await axios.get<Agreement[]>(
-      `http://localhost:3001/Agreements/GetAgreementWith`
+    const res = await baseRequest.get<Agreement[]>(
+      `/Agreements/GetAgreementWith`
     );
     return plainToInstance(Agreement, res.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      alert("Такого пользователя не существует");
       console.log(error.response?.data);
     }
     throw error;
