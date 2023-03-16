@@ -1,15 +1,8 @@
-import {
-  Box,
-  Button,
-  FormControlLabel,
-  Grid,
-  Slide,
-  Switch,
-} from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 import AddAgreementDialog from "../Add_agreements/AddAgreement";
-import AgreementTable from "../Table/Table";
+import AgreementTable from "../../components/Form/GetAgreements/Table";
 
 export default function Main() {
   const [checked, setChecked] = React.useState(false);
