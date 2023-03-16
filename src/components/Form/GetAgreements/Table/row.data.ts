@@ -1,9 +1,11 @@
 import axios from "axios";
 import { plainToInstance } from "class-transformer";
 import { baseRequest } from "../../../../utils/baseRequest";
+import { LawAct } from "@contact/models";
 
 export class Agreement {
   r_law_act_id: number;
+  LawAct: LawAct;
   last_check_date: Date;
   conclusion_date: Date;
   purpose: number;

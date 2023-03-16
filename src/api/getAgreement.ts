@@ -1,10 +1,13 @@
-import axios from "axios";
-import { plainToInstance } from "class-transformer";
+import { LawAct } from "@contact/models";
+import { plainToInstance, Type } from "class-transformer";
 import { baseRequest } from "../utils/baseRequest";
+import processError from "../utils/processError";
 
 export class Agreement {
   r_law_act_id: number;
+  @Type(() => Date)
   last_check_date: Date;
+  @Type(() => Date)
   conclusion_date: Date;
   purpose: number;
   court_sum: number;
@@ -17,17 +20,14 @@ export class Agreement {
   actions_for_get: string | null;
   comment: string;
   task_link: string;
+  LawAct: LawAct;
 }
 export default async function getAgreements() {
   try {
-    const res = await baseRequest.get<Agreement[]>(
-      `/Agreements/GetAgreementWith`
-    );
+    const res = await baseRequest.get<Agreement[]>(`/Agreements`);
     return plainToInstance(Agreement, res.data);
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log(error.response?.data);
-    }
+    processError(error);
     throw error;
   }
 }

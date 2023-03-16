@@ -5,10 +5,6 @@ import AddAgreementDialog from "../Add_agreements/AddAgreement";
 import AgreementTable from "../../components/Form/GetAgreements/Table";
 
 export default function Main() {
-  const [checked, setChecked] = React.useState(false);
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = React.useCallback(() => {
