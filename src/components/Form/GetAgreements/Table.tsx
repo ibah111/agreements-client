@@ -1,9 +1,9 @@
 import { Box, Grid, Typography } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
-import getAgreements from "../../api/getAgreement";
-import getColumns from "./column.data";
-import { Agreement } from "./row.data";
+import getAgreements from "../../../api/getAgreement";
+import getColumns from "./Table/column.data";
+import { Agreement } from "./Table/row.data";
 
 export default function AgreementTable() {
   const [agreements, setAgreements] = React.useState<Agreement[]>([]);
@@ -18,7 +18,7 @@ export default function AgreementTable() {
         <Typography variant="h5">Таблица соглашений</Typography>
       </Grid>
       <Grid item xs>
-        <DataGrid columns={columns} rows={agreements} />
+        <DataGridPremium columns={columns} rows={agreements} />
       </Grid>
     </Grid>
   );
