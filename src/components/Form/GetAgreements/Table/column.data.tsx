@@ -23,7 +23,7 @@ export default function getColumns(refresh: () => void) {
       field: "name",
       sortable: false,
       width: 160,
-      editable: true,
+      editable: false,
       type: "string",
     },
     {
@@ -49,14 +49,14 @@ export default function getColumns(refresh: () => void) {
     },
     {
       headerName: "Проверено",
-      field: "Check",
+      field: "check",
       width: 150,
       editable: true,
       type: "boolean",
     },
     {
       headerName: "Реестр",
-      field: "Register",
+      field: "register",
       width: 150,
       editable: true,
       type: "string",
