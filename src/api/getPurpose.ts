@@ -1,4 +1,4 @@
-import { baseRequest } from "./Utils/baseRequest";
+import { baseRequest } from "../utils/baseRequest";
 export class Purpose {
   id: number;
   title: string;

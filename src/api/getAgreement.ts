@@ -1,6 +1,6 @@
 import axios from "axios";
 import { plainToInstance } from "class-transformer";
-import { baseRequest } from "./Utils/baseRequest";
+import { baseRequest } from "../utils/baseRequest";
 
 export class Agreement {
   r_law_act_id: number;
