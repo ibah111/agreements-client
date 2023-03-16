@@ -5,7 +5,8 @@
   "license": "MIT",
   "packageManager": "yarn@3.4.1",
   "scripts": {
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix"
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
