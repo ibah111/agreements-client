@@ -12,13 +12,16 @@ import {
 } from "@mui/material";
 
 import React from "react";
+import getPurposes, { Purpose } from "../../api/getPurpose";
 interface GridContainerProps {
   children: React.ReactNode[];
 }
 const GridContainer = ({ children }: GridContainerProps) => (
   <Grid container spacing={1}>
-    {children.map((item) => (
-      <Grid item>{item}</Grid>
+    {children.map((item, index) => (
+      <Grid key={index} item>
+        {item}
+      </Grid>
     ))}
   </Grid>
 );
@@ -27,21 +30,17 @@ interface AddAgreementDialogProps {
   open: boolean;
   onClose: () => void;
 }
+
 export default function AddAgreementDialog(props: AddAgreementDialogProps) {
-  const purpose = [
-    {
-      label: "Задолженность взыскана банком",
-    },
-    {
-      label: "Задолженность взыскана НБК",
-    },
-    {
-      label: "Пересчет",
-    },
-    {
-      label: "Индексация",
-    },
-  ];
+  const [purposes, setPurposes] = React.useState<Purpose[]>([]);
+
+  React.useEffect(() => {
+    if (props.open)
+      getPurposes().then((res) => {
+        setPurposes(res);
+      });
+  }, [props.open]);
+
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} maxWidth="lg" fullWidth>
@@ -63,7 +62,12 @@ export default function AddAgreementDialog(props: AddAgreementDialogProps) {
             </Grid>
             <TextField type={"date"} />
             <Autocomplete
-              options={purpose}
+              options={purposes.map((purpose) => {
+                return { title: purpose.title, value: purpose.id };
+              })}
+              getOptionLabel={(value) => {
+                return value.title;
+              }}
               sx={{ width: 300 }}
               renderInput={(params) => (
                 <TextField
