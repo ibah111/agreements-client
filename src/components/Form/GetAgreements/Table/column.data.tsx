@@ -25,6 +25,9 @@ export default function getColumns(refresh: () => void) {
       width: 160,
       editable: false,
       type: "string",
+      valueGetter: (params) => {
+        return params.row.LawAct.Person?.fio;
+      },
     },
     {
       headerName: "Дата рождения",
@@ -32,6 +35,9 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "date",
+      valueGetter: (params) => {
+        return new Date(params.row.LawAct.Person?.birth_date);
+      },
     },
     {
       headerName: "КД",
@@ -39,10 +45,13 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "number",
+      valueGetter: (params) => {
+        return params.row.LawAct.Debt?.contract;
+      },
     },
     {
       headerName: "ID дела",
-      field: "id_deal",
+      field: "r_law_act_id",
       width: 150,
       editable: true,
       type: "number",
@@ -198,6 +207,9 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "number",
+      valueGetter: (params) => {
+        return params.row.LawAct.Debt?.contract;
+      },
     },
     {
       headerName: "Количество поручителей",
@@ -222,7 +234,7 @@ export default function getColumns(refresh: () => void) {
     },
     {
       headerName: "Комментарий",
-      field: "comment",
+      field: "dsc",
       width: 150,
       editable: true,
       type: "string",
@@ -233,42 +245,10 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "singleSelect",
-      valueOptions: [
-        "Не распределен",
-        "Не обработан",
-        "Отказ",
-        "Контакт не установлен",
-        "Обещание",
-        "Завершено",
-        "Аннулировано",
-        "Отозван клиентом",
-        "Проблемный",
-        "К возврату клиенту",
-        "Возврат в работу",
-        "Без перспектив",
-        "Контакт не установлен",
-        "Аутсорсинг",
-        "Поиск информации",
-        "Возврат аутсорсинга",
-        "Цессия",
-        "Погашен с пересчетом",
-        "Банкрот освбожден",
-        "Умер, наследников нет",
-        "Нет перспектив юридического взыскания",
-        "Сумма меньше 3000руб",
-        "Мошенничество подтверждено",
-        "Автореализовано",
-        "Погашен",
-        "Оплата по графику",
-        "Банкорт в процедуре",
-        "Банкрот НЕ освобожден",
-        "Умер есть наследство",
-        "Погашен в архив",
-      ],
     },
     {
       headerName: "ФИО Взыскателя",
-      field: "",
+      field: "fio_collector",
       width: 150,
       editable: true,
       type: "string",
@@ -279,7 +259,10 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "string",
-    },
+    }, // rendering cells MUI
+    /**
+     * https://mui.com/x/react-data-grid/column-definition/#rendering-cells
+     * */
   ];
   return columns;
 }
