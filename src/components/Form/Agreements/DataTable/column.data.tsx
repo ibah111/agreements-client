@@ -1,5 +1,5 @@
 import { GridColumns } from "@mui/x-data-grid-premium";
-import { Agreement } from "./row.data";
+import { Agreement } from "../../../../api/getAgreement";
 
 export default function getColumns(refresh: () => void) {
   const columns: GridColumns<Agreement> = [
@@ -76,12 +76,6 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "singleSelect",
-      // valueOptions: [
-      //   "Задолженность взыскана банком",
-      //   "Задолженность взыскана НБК",
-      //   "Пересчет",
-      //   "Индексация",
-      // ],
     },
     {
       headerName: "Сумма задолженности, переданная банком",

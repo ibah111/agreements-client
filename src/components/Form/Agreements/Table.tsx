@@ -1,9 +1,8 @@
 import { Grid, Typography } from "@mui/material";
 import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
-import getAgreements from "../../../api/getAgreement";
+import getAgreements, { Agreement } from "../../../api/getAgreement";
 import getColumns from "./DataTable/column.data";
-import { Agreement } from "./DataTable/row.data";
 
 export default function AgreementTable() {
   const [agreements, setAgreements] = React.useState<Agreement[]>([]);

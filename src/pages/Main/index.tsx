@@ -1,8 +1,8 @@
 import { Button, Grid } from "@mui/material";
 import React from "react";
+import AgreementTable from "../../components/Form/Agreements/Table";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 import CreateAgreementDialog from "../CreateAgreementsDialog/CreateAgreementDialog";
-import AgreementTable from "../../components/Form/GetAgreements/Table";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
@@ -30,7 +30,6 @@ export default function Main() {
         </Grid>
         <AgreementTable />
       </Grid>
-
       <CreateAgreementDialog open={open} onClose={handleClose} />
     </>
   );
