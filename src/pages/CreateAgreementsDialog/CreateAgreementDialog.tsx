@@ -7,13 +7,12 @@ import {
   DialogTitle,
   Divider,
   Grid,
-  Snackbar,
   TextField,
-  Typography,
 } from "@mui/material";
-
+import { useSnackbar } from "notistack";
 import React from "react";
 import createAgreement from "../../api/createAgreement";
+import { Agreement } from "../../api/getAgreement";
 import getPurposes, { Purpose } from "../../api/getPurpose";
 interface GridContainerProps {
   children: React.ReactNode[];
@@ -49,6 +48,9 @@ export default function CreateAgreementDialog(
   const [actionForGet, setActionForGet] = React.useState("");
   const [comment, setComment] = React.useState("");
   const [taskLink, setTaskLink] = React.useState("");
+
+  const { enqueueSnackbar } = useSnackbar();
+
   React.useEffect(() => {
     if (props.open)
       getPurposes().then((res) => {
@@ -66,7 +68,6 @@ export default function CreateAgreementDialog(
             <Grid>
               <TextField
                 label="Номер в БД"
-                type="number"
                 value={lawActId}
                 onChange={(event) => setLawActId(Number(event.target.value))}
               />
@@ -145,7 +146,7 @@ export default function CreateAgreementDialog(
               <TextField
                 label="Число платежа"
                 value={payDayMonth}
-                type="number"
+                inputProps={{ maxLength: 2 }}
                 onChange={(event) => setPayDayMonth(Number(event.target.value))}
               />
             </Grid>
@@ -181,7 +182,7 @@ export default function CreateAgreementDialog(
               <TextField
                 label="Ссылка на задачу"
                 type="string"
-                value={comment}
+                value={taskLink}
                 onChange={(event) => setTaskLink(event.target.value)}
               />
             </Grid>
@@ -192,13 +193,12 @@ export default function CreateAgreementDialog(
           <Button
             variant="contained"
             sx={{ width: "100", alignSelf: "center" }}
-            // onClick={async () => {
-            //   const agreement = await createAgreement({
-            //     r_law_act_id: string,
-            //   });
-            //   if (agreement) agreement;
-            //   else alert("Error");
-            // }}
+            onClick={async () => {
+              const agreement = await createAgreement(new Agreement());
+              if (agreement)
+                enqueueSnackbar("УСПЕШНЫЙ УСПЕХ!", { variant: "success" });
+              else enqueueSnackbar("PROVAL", { variant: "error" });
+            }}
           >
             Send
           </Button>
