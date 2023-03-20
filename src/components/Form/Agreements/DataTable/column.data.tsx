@@ -1,5 +1,5 @@
 import { GridColumns } from "@mui/x-data-grid-premium";
-import { Agreement } from "../../../../api/getAgreement";
+import { Agreement } from "../../../../Reducer/Agreement";
 
 export default function getColumns(refresh: () => void) {
   const columns: GridColumns<Agreement> = [

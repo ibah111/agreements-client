@@ -1,19 +1,25 @@
 import {
-  Autocomplete,
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import React from "react";
 import createAgreement from "../../api/createAgreement";
-import { Agreement } from "../../api/getAgreement";
-import getPurposes, { Purpose } from "../../api/getPurpose";
+import getPurposes from "../../api/getPurpose";
+import { useAppDispatch, useAppSelector } from "../../Reducer";
+import { setAgreementProperty } from "../../Reducer/Agreement";
+import useAsyncMemo from "../../utils/asyncMemo";
 interface GridContainerProps {
   children: React.ReactNode[];
 }
@@ -35,28 +41,10 @@ interface CreateAgreementDialogProps {
 export default function CreateAgreementDialog(
   props: CreateAgreementDialogProps
 ) {
-  const [lawActId, setLawActId] = React.useState(1);
-  const [lastCheckDate, setLastCheckDate] = React.useState(Date);
-  const [conclusionDate, setConclusionDate] = React.useState(Date);
-  const [purposes, setPurposes] = React.useState<Purpose[]>([]);
-  const [courtSum, setCourtSum] = React.useState(1);
-  const [debtSum, setDebtSum] = React.useState(1);
-  const [recalculationSumm, setRecalculationSumm] = React.useState(1);
-  const [discount, setDiscount] = React.useState(1);
-  const [payDayMonth, setPayDayMonth] = React.useState(1);
-  const [regDoc, setRegDoc] = React.useState("");
-  const [actionForGet, setActionForGet] = React.useState("");
-  const [comment, setComment] = React.useState("");
-  const [taskLink, setTaskLink] = React.useState("");
-
+  const dispatch = useAppDispatch();
+  const agreement = useAppSelector((state) => state.Agreement);
   const { enqueueSnackbar } = useSnackbar();
-
-  React.useEffect(() => {
-    if (props.open)
-      getPurposes().then((res) => {
-        setPurposes(res);
-      });
-  }, [props.open]);
+  const purposes = useAsyncMemo(() => getPurposes(), [props.open]);
 
   return (
     <>
@@ -68,94 +56,153 @@ export default function CreateAgreementDialog(
             <Grid>
               <TextField
                 label="Номер в БД"
-                value={lawActId}
-                onChange={(event) => setLawActId(Number(event.target.value))}
+                type="number"
+                value={agreement.r_law_act_id || ""}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "r_law_act_id",
+                      Number(event.target.value),
+                    ])
+                  )
+                }
               />
             </Grid>
             <Grid>
               <TextField
                 type={"date"}
-                value={lastCheckDate}
+                value={agreement.last_check_date}
                 label="Дата последней проверки"
                 InputLabelProps={{ shrink: true }}
-                onChange={(event) => setLastCheckDate(event.target.value)}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "last_check_date",
+                      event.target.value,
+                    ])
+                  )
+                }
               />
             </Grid>
             <Grid>
               <TextField
                 type={"date"}
-                value={conclusionDate}
+                value={agreement.conclusion_date}
                 label="Дата заключения"
                 InputLabelProps={{ shrink: true }}
-                onChange={(event) => setConclusionDate(event.target.value)}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "conclusion_date",
+                      event.target.value,
+                    ])
+                  )
+                }
               />
             </Grid>
-            <Autocomplete
-              options={purposes.map((purpose) => {
-                return { title: purpose.title, value: purpose.id };
-              })}
-              getOptionLabel={(value) => {
-                return value.title;
-              }}
-              sx={{ width: 300 }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Назначение"
-                  sx={{
-                    alignSelf: "center",
-                  }}
-                />
-              )}
-            />
+            <FormControl>
+              <InputLabel id="purpose-label">Назначение</InputLabel>
+              <Select
+                labelId="purpose-label"
+                label="Назначение"
+                value={agreement.purpose}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "purpose",
+                      event.target.value as number,
+                    ])
+                  )
+                }
+              >
+                {purposes?.map((item) => (
+                  <MenuItem value={item.id}>{item.title}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <Grid>
               <TextField
                 label="Судебная сумма"
-                value={courtSum}
+                value={agreement.court_sum}
                 type="number"
-                onChange={(event) => setCourtSum(Number(event.target.value))}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "court_sum",
+                      Number(event.target.value),
+                    ])
+                  )
+                }
               />
             </Grid>
             <Grid>
               <TextField
                 label="Сумма долга"
-                value={debtSum}
+                value={agreement.debt_sum}
                 type="number"
-                onChange={(event) => setDebtSum(Number(event.target.value))}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "debt_sum",
+                      Number(event.target.value),
+                    ])
+                  )
+                }
               />
             </Grid>
             <Grid>
               <TextField
                 label="Сумма пересчета"
-                value={recalculationSumm}
+                value={agreement.recalculation_sum}
                 type="number"
                 onChange={(event) =>
-                  setRecalculationSumm(Number(event.target.value))
+                  dispatch(
+                    setAgreementProperty([
+                      "recalculation_sum",
+                      Number(event.target.value),
+                    ])
+                  )
                 }
               />
             </Grid>
             <Grid>
               <TextField
                 label="Дисконт"
-                value={discount}
+                value={agreement.discount_sum}
                 type="number"
-                onChange={(event) => setDiscount(Number(event.target.value))}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "discount_sum",
+                      Number(event.target.value),
+                    ])
+                  )
+                }
               />
             </Grid>
             <Grid>
               <TextField
                 label="Число платежа"
-                value={payDayMonth}
+                value={agreement.month_pay_day}
                 inputProps={{ maxLength: 2 }}
-                onChange={(event) => setPayDayMonth(Number(event.target.value))}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "month_pay_day",
+                      Number(event.target.value),
+                    ])
+                  )
+                }
               />
             </Grid>
             <Grid>
-              <TextField
-                label="Исполнительный документ"
-                value={regDoc}
-                type="string"
-                onChange={(event) => setRegDoc(event.target.value)}
+              <Checkbox
+                value={agreement.reg_doc}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty(["reg_doc", event.target.checked])
+                  )
+                }
               />
             </Grid>
             {/*             
@@ -166,24 +213,39 @@ export default function CreateAgreementDialog(
               <TextField
                 label="Действия для получения листа"
                 type="string"
-                value={actionForGet}
-                onChange={(event) => setActionForGet(event.target.value)}
+                value={agreement.actions_for_get}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty([
+                      "actions_for_get",
+                      event.target.value,
+                    ])
+                  )
+                }
               />
             </Grid>
             <Grid>
               <TextField
                 label="Комментарий"
                 type="string"
-                value={comment}
-                onChange={(event) => setComment(event.target.value)}
+                value={agreement.comment}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty(["comment", event.target.value])
+                  )
+                }
               />
             </Grid>
             <Grid>
               <TextField
                 label="Ссылка на задачу"
                 type="string"
-                value={taskLink}
-                onChange={(event) => setTaskLink(event.target.value)}
+                value={agreement.task_link}
+                onChange={(event) =>
+                  dispatch(
+                    setAgreementProperty(["task_link", event.target.value])
+                  )
+                }
               />
             </Grid>
           </GridContainer>
@@ -194,10 +256,13 @@ export default function CreateAgreementDialog(
             variant="contained"
             sx={{ width: "100", alignSelf: "center" }}
             onClick={async () => {
-              const agreement = await createAgreement(new Agreement());
-              if (agreement)
+              const response = await createAgreement(agreement);
+              if (response) {
                 enqueueSnackbar("УСПЕШНЫЙ УСПЕХ!", { variant: "success" });
-              else enqueueSnackbar("PROVAL", { variant: "error" });
+              } else {
+                enqueueSnackbar("Ошибка", { variant: "error" });
+                return;
+              }
             }}
           >
             Send
