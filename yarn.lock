@@ -6146,7 +6146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux@npm:^4.2.0":
+"redux@npm:^4.2.0, redux@npm:^4.2.1":
   version: 4.2.1
   resolution: "redux@npm:4.2.1"
   dependencies:
@@ -7259,6 +7259,7 @@ __metadata:
     react-redux: ^8.0.5
     react-router: ^6.8.0
     react-router-dom: ^6.8.0
+    redux: ^4.2.1
     reflect-metadata: ^0.1.13
     typescript: ^4.9.5
     vite: ^4.2.0
