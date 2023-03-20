@@ -1,7 +1,8 @@
 import { Grid, Typography } from "@mui/material";
 import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
-import getAgreements, { Agreement } from "../../../api/getAgreement";
+import getAgreements from "../../../api/getAgreement";
+import { Agreement } from "../../../Reducer/Agreement";
 import getColumns from "./DataTable/column.data";
 
 export default function AgreementTable() {

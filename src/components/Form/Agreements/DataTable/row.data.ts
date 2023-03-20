@@ -1,7 +1,7 @@
 import axios from "axios";
 import { plainToInstance } from "class-transformer";
+import { Agreement } from "../../../../Reducer/Agreement";
 import { baseRequest } from "../../../../utils/baseRequest";
-import { Agreement } from "../../../../api/getAgreement";
 
 export default async function Rows(data: Agreement) {
   try {
