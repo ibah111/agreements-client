@@ -205,10 +205,6 @@ export default function CreateAgreementDialog(
                 }
               />
             </Grid>
-            {/*             
-            <Grid>
-              <TextField label="Конечный документ" />
-            </Grid> */}
             <Grid>
               <TextField
                 label="Действия для получения листа"
