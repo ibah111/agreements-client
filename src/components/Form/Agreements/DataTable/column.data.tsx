@@ -125,6 +125,9 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "number",
+      valueGetter: (params) => {
+        return params.row.LawAct.Debt?.contract;
+      },
     },
     {
       headerName: "Cумма первого платежа по соглашению",
@@ -142,10 +145,13 @@ export default function getColumns(refresh: () => void) {
     },
     {
       headerName: "Сумма последнего платежа",
-      field: "sum_last_payment",
+      field: "last_pay_sum",
       width: 150,
       editable: true,
       type: "number",
+      valueGetter: (params) => {
+        return params.row.LawAct.Debt?.last_pay_sum;
+      },
     },
     {
       headerName: "Сумма платежей после соглашения",
@@ -165,35 +171,39 @@ export default function getColumns(refresh: () => void) {
       headerName: "Наличие ИД в исполнении",
       field: "reg_doc_action",
       width: 150,
+      type: "boolean",
       editable: true,
-      type: "string",
     },
     {
       headerName: "Наличие ИД в регистраторе",
       field: "reg_doc",
       width: 150,
+      type: "boolean",
       editable: true,
-      type: "string",
     },
     {
       headerName: "Наличие ИД в архиве",
       field: "finish_doc",
       width: 150,
+      type: "boolean",
       editable: true,
-      type: "string",
     },
     {
       headerName: "Дата получения листа",
-      field: "get_list_date",
+      field: "receipt_dt",
       width: 150,
       editable: true,
       type: "date",
+      valueGetter: (params) => {
+        return params.row.LawAct.receipt_dt;
+      },
     },
     {
       headerName: "Действия для получения или предъявления листа",
       field: "actions_for_get",
       width: 150,
       editable: true,
+      type: "string",
     },
     {
       headerName: "Количество кредитов в реестрах",
@@ -218,6 +228,9 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "string",
+      valueGetter: (params) => {
+        return params.row.LawAct.Debt?.r_person_property_id;
+      },
     },
     {
       headerName: "Дополнительная информация",
