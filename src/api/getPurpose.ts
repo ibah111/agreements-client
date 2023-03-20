@@ -4,6 +4,6 @@ export class Purpose {
   title: string;
 }
 export default async function getPurposes() {
-  const res = await baseRequest.post<Purpose[]>(`/Purpose/GetAll`);
+  const res = await baseRequest.get<Purpose[]>(`/Purpose`);
   return res.data;
 }
