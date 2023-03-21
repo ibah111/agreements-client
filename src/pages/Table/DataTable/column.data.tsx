@@ -256,9 +256,10 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "receipt_dt",
       width: 150,
       type: "date",
-      valueGetter: (params) => {
-        return new Date(params.row.LawAct.receipt_dt!) || undefined;
-      },
+      valueGetter: (params) =>
+        params.row.LawAct.receipt_dt
+          ? new Date(params.row.LawAct.receipt_dt)
+          : undefined,
     },
     {
       align: "center",
