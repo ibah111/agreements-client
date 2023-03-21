@@ -15,11 +15,11 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import React from "react";
-import createAgreement from "../../api/createAgreement";
-import getPurposes from "../../api/getPurpose";
-import { useAppDispatch, useAppSelector } from "../../Reducer";
-import { setAgreementProperty } from "../../Reducer/Agreement";
-import useAsyncMemo from "../../utils/asyncMemo";
+import createAgreement from "../../../api/createAgreement";
+import getPurposes from "../../../api/getPurpose";
+import { useAppDispatch, useAppSelector } from "../../../Reducer";
+import { setAgreementProperty } from "../../../Reducer/Agreement";
+import useAsyncMemo from "../../../utils/asyncMemo";
 interface GridContainerProps {
   children: React.ReactNode[];
 }
@@ -32,12 +32,10 @@ const GridContainer = ({ children }: GridContainerProps) => (
     ))}
   </Grid>
 );
-
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
 }
-
 export default function CreateAgreementDialog(
   props: CreateAgreementDialogProps
 ) {
@@ -45,7 +43,6 @@ export default function CreateAgreementDialog(
   const agreement = useAppSelector((state) => state.Agreement);
   const { enqueueSnackbar } = useSnackbar();
   const purposes = useAsyncMemo(() => getPurposes(), [props.open]);
-
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} maxWidth="lg" fullWidth>
@@ -261,7 +258,7 @@ export default function CreateAgreementDialog(
               }
             }}
           >
-            Send
+            Отправить
           </Button>
           <Button
             variant="contained"

@@ -1,20 +1,17 @@
 import { Button, Grid } from "@mui/material";
 import React from "react";
-import AgreementTable from "../../components/Form/Agreements/Table";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
-import CreateAgreementDialog from "../CreateAgreementsDialog/CreateAgreementDialog";
+import CreateAgreementDialog from "../../components/Form/AgreementDialog/CreateAgreementDialog";
+import AgreementTable from "../Table/Table";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
-
   const handleOpen = React.useCallback(() => {
     setOpen(true);
   }, []);
-
   const handleClose = React.useCallback(() => {
     setOpen(false);
   }, []);
-
   return (
     <>
       <Grid container height={"100vh"} direction={"column"} spacing={1}>
