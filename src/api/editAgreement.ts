@@ -6,7 +6,7 @@ export class EditAgreementInput {
   field: string;
   value: string | number;
 }
-export default async function editAgremeent(id: EditAgreementInput) {
-  const res = await baseRequest.post<boolean>(`/Agreement/EDIT${id}`);
+export default async function editAgremeent(data: EditAgreementInput) {
+  const res = await baseRequest.patch<boolean>(`/Agreements/${data.id}`, data);
   return res.data;
 }

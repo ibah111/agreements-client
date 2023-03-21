@@ -36,9 +36,7 @@ interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
 }
-export default function CreateAgreementDialog(
-  props: CreateAgreementDialogProps
-) {
+export default function AgreementDialog(props: CreateAgreementDialogProps) {
   const dispatch = useAppDispatch();
   const agreement = useAppSelector((state) => state.Agreement);
   const { enqueueSnackbar } = useSnackbar();
@@ -113,7 +111,9 @@ export default function CreateAgreementDialog(
                 }
               >
                 {purposes?.map((item) => (
-                  <MenuItem value={item.id}>{item.title}</MenuItem>
+                  <MenuItem key={item.id} value={item.id}>
+                    {item.title}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>

@@ -1,7 +1,8 @@
 import { GridColumns } from "@mui/x-data-grid-premium";
+import { Purpose } from "../../../api/getPurpose";
 import { Agreement } from "../../../Reducer/Agreement";
 
-export default function getColumns(refresh: () => void) {
+export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
   const columns: GridColumns<Agreement> = [
     { headerName: "ID", field: "id", width: 90, type: "number" },
     {
@@ -74,8 +75,13 @@ export default function getColumns(refresh: () => void) {
       headerName: "Назначение",
       field: "purpose",
       width: 150,
-      editable: true,
+      //editable: true,
       type: "singleSelect",
+      valueOptions:
+        purposes?.map((item) => ({
+          label: item.title,
+          value: item.id,
+        })) || [],
     },
     {
       headerName: "Сумма задолженности, переданная банком",
@@ -266,10 +272,7 @@ export default function getColumns(refresh: () => void) {
       width: 150,
       editable: true,
       type: "string",
-    }, // rendering cells MUI
-    /**
-     * https://mui.com/x/react-data-grid/column-definition/#rendering-cells
-     * */
+    },
   ];
   return columns;
 }

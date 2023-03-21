@@ -1,7 +1,7 @@
 import { Button, Grid } from "@mui/material";
 import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
-import CreateAgreementDialog from "../../components/Form/AgreementDialog/CreateAgreementDialog";
+import AgreementDialog from "../../components/Form/AgreementDialog";
 import AgreementTable from "../Table/Table";
 
 export default function Main() {
@@ -27,7 +27,7 @@ export default function Main() {
         </Grid>
         <AgreementTable />
       </Grid>
-      <CreateAgreementDialog open={open} onClose={handleClose} />
+      <AgreementDialog open={open} onClose={handleClose} />
     </>
   );
 }
