@@ -1,9 +1,10 @@
-import { GridColumns } from "@mui/x-data-grid-premium";
+import { Debt } from "@contact/models";
+import { GridColDef } from "@mui/x-data-grid-premium";
 import { Purpose } from "../../../api/getPurpose";
 import { Agreement } from "../../../Reducer/Agreement";
 
 export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
-  const columns: GridColumns<Agreement> = [
+  const columns: GridColDef<Agreement>[] = [
     { headerName: "ID", field: "id", width: 90, type: "number" },
     {
       headerName: "Дате последней проверки",
@@ -37,7 +38,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       editable: true,
       type: "date",
       valueGetter: (params) => {
-        return new Date(params.row.LawAct.Person?.birth_date);
+        return new Date(params.row.LawAct.Person?.birth_date!);
       },
     },
     {
@@ -58,13 +59,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "number",
     },
     {
-      headerName: "Проверено",
-      field: "check",
-      width: 150,
-      editable: true,
-      type: "boolean",
-    },
-    {
       headerName: "Реестр",
       field: "register",
       width: 150,
@@ -75,7 +69,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerName: "Назначение",
       field: "purpose",
       width: 150,
-      //editable: true,
+      editable: true,
       type: "singleSelect",
       valueOptions:
         purposes?.map((item) => ({
@@ -85,10 +79,18 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
     },
     {
       headerName: "Сумма задолженности, переданная банком",
-      field: "debt_bank_summ",
+      field: "debt_bank_sum",
       width: 150,
       editable: true,
       type: "number",
+      valueGetter: (value) => {
+        const law_act = value.row.LawAct;
+        const debts: Debt[] = value.row.LawAct?.Debt?.Person?.Debts || [];
+        const data = debts.find(
+          (item) => item.contract === law_act.contract && item.name === "_"
+        );
+        return data?.start_sum || 0;
+      },
     },
     {
       headerName: "Сумма задолженности по судебному акту в пользу банка",
@@ -129,7 +131,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerName: "Дата платежа по соглашению",
       field: "pay_date",
       width: 150,
-      editable: true,
       type: "number",
       valueGetter: (params) => {
         return params.row.LawAct.Debt?.contract;
@@ -139,21 +140,18 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerName: "Cумма первого платежа по соглашению",
       field: "sum_first_payment",
       width: 150,
-      editable: true,
       type: "number",
     },
     {
       headerName: "Сумма платежа каждого месяца",
       field: "sum_every_month",
       width: 150,
-      editable: true,
       type: "number",
     },
     {
       headerName: "Сумма последнего платежа",
       field: "last_pay_sum",
       width: 150,
-      editable: true,
       type: "number",
       valueGetter: (params) => {
         return params.row.LawAct.Debt?.last_pay_sum;
@@ -163,14 +161,12 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerName: "Сумма платежей после соглашения",
       field: "sum_after_conclusion",
       width: 150,
-      editable: true,
       type: "number",
     },
     {
       headerName: "Остаток основного долга",
       field: "sum_left_payment",
       width: 150,
-      editable: true,
       type: "number",
     },
     {
@@ -198,10 +194,9 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerName: "Дата получения листа",
       field: "receipt_dt",
       width: 150,
-      editable: true,
       type: "date",
       valueGetter: (params) => {
-        return params.row.LawAct.receipt_dt;
+        return new Date(params.row.LawAct.receipt_dt!);
       },
     },
     {
@@ -215,7 +210,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerName: "Количество кредитов в реестрах",
       field: "credit_mount",
       width: 150,
-      editable: true,
       type: "number",
       valueGetter: (params) => {
         return params.row.LawAct.Debt?.contract;
@@ -225,25 +219,28 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerName: "Количество поручителей",
       field: "count_debt_guarantor",
       width: 150,
-      editable: true,
       type: "number",
     },
     {
       headerName: "Имущество",
-      field: "inventory",
+      field: "person_property",
       width: 150,
-      editable: true,
       type: "string",
       valueGetter: (params) => {
-        return params.row.LawAct.Debt?.r_person_property_id;
+        const law_act = params.row.LawAct;
+        const person_property = law_act.Debt?.PersonProperties?.[0] || null;
+        if (person_property) {
+          const params = person_property.PersonPropertyParams!;
+          const vin = params.find(
+            (item) => item.r_property_typ_params_id === 6
+          )?.value;
+          const name = params.find(
+            (item) => item.r_property_typ_params_id === 7
+          )?.value;
+          return `${name} - ${vin}`;
+        }
+        return undefined;
       },
-    },
-    {
-      headerName: "Дополнительная информация",
-      field: "additional_information",
-      width: 150,
-      editable: true,
-      type: "string",
     },
     {
       headerName: "Комментарий",
@@ -261,7 +258,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
     },
     {
       headerName: "ФИО Взыскателя",
-      field: "fio_collector",
+      field: "user",
       width: 150,
       editable: true,
       type: "string",
