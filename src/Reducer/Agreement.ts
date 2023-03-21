@@ -3,6 +3,7 @@ import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
 import { Type } from "class-transformer";
 
 export class Agreement {
+  id: number;
   r_law_act_id: number;
   @Type(() => Date)
   last_check_date: Date;
