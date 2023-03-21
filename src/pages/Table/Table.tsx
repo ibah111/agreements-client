@@ -31,7 +31,7 @@ export default function AgreementTable() {
           <DataGridPremium
             columns={columns}
             rows={agreements}
-            onCellEditCommit={editAgremeent}
+            processRowUpdate={editAgremeent}
           />
         }
       </Grid>
