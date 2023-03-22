@@ -228,11 +228,9 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
               <TextField
                 label="Комментарий"
                 type="string"
-                value={agreement.comment}
+                value={agreement.dsc}
                 onChange={(event) =>
-                  dispatch(
-                    setAgreementProperty(["comment", event.target.value])
-                  )
+                  dispatch(setAgreementProperty(["dsc", event.target.value]))
                 }
               />
             </Grid>
