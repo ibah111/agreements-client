@@ -7,6 +7,7 @@ import {
   DialogTitle,
   Divider,
   FormControl,
+  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -193,12 +194,18 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
               />
             </Grid>
             <Grid>
-              <Checkbox
-                value={agreement.reg_doc}
-                onChange={(event) =>
-                  dispatch(
-                    setAgreementProperty(["reg_doc", event.target.checked])
-                  )
+              <FormControlLabel
+                label="ИД"
+                labelPlacement="top"
+                control={
+                  <Checkbox
+                    value={agreement.reg_doc}
+                    onChange={(event) =>
+                      dispatch(
+                        setAgreementProperty(["reg_doc", event.target.checked])
+                      )
+                    }
+                  />
                 }
               />
             </Grid>

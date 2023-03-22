@@ -163,7 +163,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       width: 150,
       type: "number",
       valueGetter: (params) => {
-        return params.row.LawAct.settlement_date || "no date";
+        return params.row.LawAct.settlement_date || undefined;
       },
     },
     {
