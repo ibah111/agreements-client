@@ -8,6 +8,7 @@ import ThemeProvider from "./components/ThemeProvider/ThemeProvider";
 import MessageProvider from "./Providers/MessageProvider";
 import { store } from "./Reducer";
 import "./utils/crack";
+import { Login } from "./components/Login";
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ root.render(
       <Provider store={store}>
         <SnackbarProvider maxSnack={10}>
           <MessageProvider>
-            <App />
+            <Login>
+              <App />
+            </Login>
           </MessageProvider>
         </SnackbarProvider>
       </Provider>
