@@ -258,7 +258,9 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
               if (response) {
                 enqueueSnackbar("УСПЕШНЫЙ УСПЕХ!", { variant: "success" });
               } else {
-                enqueueSnackbar("Ошибка", { variant: "error" });
+                enqueueSnackbar("Ошибка", {
+                  variant: "error",
+                });
                 return;
               }
             }}
