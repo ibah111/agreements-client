@@ -2,7 +2,9 @@ import { Debt } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
 import { Purpose } from "../../../api/getPurpose";
 import { Agreement } from "../../../Reducer/Agreement";
-
+interface GridPinnedColumns {
+  left?: string;
+}
 export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
   const columns: GridColDef<Agreement>[] = [
     { headerName: "ID", field: "id", width: 90, type: "number" },
@@ -66,18 +68,19 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerAlign: "center",
       field: "r_law_act_id",
       width: 150,
-      editable: true,
       type: "number",
     },
-    {
-      headerName: "Реестр",
-      align: "center",
-      headerAlign: "center",
-      field: "register",
-      width: 150,
-      editable: true,
-      type: "string",
-    },
+    // {
+    //   headerName: "Реестр",
+    //   align: "center",
+    //   headerAlign: "center",
+    //   field: "register",
+    //   width: 150,
+    //   type: "string",
+    //   valueGetter: (params) => {
+    //     return params.row.LawAct.Portfolio?.contract_info || null;
+    //   },
+    // },
     {
       headerName: "Назначение",
       align: "center",
@@ -98,7 +101,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerAlign: "center",
       field: "debt_bank_sum",
       width: 150,
-      editable: true,
       type: "number",
       valueGetter: (value) => {
         const law_act = value.row.LawAct;
@@ -106,7 +108,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
         const data = debts.find(
           (item) => item.contract === law_act.contract && item.name === "_"
         );
-        return data?.start_sum || 0;
+        return data?.start_sum;
       },
     },
     {
