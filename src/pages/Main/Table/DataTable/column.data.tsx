@@ -1,10 +1,7 @@
 import { Debt } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
-import { Purpose } from "../../../api/getPurpose";
-import { Agreement } from "../../../Reducer/Agreement";
-interface GridPinnedColumns {
-  left?: string;
-}
+import { Purpose } from "../../../../api/getPurpose";
+import { Agreement } from "../../../../Reducer/Agreement";
 export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
   const columns: GridColDef<Agreement>[] = [
     { headerName: "ID", field: "id", width: 90, type: "number" },
@@ -44,7 +41,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerAlign: "center",
       field: "birth_date",
       width: 150,
-      editable: true,
       type: "date",
       valueGetter: (params) => {
         return new Date(params.row.LawAct.Person?.birth_date!);
@@ -56,7 +52,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerAlign: "center",
       field: "KD",
       width: 150,
-      editable: true,
       type: "number",
       valueGetter: (params) => {
         return params.row.LawAct.Debt?.contract;

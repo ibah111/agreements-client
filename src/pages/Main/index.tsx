@@ -1,9 +1,9 @@
 import { Button, Grid } from "@mui/material";
 import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
-import AgreementDialog from "../../components/Form/AgreementDialog";
-import AgreementTable from "../Table/Table";
+import AgreementDialog from "./AgreementDialog";
 import ActionLog from "../ActionLog/actionLog";
+import AgreementTable from "./Table/Table";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
@@ -29,7 +29,6 @@ export default function Main() {
             <SwitchTheme />
           </Grid>
         </Grid>
-
         <AgreementTable />
       </Grid>
       <AgreementDialog open={open} onClose={handleClose} />

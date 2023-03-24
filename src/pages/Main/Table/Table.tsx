@@ -1,11 +1,11 @@
 import { Grid, Typography } from "@mui/material";
-import { DataGridPremium } from "@mui/x-data-grid-premium";
+import { DataGridPremium, GridPinnedColumns } from "@mui/x-data-grid-premium";
 import React from "react";
-import editAgremeent from "../../api/editAgreement";
-import getAgreements from "../../api/getAgreement";
-import getPurposes from "../../api/getPurpose";
-import { Agreement } from "../../Reducer/Agreement";
-import useAsyncMemo from "../../utils/asyncMemo";
+import editAgremeent from "../../../api/editAgreement";
+import getAgreements from "../../../api/getAgreement";
+import getPurposes from "../../../api/getPurpose";
+import { Agreement } from "../../../Reducer/Agreement";
+import useAsyncMemo from "../../../utils/asyncMemo";
 import getColumns from "./DataTable/column.data";
 
 export default function AgreementTable() {
@@ -21,19 +21,28 @@ export default function AgreementTable() {
   React.useEffect(() => {
     refresh();
   }, [refresh]);
+  const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
+    left: ["id", "name", "birth_date", "KD", "r_law_act_id"],
+  });
+  const handlePinnedColumnsChange = React.useCallback(
+    (updatedPinnedColumns: GridPinnedColumns) => {
+      setPinnedColumns(updatedPinnedColumns);
+    },
+    []
+  );
   return (
     <Grid item container xs direction={"column"}>
       <Grid item>
         <Typography variant="h5">Таблица соглашений</Typography>
       </Grid>
       <Grid item xs>
-        {
-          <DataGridPremium
-            columns={columns}
-            rows={agreements}
-            processRowUpdate={editAgremeent}
-          />
-        }
+        <DataGridPremium
+          columns={columns}
+          rows={agreements}
+          processRowUpdate={editAgremeent}
+          pinnedColumns={pinnedColumns}
+          onPinnedColumnsChange={handlePinnedColumnsChange}
+        />
       </Grid>
     </Grid>
   );
