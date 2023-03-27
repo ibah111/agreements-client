@@ -7,8 +7,8 @@ export default async function getAgreements() {
   try {
     const res = await baseRequest.get<Agreement[]>(`/Agreements`);
     return plainToInstance(Agreement, res.data);
-  } catch (error) {
-    processError(error);
-    throw error;
+  } catch (e) {
+    processError(e);
+    throw e;
   }
 }
