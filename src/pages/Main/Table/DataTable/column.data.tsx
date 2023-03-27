@@ -65,17 +65,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       width: 150,
       type: "number",
     },
-    // {
-    //   headerName: "Реестр",
-    //   align: "center",
-    //   headerAlign: "center",
-    //   field: "register",
-    //   width: 150,
-    //   type: "string",
-    //   valueGetter: (params) => {
-    //     return params.row.LawAct.Portfolio?.contract_info || null;
-    //   },
-    // },
     {
       headerName: "Назначение",
       align: "center",

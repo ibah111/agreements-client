@@ -35,7 +35,7 @@ export default function AgreementTable() {
       <Grid item>
         <Typography variant="h5">Таблица соглашений</Typography>
       </Grid>
-      <Grid item xs>
+      <Grid item xs style={{ height: 400, width: "100%" }}>
         <DataGridPremium
           columns={columns}
           rows={agreements}
