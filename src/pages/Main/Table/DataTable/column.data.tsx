@@ -1,7 +1,18 @@
 import { Debt } from "@contact/models";
+import { Button } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid-premium";
 import { Purpose } from "../../../../api/getPurpose";
 import { Agreement } from "../../../../Reducer/Agreement";
+
+function RenderLink(value: string) {
+  if (value)
+    if (value.split("/")?.[0] === "https:")
+      return (
+        <Button variant="contained" href={value} target="_blank" size="small">
+          Ссылка
+        </Button>
+      );
+}
 export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
   const columns: GridColDef<Agreement>[] = [
     { headerName: "ID", field: "id", width: 90, type: "number" },
@@ -304,7 +315,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
     {
       headerAlign: "center",
       headerName: "Комментарий",
-      field: "dsc",
+      field: "comment",
       width: 150,
       editable: true,
       type: "string",
@@ -337,6 +348,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       width: 150,
       editable: true,
       type: "string",
+      renderCell: ({ value }) => RenderLink(value),
     },
   ];
   return columns;
