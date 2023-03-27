@@ -1,8 +1,10 @@
 import { Debt } from "@contact/models";
 import { Button } from "@mui/material";
-import { GridColDef } from "@mui/x-data-grid-premium";
+import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { Purpose } from "../../../../api/getPurpose";
 import { Agreement } from "../../../../Reducer/Agreement";
+import deleteAgreement from "../../../../api/deleteAgreement";
 
 function RenderLink(value: string) {
   if (value)
@@ -13,6 +15,7 @@ function RenderLink(value: string) {
         </Button>
       );
 }
+
 export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
   const columns: GridColDef<Agreement>[] = [
     { headerName: "ID", field: "id", width: 90, type: "number" },
@@ -349,6 +352,23 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       editable: true,
       type: "string",
       renderCell: ({ value }) => RenderLink(value),
+    },
+    {
+      headerAlign: "center",
+      headerName: "Удалить",
+      align: "center",
+      field: "actions",
+      type: "actions",
+      width: 80,
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          label="Delete"
+          onClick={() => {
+            deleteAgreement(params.row.id).then(() => refresh());
+          }}
+        />,
+      ],
     },
   ];
   return columns;
