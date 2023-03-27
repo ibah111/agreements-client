@@ -18,7 +18,7 @@ export class Agreement {
   reg_doc: boolean;
   finish_doc: boolean;
   actions_for_get: string | null;
-  dsc: string;
+  comment: string;
   task_link: string;
   LawAct: LawAct;
 }
