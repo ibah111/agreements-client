@@ -33,7 +33,7 @@ export default function AgreementTable() {
   );
   return (
     <Grid item container xs direction={"column"}>
-      <Grid item>
+      <Grid item style={{ margin: "3px" }}>
         <Typography variant="h5">Таблица соглашений</Typography>
       </Grid>
       <Grid item xs style={{ height: 400, width: "100%" }}>
