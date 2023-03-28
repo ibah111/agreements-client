@@ -1,5 +1,6 @@
 import { GridRowId } from "@mui/x-data-grid-premium";
 import { diff } from "deep-object-diff";
+import { enqueueSnackbar } from "notistack";
 import { Agreement } from "../Reducer/Agreement";
 import { baseRequest } from "../utils/baseRequest";
 import processError from "../utils/processError";
@@ -18,6 +19,7 @@ export default async function editAgremeent(data: Agreement, old: Agreement) {
         value: changed[key] as string,
       });
     }
+    enqueueSnackbar("Изменено", { variant: "success" }); // он здесь необходим, я не знаю как еще вызвать
     return data;
   } catch (e) {
     processError(e);
