@@ -9,19 +9,26 @@ import MessageProvider from "./Providers/MessageProvider";
 import { store } from "./Reducer";
 import "./utils/crack";
 import { Login } from "./components/Login";
-const root = ReactDOM.createRoot(document.getElementById("root")!);
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterMoment } from "@mui/x-date-pickers-pro/AdapterMoment";
+import "moment/dist/locale/ru";
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 root.render(
   <React.StrictMode>
     <ThemeProvider>
-      <Provider store={store}>
-        <SnackbarProvider maxSnack={10}>
-          <MessageProvider>
-            <Login>
-              <App />
-            </Login>
-          </MessageProvider>
-        </SnackbarProvider>
-      </Provider>
+      <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="ru">
+        <Provider store={store}>
+          <SnackbarProvider maxSnack={10}>
+            <MessageProvider>
+              <Login>
+                <App />
+              </Login>
+            </MessageProvider>
+          </SnackbarProvider>
+        </Provider>
+      </LocalizationProvider>
     </ThemeProvider>
   </React.StrictMode>
 );
