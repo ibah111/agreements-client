@@ -5,15 +5,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Purpose } from "../../../../api/getPurpose";
 import { Agreement } from "../../../../Reducer/Agreement";
 import deleteAgreement from "../../../../api/deleteAgreement";
-
-function RenderLink(value: string) {
-  if (value)
-    if (value.split("/")?.[0] === "https:")
-      return (
+import { enqueueSnackbar } from "notistack";
+interface RenderLinkProps {
+  value: string;
+}
+function RenderLink({ value }: RenderLinkProps) {
+  return (
+    <>
+      {value?.split?.("/")?.[0] === "https:" ? (
         <Button variant="contained" href={value} target="_blank" size="small">
           Ссылка
         </Button>
-      );
+      ) : undefined}
+    </>
+  );
 }
 
 export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
@@ -215,11 +220,11 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       align: "center",
       headerAlign: "center",
       headerName: "Остаток основного долга",
-      field: "total_rest",
+      field: "debt_sum",
       width: 150,
       type: "number",
       valueGetter: (params) => {
-        return params.row.LawAct.Debt?.total_rest || 0;
+        return params.row.LawAct.Debt?.debt_sum || 0;
       },
     },
     {
@@ -351,7 +356,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       width: 150,
       editable: true,
       type: "string",
-      renderCell: ({ value }) => RenderLink(value),
+      renderCell: ({ value }) => <RenderLink value={value} />,
     },
     {
       headerAlign: "center",
@@ -365,7 +370,10 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
           icon={<DeleteIcon />}
           label="Delete"
           onClick={() => {
-            deleteAgreement(params.row.id).then(() => refresh());
+            deleteAgreement(params.row.id).then(() => {
+              refresh();
+              enqueueSnackbar("Удалено", { variant: "warning" });
+            });
           }}
         />,
       ],
