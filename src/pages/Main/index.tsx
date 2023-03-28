@@ -2,8 +2,8 @@ import { Button, Grid } from "@mui/material";
 import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 import AgreementDialog from "./AgreementDialog";
-import ActionLog from "../ActionLog/actionLog";
 import AgreementTable from "./Table/Table";
+import { Link } from "react-router-dom";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
@@ -23,7 +23,14 @@ export default function Main() {
             </Button>
           </Grid>
           <Grid item>
-            <ActionLog />
+            <Button variant="contained" component={Link} to={"/ActionLog"}>
+              Журнал действий
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button variant="contained" component={Link} to={"/DeletedData"}>
+              Удаленные данные
+            </Button>
           </Grid>
           <Grid item>
             <SwitchTheme />
