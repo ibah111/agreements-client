@@ -1,6 +1,6 @@
 import { Box, Button, Grid } from "@mui/material";
 
-export default function ActionLog() {
+export default function DeletedData() {
   return (
     <Box>
       <Grid>
