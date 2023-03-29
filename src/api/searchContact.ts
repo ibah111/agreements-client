@@ -1,4 +1,4 @@
-import { contactStore } from "../Reducer";
+import { store } from "../Reducer";
 import { baseRequest } from "../utils/baseRequest";
 import { Observable } from "rxjs";
 import {
@@ -38,7 +38,7 @@ export class LawExecPlain {
 }
 
 export default function Search() {
-  const request = contactStore.getState().Search;
+  const request = store.getState().Search;
   return new Observable<LawExecPlain[]>((subscriber: any) => {
     baseRequest
       .post<LawExecPlain[]>("/search", request)

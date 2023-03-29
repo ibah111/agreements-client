@@ -1,5 +1,5 @@
 import { DocAttach } from "@contact/models";
-import { Box } from "@mui/system";
+import { Grid } from "@mui/material";
 import { DataGridPremium, useGridApiRef } from "@mui/x-data-grid-premium";
 import React from "react";
 import getContactColumns from "./getContactColumns";
@@ -11,12 +11,12 @@ export default function ContactTable({ id }: ContactTableProps) {
   const [rows] = React.useState<DocAttach[]>([]);
   const apiRef = useGridApiRef();
   return (
-    <Box>
+    <Grid item xs style={{ height: 400, width: "100%" }}>
       <DataGridPremium
         columns={columns}
         rows={rows}
         apiRef={apiRef}
       ></DataGridPremium>
-    </Box>
+    </Grid>
   );
 }

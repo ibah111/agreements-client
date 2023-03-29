@@ -1,9 +1,8 @@
 import { Grid } from "@mui/material";
-import { DataGridPremium } from "@mui/x-data-grid-premium";
-import React from "react";
 import searchContact from "../../../../api/searchContact";
 import { useAppDispatch } from "../../../../Reducer";
 import { setLoadingResults, setResults } from "../../../../Reducer/Results";
+import ContactTable from "../../../ContactTable/ContactTables";
 import Find from "./Find";
 
 export default function Search() {
@@ -33,7 +32,7 @@ export default function Search() {
       >
         <Find onClick={Click} loading={false} />
       </Grid>
-      <DataGridPremium columns={[]} rows={[]}></DataGridPremium>
+      <ContactTable id={0} />
     </>
   );
 }
