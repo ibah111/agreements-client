@@ -1,4 +1,4 @@
-import { Debt } from "@contact/models";
+// import { Debt } from "@contact/models";
 import { Button } from "@mui/material";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,6 +6,7 @@ import { Purpose } from "../../../../api/getPurpose";
 import { Agreement } from "../../../../Reducer/Agreement";
 import deleteAgreement from "../../../../api/deleteAgreement";
 import { enqueueSnackbar } from "notistack";
+// import { Debt } from "@contact/models";
 interface RenderLinkProps {
   value: string;
 }
@@ -23,7 +24,7 @@ function RenderLink({ value }: RenderLinkProps) {
 
 export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
   const columns: GridColDef<Agreement>[] = [
-    { headerName: "ID", field: "id", width: 90, type: "number" },
+    { headerName: "ID", field: "id", width: 50, type: "number" },
     {
       align: "center",
       headerName: "Дате последней проверки",
@@ -105,13 +106,16 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "debt_bank_sum",
       width: 150,
       type: "number",
-      valueGetter: (value) => {
-        const law_act = value.row.LawAct;
-        const debts: Debt[] = value.row.LawAct?.Debt?.Person?.Debts || [];
-        const data = debts.find(
-          (item) => item.contract === law_act.contract && item.name === "_"
-        );
-        return data?.start_sum;
+      // valueGetter: (value) => {
+      //   const law_act = value.row.LawAct;
+      //   const debts: Debt[] = value.row.LawAct?.Debt?.Person?.Debts || [];
+      //   const data = debts.find(
+      //     (item) => item.contract === law_act.contract && item.name === "_"
+      //   );
+      //   return data?.start_sum;
+      // },
+      valueGetter: (params) => {
+        return params.row.LawAct.Debt?.start_sum;
       },
     },
     {
@@ -224,7 +228,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       width: 150,
       type: "number",
       valueGetter: (params) => {
-        return params.row.LawAct.Debt?.debt_sum || 0;
+        return params.row.LawAct.Debt?.debt_sum;
       },
     },
     {

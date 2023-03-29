@@ -14,7 +14,6 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { DataGridPremium } from "@mui/x-data-grid-premium";
 import { DatePicker } from "@mui/x-date-pickers-pro";
 import { useSnackbar } from "notistack";
 import React from "react";
@@ -26,6 +25,7 @@ import {
   setAgreementProperty,
 } from "../../../Reducer/Agreement";
 import useAsyncMemo from "../../../utils/asyncMemo";
+import Search from "./Search";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -243,17 +243,9 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             </Grid>
           </Grid>
         </DialogContent>
-        <Divider />
-        <Grid
-          item
-          container
-          border={"dashed"}
-          sx={{ width: "100%", height: 400 }}
-        >
-          {/* таблица поиска по контакту */}
-          <DataGridPremium columns={[]} rows={[]} />
+        <Grid item container sx={{ width: "100%", height: 400 }}>
+          <Search />
         </Grid>
-        <Divider />
         <DialogActions>
           <Button
             variant="contained"
