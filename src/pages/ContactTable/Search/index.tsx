@@ -1,8 +1,8 @@
 import { Grid } from "@mui/material";
-import searchContact from "../../../../api/searchContact";
-import { useAppDispatch } from "../../../../Reducer";
-import { setLoadingResults, setResults } from "../../../../Reducer/Results";
-import ContactTable from "../../../ContactTable/ContactTables";
+import searchContact from "../../../api/searchContact";
+import { useAppDispatch } from "../../../Reducer";
+import { setLoadingResults, setResults } from "../../../Reducer/Results";
+import ContactTable from "../ContactTables";
 import Find from "./Find";
 
 export default function Search() {
