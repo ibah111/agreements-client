@@ -25,7 +25,8 @@ import {
   setAgreementProperty,
 } from "../../../Reducer/Agreement";
 import useAsyncMemo from "../../../utils/asyncMemo";
-import Search from "./Search";
+import ContactTable from "../../ContactTable/ContactTables";
+import Search from "../../ContactTable/Search";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -243,8 +244,8 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             </Grid>
           </Grid>
         </DialogContent>
-        <Grid item container sx={{ width: "100%", height: 400 }}>
-          <Search />
+        <Grid item container>
+          <ContactTable id={0} />
         </Grid>
         <DialogActions>
           <Button
