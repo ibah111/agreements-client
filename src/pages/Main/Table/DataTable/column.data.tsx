@@ -27,15 +27,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
     { headerName: "ID", field: "id", width: 50, type: "number" },
     {
       align: "center",
-      headerName: "Дате последней проверки",
-      headerAlign: "center",
-      field: "last_check_date",
-      width: 150,
-      editable: true,
-      type: "date",
-    },
-    {
-      align: "center",
       headerAlign: "center",
       headerName: "Дата заключения",
       field: "conclusion_date",
@@ -44,6 +35,16 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "date",
     },
     {
+      align: "center",
+      headerName: "Дате последней проверки",
+      headerAlign: "center",
+      field: "last_check_date",
+      width: 150,
+      editable: true,
+      type: "date",
+    },
+    {
+      // * work
       headerName: "ФИО должника",
       headerAlign: "center",
       field: "name",
@@ -56,6 +57,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       },
     },
     {
+      // * work
       align: "center",
       headerName: "Дата рождения",
       headerAlign: "center",
@@ -67,6 +69,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       },
     },
     {
+      // * work
       align: "center",
       headerName: "КД",
       headerAlign: "center",
@@ -78,6 +81,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       },
     },
     {
+      // * work
       align: "center",
       headerName: "ID дела",
       headerAlign: "center",
@@ -86,6 +90,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "number",
     },
     {
+      // ! self
       headerName: "Назначение",
       align: "center",
       headerAlign: "center",
@@ -176,6 +181,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       },
     },
     {
+      //todo высчитывается
       align: "center",
       headerName: "Сумма мирового соглашения",
       headerAlign: "center",
@@ -185,17 +191,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "number",
       valueGetter: (params) => {
         return params.row.LawAct.settlement_sum || 0;
-      },
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Сумма аннуитетного платежа",
-      field: "sum_every_month",
-      width: 150,
-      type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.annuity_pay || 0;
       },
     },
     {

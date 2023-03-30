@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { DataGridPremium, GridPinnedColumns } from "@mui/x-data-grid-premium";
+import { enqueueSnackbar } from "notistack";
 import React from "react";
 import editAgremeent from "../../../api/editAgreement";
 import getAgreements from "../../../api/getAgreement";
@@ -40,7 +41,11 @@ export default function AgreementTable() {
         <DataGridPremium
           columns={columns}
           rows={agreements}
-          processRowUpdate={editAgremeent}
+          processRowUpdate={async (newRow: Agreement, oldRow: Agreement) => {
+            const data = await editAgremeent(newRow, oldRow);
+            enqueueSnackbar("Изменено", { variant: "success" });
+            return data;
+          }}
           pinnedColumns={pinnedColumns}
           onPinnedColumnsChange={handlePinnedColumnsChange}
         />

@@ -23,7 +23,7 @@ export default function ContactTable({ id }: ContactTableProps) {
       Click();
       dispatch(setReloadResults(false));
     }
-  }, [reload]);
+  });
   return (
     <>
       <Grid>

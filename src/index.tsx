@@ -1,5 +1,7 @@
 import "reflect-metadata";
 import { SnackbarProvider } from "notistack";
+
+import "./locale";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
