@@ -11,19 +11,6 @@ export class PersonAddress {
 }
 export class LawExecPlain {
   "id": number;
-  "court_doc_num": string;
-  "executive_typ": number;
-  "fssp_doc_num": string;
-  "court_date": Date;
-  "entry_force_dt": Date;
-  "StateDict.name": string;
-  "LawExecPersonLink.DebtGuarantor.fio"?: string;
-  "LawAct.id": number;
-  "LawAct.typ": number;
-  "LawAct.StatusDict.name": string;
-  "LawAct.ActStatusDict.name": string;
-  "Portfolio.name": string;
-  "ExecutiveTyp.name": string;
   "Debt.id": number;
   "Debt.contract": string;
   "Debt.debt_sum": number;
@@ -34,7 +21,6 @@ export class LawExecPlain {
   "Person.f": string;
   "Person.i": string;
   "Person.o": string;
-  "Person.Addresses": PersonAddress[];
 }
 
 export default function Search() {

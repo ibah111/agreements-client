@@ -18,6 +18,7 @@ const initialState: AuthUser<boolean> = {
   error: "",
   avatar: "",
 };
+
 export const UserSlice = createSlice({
   name: "User",
   initialState,

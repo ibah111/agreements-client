@@ -1,9 +1,9 @@
 import { Button, Grid } from "@mui/material";
 import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
-import AgreementDialog from "./AgreementDialog";
 import AgreementTable from "./Table/Table";
 import { Link } from "react-router-dom";
+import SearchAgreement from "./SearchDialog/SearchDialog";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
@@ -38,7 +38,7 @@ export default function Main() {
         </Grid>
         <AgreementTable />
       </Grid>
-      <AgreementDialog open={open} onClose={handleClose} />
+      <SearchAgreement open={open} onClose={handleClose} />
     </>
   );
 }
