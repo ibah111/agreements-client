@@ -3,7 +3,7 @@ import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 import AgreementTable from "./Table/Table";
 import { Link } from "react-router-dom";
-import SearchAgreement from "./SearchDialog/SearchDialog";
+import SearchDialog from "./SearchDialog";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
@@ -38,7 +38,9 @@ export default function Main() {
         </Grid>
         <AgreementTable />
       </Grid>
-      <SearchAgreement open={open} onClose={handleClose} />
+      <Grid>
+        <SearchDialog open={open} onClose={handleClose} />
+      </Grid>
     </>
   );
 }
