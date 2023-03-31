@@ -1,19 +1,16 @@
 import { DebtCalc, LawAct } from "@contact/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LawExecPlain } from "../api/searchContact";
-export class Results {}
-const initialState: {
+export class Results {
+  LawAct: LawAct;
+  DebtCalc: DebtCalc;
+}
+const initialState = {} as {
   reload: boolean;
   loading: boolean;
   data: LawExecPlain[];
   LawAct: LawAct;
   DebtCalc: DebtCalc;
-} = {
-  loading: false,
-  data: [],
-  reload: false,
-  LawAct: new LawAct(),
-  DebtCalc: new DebtCalc(),
 };
 export const results = createSlice({
   name: "Results",

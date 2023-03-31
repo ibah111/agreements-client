@@ -4,10 +4,9 @@ import Message from "./Message";
 import Agreement from "./Agreement";
 import User from "./User";
 import Results from "./Results";
-import Send from "./Send";
 import Search from "./Search";
 export const store = configureStore({
-  reducer: { Message, Agreement, User, Results, Send, Search },
+  reducer: { Message, Agreement, User, Results, Search },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
