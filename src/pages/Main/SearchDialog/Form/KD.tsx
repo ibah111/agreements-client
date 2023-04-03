@@ -1,10 +1,9 @@
 import { Grid, TextField } from "@mui/material";
-import { setContract } from "../../../../Reducer/Search";
+import { useDispatch } from "react-redux";
+import { setSearchValue } from "../../../../Reducer/Search";
 
 export default function KD() {
-  function dispatch(arg0: any): void {
-    throw new Error("Function not implemented.");
-  }
+  const dispatch = useDispatch();
 
   return (
     <Grid item xs={5}>
@@ -12,9 +11,9 @@ export default function KD() {
         size="small"
         fullWidth
         label="КД"
-        onChange={(event) =>
-          dispatch(setContract(["contract", String(event.target.value)]))
-        }
+        onChange={(event) => {
+          dispatch(setSearchValue(["contract", event.target.value]));
+        }}
       />
     </Grid>
   );

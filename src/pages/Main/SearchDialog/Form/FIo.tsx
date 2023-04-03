@@ -12,9 +12,7 @@ export default function FIO() {
         size="small"
         fullWidth
         label="ФИО"
-        onChange={(event) =>
-          dispatch(setName(["name", String(event.target.value)]))
-        }
+        onChange={(event) => dispatch(setName(event.target.value))}
       />
     </Grid>
   );
