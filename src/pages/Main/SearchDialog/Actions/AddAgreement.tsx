@@ -13,6 +13,7 @@ interface AddAgreementActionProps {
 export default function AddAgreementAction(props: AddAgreementActionProps) {
   const dispatch = useAppDispatch();
 
+  //todo Функция сохранения id при переходе на редакт согласа
   const handleOpen = React.useCallback(() => {
     dispatch(setAgreementProperty(["r_law_act_id", props.debt.id]));
     props.setOpen(true);

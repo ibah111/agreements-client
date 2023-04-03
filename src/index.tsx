@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import { SnackbarProvider } from "notistack";
-
 import "./locale";
 import React from "react";
 import ReactDOM from "react-dom/client";
@@ -14,6 +13,13 @@ import { Login } from "./components/Login";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterMoment } from "@mui/x-date-pickers-pro/AdapterMoment";
 import "moment/dist/locale/ru";
+import moment from "moment";
+import "moment-timezone";
+import "moment/locale/ru";
+
+moment.locale("ru");
+moment.tz.setDefault("GMT");
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
