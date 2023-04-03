@@ -6,6 +6,7 @@ import {
   createNextDefault,
   createRetry,
 } from "../utils/processError";
+import { Debt } from "@contact/models";
 export class PersonAddress {
   full_adr: string;
 }
@@ -25,9 +26,10 @@ export class LawExecPlain {
 
 export default function Search() {
   const request = store.getState().Search;
-  return new Observable<LawExecPlain[]>((subscriber: any) => {
+  console.log(request);
+  return new Observable<Debt[]>((subscriber: any) => {
     baseRequest
-      .post<LawExecPlain[]>("/search", request)
+      .post<Debt[]>("/search", request)
       .then(createNextDefault(subscriber))
       .catch(createError(subscriber));
   }).pipe(createRetry());
