@@ -1,10 +1,13 @@
 import { Button, Grid } from "@mui/material";
-import Search from "../../../../api/searchContact";
 
-export default function SubmitButton() {
+interface SubmitButtonProps {
+  refresh: VoidFunction;
+}
+
+export default function SubmitButton(props: SubmitButtonProps) {
   return (
     <Grid item xs={2}>
-      <Button fullWidth variant="outlined" onClick={Search}>
+      <Button fullWidth variant="outlined" onClick={props.refresh}>
         Поиск
       </Button>
     </Grid>

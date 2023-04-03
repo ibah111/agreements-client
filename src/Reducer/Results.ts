@@ -1,10 +1,12 @@
-import { DebtCalc, LawAct } from "@contact/models";
+import { DebtCalc, LawAct, Person } from "@contact/models";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LawExecPlain } from "../api/searchContact";
 export class Results {
   LawAct: LawAct;
   DebtCalc: DebtCalc;
+  Person: Person;
 }
+//todo Избавиться от LawExec
 const initialState = {} as {
   reload: boolean;
   loading: boolean;

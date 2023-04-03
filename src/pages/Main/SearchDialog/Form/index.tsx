@@ -2,12 +2,16 @@ import FIO from "./FIo";
 import KD from "./KD";
 import SubmitButton from "./SubmitButton";
 
-export default function Form() {
+interface FormProps {
+  refresh: VoidFunction;
+}
+
+export default function Form(props: FormProps) {
   return (
     <>
       <FIO />
       <KD />
-      <SubmitButton />
+      <SubmitButton refresh={props.refresh} />
     </>
   );
 }
