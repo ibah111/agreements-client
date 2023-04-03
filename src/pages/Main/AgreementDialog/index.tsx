@@ -25,7 +25,6 @@ import {
   setAgreementProperty,
 } from "../../../Reducer/Agreement";
 import useAsyncMemo from "../../../utils/asyncMemo";
-// import ContactTable from "../../ContactTable/ContactTables";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -244,9 +243,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             </Grid>
           </Grid>
         </DialogContent>
-        {/* <Grid item container>
-          <ContactTable id={0} />
-        </Grid> */}
         <DialogActions>
           <Button
             variant="contained"

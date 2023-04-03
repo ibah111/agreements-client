@@ -5,6 +5,10 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../Reducer";
 import { setLoadingResults, setReloadResults } from "../../Reducer/Results";
 import getContactColumns from "./getContactColumns";
+
+//todo Таблица с данными из контакта
+
+//todo Ранее была совместно с AgreementDialog
 interface ContactTableProps {
   id: number;
 }
