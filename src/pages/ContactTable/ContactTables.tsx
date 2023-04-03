@@ -5,7 +5,6 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../Reducer";
 import { setLoadingResults, setReloadResults } from "../../Reducer/Results";
 import getContactColumns from "./getContactColumns";
-import Find from "./Search/Find";
 interface ContactTableProps {
   id: number;
 }
@@ -26,9 +25,6 @@ export default function ContactTable({ id }: ContactTableProps) {
   });
   return (
     <>
-      <Grid>
-        <Find onClick={Click} loading={false} />
-      </Grid>
       <Grid item xs style={{ height: 400, width: "100%" }}>
         <DataGridPremium
           columns={columns}
