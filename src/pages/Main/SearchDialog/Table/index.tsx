@@ -1,6 +1,28 @@
-import { DataGridPremium } from "@mui/x-data-grid-premium";
-import { searchColumns } from "../searchColumns";
+import { Debt } from "@contact/models";
+import {
+  DataGridPremium,
+  GridColDef,
+  GridPinnedColumns,
+} from "@mui/x-data-grid-premium";
+import React from "react";
 
-export default function Table() {
-  return <DataGridPremium columns={searchColumns} rows={[]} />;
+interface TableProps {
+  columns: GridColDef<Debt>[];
+  rows: Debt[];
+  loading: boolean;
+}
+
+export default function Table(props: TableProps) {
+  const [pinnedColumns] = React.useState<GridPinnedColumns>({
+    right: ["actions"],
+  });
+
+  return (
+    <DataGridPremium
+      columns={props.columns}
+      rows={props.rows}
+      loading={props.loading}
+      pinnedColumns={pinnedColumns}
+    />
+  );
 }
