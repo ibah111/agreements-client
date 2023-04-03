@@ -33,6 +33,18 @@ export default function Main() {
             </Button>
           </Grid>
           <Grid item>
+            <Button
+              variant="contained"
+              LinkComponent={"a"}
+              href={
+                "https://www.figma.com/file/ah36czN7Tt1ZTdsCuMfti3/Untitled?node-id=0-1&t=UDFSRZFVDNXKid0f-0"
+              }
+              target={"_blank"}
+            >
+              Reminder
+            </Button>
+          </Grid>
+          <Grid item>
             <SwitchTheme />
           </Grid>
         </Grid>
