@@ -1,17 +1,17 @@
 import { Grid, TextField } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { setName } from "../../../../Reducer/Search";
 
 export default function FIO() {
-  function dispatch(arg0: any): void {
-    throw new Error("Function not implemented.");
-  }
+  // ? правка
+  const dispatch = useDispatch();
 
   return (
     <Grid item xs={5}>
       <TextField
+        label="ФИО"
         size="small"
         fullWidth
-        label="ФИО"
         onChange={(event) => dispatch(setName(event.target.value))}
       />
     </Grid>
