@@ -28,5 +28,6 @@ export async function getLogin() {
 export default async function getToken() {
   const token = await getLogin();
   if (!(await checkToken(token))) redirect();
+  console.log(token);
   return token;
 }
