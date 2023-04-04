@@ -55,22 +55,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             }}
           >
             <Grid xs={2} item>
-              <TextField
-                label="Номер в БД"
-                disabled
-                type="number"
-                value={agreement.r_law_act_id || ""}
-                onChange={(event) =>
-                  dispatch(
-                    setAgreementProperty([
-                      "r_law_act_id",
-                      Number(event.target.value),
-                    ])
-                  )
-                }
-              />
-            </Grid>
-            <Grid xs={2} item>
               <DatePicker
                 label="Дата заключения"
                 value={agreement.conclusion_date || null}
@@ -166,8 +150,8 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <Grid xs={2} item>
               <TextField
                 label="Число платежа"
-                value={agreement.month_pay_day || ""}
-                inputProps={{ maxLength: 2 }}
+                value={agreement.month_pay_day || " "}
+                inputProps={{ maxLength: 2, maxValue: 31, minValue: 1 }}
                 type="number"
                 onChange={(event) =>
                   dispatch(

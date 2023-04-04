@@ -4,11 +4,13 @@ import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme"
 import AgreementTable from "./Table/Table";
 import { Link } from "react-router-dom";
 import SearchDialog from "./SearchDialog";
+// import AddAgr from "./AddAgr";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = React.useCallback(() => {
     setOpen(true);
+    console.log("Clicked");
   }, []);
   const handleClose = React.useCallback(() => {
     setOpen(false);

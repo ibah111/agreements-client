@@ -1,45 +1,32 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  TextField,
-} from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers-pro";
-import { useAppDispatch, useAppSelector } from "../../../Reducer";
-import { setAgreementProperty } from "../../../Reducer/Agreement";
-import { setName } from "../../../Reducer/Search";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import React from "react";
+import AgreementDialog from "../AgreementDialog";
+import useSearchTable from "../SearchDialog/useSearchTable";
+import FormAgr from "./FormAgr";
+interface AddAgrProps {
+  open: boolean;
+  onClose: () => void;
+}
 
-export default function AddAgr() {
-  const dispatch = useAppDispatch();
-  const agreement = useAppSelector((state) => state.Agreement);
+export default function AddAgr(props: AddAgrProps) {
+  const [open, setOpen] = React.useState(false);
+  const { refresh } = useSearchTable(setOpen);
   return (
     <>
-      <Dialog open={true}>
-        <DialogTitle>Добавьте мировое соглашение</DialogTitle>
+      <Dialog open={false}>
+        <DialogTitle>
+          <h1>ПОЛИНА ДОБАВЬ СОГЛАШЕНИЕ!!!!!</h1>
+        </DialogTitle>
         <DialogContent>
-          <Grid item container>
-            <Grid item>
-              <TextField
-                size="small"
-                label="Имя должника / ФИО"
-                type="string"
-                fullWidth
-                onChange={(event) => dispatch(setName(event.target.value))}
-              />
-            </Grid>
-            <Grid item>
-              <DatePicker
-                label="Дата заключения мирового соглашения"
-                value={agreement.conclusion_date || null}
-                onChange={(value) =>
-                  dispatch(setAgreementProperty(["conclusion_date", value]))
-                }
-              />
-            </Grid>
-          </Grid>
+          <FormAgr refresh={refresh} />
         </DialogContent>
       </Dialog>
+      <AgreementDialog
+        onClose={() => {
+          setOpen(false);
+        }}
+        open={open}
+      />
     </>
   );
 }
