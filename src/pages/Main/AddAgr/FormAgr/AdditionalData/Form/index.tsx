@@ -22,58 +22,58 @@ export default function FormAdditionalData() {
     <>
       <Grid item container xs={12} spacing={1} style={{ marginTop: "5px" }}>
         <Grid item xs={3}>
-          <Reestr />
+          <Reestr /> {/** self */}
         </Grid>
         <Grid item xs={3}>
-          <DebtBankSum />
+          <DebtBankSum /> {/** self */}
         </Grid>
         <Grid item xs={3}>
-          <BeforeSoglasSum />
+          <BeforeSoglasSum /> {/** contact or self */}
         </Grid>
         <Grid item xs={3}>
-          <FirstPayment />
+          <FirstPayment /> {/** contact */}
         </Grid>
       </Grid>
       <Grid item container xs={12} spacing={1} style={{ marginTop: "2px" }}>
         <Grid item xs>
-          <RecalculationSum />
+          <RecalculationSum /> {/** self */}
         </Grid>
         <Grid item xs={3}>
-          <LastPaymentDate />
+          <LastPaymentDate /> {/** contact */}
         </Grid>
         <Grid item xs={3}>
-          <LastPaymentSum />
+          <LastPaymentSum /> {/** contact */}
         </Grid>
         <Grid item xs={3}>
-          <AfterSoglas />
-        </Grid>
-      </Grid>
-      <Grid item container xs={12} spacing={1} style={{ marginTop: "2px" }}>
-        <Grid item xs={3}>
-          <OstatokDolga />
-        </Grid>
-        <Grid item xs={3}>
-          <IspolDoc />
-        </Grid>
-        <Grid item xs={3}>
-          <CreditAmount />
-        </Grid>
-        <Grid item xs={3}>
-          <ListGetDate />
+          <AfterSoglas /> {/** contact */}
         </Grid>
       </Grid>
       <Grid item container xs={12} spacing={1} style={{ marginTop: "2px" }}>
         <Grid item xs={3}>
-          <Property />
+          <OstatokDolga /> {/** contact */}
         </Grid>
         <Grid item xs={3}>
-          <Guarantor />
+          <IspolDoc /> {/** self */}
         </Grid>
         <Grid item xs={3}>
-          <StatusDebt />
+          <CreditAmount /> {/** contact */}
         </Grid>
         <Grid item xs={3}>
-          <CollectorFio />
+          <ListGetDate /> {/* ??? */}
+        </Grid>
+      </Grid>
+      <Grid item container xs={12} spacing={1} style={{ marginTop: "2px" }}>
+        <Grid item xs={3}>
+          <Property /> {/** contact */}
+        </Grid>
+        <Grid item xs={3}>
+          <Guarantor /> {/** contact */}
+        </Grid>
+        <Grid item xs={3}>
+          <StatusDebt /> {/** contact */}
+        </Grid>
+        <Grid item xs={3}>
+          <CollectorFio /> {/** fio */}
         </Grid>
       </Grid>
       <Grid item xs={3}>
