@@ -1,19 +1,11 @@
 import { Grid, TextField } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { setName } from "../../../../Reducer/Search";
+import { useAppSelector } from "../../../../Reducer";
 
 export default function FIO() {
-  // ? правка
-  const dispatch = useDispatch();
-
+  const value = useAppSelector((state) => state.Search.fio);
   return (
     <Grid item xs={5}>
-      <TextField
-        label="ФИО"
-        size="small"
-        fullWidth
-        onChange={(event) => dispatch(setName(event.target.value))}
-      />
+      <TextField label="ФИО" size="small" disabled fullWidth value={value} />
     </Grid>
   );
 }

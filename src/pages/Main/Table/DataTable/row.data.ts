@@ -1,9 +1,10 @@
 import axios from "axios";
 import { plainToInstance } from "class-transformer";
-import { Agreement } from "../../../../Reducer/Agreement";
+import { Agreement } from "../../../../Models/Agreement";
+import { AgreementData } from "../../../../Reducer/Agreement/Agreement";
 import { baseRequest } from "../../../../utils/baseRequest";
 
-export default async function Rows(data: Agreement) {
+export default async function Rows(data: AgreementData) {
   try {
     const res = await baseRequest.post<Agreement>("/Agreements/getAll", {
       ...data,

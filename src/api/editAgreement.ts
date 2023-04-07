@@ -1,6 +1,6 @@
 import { GridRowId } from "@mui/x-data-grid-premium";
 import { diff } from "deep-object-diff";
-import { Agreement } from "../Reducer/Agreement";
+import { Agreement } from "../Models/Agreement";
 import { baseRequest } from "../utils/baseRequest";
 import processError from "../utils/processError";
 

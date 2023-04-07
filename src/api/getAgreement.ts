@@ -1,5 +1,5 @@
 import { plainToInstance } from "class-transformer";
-import { Agreement } from "../Reducer/Agreement";
+import { Agreement } from "../Models/Agreement";
 import { baseRequest } from "../utils/baseRequest";
 import processError from "../utils/processError";
 

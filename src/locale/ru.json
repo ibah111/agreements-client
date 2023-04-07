@@ -1,11 +1,16 @@
 {
+  "form": {
+    "search": { "FIO": "ФИО" },
+    "errors": {
+      "length>=": "Значение должно быть больше или равно {{constraint1}}",
+      "length<=": "Значение должно быть меньше или равно {{constraint2}}",
+      "length<>": "Значение должно быть между {{constraint1}} и {{constraint2}}",
+      "isNotEmpty": "Не заполнено поле",
+      "isEmail": "Введеное значение не является почтой",
+      "isValidMoment": "Дата занесена не правильно"
+    }
+  },
   "system": {
     "none": "Ничего"
-  },
-  "form": {
-    "search": {
-      "id": "ID",
-      "r_law_act_id": "ID контакта"
-    }
   }
 }

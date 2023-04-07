@@ -1,16 +1,21 @@
 import { Grid, TextField } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { setName } from "../../../../Reducer/Search";
+import { t } from "i18next";
+import useAgreementData from "../../../../Hooks/useAgreementData";
 
 export default function NameAgr() {
-  const dispatch = useDispatch();
+  const { onChange, value, error, helperText, required } =
+    useAgreementData("FIO");
   return (
-    <Grid>
+    <Grid item xs={5} style={{ marginTop: "10px", marginBottom: "0px" }}>
       <TextField
-        label={"ФИО"}
-        size="small"
+        label={t("form.search.FIO")}
         fullWidth
-        onChange={(event) => dispatch(setName(event.target.value))}
+        size="medium"
+        onChange={(event) => onChange(event.target.value)}
+        value={value}
+        error={error}
+        helperText={helperText}
+        required={required}
       />
     </Grid>
   );

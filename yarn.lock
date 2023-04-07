@@ -2606,6 +2606,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sql-tools/sequelize-typescript@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "@sql-tools/sequelize-typescript@npm:2.1.5::__archiveUrl=https%3A%2F%2Fgit.usb.ru%2Fapi%2Fv4%2Fprojects%2F180%2Fpackages%2Fnpm%2F%40sql-tools%2Fsequelize-typescript%2F-%2F%40sql-tools%2Fsequelize-typescript-2.1.5.tgz"
+  dependencies:
+    cross-env: 7.0.3
+    glob: 7.2.0
+  peerDependencies:
+    "@sql-tools/sequelize": "*"
+    "@types/node": "*"
+    "@types/validator": "*"
+    reflect-metadata: "*"
+  checksum: 935faf1455242d25635a856d8c673b65ef6cb4f949453d0f400f311168afc2d2bcbd8c07f81e53d1e6cd25267c2b051907b642bd576935fd5dce4d1269d26c33
+  languageName: node
+  linkType: hard
+
 "@sql-tools/sequelize@npm:^6.27.8":
   version: 6.27.8
   resolution: "@sql-tools/sequelize@npm:6.27.8::__archiveUrl=https%3A%2F%2Fgit.usb.ru%2Fapi%2Fv4%2Fprojects%2F178%2Fpackages%2Fnpm%2F%40sql-tools%2Fsequelize%2F-%2F%40sql-tools%2Fsequelize-6.27.8.tgz"
@@ -2778,7 +2793,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/validator@npm:^13.7.7":
+"@types/validator@npm:^13.7.10, @types/validator@npm:^13.7.7":
   version: 13.7.14
   resolution: "@types/validator@npm:13.7.14"
   checksum: 51bd82cd08aa7d8006f97357b5768a77bfca30e4823b5962e63bbf6446f46b5afe236bec1089148a15fd04cc0a748a10e2dd1a559f07163ec5e4e9fb5581896e
@@ -3569,6 +3584,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-validator@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "class-validator@npm:0.14.0"
+  dependencies:
+    "@types/validator": ^13.7.10
+    libphonenumber-js: ^1.10.14
+    validator: ^13.7.0
+  checksum: f62e4a0ad24cee68f4b2bc70d32b96de90cb598f96bde362b4dbf4234151af8eb6ae225458312a38fc49fa3959844cf61c60e731a8205e9a570454cff8de2710
+  languageName: node
+  linkType: hard
+
 "clean-stack@npm:^2.0.0":
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
@@ -3735,7 +3761,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.2":
+"cross-env@npm:7.0.3":
+  version: 7.0.3
+  resolution: "cross-env@npm:7.0.3"
+  dependencies:
+    cross-spawn: ^7.0.1
+  bin:
+    cross-env: src/bin/cross-env.js
+    cross-env-shell: src/bin/cross-env-shell.js
+  checksum: 26f2f3ea2ab32617f57effb70d329c2070d2f5630adc800985d8b30b56e8bf7f5f439dd3a0358b79cee6f930afc23cf8e23515f17ccfb30092c6b62c6b630a79
+  languageName: node
+  linkType: hard
+
+"cross-spawn@npm:^7.0.1, cross-spawn@npm:^7.0.2":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -4807,6 +4845,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"glob@npm:7.2.0":
+  version: 7.2.0
+  resolution: "glob@npm:7.2.0"
+  dependencies:
+    fs.realpath: ^1.0.0
+    inflight: ^1.0.4
+    inherits: 2
+    minimatch: ^3.0.4
+    once: ^1.3.0
+    path-is-absolute: ^1.0.0
+  checksum: 78a8ea942331f08ed2e055cb5b9e40fe6f46f579d7fd3d694f3412fe5db23223d29b7fee1575440202e9a7ff9a72ab106a39fee39934c7bedafe5e5f8ae20134
+  languageName: node
+  linkType: hard
+
 "glob@npm:^7.1.3, glob@npm:^7.1.4":
   version: 7.2.3
   resolution: "glob@npm:7.2.3"
@@ -5038,12 +5090,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^22.4.13":
-  version: 22.4.13
-  resolution: "i18next@npm:22.4.13"
+"i18next@npm:^22.4.14":
+  version: 22.4.14
+  resolution: "i18next@npm:22.4.14"
   dependencies:
     "@babel/runtime": ^7.20.6
-  checksum: a40ca4ce749854a806a01e3e60ee492f2911b1f7acb6ed338bb023211259ef8c39e914734d10197d3279941459767897ceb1989c8e24cd73730fdf211e079037
+  checksum: 963b70c7e1fee9666ef4d9ea87a63d0c9483007e2a0ea9520356e43a2cd550f3eb1cab24c57a102f3e84fd737fdff41bafc953dafc3bd6589dc9ea52ddb49905
   languageName: node
   linkType: hard
 
@@ -5560,6 +5612,13 @@ __metadata:
     prelude-ls: ^1.2.1
     type-check: ~0.4.0
   checksum: 12c5021c859bd0f5248561bf139121f0358285ec545ebf48bb3d346820d5c61a4309535c7f387ed7d84361cf821e124ce346c6b7cef8ee09a67c1473b46d0fc4
+  languageName: node
+  linkType: hard
+
+"libphonenumber-js@npm:^1.10.14":
+  version: 1.10.26
+  resolution: "libphonenumber-js@npm:1.10.26"
+  checksum: 125cbe60eaf040eab80481e469a2db1874746be59fd716cfe53d720a5d2c5fb057dd6db14c9aafd044374da8c5a8d870fa0102ac635c680decc92169d17b303e
   languageName: node
   linkType: hard
 
@@ -7758,6 +7817,7 @@ __metadata:
     "@reduxjs/toolkit": ^1.9.3
     "@sql-tools/association-literal": ^0.0.3
     "@sql-tools/sequelize": ^6.27.8
+    "@sql-tools/sequelize-typescript": ^2.1.5
     "@types/node": ^18.11.18
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
@@ -7765,12 +7825,13 @@ __metadata:
     "@vitejs/plugin-react": ^3.1.0
     axios: ^1.3.0
     class-transformer: ^0.5.1
+    class-validator: ^0.14.0
     deep-object-diff: ^1.1.9
     eslint: ^8.36.0
     eslint-config-prettier: ^8.7.0
     eslint-config-react-app: ^7.0.1
     eslint-plugin-prettier: ^4.2.1
-    i18next: ^22.4.13
+    i18next: ^22.4.14
     i18next-resources-to-backend: ^1.1.3
     moment: ^2.29.4
     moment-timezone: ^0.5.43

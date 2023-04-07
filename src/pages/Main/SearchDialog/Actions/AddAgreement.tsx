@@ -1,9 +1,9 @@
-import { GridActionsCellItem } from "@mui/x-data-grid-premium";
-import { Edit as EditIcon } from "@mui/icons-material";
 import React from "react";
-import { useAppDispatch } from "../../../../Reducer";
-import { setAgreementProperty } from "../../../../Reducer/Agreement";
+import { useAppSelector } from "../../../../Reducer";
 import { Debt } from "@contact/models";
+import { Button } from "@mui/material";
+import createAgreement from "../../../../api/createAgreement";
+import { enqueueSnackbar } from "notistack";
 
 interface AddAgreementActionProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,19 +11,17 @@ interface AddAgreementActionProps {
 }
 
 export default function AddAgreementAction(props: AddAgreementActionProps) {
-  const dispatch = useAppDispatch();
-
   //todo Функция сохранения id при переходе на редакт согласа
-  const handleOpen = React.useCallback(() => {
-    dispatch(setAgreementProperty(["r_law_act_id", props.debt.id]));
-    props.setOpen(true);
-  }, [dispatch, props]);
-
+  const agreement = useAppSelector((state) => state.Agreement);
   return (
-    <GridActionsCellItem
-      icon={<EditIcon />}
-      label="Edit"
-      onClick={handleOpen}
-    />
+    <Button
+      variant="contained"
+      onClick={async () => {
+        await createAgreement(agreement);
+        enqueueSnackbar("Успешно создано", { variant: "success" });
+      }}
+    >
+      Add
+    </Button>
   );
 }

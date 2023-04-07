@@ -1,3 +1,4 @@
+//TODO Надо переместить и удалить
 import {
   Button,
   Checkbox,
@@ -14,17 +15,15 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { DatePicker } from "@mui/x-date-pickers-pro";
-import { useSnackbar } from "notistack";
 import React from "react";
-import createAgreement from "../../../api/createAgreement";
 import getPurposes from "../../../api/getPurpose";
 import { useAppDispatch, useAppSelector } from "../../../Reducer";
 import {
   resetAgreement,
   setAgreementProperty,
-} from "../../../Reducer/Agreement";
+} from "../../../Reducer/Agreement/Agreement";
 import useAsyncMemo from "../../../utils/asyncMemo";
+import SearchDialog from "../SearchDialog";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -32,16 +31,24 @@ interface CreateAgreementDialogProps {
 export default function AgreementDialog(props: CreateAgreementDialogProps) {
   const dispatch = useAppDispatch();
   const agreement = useAppSelector((state) => state.Agreement);
-  const { enqueueSnackbar } = useSnackbar();
   const purposes = useAsyncMemo(() => getPurposes(), [props.open]);
   React.useEffect(() => {
     if (!props.open) dispatch(resetAgreement());
   }, [props.open, dispatch]);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = React.useCallback(() => {
+    setOpen(true);
+    console.log("Clicked");
+  }, []);
+  const handleClose = React.useCallback(() => {
+    setOpen(false);
+  }, []);
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} maxWidth="lg" fullWidth>
         <DialogTitle alignSelf={"center"}>
-          Внесите или выберите контакта
+          Запишите дополнительные данные
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ flexGrow: 1 }}>
@@ -54,7 +61,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
               }
             }}
           >
-            <Grid xs={2} item>
+            {/* <Grid xs={2} item>
               <DatePicker
                 label="Дата заключения"
                 value={agreement.conclusion_date || null}
@@ -62,7 +69,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
                   dispatch(setAgreementProperty(["conclusion_date", value]))
                 }
               />
-            </Grid>
+            </Grid> */}
             <Grid xs={2} item>
               <FormControl fullWidth>
                 <InputLabel id="purpose-label">Назначение</InputLabel>
@@ -151,28 +158,13 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
               <TextField
                 label="Число платежа"
                 value={agreement.month_pay_day || " "}
-                inputProps={{ maxLength: 2, maxValue: 31, minValue: 1 }}
+                inputProps={{ maxLength: 2 }}
                 type="number"
                 onChange={(event) =>
                   dispatch(
                     setAgreementProperty([
                       "month_pay_day",
                       Number(event.target.value),
-                    ])
-                  )
-                }
-              />
-            </Grid>
-            <Grid xs={2} item>
-              <TextField
-                label="Действия для получения листа"
-                type="string"
-                value={agreement.actions_for_get || ""}
-                onChange={(event) =>
-                  dispatch(
-                    setAgreementProperty([
-                      "actions_for_get",
-                      event.target.value,
                     ])
                   )
                 }
@@ -227,25 +219,27 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             </Grid>
           </Grid>
         </DialogContent>
+        <Divider />
         <DialogActions>
           <Button
-            variant="contained"
-            sx={{ width: "100", alignSelf: "center" }}
-            onClick={async () => {
-              await createAgreement(agreement);
-              enqueueSnackbar("Успешно создано", { variant: "success" });
-            }}
-          >
-            Отправить
-          </Button>
-          <Button
+            color="secondary"
             variant="contained"
             sx={{ width: "auto", alignSelf: "center" }}
             onClick={props.onClose}
           >
-            Закрыть окно
+            Назад
+          </Button>
+          <Button
+            variant="contained"
+            sx={{ width: "100", alignSelf: "center" }}
+            onClick={handleOpen}
+          >
+            next
           </Button>
         </DialogActions>
+        <Grid item>
+          <SearchDialog open={open} onClose={handleClose} />
+        </Grid>
       </Dialog>
     </>
   );

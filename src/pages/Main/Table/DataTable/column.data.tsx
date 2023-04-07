@@ -3,9 +3,9 @@ import { Button } from "@mui/material";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Purpose } from "../../../../api/getPurpose";
-import { Agreement } from "../../../../Reducer/Agreement";
 import deleteAgreement from "../../../../api/deleteAgreement";
 import { enqueueSnackbar } from "notistack";
+import { Agreement } from "../../../../Models/Agreement";
 // import { Debt } from "@contact/models";
 interface RenderLinkProps {
   value: string;
@@ -33,6 +33,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       width: 150,
       editable: true,
       type: "date",
+      valueGetter: (params) => new Date(params.value),
     },
     {
       align: "center",
@@ -44,17 +45,13 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "date",
     },
     {
-      // * work
       headerName: "ФИО должника",
       headerAlign: "center",
-      field: "name",
+      field: "FIO",
       sortable: false,
       width: 160,
       editable: false,
       type: "string",
-      valueGetter: (params) => {
-        return params.row.LawAct.Person?.fio;
-      },
     },
     {
       // * work
@@ -64,9 +61,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "birth_date",
       width: 150,
       type: "date",
-      valueGetter: (params) => {
-        return new Date(params.row.LawAct.Person?.birth_date!);
-      },
     },
     {
       // * work
@@ -76,9 +70,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "KD",
       width: 150,
       type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.contract;
-      },
     },
     {
       // * work
@@ -111,17 +102,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "debt_bank_sum",
       width: 150,
       type: "number",
-      // valueGetter: (value) => {
-      //   const law_act = value.row.LawAct;
-      //   const debts: Debt[] = value.row.LawAct?.Debt?.Person?.Debts || [];
-      //   const data = debts.find(
-      //     (item) => item.contract === law_act.contract && item.name === "_"
-      //   );
-      //   return data?.start_sum;
-      // },
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.start_sum;
-      },
     },
     {
       headerName: "Сумма задолженности по судебному акту в пользу банка",
@@ -176,9 +156,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "settlement_date",
       width: 150,
       type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.settlement_date || undefined;
-      },
     },
     {
       //todo высчитывается
@@ -189,9 +166,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "settlement_sum",
       width: 150,
       type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.settlement_sum || 0;
-      },
     },
     {
       align: "center",
@@ -200,9 +174,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "last_pay_sum",
       width: 150,
       type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.last_pay_sum || 0;
-      },
     },
     {
       align: "center",
@@ -211,20 +182,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "sum_after_conclusion",
       width: 150,
       type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.basic_sum || 0;
-      },
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Остаток основного долга",
-      field: "debt_sum",
-      width: 150,
-      type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.debt_sum;
-      },
     },
     {
       align: "center",
@@ -260,10 +217,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "receipt_dt",
       width: 150,
       type: "date",
-      valueGetter: (params) =>
-        params.row.LawAct.receipt_dt
-          ? new Date(params.row.LawAct.receipt_dt)
-          : undefined,
     },
     {
       align: "center",
@@ -274,17 +227,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       editable: true,
       type: "string",
     },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Количество кредитов в реестрах",
-      field: "credit_mount",
-      width: 150,
-      type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.contract || 0;
-      },
-    },
+
     {
       align: "center",
       headerAlign: "center",
@@ -292,9 +235,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "count_debt_guarantor",
       width: 150,
       type: "number",
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.DebtGuarantors || "No guarantors";
-      },
     },
     {
       align: "center",
@@ -303,21 +243,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       field: "person_property",
       width: 150,
       type: "string",
-      valueGetter: (params) => {
-        const law_act = params.row.LawAct;
-        const person_property = law_act.Debt?.PersonProperties?.[0] || null;
-        if (person_property) {
-          const params = person_property.PersonPropertyParams!;
-          const vin = params.find(
-            (item) => item.r_property_typ_params_id === 6
-          )?.value;
-          const name = params.find(
-            (item) => item.r_property_typ_params_id === 7
-          )?.value;
-          return `${name} - ${vin}`;
-        }
-        return undefined;
-      },
     },
     {
       headerAlign: "center",
@@ -327,26 +252,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       editable: true,
       type: "string",
     },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Статус долга",
-      field: "debt_status",
-      width: 150,
-      type: "singleSelect",
-      valueGetter: (params) => {
-        return params.row.LawAct.Debt?.status;
-      },
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "ФИО Взыскателя",
-      field: "user",
-      width: 150,
-      editable: true,
-      type: "string",
-    },
+
     {
       align: "center",
       headerAlign: "center",

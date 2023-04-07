@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material";
 import Reestr from "./1.Reestr";
 import IspolDoc from "./10.IspolDoc";
-import ListGetDate from "./11.ListGetDate";
 import CreditAmount from "./12.CreditAmount";
 import Property from "./13.Property";
 import Guarantor from "./14.Guarantor";
@@ -57,9 +56,6 @@ export default function FormAdditionalData() {
         </Grid>
         <Grid item xs={3}>
           <CreditAmount /> {/** contact */}
-        </Grid>
-        <Grid item xs={3}>
-          <ListGetDate /> {/* ??? */}
         </Grid>
       </Grid>
       <Grid item container xs={12} spacing={1} style={{ marginTop: "2px" }}>

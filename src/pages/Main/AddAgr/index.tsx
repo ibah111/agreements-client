@@ -1,6 +1,5 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
 import React from "react";
-import AgreementDialog from "../AgreementDialog";
 import useSearchTable from "../SearchDialog/useSearchTable";
 import FormAgr from "./FormAgr";
 interface AddAgrProps {
@@ -9,24 +8,22 @@ interface AddAgrProps {
 }
 
 export default function AddAgr(props: AddAgrProps) {
+  // ? Мужики не трогайте open, пожалуйста, без него вылезает ошибка
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = React.useState(false);
   const { refresh } = useSearchTable(setOpen);
   return (
     <>
-      <Dialog open={false}>
-        <DialogTitle>
-          <h1>ПОЛИНА ДОБАВЬ СОГЛАШЕНИЕ!!!!!</h1>
-        </DialogTitle>
+      <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="md">
+        <DialogTitle>Внесите данные</DialogTitle>
         <DialogContent>
-          <FormAgr refresh={refresh} />
+          <Grid container direction={"column"} sx={{ height: "auto" }}>
+            <Grid item container alignItems={"center"} spacing={1} xs={1}>
+              <FormAgr refresh={refresh} />
+            </Grid>
+          </Grid>
         </DialogContent>
       </Dialog>
-      <AgreementDialog
-        onClose={() => {
-          setOpen(false);
-        }}
-        open={open}
-      />
     </>
   );
 }

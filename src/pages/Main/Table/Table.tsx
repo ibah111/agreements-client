@@ -5,14 +5,16 @@ import React from "react";
 import editAgremeent from "../../../api/editAgreement";
 import getAgreements from "../../../api/getAgreement";
 import getPurposes from "../../../api/getPurpose";
-import { Agreement } from "../../../Reducer/Agreement";
+import { Agreement } from "../../../Models/Agreement";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import getColumns from "./DataTable/column.data";
 
 export default function AgreementTable() {
   const [agreements, setAgreements] = React.useState<Agreement[]>([]);
   const refresh = React.useCallback(() => {
-    getAgreements().then(setAgreements);
+    getAgreements().then((res) => {
+      setAgreements(res);
+    });
   }, []);
   const purposes = useAsyncMemo(getPurposes, []);
   const columns = React.useMemo(
@@ -23,7 +25,7 @@ export default function AgreementTable() {
     refresh();
   }, [refresh]);
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
-    left: ["id", "name", "birth_date", "KD", "r_law_act_id"],
+    left: ["id", "FIO", "KD", "conclusion_date"],
     right: ["actions"],
   });
   const handlePinnedColumnsChange = React.useCallback(

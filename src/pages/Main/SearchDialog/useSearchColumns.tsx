@@ -10,13 +10,15 @@ export default function useSearchColumns(
     () => [
       { field: "id", headerName: "ID", type: "number" },
       { field: "contract", headerName: "КД", width: 120 },
-      //todo dev
+
       { field: "parent_id", headerName: "ссылка на Pperson" },
       {
         field: "Person.fio",
         headerName: "ФИО",
         width: 200,
-        valueGetter: (params) => params.row.Person?.fio,
+        valueGetter: (params) => {
+          return params.row.Person?.fio;
+        },
       },
       {
         field: "debt_sum",
@@ -27,7 +29,7 @@ export default function useSearchColumns(
         field: "debt_dt",
         headerName: "Дата",
         type: "date",
-        valueGetter(params) {
+        valueGetter: (params) => {
           return new Date(params.row.debt_dt);
         },
       },
