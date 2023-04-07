@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import Message from "./Message";
-import Agreement from "./Agreement";
+import Agreement from "./Agreement/Agreement";
 import User from "./User";
 import Results from "./Results";
 import Search from "./Search";
