@@ -15,7 +15,7 @@ export default function AddAgr(props: AddAgrProps) {
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="md">
-        <DialogTitle>Внесите данные</DialogTitle>
+        <DialogTitle alignSelf={"center"}>Внесите данные</DialogTitle>
         <DialogContent>
           <Grid container direction={"column"} sx={{ height: "auto" }}>
             <Grid item container alignItems={"center"} spacing={1} xs={1}>

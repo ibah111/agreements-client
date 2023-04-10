@@ -1,10 +1,9 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Divider } from "@mui/material";
 import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 import AgreementTable from "./Table/Table";
 import { Link } from "react-router-dom";
 import AddAgr from "./AddAgr";
-// import AddAgr from "./AddAgr";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
@@ -17,8 +16,8 @@ export default function Main() {
   }, []);
   return (
     <>
-      <Grid container height={"100vh"} direction={"column"} spacing={1}>
-        <Grid container item spacing={1}>
+      <Grid container height={"100vh"} direction={"column"}>
+        <Grid container item spacing={1} style={{ marginTop: "2px" }}>
           <Grid item>
             <Button onClick={handleOpen} variant="contained">
               Открыть соглашения
@@ -50,6 +49,7 @@ export default function Main() {
             <SwitchTheme />
           </Grid>
         </Grid>
+        <Divider />
         <AgreementTable />
       </Grid>
       <Grid>
