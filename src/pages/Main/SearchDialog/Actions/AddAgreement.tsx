@@ -21,7 +21,7 @@ export default function AddAgreementAction(props: AddAgreementActionProps) {
         enqueueSnackbar("Успешно создано", { variant: "success" });
       }}
     >
-      Add
+      Доб.
     </Button>
   );
 }
