@@ -8,20 +8,19 @@ export default function SubmitButtonAgr(props: SubmitButtonAgrProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = React.useCallback(() => {
     setOpen(true);
-    console.log("Opened AggrementDialog");
   }, []);
   const handleClose = React.useCallback(() => {
     setOpen(false);
   }, []);
+
   return (
     <>
-      <Grid item xs={"auto"}>
+      <Grid item container>
         <Button
           fullWidth
           variant="contained"
           onClick={handleOpen}
           disabled={false}
-          style={{ color: "black" }}
         >
           Добавить соглашение
         </Button>

@@ -8,7 +8,7 @@ import createAgreementInstance from "../Reducer/Agreement/AgreementInstance";
 import checker from "./Validation/checker";
 import { ResultData } from "./Validation/ResultData";
 
-const AgreementInstance = createAgreementInstance(false);
+const AgreementInstance = createAgreementInstance();
 
 export default function useAgreementData<T extends keyof AgreementData>(
   name: T
@@ -21,8 +21,12 @@ export default function useAgreementData<T extends keyof AgreementData>(
   );
 
   const setValue = React.useCallback(
-    (value: AgreementData[T]) => {
-      dispatch(setAgreementProperty([name, value]));
+    (value: AgreementData[T] | null | undefined) => {
+      if (value === undefined || value == null) {
+        dispatch(setAgreementProperty([name, undefined]));
+      } else {
+        dispatch(setAgreementProperty([name, value]));
+      }
     },
     [dispatch, name]
   );

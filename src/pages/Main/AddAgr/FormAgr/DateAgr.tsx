@@ -1,23 +1,31 @@
 import { Grid } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers-pro";
 import moment from "moment";
-import { useAppDispatch, useAppSelector } from "../../../../Reducer";
-import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
+import useAgreementData from "../../../../Hooks/useAgreementData";
 
 export default function DateAgr() {
-  const dispatch = useAppDispatch();
-  const value = useAppSelector((state) => state.Agreement.conclusion_date);
+  const data = useAgreementData("conclusion_date");
   return (
-    <Grid item xs={"auto"} style={{ marginTop: "10px" }}>
+    <Grid item xs={3} style={{ marginTop: "10px", marginBottom: "10px" }}>
       <DatePicker
         label="Дата заключения"
-        value={value}
+        value={data.value}
         minDate={moment().year(2000)}
         maxDate={moment()}
-        //TODO В случае ошибок переделать !value
-        onChange={(value) =>
-          dispatch(setAgreementProperty(["conclusion_date", value]))
-        }
+        onChange={(value) => {
+          if (typeof value === "string") {
+            console.log(value);
+          } else {
+            data.onChange(value);
+          }
+        }}
+        slotProps={{
+          textField: {
+            error: data.error,
+            helperText: data.helperText,
+            required: data.required,
+          },
+        }}
       />
     </Grid>
   );

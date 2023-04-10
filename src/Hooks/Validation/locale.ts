@@ -4,11 +4,15 @@ import {
   IsEmail as IsEmailOrigin,
   IsNumber as IsNumberOrigin,
   Length as LengthOrigin,
+  IsPositive as IsPositiveOrigin,
   ValidationOptions,
   IsNumberOptions,
 } from "class-validator";
 import ValidatorJS from "validator";
 import { IsValidMoment as IsValidMomentOrigin } from "./IsValidMoment";
+
+export const IsPositive = (validationOptions?: ValidationOptions) =>
+  IsPositiveOrigin({ message: "IsPositive", ...validationOptions });
 
 export const IsBoolean = (validationOptions?: ValidationOptions) =>
   IsBooleanOrigin({ message: "isBoolean", ...validationOptions });
