@@ -17,7 +17,7 @@ export const searchColumns: GridColDef<Results>[] = [
   },
   {
     headerName: "КД Кредитный договор",
-    field: "KD",
+    field: "contract",
     width: 150,
     type: "string",
   },

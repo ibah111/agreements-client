@@ -8,7 +8,7 @@ export default function FIO() {
       <TextField
         label="ФИО"
         size="small"
-        disabled={true}
+        disabled={false}
         fullWidth
         value={value}
       />

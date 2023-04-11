@@ -33,10 +33,6 @@ export default function SearchDialog(props: SearchDialogProps) {
           setOpen(false);
         }}
         open={open}
-        // onClick={async () => {
-        //   await createAgreement(agreement);
-        //   enqueueSnackbar("Успешно создано", { variant: "success" });
-        // }}
       />
     </>
   );

@@ -64,4 +64,7 @@ export class Agreement extends Model<
    * Ссылка на задачу
    */
   task_link: string;
+  LawAct: any;
+  Debt: any;
+  LawExec: any;
 }

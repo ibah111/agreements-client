@@ -1,4 +1,3 @@
-// import { Debt } from "@contact/models";
 import { Button } from "@mui/material";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,7 +5,6 @@ import { Purpose } from "../../../../api/getPurpose";
 import deleteAgreement from "../../../../api/deleteAgreement";
 import { enqueueSnackbar } from "notistack";
 import { Agreement } from "../../../../Models/Agreement";
-// import { Debt } from "@contact/models";
 interface RenderLinkProps {
   value: string;
 }
@@ -81,7 +79,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "number",
     },
     {
-      // ! self
       headerName: "Назначение",
       align: "center",
       headerAlign: "center",
@@ -133,8 +130,8 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
     {
       align: "center",
       headerAlign: "center",
-      headerName: "Сумма задолженности к погашению по соглашению с дисконтом",
-      field: "law_act_debt",
+      headerName: "Дисконт",
+      field: "discount_sum",
       width: 150,
       editable: true,
       type: "number",
@@ -142,12 +139,13 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
     {
       align: "center",
       headerAlign: "center",
-      headerName: "Дисконт",
-      field: "discount_sum",
+      headerName: "Сумма задолженности к погашению по соглашению с дисконтом",
+      field: "law_act_debt",
       width: 150,
       editable: true,
       type: "number",
     },
+
     {
       headerName: "Дата мирового соглашения",
       align: "center",
