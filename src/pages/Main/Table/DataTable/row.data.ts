@@ -13,7 +13,6 @@ export default async function Rows(data: AgreementData) {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       alert("Ошибка");
-      console.log(error.response?.data);
     }
     throw error;
   }

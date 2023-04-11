@@ -1,8 +1,10 @@
 import { Grid, TextField } from "@mui/material";
-import { useAppSelector } from "../../../../Reducer";
+import { useAppDispatch, useAppSelector } from "../../../../Reducer";
+import { setSearchValue } from "../../../../Reducer/Search";
 
 export default function FIO() {
   const value = useAppSelector((state) => state.Agreement.FIO);
+  const dispatch = useAppDispatch();
   return (
     <Grid item xs={5}>
       <TextField
@@ -11,6 +13,9 @@ export default function FIO() {
         disabled={false}
         fullWidth
         value={value}
+        onChange={(event) => {
+          dispatch(setSearchValue(["fio", event.target.value]));
+        }}
       />
     </Grid>
   );

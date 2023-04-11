@@ -26,7 +26,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = React.useCallback(() => {
     setOpen(true);
-    console.log("Clicked");
   }, []);
   const handleClose = React.useCallback(() => {
     setOpen(false);
@@ -45,7 +44,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             spacing={1}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
-                console.log("Entered");
+                console.log("Console");
               }
             }}
           >

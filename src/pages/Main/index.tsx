@@ -3,13 +3,12 @@ import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 import AgreementTable from "./Table/Table";
 import { Link } from "react-router-dom";
-import AddAgr from "./AddAgr";
+import SearchDialog from "./SearchDialog";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = React.useCallback(() => {
     setOpen(true);
-    console.log("Clicked");
   }, []);
   const handleClose = React.useCallback(() => {
     setOpen(false);
@@ -53,7 +52,7 @@ export default function Main() {
         <AgreementTable />
       </Grid>
       <Grid>
-        <AddAgr open={open} onClose={handleClose}></AddAgr>
+        <SearchDialog open={open} onClose={handleClose} />
       </Grid>
     </>
   );
