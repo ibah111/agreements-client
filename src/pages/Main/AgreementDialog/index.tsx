@@ -1,5 +1,6 @@
 import {
   Button,
+  Collapse,
   Dialog,
   DialogActions,
   DialogContent,
@@ -23,6 +24,7 @@ import ContactFIO from "./DisableForm/ContactFIO";
 import DateAgr from "./Form/DateAgr";
 import BirthDate from "./DisableForm/BirthDate";
 import { Person } from "@contact/models";
+import ChooseDebtAgreement from "./ChooseDebtAgreement";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -32,8 +34,13 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
   const [open, setOpen] = React.useState(false);
   const handleClose = React.useCallback(() => {
     setOpen(false);
+    setCollapse(false);
   }, []);
-
+  const [collapse, setCollapse] = React.useState(false);
+  const handleCollase = React.useCallback(() => {
+    setCollapse(true);
+    console.log("collapsing");
+  }, []);
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} maxWidth="lg" fullWidth>
@@ -79,6 +86,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             variant="contained"
             sx={{ width: "100", alignSelf: "center" }}
             fullWidth
+            onClick={handleCollase}
           >
             Создать
           </Button>
@@ -86,6 +94,11 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <Grid item>
           <SearchDialog open={open} onClose={handleClose} />
         </Grid>
+        <Collapse in={collapse}>
+          <Dialog open={collapse} onClose={handleClose} maxWidth="lg" fullWidth>
+            <ChooseDebtAgreement columns={[]} rows={[]} loading={false} />
+          </Dialog>
+        </Collapse>
       </Dialog>
     </>
   );

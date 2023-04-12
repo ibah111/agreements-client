@@ -25,7 +25,7 @@ export default function AgreementTable() {
     refresh();
   }, [refresh]);
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
-    left: ["id", "FIO", "KD", "conclusion_date"],
+    left: ["id", "FIO", "KD", "conclusion_date", "r_law_act_id"],
     right: ["actions"],
   });
   const handlePinnedColumnsChange = React.useCallback(
