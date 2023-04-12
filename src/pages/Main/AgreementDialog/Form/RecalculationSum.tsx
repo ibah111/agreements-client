@@ -1,27 +1,24 @@
 import { Grid, TextField, InputAdornment } from "@mui/material";
-import { useAppSelector, useAppDispatch } from "../../../../Reducer";
-import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
+import { NumberInput } from "../../../../components/Utils/NumberInput";
+import useAgreementData from "../../../../Hooks/useAgreementData";
+
+const input = NumberInput();
 
 export default function RecalculationSum() {
-  const agreement = useAppSelector((state) => state.Agreement);
-  const dispatch = useAppDispatch();
+  const data = useAgreementData("recalculation_sum");
+
   return (
     <Grid xs={2} item>
       <TextField
         InputProps={{
+          inputComponent: input,
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         label="Сумма пересчета"
-        value={agreement.recalculation_sum || ""}
-        type="number"
-        onChange={(event) =>
-          dispatch(
-            setAgreementProperty([
-              "recalculation_sum",
-              Number(event.target.value),
-            ])
-          )
-        }
+        value={data.value}
+        onChange={(event) => {
+          data.onChange(Number(event.target.value));
+        }}
       />
     </Grid>
   );

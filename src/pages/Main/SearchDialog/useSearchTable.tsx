@@ -1,19 +1,23 @@
-import { Debt } from "@contact/models";
+import { Debt, Person } from "@contact/models";
+import { plainToInstance } from "class-transformer";
 import React from "react";
 import Search from "../../../api/searchContact";
+import DebtInstance from "../../../Models/Debt";
 import useSearchColumns from "./useSearchColumns";
 
 export default function useSearchTable(
-  setOpenAgreementDialog: React.Dispatch<React.SetStateAction<boolean>>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setPerson: React.Dispatch<React.SetStateAction<Person>>
 ) {
   const [loading, setLoading] = React.useState(false);
   const [rows, setRows] = React.useState<Debt[]>([]);
-  const columns = useSearchColumns(setOpenAgreementDialog);
+  const columns = useSearchColumns(setOpen, setPerson);
 
   const refresh = React.useCallback(() => {
     setLoading(true);
     Search().subscribe((res) => {
-      setRows(res);
+      const classData = plainToInstance(DebtInstance, res) as Debt[];
+      setRows(classData);
       setLoading(false);
     });
   }, []);
@@ -21,10 +25,6 @@ export default function useSearchTable(
   React.useEffect(() => {
     refresh();
   }, [refresh]);
-
-  React.useEffect(() => {
-    console.log(rows);
-  }, [rows]);
 
   return { rows, loading, refresh, columns };
 }

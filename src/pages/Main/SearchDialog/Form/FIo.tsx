@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../../../Reducer";
 import { setSearchValue } from "../../../../Reducer/Search";
 
 export default function FIO() {
-  const value = useAppSelector((state) => state.Agreement.FIO);
+  const value = useAppSelector((state) => state.Search.fio);
   const dispatch = useAppDispatch();
   return (
     <Grid item xs={5}>

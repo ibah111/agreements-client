@@ -1,10 +1,12 @@
 import { Grid, InputAdornment, TextField } from "@mui/material";
 import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
-import { useAppSelector, useAppDispatch } from "../../../../Reducer";
+import { useAppDispatch } from "../../../../Reducer";
+import useAgreementData from "../../../../Hooks/useAgreementData";
 
 export default function DebtSum() {
-  const agreement = useAppSelector((state) => state.Agreement);
   const dispatch = useAppDispatch();
+  const data = useAgreementData("debt_sum");
+
   return (
     <Grid xs={2} item>
       <TextField
@@ -12,13 +14,16 @@ export default function DebtSum() {
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         label="Сумма долга"
-        value={agreement.debt_sum || ""}
         type="number"
         onChange={(event) =>
           dispatch(
             setAgreementProperty(["debt_sum", Number(event.target.value)])
           )
         }
+        value={data.value}
+        error={data.error}
+        required={data.required}
+        helperText={data.helperText}
       />
     </Grid>
   );

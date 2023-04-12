@@ -1,15 +1,15 @@
 import { Grid, TextField, InputAdornment } from "@mui/material";
-import { useAppSelector, useAppDispatch } from "../../../../Reducer";
+import { useAppDispatch } from "../../../../Reducer";
 import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
+import useAgreementData from "../../../../Hooks/useAgreementData";
 
 export default function Discount() {
-  const agreement = useAppSelector((state) => state.Agreement);
   const dispatch = useAppDispatch();
+  const data = useAgreementData("discount_sum");
   return (
     <Grid xs={2} item>
       <TextField
         label="Дисконт"
-        value={agreement.discount_sum || ""}
         type="number"
         onChange={(event) =>
           dispatch(
@@ -19,6 +19,7 @@ export default function Discount() {
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
+        value={data.value}
       />
     </Grid>
   );

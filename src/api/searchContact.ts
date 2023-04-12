@@ -13,7 +13,6 @@ export class PersonAddress {
 
 export default function Search() {
   const request = store.getState().Search;
-  // console.log(request);
   return new Observable<Debt[]>((subscriber: any) => {
     baseRequest
       .post<Debt[]>("/search", request)

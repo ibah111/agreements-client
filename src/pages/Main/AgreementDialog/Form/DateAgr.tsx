@@ -6,7 +6,7 @@ import useAgreementData from "../../../../Hooks/useAgreementData";
 export default function DateAgr() {
   const data = useAgreementData("conclusion_date");
   return (
-    <Grid item xs={3} style={{ marginTop: "10px", marginBottom: "10px" }}>
+    <Grid item xs={2}>
       <DatePicker
         label="Дата заключения"
         value={data.value}
@@ -14,7 +14,6 @@ export default function DateAgr() {
         maxDate={moment()}
         onChange={(value) => {
           if (typeof value === "string") {
-            console.log(value);
           } else {
             data.onChange(value);
           }

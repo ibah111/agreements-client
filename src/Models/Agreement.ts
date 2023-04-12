@@ -11,6 +11,7 @@ import type {
 } from "@sql-tools/sequelize";
 import { Model } from "@sql-tools/sequelize-typescript";
 import { PurposeType } from "./PurposeType";
+import { Debt, LawAct, LawExec } from "@contact/models";
 export class Agreement extends Model<
   InferAttributes<Agreement>,
   InferCreationAttributes<Agreement>,
@@ -20,10 +21,7 @@ export class Agreement extends Model<
    * ID записи
    */
   declare id: CreationOptional<number>;
-  /**
-   * Имя
-   */
-  FIO: string;
+  personId: number;
   /** Дата заключения
    */
   conclusion_date: moment.Moment;
@@ -64,7 +62,7 @@ export class Agreement extends Model<
    * Ссылка на задачу
    */
   task_link: string;
-  LawAct: any;
-  Debt: any;
-  LawExec: any;
+  LawAct: NonAttribute<LawAct>;
+  Debt: NonAttribute<Debt>;
+  LawExec: NonAttribute<LawExec>;
 }

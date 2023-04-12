@@ -10,6 +10,7 @@ import {
 } from "class-validator";
 import ValidatorJS from "validator";
 import { IsValidMoment as IsValidMomentOrigin } from "./IsValidMoment";
+import { DateRange as DateRangeOrigin, DateRangeOptions } from "./DateRange";
 
 export const IsPositive = (validationOptions?: ValidationOptions) =>
   IsPositiveOrigin({ message: "IsPositive", ...validationOptions });
@@ -57,3 +58,8 @@ export const Length = (
 
 export const IsValidMoment = (validationOptions?: ValidationOptions) =>
   IsValidMomentOrigin({ message: "isValidMoment", ...validationOptions });
+
+export const DateRange = (
+  options: DateRangeOptions,
+  validationOptions?: ValidationOptions
+) => DateRangeOrigin(options, { message: "dateRange", ...validationOptions });

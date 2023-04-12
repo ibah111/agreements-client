@@ -7,7 +7,7 @@ import {
 } from "class-validator";
 import moment from "moment";
 
-interface DateRangeOptions {
+export interface DateRangeOptions {
   minDate?: moment.Moment;
   maxDate?: moment.Moment;
 }

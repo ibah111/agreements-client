@@ -34,6 +34,7 @@ export default function AgreementTable() {
     },
     []
   );
+
   return (
     <Grid item container xs direction={"column"}>
       <Grid item style={{ margin: "3px" }}>

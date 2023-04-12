@@ -1,10 +1,11 @@
-import { Debt } from "@contact/models";
+import { Debt, Person } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
 import React from "react";
 import AddAgreementAction from "./Actions/AddAgreement";
 
 export default function useSearchColumns(
-  setOpenAgreementDialog: React.Dispatch<React.SetStateAction<boolean>>
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setPerson: React.Dispatch<React.SetStateAction<Person>>
 ) {
   return React.useMemo<GridColDef<Debt>[]>(
     () => [
@@ -29,7 +30,7 @@ export default function useSearchColumns(
         headerName: "Дата",
         type: "date",
         valueGetter: (params) => {
-          return new Date(params.row.debt_dt);
+          return params.row.debt_dt.toDate();
         },
       },
       {
@@ -41,12 +42,13 @@ export default function useSearchColumns(
         width: 80,
         getActions: (params) => [
           <AddAgreementAction
-            setOpen={setOpenAgreementDialog}
+            setPerson={setPerson}
+            setOpen={setOpen}
             debt={params.row}
           />,
         ],
       },
     ],
-    [setOpenAgreementDialog]
+    [setOpen, setPerson]
   );
 }

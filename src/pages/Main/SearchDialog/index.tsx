@@ -1,3 +1,4 @@
+import { Person } from "@contact/models";
 import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
 import React from "react";
 import AgreementDialog from "../AgreementDialog";
@@ -12,7 +13,13 @@ interface SearchDialogProps {
 
 export default function SearchDialog(props: SearchDialogProps) {
   const [open, setOpen] = React.useState(false);
-  const { loading, refresh, rows, columns } = useSearchTable(setOpen);
+  const [person, setPerson] = React.useState<Person>({} as Person);
+
+  const { loading, refresh, rows, columns } = useSearchTable(
+    setOpen,
+    setPerson
+  );
+
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="md">
@@ -29,6 +36,7 @@ export default function SearchDialog(props: SearchDialogProps) {
         </DialogContent>
       </Dialog>
       <AgreementDialog
+        person={person}
         onClose={() => {
           setOpen(false);
         }}

@@ -1,5 +1,6 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional } from "class-validator";
 import {
+  DateRange,
   IsNotEmpty,
   IsPositive,
   IsValidMoment,
@@ -7,21 +8,17 @@ import {
 import { AgreementData } from "./Agreement";
 import { DateType } from "../Utils/DateType";
 import { TransformDate } from "../Utils/TransformDate";
-import { DateRange } from "../../Hooks/Validation/DateRange";
 import moment from "moment";
 
 export default function createAgreementInstance(date?: boolean) {
   class AgreementInstance implements AgreementData {
+    @IsNumber()
+    @IsNotEmpty()
+    personId: number;
     /**
      * ID записи
      */
     id: number;
-    /**
-     * Имя
-     */
-    @IsString()
-    @IsNotEmpty()
-    FIO: string;
 
     /**
      * Дата заключения

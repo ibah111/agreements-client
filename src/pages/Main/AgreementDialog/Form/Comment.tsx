@@ -1,16 +1,17 @@
 import { Grid, TextField } from "@mui/material";
-import { useAppSelector, useAppDispatch } from "../../../../Reducer";
+import { useAppDispatch } from "../../../../Reducer";
 import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
+import useAgreementData from "../../../../Hooks/useAgreementData";
 
 export default function Comment() {
-  const agreement = useAppSelector((state) => state.Agreement);
   const dispatch = useAppDispatch();
+  const data = useAgreementData("comment");
   return (
     <Grid xs={2} item>
       <TextField
         label="Комментарий"
         type="string"
-        value={agreement.comment || ""}
+        value={data.value}
         onChange={(event) =>
           dispatch(setAgreementProperty(["comment", event.target.value]))
         }

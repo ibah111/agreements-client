@@ -1,17 +1,17 @@
 import { Grid, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
-import { useAppSelector, useAppDispatch } from "../../../../Reducer";
+import { useAppDispatch } from "../../../../Reducer";
 import getPurposes from "../../../../api/getPurpose";
 import useAsyncMemo from "../../../../utils/asyncMemo";
+import useAgreementData from "../../../../Hooks/useAgreementData";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
 }
 export default function Purpose(props: CreateAgreementDialogProps) {
-  const agreement = useAppSelector((state) => state.Agreement);
   const dispatch = useAppDispatch();
   const purposes = useAsyncMemo(() => getPurposes(), [props.open]);
-
+  const data = useAgreementData("purpose");
   return (
     <Grid xs={2} item>
       <FormControl fullWidth>
@@ -19,7 +19,7 @@ export default function Purpose(props: CreateAgreementDialogProps) {
         <Select
           labelId="purpose-label"
           label="Назначение"
-          value={agreement.purpose || ""}
+          value={data.value}
           onChange={(event) =>
             dispatch(
               setAgreementProperty(["purpose", event.target.value as number])
