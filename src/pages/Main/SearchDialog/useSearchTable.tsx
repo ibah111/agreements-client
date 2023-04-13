@@ -16,7 +16,7 @@ export default function useSearchTable(
   const refresh = React.useCallback(() => {
     setLoading(true);
     Search().subscribe((res) => {
-      const classData = plainToInstance(DebtInstance, res) as Debt[];
+      const classData = plainToInstance(DebtInstance, res) as unknown as Debt[];
       setRows(classData);
       setLoading(false);
     });
