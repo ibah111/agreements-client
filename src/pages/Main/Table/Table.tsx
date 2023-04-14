@@ -12,7 +12,7 @@ import getColumns from "./DataTable/column.data";
 export default function AgreementTable() {
   const [agreements, setAgreements] = React.useState<Agreement[]>([]);
   const refresh = React.useCallback(() => {
-    getAgreements().then((res) => {
+    getAgreements().subscribe((res) => {
       setAgreements(res);
     });
   }, []);
