@@ -96,7 +96,10 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         </Grid>
         <Collapse in={collapse}>
           <Dialog open={collapse} onClose={handleClose} maxWidth="lg" fullWidth>
-            <ChooseDebtAgreement columns={[]} rows={[]} loading={false} />
+            <DialogContent>
+              <DialogTitle>Связать долг</DialogTitle>
+              <ChooseDebtAgreement loading={false} />
+            </DialogContent>
           </Dialog>
         </Collapse>
       </Dialog>

@@ -1,21 +1,31 @@
 import { Debt } from "@contact/models";
-import { DataGridPremium, GridColDef } from "@mui/x-data-grid-premium";
-import GridButton from "./Form/GridButton";
+import { Grid } from "@mui/material";
+import { DataGridPremium } from "@mui/x-data-grid-premium";
+import React from "react";
+import { getPersonDebts } from "../../../../api/getDebtData";
+import { debtColumns } from "./Form/DebtDataGrid/DebtColumn";
 interface TableProps {
-  columns: GridColDef<Debt>[];
-  rows: Debt[];
   loading: boolean;
 }
 
 export default function ChooseDebtAgreement(params: TableProps) {
+  const [debts, setDebts] = React.useState<Debt[]>([]);
+
+  const refresh = React.useCallback(() => {
+    getPersonDebts().then((res) => {
+      setDebts(res);
+      setLoading(false);
+    });
+  }, []);
+  React.useEffect(() => {
+    refresh();
+  }, [refresh]);
+  const [loading, setLoading] = React.useState(true);
   return (
     <>
-      <DataGridPremium
-        columns={params.columns}
-        rows={params.rows}
-        loading={params.loading}
-      />
-      <GridButton />
+      <Grid style={{ height: 300, width: "100%" }}>
+        <DataGridPremium columns={debtColumns} rows={debts} loading={loading} />
+      </Grid>
     </>
   );
 }

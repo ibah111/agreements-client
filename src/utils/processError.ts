@@ -16,7 +16,7 @@ export default function processError(e: unknown) {
   }
 }
 export function createError<T>(subscriber: Subscriber<T>) {
-  return async (e: unknown) => subscriber.error(await processError(e));
+  return async (e: unknown) => subscriber.error(processError(e));
 }
 export function createNextDefault<T>(subscriber: Subscriber<T>) {
   return (res: AxiosResponse<T>) => {

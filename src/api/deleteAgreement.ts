@@ -1,12 +1,16 @@
+import { Observable } from "rxjs";
 import { baseRequest } from "../utils/baseRequest";
-import processError from "../utils/processError";
+import {
+  createError,
+  createNextDefault,
+  createRetry,
+} from "../utils/processError";
 
-export default async function deleteAgreement(id: number) {
-  try {
-    const res = await baseRequest.delete<boolean>(`/Agreements/${id}`);
-    return res.data;
-  } catch (e) {
-    processError(e);
-    throw e;
-  }
+export default function deleteAgreement(id: number) {
+  return new Observable<boolean>((subscriber: any) => {
+    baseRequest
+      .delete<boolean>(`/Agreements/${id}`)
+      .then(createNextDefault(subscriber))
+      .catch(createError(subscriber));
+  }).pipe(createRetry());
 }

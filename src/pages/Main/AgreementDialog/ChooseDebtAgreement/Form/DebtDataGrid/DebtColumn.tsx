@@ -1,28 +1,38 @@
+import { Debt } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
-import { Agreement } from "../../../../../../Models/Agreement";
 
-export default function DebtColumns(refresh: () => void) {
-  const columns: GridColDef<Agreement>[] = [
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Дата заключения",
-      field: "conclusion_date",
-      width: 150,
-      editable: true,
-      type: "date",
-      valueGetter: (params) => new Date(params.value),
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Дата заключения",
-      field: "conclusion_date",
-      width: 150,
-      editable: true,
-      type: "date",
-      valueGetter: (params) => new Date(params.value),
-    },
-  ];
-  return columns;
-}
+//todo SQL = DEBT
+export const debtColumns: GridColDef<Debt>[] = [
+  {
+    // ? main debt key
+    align: "center",
+    headerAlign: "center",
+    headerName: "ID долга",
+    field: "id",
+    width: 100,
+    type: "number",
+  },
+  {
+    // ? person key
+    align: "center",
+    headerAlign: "center",
+    headerName: "Персона🌞",
+    field: "parent_id",
+    width: 100,
+    type: "number",
+  },
+  {
+    align: "center",
+    headerAlign: "center",
+    width: 150,
+    field: "contract",
+    headerName: "№ КД",
+  },
+  {
+    align: "center",
+    headerAlign: "center",
+    width: 150,
+    field: "last_pay_sum",
+    headerName: "Последний платеж",
+  },
+];
