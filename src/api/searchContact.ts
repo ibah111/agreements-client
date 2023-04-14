@@ -7,9 +7,6 @@ import {
   createRetry,
 } from "../utils/processError";
 import { Debt } from "@contact/models";
-export class PersonAddress {
-  full_adr: string;
-}
 
 export default function Search() {
   const request = store.getState().Search;
