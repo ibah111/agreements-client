@@ -9,7 +9,7 @@ export default function processError(e: unknown) {
       callMessage(e.response.data?.message || "Неизвестная ошибка", {
         variant: "error",
       });
-      return enqueueSnackbar(`${e.message} ${e.cause}, ${e.code}`, {
+      return enqueueSnackbar(`${e.message}`, {
         variant: "error",
       });
     }

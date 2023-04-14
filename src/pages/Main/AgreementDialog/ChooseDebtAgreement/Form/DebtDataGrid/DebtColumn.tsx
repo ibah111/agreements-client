@@ -24,6 +24,14 @@ export const debtColumns: GridColDef<Debt>[] = [
   {
     align: "center",
     headerAlign: "center",
+    headerName: "Имя",
+    field: "FIO",
+    width: 100,
+    type: "number",
+  },
+  {
+    align: "center",
+    headerAlign: "center",
     width: 150,
     field: "contract",
     headerName: "№ КД",
@@ -34,5 +42,13 @@ export const debtColumns: GridColDef<Debt>[] = [
     width: 150,
     field: "last_pay_sum",
     headerName: "Последний платеж",
+  },
+  {
+    align: "center",
+    headerAlign: "center",
+    width: 150,
+    field: "start_sum",
+    headerName: "Начальная сумма",
+    description: "Начальная сумма, необходимая к погашению (не изменяется)",
   },
 ];

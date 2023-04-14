@@ -7,6 +7,7 @@ import SearchDialog from "./SearchDialog";
 
 export default function Main() {
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = React.useCallback(() => {
     setOpen(true);
   }, []);
@@ -54,7 +55,6 @@ export default function Main() {
             <SwitchTheme />
           </Grid>
         </Grid>
-
         <AgreementTable />
       </Grid>
       <Grid>

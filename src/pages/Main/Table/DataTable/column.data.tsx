@@ -33,23 +33,34 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "date",
       valueGetter: (params) => new Date(params.value),
     },
+    // {
+    //   align: "center",
+    //   headerName: "Дата последней проверки",
+    //   headerAlign: "center",
+    //   field: "last_check_date",
+    //   width: 150,
+    //   editable: true,
+    //   type: "date",
+    // },
     {
+      headerName: "ID человека",
       align: "center",
-      headerName: "Дате последней проверки",
       headerAlign: "center",
-      field: "last_check_date",
-      width: 150,
-      editable: true,
-      type: "date",
+      field: "personId", // parent_id = 221
+      width: 100,
+      editable: false,
+      sortable: false,
+      type: "number",
     },
     {
       headerName: "ФИО должника",
       headerAlign: "center",
       field: "FIO",
       sortable: false,
-      width: 160,
+      width: 150,
       editable: false,
       type: "string",
+      valueGetter: (params) => params.row.Person?.fio || "",
     },
     {
       // * work
@@ -67,15 +78,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       headerAlign: "center",
       field: "KD",
       width: 100,
-      type: "number",
-    },
-    {
-      // * work
-      align: "center",
-      headerName: "ID дела",
-      headerAlign: "center",
-      field: "r_law_act_id",
-      width: 150,
       type: "number",
     },
     {
@@ -110,6 +112,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "number",
     },
     {
+      // заполняется
       headerName: "Сумма задолженности ОД взысканная в пользу НБК /Вымпел ",
       align: "center",
       headerAlign: "center",
@@ -119,6 +122,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "number",
     },
     {
+      // заполняется
       align: "center",
       headerAlign: "center",
       headerName: "Сумма задолженности по пересчету",
@@ -128,6 +132,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "number",
     },
     {
+      // заполняется
       align: "center",
       headerAlign: "center",
       headerName: "Дисконт",
@@ -145,7 +150,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       editable: true,
       type: "number",
     },
-
     {
       headerName: "Дата мирового соглашения",
       align: "center",
@@ -217,14 +221,6 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "number",
     },
     {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Имущество",
-      field: "person_property",
-      width: 150,
-      type: "string",
-    },
-    {
       headerAlign: "center",
       headerName: "Комментарий",
       field: "comment",
@@ -245,7 +241,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
     },
     {
       headerAlign: "center",
-      headerName: "Удалить",
+      headerName: "Действия",
       align: "center",
       field: "actions",
       type: "actions",

@@ -11,7 +11,7 @@ import type {
 } from "@sql-tools/sequelize";
 import { Model } from "@sql-tools/sequelize-typescript";
 import { PurposeType } from "./PurposeType";
-import { Debt, LawAct, LawExec } from "@contact/models";
+import { Debt, LawAct, LawExec, Person } from "@contact/models";
 export class Agreement extends Model<
   InferAttributes<Agreement>,
   InferCreationAttributes<Agreement>,
@@ -62,7 +62,8 @@ export class Agreement extends Model<
    * Ссылка на задачу
    */
   task_link: string;
-  LawAct: NonAttribute<LawAct>;
-  Debt: NonAttribute<Debt>;
-  LawExec: NonAttribute<LawExec>;
+  LawAct?: NonAttribute<LawAct>;
+  Debt?: NonAttribute<Debt>;
+  LawExec?: NonAttribute<LawExec>;
+  Person?: NonAttribute<Person>;
 }

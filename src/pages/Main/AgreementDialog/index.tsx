@@ -1,6 +1,5 @@
 import {
   Button,
-  Collapse,
   Dialog,
   DialogActions,
   DialogContent,
@@ -21,10 +20,13 @@ import TaskLink from "./Form/TaskLink";
 import RegDoc from "./Form/RegDoc";
 import ContactID from "./DisableForm/ContactID";
 import ContactFIO from "./DisableForm/ContactFIO";
-import DateAgr from "./Form/DateAgr";
 import BirthDate from "./DisableForm/BirthDate";
 import { Person } from "@contact/models";
 import ChooseDebtAgreement from "./ChooseDebtAgreement";
+import ConclusionDate from "./Form/DateAgr";
+import createAgreement from "../../../api/createAgreement";
+import { useAppSelector } from "../../../Reducer";
+import { enqueueSnackbar } from "notistack";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -37,10 +39,12 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
     setCollapse(false);
   }, []);
   const [collapse, setCollapse] = React.useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleCollase = React.useCallback(() => {
     setCollapse(true);
     console.log("collapsing");
   }, []);
+  const agreement = useAppSelector((state) => state.Agreement);
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} maxWidth="lg" fullWidth>
@@ -59,7 +63,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <Divider />
         <DialogContent sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
-            <DateAgr />
+            <ConclusionDate />
             <Purpose open={open} onClose={handleClose} />
             <CourtSum />
             <DebtSum />
@@ -86,7 +90,10 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             variant="contained"
             sx={{ width: "100", alignSelf: "center" }}
             fullWidth
-            onClick={handleCollase}
+            onClick={async () => {
+              await createAgreement(agreement);
+              enqueueSnackbar("Успешно создано", { variant: "success" });
+            }}
           >
             Создать
           </Button>
@@ -94,14 +101,12 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <Grid item>
           <SearchDialog open={open} onClose={handleClose} />
         </Grid>
-        <Collapse in={collapse}>
-          <Dialog open={collapse} onClose={handleClose} maxWidth="lg" fullWidth>
-            <DialogContent>
-              <DialogTitle>Связать долг</DialogTitle>
-              <ChooseDebtAgreement loading={false} />
-            </DialogContent>
-          </Dialog>
-        </Collapse>
+        <Dialog open={collapse} onClose={handleClose} maxWidth="lg" fullWidth>
+          <DialogContent>
+            <DialogTitle>Связать долг</DialogTitle>
+            <ChooseDebtAgreement loading={false} />
+          </DialogContent>
+        </Dialog>
       </Dialog>
     </>
   );

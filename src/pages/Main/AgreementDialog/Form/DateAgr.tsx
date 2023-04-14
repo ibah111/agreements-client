@@ -3,7 +3,7 @@ import { DatePicker } from "@mui/x-date-pickers-pro";
 import moment from "moment";
 import useAgreementData from "../../../../Hooks/useAgreementData";
 
-export default function DateAgr() {
+export default function ConclusionDate() {
   const data = useAgreementData("conclusion_date");
   return (
     <Grid item xs={2}>
