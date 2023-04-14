@@ -4,6 +4,7 @@ export class Purpose {
   id: number;
   title: string;
 }
+
 export default async function getPurposes() {
   try {
     const res = await baseRequest.get<Purpose[]>(`/Purpose`);

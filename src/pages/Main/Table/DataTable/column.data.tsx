@@ -255,7 +255,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
           icon={<DeleteIcon />}
           label="Delete"
           onClick={() => {
-            deleteAgreement(params.row.id).then(() => {
+            deleteAgreement(params.row.id).subscribe(() => {
               refresh();
               enqueueSnackbar("Удалено", { variant: "warning" });
             });

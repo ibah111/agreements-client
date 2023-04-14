@@ -1,14 +1,18 @@
 import { plainToInstance } from "class-transformer";
+import { Observable } from "rxjs";
 import { Agreement } from "../Models/Agreement";
 import { baseRequest } from "../utils/baseRequest";
-import processError from "../utils/processError";
+import { createError, createRetry } from "../utils/processError";
 
-export default async function getAgreements() {
-  try {
-    const res = await baseRequest.get<Agreement[]>(`/Agreements`);
-    return plainToInstance(Agreement, res.data);
-  } catch (e) {
-    processError(e);
-    throw e;
-  }
+export default function getAgreements() {
+  return new Observable<Agreement[]>((stream) => {
+    const promise = baseRequest.get<Agreement[]>("/Agreements");
+    promise
+      .then((res) => {
+        const classData = plainToInstance(Agreement, res.data);
+        stream.next(classData);
+        stream.complete();
+      })
+      .catch(createError(stream));
+  }).pipe(createRetry());
 }
