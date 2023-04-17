@@ -7,13 +7,20 @@ import getAgreements from "../../../api/getAgreement";
 import getPurposes from "../../../api/getPurpose";
 import { Agreement } from "../../../Models/Agreement";
 import useAsyncMemo from "../../../utils/asyncMemo";
+import SearchDialog from "../SearchDialog";
 import getColumns from "./DataTable/column.data";
+import AgreementTableToolbar from "./ToolBar/Toolbar";
 
 export default function AgreementTable() {
   const [agreements, setAgreements] = React.useState<Agreement[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
+
   const refresh = React.useCallback(() => {
+    setLoading(true);
     getAgreements().subscribe((res) => {
       setAgreements(res);
+      setLoading(false);
     });
   }, []);
   const purposes = useAsyncMemo(getPurposes, []);
@@ -21,6 +28,16 @@ export default function AgreementTable() {
     () => getColumns(refresh, purposes!),
     [refresh, purposes]
   );
+
+  const handleOpen = React.useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = React.useCallback(() => {
+    refresh();
+    setOpen(false);
+  }, [refresh]);
+
   React.useEffect(() => {
     refresh();
   }, [refresh]);
@@ -55,6 +72,9 @@ export default function AgreementTable() {
       </Grid>
       <Grid item xs style={{ height: 400, width: "100%" }}>
         <DataGridPremium
+          loading={loading}
+          slots={{ toolbar: AgreementTableToolbar }}
+          slotProps={{ toolbar: { refresh, handleOpen } }}
           columns={columns}
           rows={agreements}
           processRowUpdate={async (newRow: Agreement, oldRow: Agreement) => {
@@ -66,6 +86,7 @@ export default function AgreementTable() {
           onPinnedColumnsChange={handlePinnedColumnsChange}
         />
       </Grid>
+      {open && <SearchDialog open={open} onClose={handleClose} />}
     </Grid>
   );
 }

@@ -8,9 +8,8 @@ import {
   Grid,
 } from "@mui/material";
 import React from "react";
-import SearchDialog from "../SearchDialog";
 import MonthPerDay from "./Form/MonthPerDay";
-import Purpose from "./Form/Purpose";
+import PurposeField from "./Form/Purpose";
 import CourtSum from "./Form/CourtSum";
 import DebtSum from "./Form/DebtSum";
 import RecalculationSum from "./Form/RecalculationSum";
@@ -22,32 +21,38 @@ import ContactID from "./DisableForm/ContactID";
 import ContactFIO from "./DisableForm/ContactFIO";
 import BirthDate from "./DisableForm/BirthDate";
 import { Person } from "@contact/models";
-import ChooseDebtAgreement from "./ChooseDebtAgreement";
 import ConclusionDate from "./Form/DateAgr";
 import createAgreement from "../../../api/createAgreement";
-import { useAppSelector } from "../../../Reducer";
+import { useAppDispatch, useAppSelector } from "../../../Reducer";
 import { enqueueSnackbar } from "notistack";
+import { resetAgreement } from "../../../Reducer/Agreement/Agreement";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
   person: Person;
+  fullClose: VoidFunction;
+}
+export function CloseAll() {
+  const closeAll = React.useCallback(() => {}, []);
+  return closeAll;
 }
 export default function AgreementDialog(props: CreateAgreementDialogProps) {
-  const [open, setOpen] = React.useState(false);
-  const handleClose = React.useCallback(() => {
-    setOpen(false);
-    setCollapse(false);
-  }, []);
-  const [collapse, setCollapse] = React.useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleCollase = React.useCallback(() => {
-    setCollapse(true);
-    console.log("collapsing");
-  }, []);
   const agreement = useAppSelector((state) => state.Agreement);
+  const dispatch = useAppDispatch();
+
+  const handleClose = React.useCallback(() => {
+    dispatch(resetAgreement());
+    props.onClose();
+  }, [dispatch, props]);
+
+  const handleFullClose = React.useCallback(() => {
+    dispatch(resetAgreement());
+    props.fullClose();
+  }, [dispatch, props]);
+
   return (
     <>
-      <Dialog open={props.open} onClose={props.onClose} maxWidth="lg" fullWidth>
+      <Dialog open={props.open} onClose={handleClose} maxWidth="lg" fullWidth>
         <DialogContent sx={{ flexGrow: 1 }}>
           <DialogTitle alignSelf={"center"}>Контакт базовые данные</DialogTitle>
           <Grid item container spacing={1}>
@@ -64,7 +69,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <DialogContent sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
             <ConclusionDate />
-            <Purpose open={open} onClose={handleClose} />
+            <PurposeField />
             <CourtSum />
             <DebtSum />
             <RecalculationSum />
@@ -81,7 +86,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             color="error"
             variant="contained"
             sx={{ width: "auto", alignSelf: "center" }}
-            onClick={props.onClose}
+            onClick={handleClose}
           >
             Назад
           </Button>
@@ -93,20 +98,12 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             onClick={async () => {
               await createAgreement(agreement);
               enqueueSnackbar("Успешно создано", { variant: "success" });
+              handleFullClose();
             }}
           >
             Создать
           </Button>
         </DialogActions>
-        <Grid item>
-          <SearchDialog open={open} onClose={handleClose} />
-        </Grid>
-        <Dialog open={collapse} onClose={handleClose} maxWidth="lg" fullWidth>
-          <DialogContent>
-            <DialogTitle>Связать долг</DialogTitle>
-            <ChooseDebtAgreement loading={false} />
-          </DialogContent>
-        </Dialog>
       </Dialog>
     </>
   );

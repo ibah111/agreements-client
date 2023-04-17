@@ -1,16 +1,14 @@
 import { Grid, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
-import { useAppDispatch } from "../../../../Reducer";
-import getPurposes from "../../../../api/getPurpose";
-import useAsyncMemo from "../../../../utils/asyncMemo";
+import getPurposes, { Purpose } from "../../../../api/getPurpose";
 import useAgreementData from "../../../../Hooks/useAgreementData";
-interface CreateAgreementDialogProps {
-  open: boolean;
-  onClose: () => void;
-}
-export default function Purpose(props: CreateAgreementDialogProps) {
-  const dispatch = useAppDispatch();
-  const purposes = useAsyncMemo(() => getPurposes(), [props.open]);
+import React from "react";
+
+export default function PurposeField() {
+  const [purposes, setPurposes] = React.useState<Purpose[]>([]);
+  React.useEffect(() => {
+    getPurposes().then((res) => setPurposes(res));
+  }, []);
+
   const data = useAgreementData("purpose");
   return (
     <Grid xs={2} item>
@@ -20,11 +18,9 @@ export default function Purpose(props: CreateAgreementDialogProps) {
           labelId="purpose-label"
           label="Назначение"
           value={data.value}
-          onChange={(event) =>
-            dispatch(
-              setAgreementProperty(["purpose", event.target.value as number])
-            )
-          }
+          error={data.error}
+          required={data.required}
+          onChange={(event) => data.onChange(Number(event.target.value))}
         >
           {purposes?.map((item) => (
             <MenuItem key={item.id} value={item.id}>

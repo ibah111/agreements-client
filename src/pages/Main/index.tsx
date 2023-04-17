@@ -3,17 +3,8 @@ import React from "react";
 import SwitchTheme from "../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 import AgreementTable from "./Table/Table";
 import { Link } from "react-router-dom";
-import SearchDialog from "./SearchDialog";
 
 export default function Main() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleOpen = React.useCallback(() => {
-    setOpen(true);
-  }, []);
-  const handleClose = React.useCallback(() => {
-    setOpen(false);
-  }, []);
   return (
     <>
       <Grid container height={"100vh"} direction={"column"}>
@@ -24,11 +15,6 @@ export default function Main() {
           style={{ marginTop: "2px" }}
           alignContent={"center"}
         >
-          <Grid item>
-            <Button onClick={handleOpen} variant="contained">
-              Открыть соглашения
-            </Button>
-          </Grid>
           <Grid item>
             <Button variant="contained" component={Link} to={"/ActionLog"}>
               Журнал действий
@@ -56,9 +42,6 @@ export default function Main() {
           </Grid>
         </Grid>
         <AgreementTable />
-      </Grid>
-      <Grid>
-        <SearchDialog open={open} onClose={handleClose} />
       </Grid>
     </>
   );

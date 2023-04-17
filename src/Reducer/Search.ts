@@ -22,7 +22,11 @@ export const search = createSlice({
     ) {
       state[action.payload[0]] = action.payload[1];
     },
+    resetSearch: () => {
+      return initialState;
+    },
   },
 });
-export const { setName, setContract, setSearchValue } = search.actions;
+export const { setName, setContract, setSearchValue, resetSearch } =
+  search.actions;
 export default search.reducer;
