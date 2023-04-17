@@ -5,6 +5,10 @@ import { Purpose } from "../../../../api/getPurpose";
 import deleteAgreement from "../../../../api/deleteAgreement";
 import { enqueueSnackbar } from "notistack";
 import { Agreement } from "../../../../Models/Agreement";
+import AddIcon from "../../../../mui-icons/AddIcon";
+import React from "react";
+import DebtConnection from "../Functions/DebtConnection";
+import { getPersonDebts } from "../../../../api/getDebtData";
 interface RenderLinkProps {
   value: string;
 }
@@ -20,7 +24,11 @@ function RenderLink({ value }: RenderLinkProps) {
   );
 }
 
-export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
+export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
+  // const [open, setOpen] = React.useState(false);
+  const handleDebtConnection = React.useCallback(() => {
+    <DebtConnection />;
+  }, []);
   const columns: GridColDef<Agreement>[] = [
     { headerName: "ID", field: "id", width: 50, type: "number" },
     {
@@ -245,7 +253,7 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
       align: "center",
       field: "actions",
       type: "actions",
-      width: 80,
+      width: 160,
       getActions: (params) => [
         <GridActionsCellItem
           icon={<DeleteIcon />}
@@ -255,6 +263,14 @@ export default function getColumns(refresh: () => void, purposes?: Purpose[]) {
               refresh();
               enqueueSnackbar("Удалено", { variant: "warning" });
             });
+          }}
+        />,
+        <GridActionsCellItem
+          icon={<AddIcon />}
+          label="AddDebt"
+          onClick={() => {
+            handleDebtConnection();
+            getPersonDebts(params.row.id);
           }}
         />,
       ],

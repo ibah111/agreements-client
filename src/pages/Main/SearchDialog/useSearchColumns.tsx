@@ -1,7 +1,7 @@
 import { Debt, Person } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
 import React from "react";
-import AddAgreementAction from "./Actions/AddAgreement";
+import AddAgreementAction from "./Actions/AddAgreementAction";
 
 export default function useSearchColumns(
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
