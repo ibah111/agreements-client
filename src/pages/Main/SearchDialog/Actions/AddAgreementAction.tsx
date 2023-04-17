@@ -10,13 +10,20 @@ interface AddAgreementActionProps {
   setPerson: React.Dispatch<React.SetStateAction<Person>>;
 }
 
-export default function AddAgreementAction(props: AddAgreementActionProps) {
+export default function AddAgreementAction({
+  debt,
+  setOpen,
+  setPerson,
+}: AddAgreementActionProps) {
   const dispatch = useAppDispatch();
   const handleClick = React.useCallback(() => {
-    dispatch(addDebtDataInAgr(props.debt));
-    props.setPerson(props.debt.Person!);
-    props.setOpen(true);
-  }, [dispatch, props]);
+    dispatch(addDebtDataInAgr(debt));
+    setPerson(debt.Person!);
+    setOpen(true);
+  }, [debt, dispatch, setOpen, setPerson]);
+  React.useEffect(() => {
+    console.log("update");
+  }, [debt, dispatch, setOpen, setPerson]);
 
   return (
     <>

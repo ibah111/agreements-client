@@ -11,7 +11,7 @@ export default function useSearchColumns(
     () => [
       { field: "id", headerName: "ID", type: "number" },
       { field: "contract", headerName: "КД", width: 120 },
-      { field: "parent_id", headerName: "ссылка на Pperson", width: 60 },
+      { field: "parent_id", headerName: "ID должника", width: 60 },
       {
         field: "Person.fio",
         headerName: "ФИО",
@@ -24,6 +24,7 @@ export default function useSearchColumns(
         field: "debt_sum",
         headerName: "Сумма долга",
         type: "number",
+        //valueFormatter: (params) => `${params.value}₽`,
       },
       {
         field: "debt_dt",
