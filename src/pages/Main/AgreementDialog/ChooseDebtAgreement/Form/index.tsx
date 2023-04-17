@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
-import ChooseDebtAgreement from "../ChooseDebtAgreement";
+import ChooseDebtAgreement from "..";
 
 export default function ConnectingDebts() {
   return (
