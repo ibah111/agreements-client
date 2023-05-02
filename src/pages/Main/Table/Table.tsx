@@ -9,6 +9,7 @@ import { Agreement } from "../../../Models/Agreement";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import SearchDialog from "../SearchDialog";
 import getColumns from "./DataTable/column.data";
+import DebtConnection from "./Functions/DebtConnection";
 import AgreementTableToolbar from "./ToolBar/Toolbar";
 
 export default function AgreementTable() {
@@ -23,10 +24,16 @@ export default function AgreementTable() {
       setLoading(false);
     });
   }, []);
+
+  const [openDebtConnection, setOpenDebtConnection] = React.useState(false);
+  const handleOpenDebtConnection = React.useCallback(() => {
+    setOpenDebtConnection(true);
+  }, []);
+
   const purposes = useAsyncMemo(getPurposes, []);
   const columns = React.useMemo(
-    () => getColumns(refresh, purposes!),
-    [refresh, purposes]
+    () => getColumns(refresh, purposes!, handleOpenDebtConnection),
+    [refresh, purposes, handleOpenDebtConnection]
   );
 
   const handleOpen = React.useCallback(() => {
@@ -36,15 +43,12 @@ export default function AgreementTable() {
   const handleClose = React.useCallback(() => {
     refresh();
     setOpen(false);
+    setOpenDebtConnection(false);
   }, [refresh]);
 
   React.useEffect(() => {
     refresh();
   }, [refresh]);
-
-  React.useEffect(() => {
-    console.log(agreements);
-  }, [agreements]);
 
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     left: [
@@ -74,7 +78,9 @@ export default function AgreementTable() {
         <DataGridPremium
           loading={loading}
           slots={{ toolbar: AgreementTableToolbar }}
-          slotProps={{ toolbar: { refresh, handleOpen } }}
+          slotProps={{
+            toolbar: { refresh, handleOpen },
+          }}
           columns={columns}
           rows={agreements}
           processRowUpdate={async (newRow: Agreement, oldRow: Agreement) => {
@@ -87,6 +93,9 @@ export default function AgreementTable() {
         />
       </Grid>
       {open && <SearchDialog open={open} onClose={handleClose} />}
+      {openDebtConnection && (
+        <DebtConnection open={openDebtConnection} onClose={handleClose} />
+      )}
     </Grid>
   );
 }

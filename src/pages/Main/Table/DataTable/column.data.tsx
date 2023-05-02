@@ -5,10 +5,8 @@ import { Purpose } from "../../../../api/getPurpose";
 import deleteAgreement from "../../../../api/deleteAgreement";
 import { enqueueSnackbar } from "notistack";
 import { Agreement } from "../../../../Models/Agreement";
-import AddIcon from "../../../../mui-icons/AddIcon";
-import React from "react";
-import DebtConnection from "../Functions/DebtConnection";
-import { getPersonDebts } from "../../../../api/getDebtData";
+import AddIcon from "@mui/icons-material/Add";
+
 interface RenderLinkProps {
   value: string;
 }
@@ -24,11 +22,11 @@ function RenderLink({ value }: RenderLinkProps) {
   );
 }
 
-export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
-  // const [open, setOpen] = React.useState(false);
-  const handleDebtConnection = React.useCallback(() => {
-    <DebtConnection />;
-  }, []);
+export default function getColumns(
+  refresh: () => void,
+  purposes?: Purpose[],
+  open?: () => void
+) {
   const columns: GridColDef<Agreement>[] = [
     { headerName: "ID", field: "id", width: 50, type: "number" },
     {
@@ -41,15 +39,16 @@ export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
       type: "date",
       valueGetter: (params) => new Date(params.value),
     },
-    // {
-    //   align: "center",
-    //   headerName: "Дата последней проверки",
-    //   headerAlign: "center",
-    //   field: "last_check_date",
-    //   width: 150,
-    //   editable: true,
-    //   type: "date",
-    // },
+    {
+      align: "center",
+      headerAlign: "center",
+      headerName: "Дата завершения",
+      field: "finish_date",
+      width: 150,
+      editable: true,
+      type: "date",
+      valueGetter: (params) => new Date(params.value),
+    },
     {
       headerName: "ID человека",
       align: "center",
@@ -103,15 +102,7 @@ export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
         })) || [],
     },
     {
-      headerName: "Сумма задолженности, переданная банком",
-      align: "center",
-      headerAlign: "center",
-      field: "debt_bank_sum",
-      width: 150,
-      type: "number",
-    },
-    {
-      headerName: "Сумма задолженности по судебному акту в пользу банка",
+      headerName: "Долг в пользу в банка",
       align: "center",
       headerAlign: "center",
       field: "court_sum",
@@ -121,7 +112,7 @@ export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
     },
     {
       // заполняется
-      headerName: "Сумма задолженности ОД взысканная в пользу НБК /Вымпел ",
+      headerName: "Долг в пользу НБК",
       align: "center",
       headerAlign: "center",
       field: "debt_sum",
@@ -133,7 +124,7 @@ export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
       // заполняется
       align: "center",
       headerAlign: "center",
-      headerName: "Сумма задолженности по пересчету",
+      headerName: "Долг по пересчету",
       field: "recalculation_sum",
       width: 150,
       editable: true,
@@ -157,13 +148,14 @@ export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
       width: 150,
       editable: true,
       type: "number",
+      valueGetter: (params) => params.row.Person?.fio || "",
     },
     {
-      headerName: "Дата мирового соглашения",
+      headerName: "День платежа",
       align: "center",
       headerAlign: "center",
       description: "Дата платежа по соглашению",
-      field: "settlement_date",
+      field: "month_pay_day",
       width: 150,
       type: "number",
     },
@@ -219,7 +211,6 @@ export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
       editable: true,
       type: "string",
     },
-
     {
       align: "center",
       headerAlign: "center",
@@ -269,8 +260,7 @@ export default function GetColumns(refresh: () => void, purposes?: Purpose[]) {
           icon={<AddIcon />}
           label="AddDebt"
           onClick={() => {
-            handleDebtConnection();
-            getPersonDebts(params.row.id);
+            open?.();
           }}
         />,
       ],
