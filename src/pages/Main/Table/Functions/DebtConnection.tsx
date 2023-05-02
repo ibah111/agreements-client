@@ -1,8 +1,7 @@
 import { Debt } from "@contact/models";
 import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
-import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
-import { debtColumns } from "../../AgreementDialog/ChooseDebtAgreement/Form/DebtDataGrid/DebtColumn";
+import ChooseDebtAgreement from "../../AgreementDialog/ChooseDebtAgreement";
 interface DebtConnectionProps {
   open: boolean;
   onClose: () => void;
@@ -14,8 +13,8 @@ export default function DebtConnection(props: DebtConnectionProps) {
     <Dialog open={props.open} onClose={props.onClose}>
       <DialogTitle>Выберить долг, чтобы привязать его в должнику</DialogTitle>
       <DialogContent>
-        <Grid item xs container style={{ height: 400, width: "100%" }}>
-          <DataGridPremium columns={debtColumns} rows={debts} />
+        <Grid item xs style={{ height: 400, width: "100%" }}>
+          <ChooseDebtAgreement loading={false} />
         </Grid>
       </DialogContent>
     </Dialog>

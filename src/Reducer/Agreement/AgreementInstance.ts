@@ -77,6 +77,35 @@ export default function createAgreementInstance(date?: boolean) {
      */
     @IsOptional()
     task_link: string;
+    /**
+     * Дата листа
+     */
+    @DateRange({
+      minDate: moment().day(0).month(0).year(2001),
+      maxDate: moment().day(0).month(0).year(2023),
+    })
+    @IsValidMoment()
+    @IsOptional()
+    @DateType(date)
+    @TransformDate(date)
+    receipt_dt: moment.Moment;
+    /**
+     * Действия для листа
+     */
+    @IsOptional()
+    actions_for_get: string;
+    /**
+     * Дата завершения
+     */
+    @DateRange({
+      minDate: moment().day(0).month(0).year(2001),
+      maxDate: moment().day(0).month(0).year(2023),
+    })
+    @IsValidMoment()
+    @IsOptional()
+    @DateType(date)
+    @TransformDate(date)
+    finish_date: moment.Moment;
   }
   return AgreementInstance;
 }

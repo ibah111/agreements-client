@@ -62,6 +62,18 @@ export class Agreement extends Model<
    * Ссылка на задачу
    */
   task_link: string;
+  /**
+   * Дата получения листа
+   */
+  receipt_dt: moment.Moment;
+  /**
+   * Действия для получения листа
+   */
+  actions_for_get: string;
+  /**
+   * Дата завершения
+   */
+  finish_date: moment.Moment;
   LawAct?: NonAttribute<LawAct>;
   Debt?: NonAttribute<Debt>;
   LawExec?: NonAttribute<LawExec>;

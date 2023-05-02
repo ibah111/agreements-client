@@ -21,11 +21,14 @@ import ContactID from "./DisableForm/ContactID";
 import ContactFIO from "./DisableForm/ContactFIO";
 import BirthDate from "./DisableForm/BirthDate";
 import { Person } from "@contact/models";
-import ConclusionDate from "./Form/DateAgr";
+import ConclusionDate from "./Form/ConclusionDate";
 import createAgreement from "../../../api/createAgreement";
 import { useAppDispatch, useAppSelector } from "../../../Reducer";
 import { enqueueSnackbar } from "notistack";
 import { resetAgreement } from "../../../Reducer/Agreement/Agreement";
+import ActionsForGet from "./Form/ActionsForGet";
+import FinishDate from "./Form/FinishDate";
+import ReceiptDt from "./Form/ReceiptDt";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -69,6 +72,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <DialogContent sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
             <ConclusionDate />
+            <FinishDate />
             <PurposeField />
             <CourtSum />
             <DebtSum />
@@ -78,6 +82,8 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <Comment />
             <TaskLink />
             <RegDoc />
+            <ActionsForGet />
+            <ReceiptDt />
           </Grid>
         </DialogContent>
         <Divider />

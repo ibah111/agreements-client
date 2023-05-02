@@ -1,5 +1,4 @@
 import { Debt } from "@contact/models";
-import { Grid } from "@mui/material";
 import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
 import { getPersonDebts } from "../../../../api/getDebtData";
@@ -23,9 +22,7 @@ export default function ChooseDebtAgreement(params: TableProps) {
   const [loading, setLoading] = React.useState(true);
   return (
     <>
-      <Grid style={{ height: 300, width: "100%" }}>
-        <DataGridPremium columns={debtColumns} rows={debts} loading={loading} />
-      </Grid>
+      <DataGridPremium columns={debtColumns} rows={debts} loading={loading} />
     </>
   );
 }

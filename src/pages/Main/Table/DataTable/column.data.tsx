@@ -144,11 +144,19 @@ export default function getColumns(
       align: "center",
       headerAlign: "center",
       headerName: "Сумма задолженности к погашению по соглашению с дисконтом",
-      field: "law_act_debt",
+      field: "total_dis_sum",
       width: 150,
-      editable: true,
+      editable: false,
       type: "number",
-      valueGetter: (params) => params.row.Person?.fio || "",
+      valueGetter: (params) => {
+        let result = 0;
+        if (params.row.recalculation_sum)
+          result += params.row.recalculation_sum;
+        else if (params.row.court_sum) result += params.row.court_sum;
+        if (result > 0 && params.row.discount_sum)
+          result -= params.row.discount_sum;
+        return result;
+      },
     },
     {
       headerName: "День платежа",
@@ -201,6 +209,7 @@ export default function getColumns(
       field: "receipt_dt",
       width: 150,
       type: "date",
+      valueGetter: (params) => new Date(params.value),
     },
     {
       align: "center",

@@ -1,4 +1,4 @@
-import { Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
 import ChooseDebtAgreement from "..";
 
 export default function ConnectingDebts() {
@@ -6,7 +6,9 @@ export default function ConnectingDebts() {
     <Dialog maxWidth="lg" fullWidth open={false}>
       <DialogContent>
         <DialogTitle>Связать долг</DialogTitle>
-        <ChooseDebtAgreement loading={false} />
+        <Grid item xs style={{ height: 400, width: "100%" }}>
+          <ChooseDebtAgreement loading={false} />
+        </Grid>
       </DialogContent>
     </Dialog>
   );
