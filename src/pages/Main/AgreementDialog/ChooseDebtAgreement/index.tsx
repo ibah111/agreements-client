@@ -3,23 +3,23 @@ import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
 import { getPersonDebts } from "../../../../api/getDebtData";
 import { debtColumns } from "./Form/DebtDataGrid/DebtColumn";
-interface TableProps {
-  loading: boolean;
+
+interface ChooseDebtAgreementProps {
+  personId: number;
 }
 
-export default function ChooseDebtAgreement(params: TableProps) {
+export default function ChooseDebtAgreement(props: ChooseDebtAgreementProps) {
   const [debts, setDebts] = React.useState<Debt[]>([]);
+  const [loading, setLoading] = React.useState(false);
 
-  const refresh = React.useCallback(() => {
-    getPersonDebts().then((res) => {
+  React.useEffect(() => {
+    setLoading(true);
+    getPersonDebts(props.personId).then((res) => {
       setDebts(res);
       setLoading(false);
     });
-  }, []);
-  React.useEffect(() => {
-    refresh();
-  }, [refresh]);
-  const [loading, setLoading] = React.useState(true);
+  }, [props.personId]);
+
   return (
     <>
       <DataGridPremium columns={debtColumns} rows={debts} loading={loading} />

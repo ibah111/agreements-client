@@ -16,16 +16,8 @@ export const debtColumns: GridColDef<Debt>[] = [
     // ? person key
     align: "center",
     headerAlign: "center",
-    headerName: "Персона🌞",
+    headerName: "id Персоны🌞",
     field: "parent_id",
-    width: 100,
-    type: "number",
-  },
-  {
-    align: "center",
-    headerAlign: "center",
-    headerName: "Имя",
-    field: "FIO",
     width: 100,
     type: "number",
   },
@@ -35,13 +27,6 @@ export const debtColumns: GridColDef<Debt>[] = [
     width: 150,
     field: "contract",
     headerName: "№ КД",
-  },
-  {
-    align: "center",
-    headerAlign: "center",
-    width: 150,
-    field: "last_pay_sum",
-    headerName: "Последний платеж",
   },
   {
     align: "center",

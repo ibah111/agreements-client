@@ -1,5 +1,4 @@
 import { Debt, DebtCalc } from "@contact/models";
-import { store } from "../Reducer";
 import { baseRequest } from "../utils/baseRequest";
 import processError from "../utils/processError";
 
@@ -12,10 +11,10 @@ export async function getDebtPerson(id: number) {
     throw e;
   }
 }
-export async function getPersonDebts() {
-  const request = store.getState().Agreement.personId;
+export async function getPersonDebts(personId: number) {
   try {
-    const res = await baseRequest.get<Debt[]>(`/Debt/Person/${request}`);
+    const res = await baseRequest.get<Debt[]>(`/Debt/Person/${personId}`);
+    console.log();
     return res.data;
   } catch (e) {
     processError(e);

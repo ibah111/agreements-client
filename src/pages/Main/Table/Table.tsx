@@ -20,13 +20,16 @@ export default function AgreementTable() {
   const refresh = React.useCallback(() => {
     setLoading(true);
     getAgreements().subscribe((res) => {
+      console.log(res);
       setAgreements(res);
       setLoading(false);
     });
   }, []);
 
+  const [personId, setPersonId] = React.useState<number>(0);
   const [openDebtConnection, setOpenDebtConnection] = React.useState(false);
-  const handleOpenDebtConnection = React.useCallback(() => {
+  const handleOpenDebtConnection = React.useCallback((personId: number) => {
+    setPersonId(personId);
     setOpenDebtConnection(true);
   }, []);
 
@@ -94,7 +97,11 @@ export default function AgreementTable() {
       </Grid>
       {open && <SearchDialog open={open} onClose={handleClose} />}
       {openDebtConnection && (
-        <DebtConnection open={openDebtConnection} onClose={handleClose} />
+        <DebtConnection
+          open={openDebtConnection}
+          onClose={handleClose}
+          personId={personId}
+        />
       )}
     </Grid>
   );

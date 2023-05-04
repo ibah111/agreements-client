@@ -25,7 +25,7 @@ function RenderLink({ value }: RenderLinkProps) {
 export default function getColumns(
   refresh: () => void,
   purposes?: Purpose[],
-  open?: () => void
+  open?: (personId: number) => void
 ) {
   const columns: GridColDef<Agreement>[] = [
     { headerName: "ID", field: "id", width: 50, type: "number" },
@@ -269,7 +269,7 @@ export default function getColumns(
           icon={<AddIcon />}
           label="AddDebt"
           onClick={() => {
-            open?.();
+            open?.(params.row.personId);
           }}
         />,
       ],
