@@ -72,15 +72,6 @@ export default function getColumns(
     {
       // * work
       align: "center",
-      headerName: "Дата рождения",
-      headerAlign: "center",
-      field: "birth_date",
-      width: 150,
-      type: "date",
-    },
-    {
-      // * work
-      align: "center",
       headerName: "КД",
       headerAlign: "center",
       field: "KD",
@@ -172,7 +163,7 @@ export default function getColumns(
       align: "center",
       headerName: "Сумма мирового соглашения",
       headerAlign: "center",
-      description: "Cумма первого платежа по соглашению",
+      description: "Первый платеж по соглашению",
       field: "settlement_sum",
       width: 150,
       type: "number",
