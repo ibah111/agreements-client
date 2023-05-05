@@ -4,8 +4,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Purpose } from "../../../../api/getPurpose";
 import deleteAgreement from "../../../../api/deleteAgreement";
 import { enqueueSnackbar } from "notistack";
-import { Agreement } from "../../../../Models/Agreement";
 import AddIcon from "@mui/icons-material/Add";
+import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 
 interface RenderLinkProps {
   value: string;
@@ -25,9 +25,9 @@ function RenderLink({ value }: RenderLinkProps) {
 export default function getColumns(
   refresh: () => void,
   purposes?: Purpose[],
-  open?: (personId: number) => void
+  open?: (agreementId: number) => void
 ) {
-  const columns: GridColDef<Agreement>[] = [
+  const columns: GridColDef<AgreementInstance>[] = [
     { headerName: "ID", field: "id", width: 50, type: "number" },
     {
       align: "center",
@@ -68,15 +68,6 @@ export default function getColumns(
       editable: false,
       type: "string",
       valueGetter: (params) => params.row.Person?.fio || "",
-    },
-    {
-      // * work
-      align: "center",
-      headerName: "КД",
-      headerAlign: "center",
-      field: "KD",
-      width: 100,
-      type: "number",
     },
     {
       headerName: "Назначение",
@@ -260,7 +251,7 @@ export default function getColumns(
           icon={<AddIcon />}
           label="AddDebt"
           onClick={() => {
-            open?.(params.row.personId);
+            open?.(params.row.id);
           }}
         />,
       ],

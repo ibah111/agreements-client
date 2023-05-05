@@ -4,11 +4,9 @@ import {
   AgreementData,
   setAgreementProperty,
 } from "../Reducer/Agreement/Agreement";
-import createAgreementInstance from "../Reducer/Agreement/AgreementInstance";
+import { AgreementInstance } from "../Reducer/Agreement/AgreementInstance";
 import checker from "./Validation/checker";
 import { ResultData } from "./Validation/ResultData";
-
-const AgreementInstance = createAgreementInstance();
 
 export default function useAgreementData<T extends keyof AgreementData>(
   name: T

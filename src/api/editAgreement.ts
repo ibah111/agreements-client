@@ -1,6 +1,7 @@
 import { GridRowId } from "@mui/x-data-grid-premium";
 import { diff } from "deep-object-diff";
 import { Agreement } from "../Models/Agreement";
+import { AgreementInstance } from "../Reducer/Agreement/AgreementInstance";
 import { baseRequest } from "../utils/baseRequest";
 import processError from "../utils/processError";
 
@@ -9,7 +10,10 @@ export class EditAgreementInput {
   field: string;
   value: string | number;
 }
-export default async function editAgremeent(data: Agreement, old: Agreement) {
+export default async function editAgremeent(
+  data: AgreementInstance,
+  old: AgreementInstance
+) {
   const changed = diff(old, data) as Agreement;
   try {
     for (const key of Object.keys(changed) as (keyof Agreement)[]) {

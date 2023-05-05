@@ -1,57 +1,57 @@
 import { Grid, Typography } from "@mui/material";
 import { DataGridPremium, GridPinnedColumns } from "@mui/x-data-grid-premium";
+import { plainToInstance } from "class-transformer";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
 import editAgremeent from "../../../api/editAgreement";
 import getAgreements from "../../../api/getAgreement";
 import getPurposes from "../../../api/getPurpose";
-import { Agreement } from "../../../Models/Agreement";
+import LinkDebtsDialog from "../../../components/LinkDebtsDialog.ts";
+import useLinkDebtsControl from "../../../components/LinkDebtsDialog.ts/useLinkDebtsControl";
+import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import SearchDialog from "../SearchDialog";
 import getColumns from "./DataTable/column.data";
-import DebtConnection from "./Functions/DebtConnection";
 import AgreementTableToolbar from "./ToolBar/Toolbar";
 
 export default function AgreementTable() {
-  const [agreements, setAgreements] = React.useState<Agreement[]>([]);
+  const [agreements, setAgreements] = React.useState<AgreementInstance[]>([]);
   const [loading, setLoading] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-
   const refresh = React.useCallback(() => {
     setLoading(true);
     getAgreements().subscribe((res) => {
       console.log(res);
-      setAgreements(res);
+      const classData = plainToInstance(AgreementInstance, res);
+      console.log(classData);
+      setAgreements(classData);
       setLoading(false);
     });
   }, []);
-
-  const [personId, setPersonId] = React.useState<number>(0);
-  const [openDebtConnection, setOpenDebtConnection] = React.useState(false);
-  const handleOpenDebtConnection = React.useCallback((personId: number) => {
-    setPersonId(personId);
-    setOpenDebtConnection(true);
-  }, []);
-
   const purposes = useAsyncMemo(getPurposes, []);
-  const columns = React.useMemo(
-    () => getColumns(refresh, purposes!, handleOpenDebtConnection),
-    [refresh, purposes, handleOpenDebtConnection]
-  );
-
-  const handleOpen = React.useCallback(() => {
-    setOpen(true);
-  }, []);
-
-  const handleClose = React.useCallback(() => {
-    refresh();
-    setOpen(false);
-    setOpenDebtConnection(false);
-  }, [refresh]);
 
   React.useEffect(() => {
     refresh();
   }, [refresh]);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = React.useCallback(() => {
+    setOpen(true);
+  }, []);
+  const handleClose = React.useCallback(() => {
+    refresh();
+    setOpen(false);
+  }, [refresh]);
+
+  const linkDialogControl = useLinkDebtsControl({
+    onClose: () => {
+      refresh();
+    },
+  });
+
+  const columns = React.useMemo(
+    () => getColumns(refresh, purposes!, linkDialogControl.openDialog),
+    [refresh, purposes, linkDialogControl.openDialog]
+  );
 
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     left: [
@@ -86,7 +86,10 @@ export default function AgreementTable() {
           }}
           columns={columns}
           rows={agreements}
-          processRowUpdate={async (newRow: Agreement, oldRow: Agreement) => {
+          processRowUpdate={async (
+            newRow: AgreementInstance,
+            oldRow: AgreementInstance
+          ) => {
             const data = await editAgremeent(newRow, oldRow);
             enqueueSnackbar("Изменено", { variant: "success" });
             return data;
@@ -96,11 +99,11 @@ export default function AgreementTable() {
         />
       </Grid>
       {open && <SearchDialog open={open} onClose={handleClose} />}
-      {openDebtConnection && (
-        <DebtConnection
-          open={openDebtConnection}
-          onClose={handleClose}
-          personId={personId}
+      {linkDialogControl.open && (
+        <LinkDebtsDialog
+          open={linkDialogControl.open}
+          onClose={linkDialogControl.closeDialog}
+          agreementId={linkDialogControl.personId}
         />
       )}
     </Grid>
