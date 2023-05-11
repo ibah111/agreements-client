@@ -24,8 +24,8 @@ export class AgreementInstance implements AgreementData {
    * Дата заключения
    */
   @DateRange({
-    minDate: moment().day(0).month(0).year(2001),
-    maxDate: moment().day(0).month(0).year(2023),
+    minDate: moment("2001", "YYYY"),
+    maxDate: moment().day(0).month(0).add(1, "m"),
   })
   @IsValidMoment()
   @IsNotEmpty()
@@ -94,6 +94,7 @@ export class AgreementInstance implements AgreementData {
    */
   @IsOptional()
   actions_for_get: string;
+
   /**
    * Дата завершения
    */
@@ -108,4 +109,7 @@ export class AgreementInstance implements AgreementData {
   finish_date: moment.Moment;
 
   Person?: Person;
+  firstPayment: number | null;
+  lastPayment: number | null;
+  sumAfterAgr: number | null;
 }
