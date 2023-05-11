@@ -1,16 +1,13 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../Reducer";
-import {
-  AgreementData,
-  setAgreementProperty,
-} from "../Reducer/Agreement/Agreement";
+import { setAgreementProperty } from "../Reducer/Agreement/Agreement";
 import { AgreementInstance } from "../Reducer/Agreement/AgreementInstance";
 import checker from "./Validation/checker";
 import { ResultData } from "./Validation/ResultData";
 
-export default function useAgreementData<T extends keyof AgreementData>(
+export default function useAgreementData<T extends keyof AgreementInstance>(
   name: T
-): ResultData<AgreementData, T> {
+): ResultData<AgreementInstance, T> {
   const dispatch = useAppDispatch();
   const value = useAppSelector((state) =>
     state.Agreement?.[name] === undefined || state.Agreement?.[name] === null
@@ -19,7 +16,7 @@ export default function useAgreementData<T extends keyof AgreementData>(
   );
 
   const setValue = React.useCallback(
-    (value: AgreementData[T] | null | undefined) => {
+    (value: AgreementInstance[T] | null | undefined) => {
       if (value === undefined || value == null) {
         dispatch(setAgreementProperty([name, undefined]));
       } else {
