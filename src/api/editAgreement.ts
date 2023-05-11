@@ -1,30 +1,30 @@
 import { GridRowId } from "@mui/x-data-grid-premium";
 import { diff } from "deep-object-diff";
-import { Agreement } from "../Models/Agreement";
+import { Observable } from "rxjs";
 import { AgreementInstance } from "../Reducer/Agreement/AgreementInstance";
 import { baseRequest } from "../utils/baseRequest";
-import processError from "../utils/processError";
+import { createError, createNextPlain } from "../utils/processError";
 
 export class EditAgreementInput {
   id: GridRowId;
   field: string;
   value: string | number;
 }
-export default async function editAgremeent(
+async function edit(data: AgreementInstance, old: AgreementInstance) {
+  const changed = diff(old, data);
+  for (const key of Object.keys(changed) as (keyof AgreementInstance)[]) {
+    await baseRequest.patch<boolean>(`/Agreements/${data.id}`, {
+      field: key,
+      value: data[key] as string,
+    });
+  }
+  return data;
+}
+export default function editAgremeent(
   data: AgreementInstance,
   old: AgreementInstance
 ) {
-  const changed = diff(old, data) as Agreement;
-  try {
-    for (const key of Object.keys(changed) as (keyof Agreement)[]) {
-      await baseRequest.patch<boolean>(`/Agreements/${data.id}`, {
-        field: key,
-        value: changed[key] as string,
-      });
-    }
-    return data;
-  } catch (e) {
-    processError(e);
-    throw e;
-  }
+  return new Observable<AgreementInstance>((sub) => {
+    edit(data, old).then(createNextPlain(sub)).catch(createError(sub));
+  });
 }

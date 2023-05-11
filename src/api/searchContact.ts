@@ -10,7 +10,7 @@ import { Debt } from "@contact/models";
 
 export default function Search() {
   const request = store.getState().Search;
-  return new Observable<Debt[]>((subscriber: any) => {
+  return new Observable<Debt[]>((subscriber) => {
     baseRequest
       .post<Debt[]>("/search", request)
       .then(createNextDefault(subscriber))

@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import type { Agreement } from "../Models/Agreement";
+import { AgreementInstance } from "../Reducer/Agreement/AgreementInstance";
 import { baseRequest } from "../utils/baseRequest";
 import {
   createError,
@@ -8,8 +8,8 @@ import {
 } from "../utils/processError";
 
 export default function getAgreements() {
-  return new Observable<Agreement[]>((stream) => {
-    const promise = baseRequest.get<Agreement[]>("/Agreements");
-    promise.then(createNextDefault(stream)).catch(createError(stream));
+  return new Observable<AgreementInstance[]>((sub) => {
+    const promise = baseRequest.get<AgreementInstance[]>("/Agreements");
+    promise.then(createNextDefault(sub)).catch(createError(sub));
   }).pipe(createRetry());
 }
