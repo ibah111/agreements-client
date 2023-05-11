@@ -24,6 +24,12 @@ export function createNextDefault<T>(subscriber: Subscriber<T>) {
     subscriber.complete();
   };
 }
+export function createNextPlain<T>(subscriber: Subscriber<T>) {
+  return (res: T) => {
+    subscriber.next(res);
+    subscriber.complete();
+  };
+}
 export function createRetry<T>() {
   return retry<T>({
     delay: (err) =>
