@@ -3,6 +3,7 @@ import { DataGridPremium, GridPinnedColumns } from "@mui/x-data-grid-premium";
 import { plainToInstance } from "class-transformer";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
+import { lastValueFrom } from "rxjs";
 import editAgremeent from "../../../api/editAgreement";
 import getAgreements from "../../../api/getAgreement";
 import getPurposes from "../../../api/getPurpose";
@@ -87,10 +88,10 @@ export default function AgreementTable() {
           columns={columns}
           rows={agreements}
           processRowUpdate={async (
-            newRow: AgreementInstance,
-            oldRow: AgreementInstance
+            oldData: AgreementInstance,
+            newData: AgreementInstance
           ) => {
-            const data = await editAgremeent(newRow, oldRow);
+            const data = await lastValueFrom(editAgremeent(oldData, newData));
             enqueueSnackbar("Изменено", { variant: "success" });
             return data;
           }}
