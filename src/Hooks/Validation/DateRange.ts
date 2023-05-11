@@ -28,9 +28,7 @@ export class DateRangeConstructor implements ValidatorConstraintInterface {
     }
     return valid;
   }
-  defaultMessage(
-    validationArguments?: ValidationArguments | undefined
-  ): string {
+  defaultMessage(): string {
     return `Date ($value) is not in range`;
   }
 }
