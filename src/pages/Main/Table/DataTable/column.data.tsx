@@ -6,6 +6,7 @@ import deleteAgreement from "../../../../api/deleteAgreement";
 import { enqueueSnackbar } from "notistack";
 import AddIcon from "@mui/icons-material/Add";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
+import { dateColumnType } from "../../../../utils/DateCol";
 
 interface RenderLinkProps {
   value: string;
@@ -28,29 +29,27 @@ export default function getColumns(
   open?: (agreementId: number) => void
 ) {
   const columns: GridColDef<AgreementInstance>[] = [
-    { headerName: "ID", field: "id", width: 50, type: "number" },
+    { field: "id", headerName: "ID", width: 50, type: "number" },
     {
+      field: "conclusion_date",
+      ...dateColumnType,
+      headerName: "Дата заключения",
       align: "center",
       headerAlign: "center",
-      headerName: "Дата заключения",
-      field: "conclusion_date",
       width: 150,
       editable: true,
-      type: "date",
-      valueGetter: (params) => new Date(params.value),
     },
     {
+      field: "finish_date",
+      ...dateColumnType,
       align: "center",
       headerAlign: "center",
       headerName: "Дата завершения",
-      field: "finish_date",
       width: 150,
       editable: true,
-      type: "date",
-      valueGetter: (params) => new Date(params.value),
     },
     {
-      headerName: "ID человека",
+      headerName: "ID Должника",
       align: "center",
       headerAlign: "center",
       field: "personId", // parent_id = 221
@@ -58,6 +57,7 @@ export default function getColumns(
       editable: false,
       sortable: false,
       type: "number",
+      valueGetter: (params) => params.row.Person?.id,
     },
     {
       headerName: "ФИО должника",
@@ -152,18 +152,19 @@ export default function getColumns(
     {
       //todo высчитывается
       align: "center",
-      headerName: "Сумма мирового соглашения",
+      headerName: "Первый платеж по соглашению",
       headerAlign: "center",
       description: "Первый платеж по соглашению",
-      field: "settlement_sum",
+      field: "firstPayment",
       width: 150,
       type: "number",
+      valueGetter: (params) => params.row.firstPayment || null,
     },
     {
       align: "center",
       headerAlign: "center",
       headerName: "Сумма последнего платежа",
-      field: "last_pay_sum",
+      field: "lastPayment",
       width: 150,
       type: "number",
     },
@@ -171,7 +172,7 @@ export default function getColumns(
       align: "center",
       headerAlign: "center",
       headerName: "Сумма платежей после соглашения",
-      field: "sum_after_conclusion",
+      field: "sumAfterAgr",
       width: 150,
       type: "number",
     },
@@ -185,13 +186,12 @@ export default function getColumns(
       editable: true,
     },
     {
+      field: "receipt_dt",
+      ...dateColumnType,
+      width: 150,
       align: "center",
       headerAlign: "center",
       headerName: "Дата получения листа",
-      field: "receipt_dt",
-      width: 150,
-      type: "date",
-      valueGetter: (params) => new Date(params.value),
     },
     {
       align: "center",
