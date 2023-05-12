@@ -2,3 +2,4 @@
 node_modules
 .yarnrc.yml
 build
+debug.log
