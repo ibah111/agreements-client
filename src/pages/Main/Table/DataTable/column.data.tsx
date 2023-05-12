@@ -123,6 +123,7 @@ export default function getColumns(
       type: "number",
     },
     {
+      // вычисляемое
       align: "center",
       headerAlign: "center",
       headerName: "Сумма задолженности к погашению по соглашению с дисконтом",
@@ -154,7 +155,7 @@ export default function getColumns(
       align: "center",
       headerName: "Первый платеж по соглашению",
       headerAlign: "center",
-      description: "Первый платеж по соглашению",
+      description: "Первый платеж по соглашению из контакта",
       field: "firstPayment",
       width: 150,
       type: "number",
@@ -163,10 +164,20 @@ export default function getColumns(
     {
       align: "center",
       headerAlign: "center",
-      headerName: "Сумма последнего платежа",
+      headerName: "Последний платежа",
+      description: "Последний зарег. платеж из контакта",
       field: "lastPayment",
       width: 150,
       type: "number",
+      valueGetter: (params) => params.row.lastPayment || null,
+    },
+    {
+      align: "center",
+      headerAlign: "center",
+      headerName: "Дата посл.платежа",
+      field: "lastPaymentDate",
+      type: "date",
+      editable: false,
     },
     {
       align: "center",
@@ -175,6 +186,7 @@ export default function getColumns(
       field: "sumAfterAgr",
       width: 150,
       type: "number",
+      valueGetter: (params) => params.row.sumAfterAgr || null,
     },
     {
       align: "center",
