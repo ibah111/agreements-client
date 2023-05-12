@@ -20,9 +20,5 @@ export default function useTable(agreementId: number) {
     refresh();
   }, [refresh]);
 
-  React.useEffect(() => {
-    console.log(debts);
-  }, [debts]);
-
   return { rows: debts, refresh, loading, columns };
 }

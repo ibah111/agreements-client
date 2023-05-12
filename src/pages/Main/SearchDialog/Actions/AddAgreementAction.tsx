@@ -21,10 +21,6 @@ export default function AddAgreementAction({
     setPerson(debt.Person!);
     setOpen(true);
   }, [debt, dispatch, setOpen, setPerson]);
-  React.useEffect(() => {
-    console.log("update");
-  }, [debt, dispatch, setOpen, setPerson]);
-
   return (
     <>
       <Button variant="contained" onClick={handleClick}>

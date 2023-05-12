@@ -178,6 +178,7 @@ export default function getColumns(
       field: "lastPaymentDate",
       type: "date",
       editable: false,
+      valueGetter: (params) => params.row.lastPaymentDate,
     },
     {
       align: "center",

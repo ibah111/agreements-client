@@ -1,4 +1,5 @@
 import { Box, Button, Grid } from "@mui/material";
+import { DataGridPremium } from "@mui/x-data-grid-premium";
 
 export default function ActionLog() {
   return (
@@ -7,6 +8,9 @@ export default function ActionLog() {
         <Button LinkComponent={"a"} href="/" variant="contained">
           Назад
         </Button>
+      </Grid>
+      <Grid>
+        <DataGridPremium columns={[]} rows={[]}></DataGridPremium>
       </Grid>
     </Box>
   );

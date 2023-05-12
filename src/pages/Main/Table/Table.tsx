@@ -21,9 +21,7 @@ export default function AgreementTable() {
   const refresh = React.useCallback(() => {
     setLoading(true);
     getAgreements().subscribe((res) => {
-      console.log(res);
       const classData = plainToInstance(AgreementInstance, res);
-      console.log(classData);
       setAgreements(classData);
       setLoading(false);
     });

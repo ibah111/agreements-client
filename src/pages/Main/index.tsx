@@ -21,11 +21,6 @@ export default function Main() {
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" component={Link} to={"/DeletedData"}>
-              Удаленные данные
-            </Button>
-          </Grid>
-          <Grid item>
             <SwitchTheme />
           </Grid>
         </Grid>

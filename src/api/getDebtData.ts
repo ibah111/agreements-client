@@ -14,7 +14,6 @@ export async function getDebtPerson(id: number) {
 export async function getPersonDebts(personId: number) {
   try {
     const res = await baseRequest.get<Debt[]>(`/Debt/Person/${personId}`);
-    console.log();
     return res.data;
   } catch (e) {
     processError(e);
