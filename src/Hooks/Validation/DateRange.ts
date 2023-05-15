@@ -20,11 +20,17 @@ export class DateRangeConstructor implements ValidatorConstraintInterface {
     let valid = false;
     if (options.minDate) {
       if (options.minDate.isBefore(value)) valid = true;
-      else return false;
+      else {
+        args.constraints[1] = "minDate";
+        return false;
+      }
     }
     if (options.maxDate) {
       if (options.maxDate.isAfter(value)) valid = true;
-      else return false;
+      else {
+        args.constraints[1] = "maxDate";
+        return false;
+      }
     }
     return valid;
   }
