@@ -10,7 +10,7 @@ import { baseRequest } from "../../utils/baseRequest";
 export default function getAvailableDebts(id_agreement: number) {
   return new Observable<Debt[]>((subscriber) => {
     baseRequest
-      .post<Debt[]>("/AgreementToDebtConnection/getAllowedDebts", {
+      .post<Debt[]>("/AgreementToDebt/getAllowedDebts", {
         id_agreement,
       })
       .then(createNextDefault(subscriber))

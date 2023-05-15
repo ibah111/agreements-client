@@ -10,7 +10,7 @@ import { baseRequest } from "../../utils/baseRequest";
 export default function getLinkedDebts(id_agreement: number) {
   return new Observable<Debt[]>((subscriber) => {
     baseRequest
-      .get<Debt[]>(`/AgreementToDebtConnection/${id_agreement}`)
+      .get<Debt[]>(`/AgreementToDebt/${id_agreement}`)
       .then(createNextDefault(subscriber))
       .catch(createError(subscriber));
   }).pipe(createRetry());

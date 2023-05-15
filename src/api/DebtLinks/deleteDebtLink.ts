@@ -9,7 +9,7 @@ import {
 export default function deleteDebtLink(id_agreement: number, id_debt: number) {
   return new Observable<void>((subscriber) => {
     baseRequest
-      .delete<void>("/AgreementToDebtConnection", {
+      .delete<void>("/AgreementToDebt", {
         data: { id_agreement, id_debt },
       })
       .then(createNextDefault(subscriber))

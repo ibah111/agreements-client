@@ -9,7 +9,7 @@ import { baseRequest } from "../../utils/baseRequest";
 export default function addDebtLink(id_agreement: number, id_debt: number) {
   return new Observable<void>((subscriber) => {
     baseRequest
-      .post<void>("/AgreementToDebtConnection", {
+      .post<void>("/AgreementToDebt", {
         id_agreement,
         id_debt,
       })
