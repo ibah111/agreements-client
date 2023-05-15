@@ -13,7 +13,10 @@ export default function Discount() {
         type="number"
         onChange={(event) =>
           dispatch(
-            setAgreementProperty(["discount_sum", Number(event.target.value)])
+            setAgreementProperty([
+              "discount_sum",
+              event.target.value ? Number(event.target.value) : "",
+            ])
           )
         }
         InputProps={{
