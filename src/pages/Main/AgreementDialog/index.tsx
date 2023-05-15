@@ -17,8 +17,8 @@ import Discount from "./Form/Discount";
 import Comment from "./Form/Comment";
 import TaskLink from "./Form/TaskLink";
 import RegDoc from "./Form/RegDoc";
-import ContactID from "./DisableForm/ContactID";
-import ContactFIO from "./DisableForm/ContactFIO";
+import PersonID from "./DisableForm/PersonID";
+import PersonFIO from "./DisableForm/PersonFIO";
 import BirthDate from "./DisableForm/BirthDate";
 import { Person } from "@contact/models";
 import ConclusionDate from "./Form/ConclusionDate";
@@ -59,8 +59,8 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <DialogContent sx={{ flexGrow: 1 }}>
           <DialogTitle alignSelf={"center"}>Контакт базовые данные</DialogTitle>
           <Grid item container spacing={1}>
-            <ContactID person={props.person} />
-            <ContactFIO person={props.person} />
+            <PersonID person={props.person} />
+            <PersonFIO person={props.person} />
             <BirthDate person={props.person} />
           </Grid>
         </DialogContent>
