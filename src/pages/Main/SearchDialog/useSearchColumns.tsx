@@ -28,10 +28,21 @@ export default function useSearchColumns(
       },
       {
         field: "debt_dt",
-        headerName: "Дата",
+        headerName: "Дата загрузки долга",
         type: "date",
         valueGetter: (params) => {
           return params.row.debt_dt.toDate();
+        },
+      },
+      {
+        field: "name",
+        headerName: "Название продукта",
+      },
+      {
+        field: "status",
+        headerName: "Статус долга",
+        valueGetter: (params) => {
+          return params.row?.StatusDict?.name;
         },
       },
       {
