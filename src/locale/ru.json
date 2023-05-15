@@ -9,7 +9,8 @@
       "isEmail": "Введеное значение не является почтой",
       "isValidMoment": "Дата занесена не правильно",
       "IsPositive": "Значение должно быть больше нуля",
-      "dateRange": "Дата не верна",
+      "DateRangeBeforeMin": "Дата должна быть минимум с {{minDate}}",
+      "DateRangeAfterMax": "Дата должна быть до {{maxDate}}",
       "purpose": "Выберите назначение"
     }
   },

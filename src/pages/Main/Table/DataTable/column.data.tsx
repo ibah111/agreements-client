@@ -178,7 +178,8 @@ export default function getColumns(
       field: "lastPaymentDate",
       type: "date",
       editable: false,
-      valueGetter: (params) => params.row.lastPaymentDate,
+      width: 250,
+      valueGetter: (params) => params.row.lastPaymentDate?.toDate() || null,
     },
     {
       align: "center",
@@ -205,6 +206,7 @@ export default function getColumns(
       align: "center",
       headerAlign: "center",
       headerName: "Дата получения листа",
+      editable: true,
     },
     {
       align: "center",
@@ -214,14 +216,6 @@ export default function getColumns(
       width: 150,
       editable: true,
       type: "string",
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "ФИО поручителя",
-      field: "debt_guarantor", // debt <- parent_id <- debt_guarantor
-      width: 150,
-      type: "number",
     },
     {
       headerAlign: "center",

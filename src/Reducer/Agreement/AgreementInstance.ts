@@ -24,8 +24,8 @@ export class AgreementInstance implements AgreementData {
    * Дата заключения
    */
   @DateRange({
-    minDate: moment().year(2001),
-    maxDate: moment().day(0).month(0).add(1, "m"),
+    minDate: moment("2001"),
+    maxDate: moment().add(1, "m"),
   })
   @IsValidMoment()
   @IsNotEmpty()
@@ -51,11 +51,13 @@ export class AgreementInstance implements AgreementData {
    * Сумма задолженности по пересчету
    */
   @IsPositive()
+  @IsOptional()
   recalculation_sum: number;
   /**
    * Дисконт
    */
   @IsPositive()
+  @IsOptional()
   discount_sum: number;
   /**
    * Число платежа каждого месяца
@@ -81,8 +83,8 @@ export class AgreementInstance implements AgreementData {
    * Дата листа
    */
   @DateRange({
-    minDate: moment().day(0).month(0).year(2001),
-    maxDate: moment().day(0).month(0).add(1, "m"),
+    minDate: moment("2001"),
+    maxDate: moment().add(1, "m"),
   })
   @IsValidMoment()
   @IsOptional()
@@ -99,8 +101,8 @@ export class AgreementInstance implements AgreementData {
    * Дата завершения
    */
   @DateRange({
-    minDate: moment().day(0).month(0).year(2001),
-    maxDate: moment().day(0).month(0).add(1, "m"),
+    minDate: moment("2001"),
+    maxDate: moment().add(1, "m"),
   })
   @IsValidMoment()
   @IsOptional()
@@ -111,6 +113,10 @@ export class AgreementInstance implements AgreementData {
   Person?: Person;
   firstPayment: number | null;
   lastPayment: number | null;
-  lastPaymentDate: Date;
+  @IsValidMoment()
+  @IsOptional()
+  @DateType(false)
+  @TransformDate(false)
+  lastPaymentDate?: moment.Moment;
   sumAfterAgr: number | null;
 }

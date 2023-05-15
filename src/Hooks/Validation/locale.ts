@@ -11,6 +11,7 @@ import {
 import ValidatorJS from "validator";
 import { IsValidMoment as IsValidMomentOrigin } from "./IsValidMoment";
 import { DateRange as DateRangeOrigin, DateRangeOptions } from "./DateRange";
+import { TranslateMessage } from "./checker";
 
 export const IsPositive = (validationOptions?: ValidationOptions) =>
   IsPositiveOrigin({ message: "IsPositive", ...validationOptions });
@@ -62,4 +63,33 @@ export const IsValidMoment = (validationOptions?: ValidationOptions) =>
 export const DateRange = (
   options: DateRangeOptions,
   validationOptions?: ValidationOptions
-) => DateRangeOrigin(options, { message: "dateRange", ...validationOptions });
+) =>
+  DateRangeOrigin(options, {
+    message: (args) => {
+      const result = args.constraints[1];
+      let message: TranslateMessage | null = null;
+      switch (result) {
+        case "invalidOptions":
+          message = { name: "DateRangeOptionsInvalid", options: {} };
+          break;
+        case "maxDate":
+          message = {
+            name: "DateRangeAfterMax",
+            options: {
+              maxDate: options?.maxDate?.format("DD.MM.YYYY") || null,
+            },
+          };
+          break;
+        case "minDate":
+          message = {
+            name: "DateRangeBeforeMin",
+            options: {
+              minDate: options?.minDate?.format("DD.MM.YYYY") || null,
+            },
+          };
+          break;
+      }
+      return JSON.stringify(message);
+    },
+    ...validationOptions,
+  });

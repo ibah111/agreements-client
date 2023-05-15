@@ -102,9 +102,10 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             sx={{ width: "100", alignSelf: "center" }}
             fullWidth
             onClick={async () => {
-              await createAgreement(agreement);
-              enqueueSnackbar("Успешно создано", { variant: "success" });
-              handleFullClose();
+              createAgreement(agreement).subscribe(() => {
+                enqueueSnackbar("Успешно создано", { variant: "success" });
+                handleFullClose();
+              });
             }}
           >
             Создать

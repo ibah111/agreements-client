@@ -16,7 +16,7 @@ export const debtColumns: GridColDef<Debt>[] = [
     // ? person key
     align: "center",
     headerAlign: "center",
-    headerName: "id Персоны🌞",
+    headerName: "id человека",
     field: "parent_id",
     width: 100,
     type: "number",
