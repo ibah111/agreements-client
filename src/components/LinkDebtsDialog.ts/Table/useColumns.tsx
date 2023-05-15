@@ -19,7 +19,7 @@ export default function useColumns(agreementId: number, refresh: VoidFunction) {
         // ? person key
         align: "center",
         headerAlign: "center",
-        headerName: "id Персоны🌞",
+        headerName: "ID должника",
         field: "parent_id",
         width: 100,
         type: "number",
@@ -44,7 +44,7 @@ export default function useColumns(agreementId: number, refresh: VoidFunction) {
         headerAlign: "center",
         width: 200,
         field: "Delete",
-        headerName: "Удалить свяязь",
+        headerName: "Удалить связь",
         description: "Удалить",
         type: "actions",
         getActions: (params) => [
