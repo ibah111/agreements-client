@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 i18next
   .use(
     resourcesToBackend((language, _, callback) => {
-      import(`./${language}.json`)
+      import(`./ru.json`)
         .then((resources) => {
           callback(null, resources);
         })

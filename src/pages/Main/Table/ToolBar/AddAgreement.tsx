@@ -7,7 +7,13 @@ interface AddAgreementProps {
 
 export default function AddAgreement(props: AddAgreementProps) {
   return (
-    <Button startIcon={<Add />} size="small" onClick={props.handleOpen}>
+    <Button
+      startIcon={<Add />}
+      size="small"
+      variant="contained"
+      onClick={props.handleOpen}
+      color="primary"
+    >
       Создать соглашение
     </Button>
   );

@@ -1,5 +1,9 @@
 import { Grid, Typography } from "@mui/material";
-import { DataGridPremium, GridPinnedColumns } from "@mui/x-data-grid-premium";
+import {
+  DataGridPremium,
+  GridPinnedColumns,
+  GRID_CHECKBOX_SELECTION_COL_DEF,
+} from "@mui/x-data-grid-premium";
 import { plainToInstance } from "class-transformer";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
@@ -54,6 +58,7 @@ export default function AgreementTable() {
 
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     left: [
+      GRID_CHECKBOX_SELECTION_COL_DEF.field,
       "id",
       "personId",
       "FIO",
@@ -70,7 +75,10 @@ export default function AgreementTable() {
     },
     []
   );
-
+  const [paginationModel, setPaginationModel] = React.useState({
+    page: 0,
+    pageSize: 25,
+  });
   return (
     <Grid item container xs direction={"column"}>
       <Grid item style={{ margin: "3px" }}>
@@ -78,6 +86,9 @@ export default function AgreementTable() {
       </Grid>
       <Grid item xs style={{ height: 400, width: "100%" }}>
         <DataGridPremium
+          keepNonExistentRowsSelected
+          checkboxSelection
+          disableRowSelectionOnClick
           loading={loading}
           slots={{ toolbar: AgreementTableToolbar }}
           slotProps={{
@@ -85,6 +96,7 @@ export default function AgreementTable() {
           }}
           columns={columns}
           rows={agreements}
+          rowCount={100}
           processRowUpdate={async (
             oldData: AgreementInstance,
             newData: AgreementInstance
@@ -95,6 +107,21 @@ export default function AgreementTable() {
           }}
           pinnedColumns={pinnedColumns}
           onPinnedColumnsChange={handlePinnedColumnsChange}
+          onRowSelectionModelChange={(selectedArray) => {
+            selectedArray.sort();
+            enqueueSnackbar(`Выбран строка(и): ${selectedArray}`, {
+              variant: "info",
+              autoHideDuration: 850,
+            });
+          }}
+          hideFooterSelectedRowCount
+          disableAggregation // убрал ненужные функции
+          disableRowGrouping // убрал ненужные функции
+          // пагинация = https://mui.com/x/react-data-grid/row-selection/#usage-with-server-side-pagination
+          pagination
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          paginationMode="server"
         />
       </Grid>
       {open && <SearchDialog open={open} onClose={handleClose} />}

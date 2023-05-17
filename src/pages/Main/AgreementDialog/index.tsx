@@ -16,7 +16,6 @@ import RecalculationSum from "./Form/RecalculationSum";
 import Discount from "./Form/Discount";
 import Comment from "./Form/Comment";
 import TaskLink from "./Form/TaskLink";
-import RegDoc from "./Form/RegDoc";
 import PersonID from "./DisableForm/PersonID";
 import PersonFIO from "./DisableForm/PersonFIO";
 import BirthDate from "./DisableForm/BirthDate";
@@ -81,7 +80,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <MonthPerDay />
             <Comment />
             <TaskLink />
-            <RegDoc />
             <ActionsForGet />
             <ReceiptDt />
           </Grid>

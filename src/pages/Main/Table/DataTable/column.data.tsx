@@ -70,6 +70,12 @@ export default function getColumns(
       valueGetter: (params) => params.row.Person?.fio || "",
     },
     {
+      headerName: "Статус",
+      headerAlign: "center",
+      field: "status",
+      width: 100,
+    },
+    {
       headerName: "Назначение",
       align: "center",
       headerAlign: "center",

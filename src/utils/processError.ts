@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from "axios";
 import { enqueueSnackbar } from "notistack";
-import callMessage from "./callMessage";
 import { Observable, retry, Subscriber } from "rxjs";
 import { ValidationError } from "class-validator";
 import { TranslateMessage } from "../Hooks/Validation/checker";
 import { store } from "../Reducer";
 import { addMessage } from "../Reducer/Message";
+import { t } from "i18next";
 
 function objectKeys<T extends {}>(obj: T) {
   return Object.keys(obj) as Array<keyof T>;
@@ -28,7 +28,6 @@ export default function processError(e: unknown, name?: string) {
         if (errorMessage.startsWith("{")) {
           const JsonMessage = JSON.parse(errorMessage) as TranslateMessage;
           errorName = JsonMessage.name;
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           options = JsonMessage.options;
         } else {
           errorName = errorMessage;
@@ -36,7 +35,14 @@ export default function processError(e: unknown, name?: string) {
         //доделать ошибку при невведенных данных
         store.dispatch(
           addMessage({
-            message: `Ошибка: ${errorName}`,
+            message: t(
+              `form${name ? `.${name}.errors_popup` : ".errors"}.${errorName}`,
+              {
+                property: error.property,
+                value: error.property,
+                ...options,
+              }
+            ),
             options: { variant: "error" },
           })
         );
@@ -46,17 +52,15 @@ export default function processError(e: unknown, name?: string) {
 
   if (axios.isAxiosError(e)) {
     if (e.response) {
-      callMessage(e.response.data?.message || "Неизвестная ошибка", {
-        variant: "error",
-      });
       return enqueueSnackbar(`${e.message}`, {
         variant: "error",
       });
     }
   }
+  return e;
 }
-export function createError<T>(subscriber: Subscriber<T>) {
-  return async (e: unknown) => subscriber.error(processError(e));
+export function createError<T>(subscriber: Subscriber<T>, name?: string) {
+  return async (e: unknown) => subscriber.error(processError(e, name));
 }
 export function createNextDefault<T>(subscriber: Subscriber<T>) {
   return (res: AxiosResponse<T>) => {

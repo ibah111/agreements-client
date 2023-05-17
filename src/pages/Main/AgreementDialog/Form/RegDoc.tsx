@@ -1,10 +1,6 @@
-import { Grid, FormControlLabel, Checkbox } from "@mui/material";
-import { useAppSelector, useAppDispatch } from "../../../../Reducer";
-import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
+import { Grid } from "@mui/material";
 
 export default function RegDoc() {
-  const agreement = useAppSelector((state) => state.Agreement);
-  const dispatch = useAppDispatch();
   return (
     <Grid
       xs={2}
@@ -15,7 +11,7 @@ export default function RegDoc() {
         justifyContent: "center",
       }}
     >
-      <FormControlLabel
+      {/* <FormControlLabel
         label="ИД"
         control={
           <Checkbox
@@ -25,7 +21,10 @@ export default function RegDoc() {
             }
           />
         }
-      />
+      /> */}
     </Grid>
   );
 }
+// Наличие ИД на исполнении
+// Наличие ИД в регистраторе
+// Наличие ИД в архиве

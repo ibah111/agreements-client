@@ -16,6 +16,7 @@ interface SearchDialogProps {
 export default function SearchDialog(props: SearchDialogProps) {
   const [open, setOpen] = React.useState(false);
   const [person, setPerson] = React.useState<Person>({} as Person);
+
   const dispatch = useAppDispatch();
 
   const { loading, refresh, rows, columns } = useSearchTable(
@@ -38,7 +39,7 @@ export default function SearchDialog(props: SearchDialogProps) {
         open={props.open}
         onClose={handleFullClose}
         fullWidth
-        maxWidth="md"
+        maxWidth="lg"
       >
         <DialogTitle>Форма поиска</DialogTitle>
         <DialogContent>

@@ -10,8 +10,25 @@
       "isValidMoment": "Дата занесена не правильно",
       "IsPositive": "Значение должно быть больше нуля",
       "DateRangeBeforeMin": "Дата должна быть минимум с {{minDate}}",
-      "DateRangeAfterMax": "Дата должна быть до {{maxDate}}",
-      "purpose": "Выберите назначение"
+      "DateRangeAfterMax": "Дата должна быть до {{maxDate}}"
+    },
+    "Agreement": {
+      "debt_sum": "Сумма долга",
+      "month_pay_day": "Число платежа",
+      "purpose": "Назначение",
+      "court_sum": "Судебная сумма",
+      "conclusuion_date": "Дата заключения",
+      "errors_popup": {
+        "length>=": "В поле \"$t(form.Agreement.{{property}})\" должно быть больше или равно {{constraint1}}",
+        "length<=": "В поле \"$t(form.Agreement.{{property}})\" должно быть меньше или равно {{constraint2}}",
+        "length<>": "В поле \"$t(form.Agreement.{{property}})\" должно быть между {{constraint1}} и {{constraint2}}",
+        "isNotEmpty": "Поле \"$t(form.Agreement.{{property}})\" должно быть заполнено",
+        "isEmail": "В поле \"$t(form.Agreement.{{property}})\" введена не почта",
+        "isValidMoment": "Дата в поле \"$t(form.Agreement.{{property}})\" занесена не правильно",
+        "IsPositive": "Поле \"$t(form.Agreement.{{property}})\" должно быть больше нуля",
+        "DateRangeBeforeMin": "Дата в поле \"$t(form.Agreement.{{property}})\" должна быть минимум с {{minDate}}",
+        "DateRangeAfterMax": "Дата в поле \"$t(form.Agreement.{{property}})\" должна быть до {{maxDate}}"
+      }
     }
   },
   "system": {

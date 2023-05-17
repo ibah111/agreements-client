@@ -9,8 +9,8 @@ interface FormProps {
 export default function Form(props: FormProps) {
   return (
     <>
-      <FIO />
-      <KD />
+      <FIO refresh={props.refresh} />
+      <KD refresh={props.refresh} />
       <SubmitButton refresh={props.refresh} />
     </>
   );

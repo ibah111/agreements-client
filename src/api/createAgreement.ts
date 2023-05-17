@@ -17,6 +17,8 @@ async function create(value: AgreementInstance) {
 
 export default function createAgreement(data: AgreementInstance) {
   return new Observable((sub) => {
-    create(data).then(createNextDefault(sub)).catch(createError(sub));
+    create(data)
+      .then(createNextDefault(sub))
+      .catch(createError(sub, "Agreement"));
   });
 }
