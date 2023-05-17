@@ -1,10 +1,13 @@
 import { Grid, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../Reducer";
 import { setSearchValue } from "../../../../Reducer/Search";
-
-export default function FIO() {
+interface FIOprops {
+  refresh: VoidFunction;
+}
+export default function FIO(props: FIOprops) {
   const value = useAppSelector((state) => state.Search.fio);
   const dispatch = useAppDispatch();
+
   return (
     <Grid item xs={5}>
       <TextField
@@ -15,6 +18,12 @@ export default function FIO() {
         value={value}
         onChange={(event) => {
           dispatch(setSearchValue(["fio", event.target.value]));
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            dispatch(setSearchValue(["fio", value]));
+            props.refresh();
+          }
         }}
       />
     </Grid>
