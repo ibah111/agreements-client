@@ -5,14 +5,16 @@ import {
   GridToolbarDensitySelector,
   GridToolbarExport,
 } from "@mui/x-data-grid-premium";
-import React from "react";
 import RefreshToolbarButton from "../../../../components/Utils/RefreshToolbarButton";
+import { AuthUserSuccess } from "../../../../Schemas/Auth";
+
 import AddAgreement from "./AddAgreement";
 import DeleteRowButton from "./DeleteRowButton";
 
 interface AgreementTableToolbarProps {
   refresh: VoidFunction;
   handleOpen: VoidFunction;
+  logedRole: AuthUserSuccess;
 }
 
 export default function AgreementTableToolbar(

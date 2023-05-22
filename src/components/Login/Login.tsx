@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "../../Reducer";
 import { setUser } from "../../Reducer/User";
 import { baseRequest } from "../../utils/baseRequest";
 import getToken from "../../api/getToken";
+import { createUserAbility } from "../../casl/casl.factory";
+import { CaslContext } from "../../casl/casl";
 const connect = async (
   callback: (value: AuthUserSuccess) => void,
   setError: (value: string | null) => void
@@ -34,18 +36,27 @@ export function Login({ children }: LoginProps) {
   const loged = useAppSelector((state) => state.User.login_result);
   const dispatch = useAppDispatch();
   const [message, setMessage] = React.useState<string | null>(null);
+  const [ability, setAbility] = React.useState(createUserAbility());
   React.useEffect(() => {
     if (!loged) {
       connect(
         (value) => {
           dispatch(setUser(value));
+          console.log("Connect", value);
+          setAbility(createUserAbility(value));
         },
         (message) => setMessage(message)
       );
     }
   }, [loged, dispatch]);
   return (
-    <>{loged ? children : <NotLoged message={message ? message : ""} />}</>
+    <>
+      {loged ? (
+        <CaslContext.Provider value={ability}>{children}</CaslContext.Provider>
+      ) : (
+        <NotLoged message={message ? message : ""} />
+      )}
+    </>
   );
 }
 Login.propTypes = {

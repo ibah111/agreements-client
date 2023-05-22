@@ -24,7 +24,7 @@ export default function useSearchColumns(
         field: "debt_sum",
         headerName: "Сумма долга",
         type: "number",
-        //valueFormatter: (params) => `${params.value}₽`,
+        valueFormatter: (params) => `${params.value}₽`,
       },
       {
         field: "debt_dt",

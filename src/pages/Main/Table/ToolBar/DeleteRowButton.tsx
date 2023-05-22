@@ -5,6 +5,8 @@ import deleteSelectedAgreements from "../../../../api/deleteSelectedAgreement";
 import { useGridApiContext, useGridSelector } from "@mui/x-data-grid-premium";
 import { GridStatePremium } from "@mui/x-data-grid-premium/models/gridStatePremium";
 import callMessage from "../../../../utils/callMessage";
+import { Action, Subject } from "../../../../casl/casl.factory";
+import { Can } from "../../../../casl/casl";
 interface DeleteRowButtonProps {
   refresh: VoidFunction;
 }
@@ -26,14 +28,16 @@ export default function DeleteRowButton(props: DeleteRowButtonProps) {
     }
   };
   return (
-    <Button
-      startIcon={<DeleteIcon />}
-      size="small"
-      onClick={handleClick}
-      variant="contained"
-      color="error"
-    >
-      Удалить строки
-    </Button>
+    <Can I={Action.Delete} a={Subject.Agreement}>
+      <Button
+        startIcon={<DeleteIcon />}
+        size="small"
+        onClick={handleClick}
+        variant="contained"
+        color="error"
+      >
+        Удалить строки
+      </Button>
+    </Can>
   );
 }

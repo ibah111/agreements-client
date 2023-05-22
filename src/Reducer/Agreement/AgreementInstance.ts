@@ -9,7 +9,7 @@ import { AgreementData } from "./Agreement";
 import { DateType } from "../Utils/DateType";
 import { TransformDate } from "../Utils/TransformDate";
 import moment from "moment";
-import { Person } from "@contact/models";
+import { Debt, Person } from "@contact/models";
 
 export class AgreementInstance implements AgreementData {
   @IsNumber()
@@ -68,7 +68,7 @@ export class AgreementInstance implements AgreementData {
    * Наличие ИД в регистраторе
    */
   @IsOptional()
-  reg_doc: boolean;
+  new_regDoc: number;
   /**
    * Комментарии
    */
@@ -111,6 +111,8 @@ export class AgreementInstance implements AgreementData {
   finish_date: moment.Moment;
 
   Person?: Person;
+  Debt?: Debt;
+
   firstPayment: number | null;
   lastPayment: number | null;
   @IsValidMoment()
