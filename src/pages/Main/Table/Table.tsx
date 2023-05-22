@@ -11,6 +11,7 @@ import { lastValueFrom } from "rxjs";
 import editAgremeent from "../../../api/editAgreement";
 import getAgreements from "../../../api/getAgreement";
 import getPurposes from "../../../api/getPurpose";
+import getRegDoc from "../../../api/getRegDocType";
 import LinkDebtsDialog from "../../../components/LinkDebtsDialog.ts";
 import useLinkDebtsControl from "../../../components/LinkDebtsDialog.ts/useLinkDebtsControl";
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
@@ -31,6 +32,7 @@ export default function AgreementTable() {
     });
   }, []);
   const purposes = useAsyncMemo(getPurposes, []);
+  const regDoc = useAsyncMemo(getRegDoc, []);
 
   React.useEffect(() => {
     refresh();
@@ -52,8 +54,8 @@ export default function AgreementTable() {
   });
 
   const columns = React.useMemo(
-    () => getColumns(refresh, purposes!, linkDialogControl.openDialog),
-    [refresh, purposes, linkDialogControl.openDialog]
+    () => getColumns(refresh, purposes!, regDoc!, linkDialogControl.openDialog),
+    [refresh, purposes, regDoc, linkDialogControl.openDialog]
   );
 
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({

@@ -7,6 +7,9 @@ import { enqueueSnackbar } from "notistack";
 import AddIcon from "@mui/icons-material/Add";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 import { dateColumnType } from "../../../../utils/DateCol";
+import { RegDoc } from "../../../../api/getRegDocType";
+import { Can } from "../../../../casl/casl";
+import { Action, Subject } from "../../../../casl/casl.factory";
 
 interface RenderLinkProps {
   value: string;
@@ -26,6 +29,7 @@ function RenderLink({ value }: RenderLinkProps) {
 export default function getColumns(
   refresh: () => void,
   purposes?: Purpose[],
+  regDoc?: RegDoc[],
   open?: (agreementId: number) => void
 ) {
   const columns: GridColDef<AgreementInstance>[] = [
@@ -69,12 +73,7 @@ export default function getColumns(
       type: "string",
       valueGetter: (params) => params.row.Person?.fio || "",
     },
-    {
-      headerName: "Статус",
-      headerAlign: "center",
-      field: "status",
-      width: 100,
-    },
+
     {
       headerName: "Назначение",
       align: "center",
@@ -200,9 +199,14 @@ export default function getColumns(
       align: "center",
       headerAlign: "center",
       headerName: "Наличие ИД",
-      field: "reg_doc",
+      field: "new_regDoc",
       width: 150,
-      type: "boolean",
+      type: "singleSelect",
+      valueOptions:
+        regDoc?.map((item) => ({
+          label: item.title,
+          value: item.id,
+        })) || [],
       editable: true,
     },
     {
@@ -250,23 +254,27 @@ export default function getColumns(
       type: "actions",
       width: 160,
       getActions: (params) => [
-        <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
-          onClick={() => {
-            deleteAgreement(params.row.id).subscribe(() => {
-              refresh();
-              enqueueSnackbar("Удалено", { variant: "warning" });
-            });
-          }}
-        />,
-        <GridActionsCellItem
-          icon={<AddIcon />}
-          label="AddDebt"
-          onClick={() => {
-            open?.(params.row.id);
-          }}
-        />,
+        <Can I={Action.Delete} a={Subject.Agreement}>
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={() => {
+              deleteAgreement(params.row.id).subscribe(() => {
+                refresh();
+                enqueueSnackbar("Удалено", { variant: "warning" });
+              });
+            }}
+          />
+        </Can>,
+        <Can I={Action.Create} a={Subject.AgreementToDebt}>
+          <GridActionsCellItem
+            icon={<AddIcon />}
+            label="AddDebt"
+            onClick={() => {
+              open?.(params.row.id);
+            }}
+          />
+        </Can>,
       ],
     },
   ];

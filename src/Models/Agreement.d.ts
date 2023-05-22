@@ -53,7 +53,7 @@ export class Agreement extends Model<
   /**
    * Наличие ИД в регистраторе
    */
-  reg_doc: CreationOptional<boolean>;
+  reg_doc: number | null;
   /**
    * Комментарии
    */

@@ -28,6 +28,7 @@ import { resetAgreement } from "../../../Reducer/Agreement/Agreement";
 import ActionsForGet from "./Form/ActionsForGet";
 import FinishDate from "./Form/FinishDate";
 import ReceiptDt from "./Form/ReceiptDt";
+import RegDocType from "./Form/RegDoc";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -80,6 +81,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <MonthPerDay />
             <Comment />
             <TaskLink />
+            <RegDocType />
             <ActionsForGet />
             <ReceiptDt />
           </Grid>

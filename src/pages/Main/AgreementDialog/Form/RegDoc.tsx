@@ -1,27 +1,33 @@
-import { Grid } from "@mui/material";
+import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import React from "react";
+import getRegDoc, { RegDoc } from "../../../../api/getRegDocType";
+import useAgreementData from "../../../../Hooks/useAgreementData";
 
-export default function RegDoc() {
+export default function RegDocType() {
+  const [regDoc, setRegDoc] = React.useState<RegDoc[]>([]);
+  React.useEffect(() => {
+    getRegDoc().then((res) => setRegDoc(res));
+  }, []);
+  const data = useAgreementData("new_regDoc");
   return (
-    <Grid
-      xs={2}
-      item
-      sx={{
-        alignItems: "center",
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      {/* <FormControlLabel
-        label="ИД"
-        control={
-          <Checkbox
-            value={agreement.reg_doc || ""}
-            onChange={(event) =>
-              dispatch(setAgreementProperty(["reg_doc", event.target.checked]))
-            }
-          />
-        }
-      /> */}
+    <Grid xs={2} item>
+      <FormControl error={data.error} fullWidth>
+        <InputLabel id="regdoc-label">Наличие ИД</InputLabel>
+        <Select
+          labelId="regdoc-label"
+          label="Наличие ИД"
+          value={data.value}
+          required={data.required}
+          onChange={(event) => data.onChange(Number(event.target.value))}
+        >
+          {regDoc?.map((item) => (
+            <MenuItem key={item.id} value={item.id}>
+              {item.title}
+            </MenuItem>
+          ))}
+        </Select>
+        {}
+      </FormControl>
     </Grid>
   );
 }
