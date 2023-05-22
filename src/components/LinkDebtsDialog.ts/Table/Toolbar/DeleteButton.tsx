@@ -17,7 +17,7 @@ export default function DeleteButton(props: DeleteLinkProps) {
     });
   }, [props]);
   return (
-    <Button variant="contained" onClick={handleClick}>
+    <Button variant="contained" onClick={handleClick} color="error">
       Удалить
     </Button>
   );

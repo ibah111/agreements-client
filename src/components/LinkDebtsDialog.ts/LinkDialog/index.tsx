@@ -71,7 +71,7 @@ export default function LinkDialog(props: LinkDialogProps) {
           >
             {debts.map((debt) => (
               <MenuItem key={debt.id} value={debt.id}>
-                {`КД ${debt.contract}`}
+                {`КД: ${debt.contract}, Коммментарий: ${debt.dsc}, Имя продукта: ${debt.name}, Лиц.счёт: ${debt.account}, Сумма кредита: ${debt.debt_sum}, Полный размер кредита: ${debt.total_sum}`}
               </MenuItem>
             ))}
           </GridSelectField>
