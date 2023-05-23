@@ -110,6 +110,9 @@ export class AgreementInstance implements AgreementData {
   @TransformDate(false)
   finish_date: moment.Moment;
 
+  @IsNotEmpty()
+  statusAgreement: number;
+
   Person?: Person;
   Debt?: Debt;
 

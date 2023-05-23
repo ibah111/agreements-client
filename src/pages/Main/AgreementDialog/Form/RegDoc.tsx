@@ -18,6 +18,7 @@ export default function RegDocType() {
           label="Наличие ИД"
           value={data.value}
           required={data.required}
+          error={data.error}
           onChange={(event) => data.onChange(Number(event.target.value))}
         >
           {regDoc?.map((item) => (

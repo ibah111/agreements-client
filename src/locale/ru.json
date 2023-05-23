@@ -18,6 +18,7 @@
       "purpose": "Назначение",
       "court_sum": "Судебная сумма",
       "conclusuion_date": "Дата заключения",
+      "statusAgreement": "Статус",
       "errors_popup": {
         "length>=": "В поле \"$t(form.Agreement.{{property}})\" должно быть больше или равно {{constraint1}}",
         "length<=": "В поле \"$t(form.Agreement.{{property}})\" должно быть меньше или равно {{constraint2}}",

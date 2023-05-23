@@ -29,6 +29,7 @@ import ActionsForGet from "./Form/ActionsForGet";
 import FinishDate from "./Form/FinishDate";
 import ReceiptDt from "./Form/ReceiptDt";
 import RegDocType from "./Form/RegDoc";
+import StatusAgreementType from "./Form/StatusAgreement";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -84,6 +85,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <RegDocType />
             <ActionsForGet />
             <ReceiptDt />
+            <StatusAgreementType />
           </Grid>
         </DialogContent>
         <Divider />

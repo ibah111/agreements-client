@@ -10,6 +10,7 @@ import { dateColumnType } from "../../../../utils/DateCol";
 import { RegDoc } from "../../../../api/getRegDocType";
 import { Can } from "../../../../casl/casl";
 import { Action, Subject } from "../../../../casl/casl.factory";
+import { StatusAgreement } from "../../../../api/getStatusAgreement";
 
 interface RenderLinkProps {
   value: string;
@@ -30,6 +31,7 @@ export default function getColumns(
   refresh: () => void,
   purposes?: Purpose[],
   regDoc?: RegDoc[],
+  status?: StatusAgreement[],
   open?: (agreementId: number) => void
 ) {
   const columns: GridColDef<AgreementInstance>[] = [
@@ -84,6 +86,20 @@ export default function getColumns(
       type: "singleSelect",
       valueOptions:
         purposes?.map((item) => ({
+          label: item.title,
+          value: item.id,
+        })) || [],
+    },
+    {
+      headerName: "Статус",
+      align: "center",
+      headerAlign: "center",
+      field: "statusAgreement",
+      width: 150,
+      editable: true,
+      type: "singleSelect",
+      valueOptions:
+        status?.map((item) => ({
           label: item.title,
           value: item.id,
         })) || [],

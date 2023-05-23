@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { darken, Grid, lighten, Typography } from "@mui/material";
 import {
   DataGridPremium,
   GridPinnedColumns,
@@ -12,6 +12,7 @@ import editAgremeent from "../../../api/editAgreement";
 import getAgreements from "../../../api/getAgreement";
 import getPurposes from "../../../api/getPurpose";
 import getRegDoc from "../../../api/getRegDocType";
+import getStatusAgreement from "../../../api/getStatusAgreement";
 import LinkDebtsDialog from "../../../components/LinkDebtsDialog.ts";
 import useLinkDebtsControl from "../../../components/LinkDebtsDialog.ts/useLinkDebtsControl";
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
@@ -33,7 +34,7 @@ export default function AgreementTable() {
   }, []);
   const purposes = useAsyncMemo(getPurposes, []);
   const regDoc = useAsyncMemo(getRegDoc, []);
-
+  const status = useAsyncMemo(getStatusAgreement, []);
   React.useEffect(() => {
     refresh();
   }, [refresh]);
@@ -54,8 +55,15 @@ export default function AgreementTable() {
   });
 
   const columns = React.useMemo(
-    () => getColumns(refresh, purposes!, regDoc!, linkDialogControl.openDialog),
-    [refresh, purposes, regDoc, linkDialogControl.openDialog]
+    () =>
+      getColumns(
+        refresh,
+        purposes!,
+        regDoc!,
+        status!,
+        linkDialogControl.openDialog
+      ),
+    [refresh, purposes, status, regDoc, linkDialogControl.openDialog]
   );
 
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
@@ -81,12 +89,138 @@ export default function AgreementTable() {
     page: 0,
     pageSize: 25,
   });
+  const getBackgroundColor = (color: string, mode: string) =>
+    mode === "dark" ? darken(color, 0.7) : lighten(color, 0.7);
+
+  const getHoverBackgroundColor = (color: string, mode: string) =>
+    mode === "dark" ? darken(color, 0.6) : lighten(color, 0.6);
+
+  const getSelectedBackgroundColor = (color: string, mode: string) =>
+    mode === "dark" ? darken(color, 0.5) : lighten(color, 0.5);
+
+  const getSelectedHoverBackgroundColor = (color: string, mode: string) =>
+    mode === "dark" ? darken(color, 0.4) : lighten(color, 0.4);
   return (
     <Grid item container xs direction={"column"}>
       <Grid item style={{ margin: "3px" }}>
         <Typography variant="h5">Таблица соглашений</Typography>
       </Grid>
-      <Grid item xs style={{ height: 400, width: "100%" }}>
+      <Grid
+        item
+        xs
+        style={{
+          height: 400,
+          width: "100%",
+        }}
+        sx={{
+          "& .super-app-theme--1": {
+            backgroundColor: (theme) =>
+              getBackgroundColor(theme.palette.info.main, theme.palette.mode),
+            "&:hover": {
+              backgroundColor: (theme) =>
+                getHoverBackgroundColor(
+                  theme.palette.info.main,
+                  theme.palette.mode
+                ),
+            },
+            "&.Mui-selected": {
+              backgroundColor: (theme) =>
+                getSelectedBackgroundColor(
+                  theme.palette.info.main,
+                  theme.palette.mode
+                ),
+              "&:hover": {
+                backgroundColor: (theme) =>
+                  getSelectedHoverBackgroundColor(
+                    theme.palette.info.main,
+                    theme.palette.mode
+                  ),
+              },
+            },
+          },
+          "& .super-app-theme--2": {
+            backgroundColor: (theme) =>
+              getBackgroundColor(
+                theme.palette.success.main,
+                theme.palette.mode
+              ),
+            "&:hover": {
+              backgroundColor: (theme) =>
+                getHoverBackgroundColor(
+                  theme.palette.success.main,
+                  theme.palette.mode
+                ),
+            },
+            "&.Mui-selected": {
+              backgroundColor: (theme) =>
+                getSelectedBackgroundColor(
+                  theme.palette.success.main,
+                  theme.palette.mode
+                ),
+              "&:hover": {
+                backgroundColor: (theme) =>
+                  getSelectedHoverBackgroundColor(
+                    theme.palette.success.main,
+                    theme.palette.mode
+                  ),
+              },
+            },
+          },
+          "& .super-app-theme--3": {
+            backgroundColor: (theme) =>
+              getBackgroundColor(theme.palette.error.main, theme.palette.mode),
+            "&:hover": {
+              backgroundColor: (theme) =>
+                getHoverBackgroundColor(
+                  theme.palette.error.main,
+                  theme.palette.mode
+                ),
+            },
+            "&.Mui-selected": {
+              backgroundColor: (theme) =>
+                getSelectedBackgroundColor(
+                  theme.palette.error.main,
+                  theme.palette.mode
+                ),
+              "&:hover": {
+                backgroundColor: (theme) =>
+                  getSelectedHoverBackgroundColor(
+                    theme.palette.error.main,
+                    theme.palette.mode
+                  ),
+              },
+            },
+          },
+          "& .super-app-theme--4": {
+            backgroundColor: (theme) =>
+              getBackgroundColor(
+                theme.palette.warning.main,
+                theme.palette.mode
+              ),
+            "&:hover": {
+              backgroundColor: (theme) =>
+                getHoverBackgroundColor(
+                  theme.palette.warning.main,
+                  theme.palette.mode
+                ),
+            },
+            "&.Mui-selected": {
+              backgroundColor: (theme) =>
+                getSelectedBackgroundColor(
+                  theme.palette.warning.main,
+                  theme.palette.mode
+                ),
+              "&:hover": {
+                backgroundColor: (theme) =>
+                  getSelectedHoverBackgroundColor(
+                    theme.palette.warning.main,
+                    theme.palette.mode
+                  ),
+              },
+            },
+          },
+        }}
+      >
         <DataGridPremium
           keepNonExistentRowsSelected
           checkboxSelection
@@ -112,7 +246,7 @@ export default function AgreementTable() {
           onRowSelectionModelChange={(selectedArray) => {
             selectedArray.sort();
             enqueueSnackbar(`Выбран строка(и): ${selectedArray}`, {
-              variant: "info",
+              variant: "success",
               autoHideDuration: 850,
             });
           }}
@@ -124,6 +258,9 @@ export default function AgreementTable() {
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           paginationMode="server"
+          getRowClassName={(params) =>
+            `super-app-theme--${params.row.statusAgreement}`
+          }
         />
       </Grid>
       {open && <SearchDialog open={open} onClose={handleClose} />}

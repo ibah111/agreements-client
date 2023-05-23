@@ -13,9 +13,7 @@ export default function Main() {
           style={{ marginTop: "2px" }}
           alignContent={"center"}
         >
-          <Grid item>
-            <SwitchTheme />
-          </Grid>
+          <SwitchTheme />
         </Grid>
         <AgreementTable />
       </Grid>
