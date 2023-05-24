@@ -2,7 +2,6 @@ import { Debt } from "@contact/models";
 import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
 import { getPersonDebts } from "../../../../api/getDebtData";
-import { debtColumns } from "./Form/DebtDataGrid/DebtColumn";
 
 interface ChooseDebtAgreementProps {
   personId: number;
@@ -22,7 +21,7 @@ export default function ChooseDebtAgreement(props: ChooseDebtAgreementProps) {
 
   return (
     <>
-      <DataGridPremium columns={debtColumns} rows={debts} loading={loading} />
+      <DataGridPremium columns={[]} rows={debts} loading={loading} />
     </>
   );
 }

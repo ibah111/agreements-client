@@ -2,6 +2,7 @@ import { Debt } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
 import React from "react";
 import DeleteButton from "./Toolbar/DeleteButton";
+import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
 
 export default function useColumns(agreementId: number, refresh: VoidFunction) {
   return React.useMemo<GridColDef<Debt>[]>(
@@ -47,8 +48,11 @@ export default function useColumns(agreementId: number, refresh: VoidFunction) {
         headerName: "Название продукта",
       },
       {
+        align: "center",
+        headerAlign: "center",
         field: "status",
         headerName: "Статус долга",
+        width: 150,
         valueGetter: (params) => {
           // ебать я дебил да? я просто не смог вызвать ДИКТы с сервера)))
           if (params.row?.status === 1)
@@ -119,6 +123,18 @@ export default function useColumns(agreementId: number, refresh: VoidFunction) {
         width: 150,
         field: "dsc",
         headerName: "Комментарий",
+      },
+      {
+        align: "center",
+        headerAlign: "center",
+        width: 200,
+        field: "Payments",
+        headerName: "Платежи",
+        description: "Платежи",
+        type: "actions",
+        getActions: (params) => [
+          <PaymentsButton debtId={params.row.id} refresh={refresh} />,
+        ],
       },
       {
         align: "center",

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { plainToInstance } from "class-transformer";
-import Debt from "../../../../../../Models/Debt";
-import { baseRequest } from "../../../../../../utils/baseRequest";
+import Debt from "../../../../../Models/Debt";
+import { baseRequest } from "../../../../../utils/baseRequest";
 
 export default async function DebtRows(data: Debt) {
   try {

@@ -256,6 +256,7 @@ export default function AgreementTable() {
           // пагинация = https://mui.com/x/react-data-grid/row-selection/#usage-with-server-side-pagination
           pagination
           paginationModel={paginationModel}
+          filterMode="server"
           onPaginationModelChange={setPaginationModel}
           paginationMode="server"
           getRowClassName={(params) =>
