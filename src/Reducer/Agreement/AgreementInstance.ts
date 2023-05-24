@@ -123,5 +123,11 @@ export class AgreementInstance implements AgreementData {
   @DateType(false)
   @TransformDate(false)
   lastPaymentDate?: moment.Moment;
+  @IsValidMoment()
+  @IsOptional()
+  @DateType(false)
+  @TransformDate(false)
+  firstPaymentDate?: moment.Moment;
   sumAfterAgr: number | null;
+  sumBeforeAgr: number | null;
 }
