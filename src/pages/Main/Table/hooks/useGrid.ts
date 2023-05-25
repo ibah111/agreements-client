@@ -48,16 +48,16 @@ export function useGrid(
     items: [],
   });
   const [paginationModel, onPaginationModelChange] =
-    React.useState<GridPaginationModel>({ page: 1, pageSize: 25 });
+    React.useState<GridPaginationModel>({ page: 0, pageSize: 25 });
   const [sortModel, onSortModelChange] = React.useState<GridSortModel>([]);
   const refresh = React.useCallback(() => {
     setLoading(true);
-    getAgreements().subscribe((res) => {
+    getAgreements(paginationModel, filterModel).subscribe((res) => {
       const classData = plainToInstance(AgreementInstance, res);
       setRows(classData);
       setLoading(false);
     });
-  }, []);
+  }, [paginationModel, filterModel]);
   const columns = React.useMemo(
     () => getColumns(refresh, purposes, regDoc!, status, DialogTarget),
     [refresh, purposes, regDoc, status, DialogTarget]

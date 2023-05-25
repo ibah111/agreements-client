@@ -218,7 +218,7 @@ export default function getColumns(
       align: "center",
       headerAlign: "center",
       headerName: "Дата посл.платежа",
-      field: "c",
+      field: "lastPaymentDate",
       type: "date",
       editable: false,
       width: 250,

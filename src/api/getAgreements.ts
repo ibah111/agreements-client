@@ -1,3 +1,4 @@
+import { GridFilterModel, GridPaginationModel } from "@mui/x-data-grid-premium";
 import { Observable } from "rxjs";
 import { AgreementInstance } from "../Reducer/Agreement/AgreementInstance";
 import { baseRequest } from "../utils/baseRequest";
@@ -7,10 +8,16 @@ import {
   createRetry,
 } from "../utils/processError";
 
-export default function getAgreements() {
+export default function getAgreements(
+  paginationModel: GridPaginationModel,
+  filterModel: GridFilterModel
+) {
   return new Observable<AgreementInstance[]>((sub) => {
     baseRequest
-      .get<AgreementInstance[]>("/Agreements")
+      .post<AgreementInstance[]>("/Agreements/all", {
+        paginationModel,
+        filterModel,
+      })
       .then(createNextDefault(sub))
       .catch(createError(sub));
   }).pipe(createRetry());
