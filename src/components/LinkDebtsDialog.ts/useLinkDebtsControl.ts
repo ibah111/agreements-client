@@ -1,6 +1,8 @@
 import React from "react";
+import { EventDialog } from "../../pages/Main/Table/Table";
 
 interface UseLinkDebtsControlOptions {
+  DialogTarget: EventTarget;
   onClose?: VoidFunction;
 }
 
@@ -9,11 +11,16 @@ export default function useLinkDebtsControl(
 ) {
   const [open, setOpen] = React.useState<boolean>(false);
   const [personId, setPersonId] = React.useState<number>(0);
-
-  const openDialog = React.useCallback((personId: number) => {
-    setPersonId(personId);
-    setOpen(true);
-  }, []);
+  React.useEffect(() => {
+    const callback = ((e: EventDialog) => {
+      console.log(e);
+      setPersonId(e.value as number);
+      setOpen(true);
+    }) as EventListener;
+    options?.DialogTarget.addEventListener("onOpenDialog", callback);
+    return () =>
+      options?.DialogTarget.removeEventListener("onOpenDialog", callback);
+  }, [options?.DialogTarget]);
 
   const closeDialog = React.useCallback(() => {
     setPersonId(0);
@@ -21,5 +28,5 @@ export default function useLinkDebtsControl(
     options?.onClose?.();
   }, [options]);
 
-  return { open, personId, openDialog, closeDialog };
+  return { open, personId, closeDialog };
 }

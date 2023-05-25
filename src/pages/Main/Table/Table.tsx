@@ -4,12 +4,10 @@ import {
   GridPinnedColumns,
   GRID_CHECKBOX_SELECTION_COL_DEF,
 } from "@mui/x-data-grid-premium";
-import { plainToInstance } from "class-transformer";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
 import { lastValueFrom } from "rxjs";
 import editAgremeent from "../../../api/editAgreement";
-import getAgreements from "../../../api/getAgreement";
 import getPurposes from "../../../api/getPurpose";
 import getRegDoc from "../../../api/getRegDocType";
 import getStatusAgreement from "../../../api/getStatusAgreement";
@@ -18,26 +16,32 @@ import useLinkDebtsControl from "../../../components/LinkDebtsDialog.ts/useLinkD
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import SearchDialog from "../SearchDialog";
-import getColumns from "./DataTable/column.data";
+import { useGrid } from "./hooks/useGrid";
 import AgreementTableToolbar from "./ToolBar/Toolbar";
-
+export class EventDialog extends Event {
+  constructor(type: string, value: string | number | object) {
+    super(type);
+    this.value = value;
+  }
+  value: number | string | object;
+}
 export default function AgreementTable() {
-  const [agreements, setAgreements] = React.useState<AgreementInstance[]>([]);
-  const [loading, setLoading] = React.useState(false);
-  const refresh = React.useCallback(() => {
-    setLoading(true);
-    getAgreements().subscribe((res) => {
-      const classData = plainToInstance(AgreementInstance, res);
-      setAgreements(classData);
-      setLoading(false);
-    });
-  }, []);
   const purposes = useAsyncMemo(getPurposes, []);
   const regDoc = useAsyncMemo(getRegDoc, []);
   const status = useAsyncMemo(getStatusAgreement, []);
-  React.useEffect(() => {
-    refresh();
-  }, [refresh]);
+  const DialogTarget = React.useMemo(() => new EventTarget(), []);
+  const { refresh, ...gridProps } = useGrid(
+    purposes!,
+    regDoc!,
+    status!,
+    DialogTarget
+  );
+  const linkDialogControl = useLinkDebtsControl({
+    DialogTarget,
+    onClose: () => {
+      refresh();
+    },
+  });
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = React.useCallback(() => {
@@ -47,24 +51,6 @@ export default function AgreementTable() {
     refresh();
     setOpen(false);
   }, [refresh]);
-
-  const linkDialogControl = useLinkDebtsControl({
-    onClose: () => {
-      refresh();
-    },
-  });
-
-  const columns = React.useMemo(
-    () =>
-      getColumns(
-        refresh,
-        purposes!,
-        regDoc!,
-        status!,
-        linkDialogControl.openDialog
-      ),
-    [refresh, purposes, status, regDoc, linkDialogControl.openDialog]
-  );
 
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     left: [
@@ -85,10 +71,6 @@ export default function AgreementTable() {
     },
     []
   );
-  const [paginationModel, setPaginationModel] = React.useState({
-    page: 0,
-    pageSize: 25,
-  });
   const getBackgroundColor = (color: string, mode: string) =>
     mode === "dark" ? darken(color, 0.7) : lighten(color, 0.7);
 
@@ -222,16 +204,14 @@ export default function AgreementTable() {
         }}
       >
         <DataGridPremium
+          {...gridProps}
           keepNonExistentRowsSelected
           checkboxSelection
           disableRowSelectionOnClick
-          loading={loading}
           slots={{ toolbar: AgreementTableToolbar }}
           slotProps={{
             toolbar: { refresh, handleOpen },
           }}
-          columns={columns}
-          rows={agreements}
           rowCount={100}
           processRowUpdate={async (
             oldData: AgreementInstance,
@@ -243,21 +223,12 @@ export default function AgreementTable() {
           }}
           pinnedColumns={pinnedColumns}
           onPinnedColumnsChange={handlePinnedColumnsChange}
-          onRowSelectionModelChange={(selectedArray) => {
-            selectedArray.sort();
-            enqueueSnackbar(`Выбран строка(и): ${selectedArray}`, {
-              variant: "success",
-              autoHideDuration: 850,
-            });
-          }}
           hideFooterSelectedRowCount
           disableAggregation // убрал ненужные функции
           disableRowGrouping // убрал ненужные функции
           // пагинация = https://mui.com/x/react-data-grid/row-selection/#usage-with-server-side-pagination
           pagination
-          paginationModel={paginationModel}
           filterMode="server"
-          onPaginationModelChange={setPaginationModel}
           paginationMode="server"
           getRowClassName={(params) =>
             `super-app-theme--${params.row.statusAgreement}`

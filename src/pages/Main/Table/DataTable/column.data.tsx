@@ -11,6 +11,7 @@ import { RegDoc } from "../../../../api/getRegDocType";
 import { Can } from "../../../../casl/casl";
 import { Action, Subject } from "../../../../casl/casl.factory";
 import { StatusAgreement } from "../../../../api/getStatusAgreement";
+import { EventDialog } from "../Table";
 
 interface RenderLinkProps {
   value: string;
@@ -32,7 +33,7 @@ export default function getColumns(
   purposes?: Purpose[],
   regDoc?: RegDoc[],
   status?: StatusAgreement[],
-  open?: (agreementId: number) => void
+  onOpenDialog?: EventTarget
 ) {
   const columns: GridColDef<AgreementInstance>[] = [
     { field: "id", headerName: "ID", width: 50, type: "number" },
@@ -217,7 +218,7 @@ export default function getColumns(
       align: "center",
       headerAlign: "center",
       headerName: "Дата посл.платежа",
-      field: "lastPaymentDate",
+      field: "c",
       type: "date",
       editable: false,
       width: 250,
@@ -308,7 +309,9 @@ export default function getColumns(
             icon={<AddIcon />}
             label="AddDebt"
             onClick={() => {
-              open?.(params.row.id);
+              onOpenDialog?.dispatchEvent(
+                new EventDialog("onOpenDialog", params.row.id)
+              );
             }}
           />
         </Can>,
