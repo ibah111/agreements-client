@@ -8,7 +8,7 @@ import {
 } from "@mui/x-data-grid-premium";
 import { plainToInstance } from "class-transformer";
 import React from "react";
-import getAgreements from "../../../../api/getAgreement";
+import getAgreements from "../../../../api/getAgreements";
 import { Purpose } from "../../../../api/getPurpose";
 import { RegDoc } from "../../../../api/getRegDocType";
 import { StatusAgreement } from "../../../../api/getStatusAgreement";
