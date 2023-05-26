@@ -8,7 +8,7 @@ export default defineConfig({
     legacy({ targets: ["defaults"] }),
     checker({
       typescript: true,
-      eslint: { lintCommand: 'eslint "src/**/*.{ts,tsx}" --fix' },
+      eslint: { lintCommand: 'eslint "src/**/*.{ts,tsx}"' },
     }),
   ],
   server: { port: 3000 },

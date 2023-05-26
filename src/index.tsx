@@ -15,7 +15,6 @@ import { AdapterMoment } from "@mui/x-date-pickers-pro/AdapterMoment";
 import "moment/dist/locale/ru";
 import moment from "moment";
 import "moment-timezone";
-import "moment/locale/ru";
 
 moment.locale("ru");
 moment.tz.setDefault("GMT");
