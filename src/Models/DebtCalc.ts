@@ -1,14 +1,20 @@
 import { DebtCalc } from "@contact/models";
 import { CreationAttributes } from "@sql-tools/sequelize";
 import { IsValidMoment } from "../Hooks/Validation/IsValidMoment";
+import { DateType } from "../Reducer/Utils/DateType";
+import { TransformDate } from "../Reducer/Utils/TransformDate";
 
 export class DebtCalcInstance implements CreationAttributes<DebtCalc> {
   parent_id: number;
   sum: number;
   @IsValidMoment()
+  @DateType(false)
+  @TransformDate(false)
   dt: moment.Moment;
   is_confirmed: number;
   @IsValidMoment()
+  @DateType(false)
+  @TransformDate(false)
   calc_date: moment.Moment;
   int_sum: number;
   id?: number | undefined;
@@ -21,11 +27,17 @@ export class DebtCalcInstance implements CreationAttributes<DebtCalc> {
   r_user_id?: number | null | undefined;
   req_change?: number | null | undefined;
   @IsValidMoment()
+  @DateType(false)
+  @TransformDate(false)
   report_date?: moment.Moment | undefined;
   typ?: number | undefined;
   @IsValidMoment()
+  @DateType(false)
+  @TransformDate(false)
   confirm_dt?: moment.Moment | null | undefined;
   @IsValidMoment()
+  @DateType(false)
+  @TransformDate(false)
   cancel_dt?: moment.Moment | null | undefined;
   invoice_flag?: number | undefined;
   r_req_user_id?: number | null | undefined;
