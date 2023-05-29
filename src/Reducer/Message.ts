@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { PayloadAction } from "@reduxjs/toolkit/dist/createAction";
+import { PayloadAction } from "@reduxjs/toolkit/src/createAction";
 import { OptionsObject } from "notistack";
 interface IMessage {
   message: string;

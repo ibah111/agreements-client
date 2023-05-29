@@ -1,5 +1,6 @@
-import { Debt, DebtCalc } from "@contact/models";
+import { Debt } from "@contact/models";
 import { Observable } from "rxjs";
+import { DebtCalcInstance } from "../Models/DebtCalc";
 import { baseRequest } from "../utils/baseRequest";
 import processError, {
   createError,
@@ -26,10 +27,12 @@ export async function getPersonDebts(personId: number) {
   }
 }
 export async function getDebtPayments(id: number) {
-  return new Observable<DebtCalc[]>((subscriber) => {
+  const res = new Observable<DebtCalcInstance[]>((subscriber) => {
     baseRequest
-      .get<DebtCalc[]>(`/Debt/Payments/${id}`)
+      .get<DebtCalcInstance[]>(`/Debt/Payments/${id}`)
       .then(createNextDefault(subscriber))
       .catch(createError(subscriber));
   }).pipe(createRetry());
+  console.log(res);
+  return res;
 }

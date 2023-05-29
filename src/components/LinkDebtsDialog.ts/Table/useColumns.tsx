@@ -3,6 +3,7 @@ import { GridColDef } from "@mui/x-data-grid-premium";
 import React from "react";
 import DeleteButton from "./Toolbar/DeleteButton";
 import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
+//import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
 
 export default function useColumns(agreementId: number, refresh: VoidFunction) {
   return React.useMemo<GridColDef<Debt>[]>(
@@ -133,7 +134,11 @@ export default function useColumns(agreementId: number, refresh: VoidFunction) {
         description: "Платежи",
         type: "actions",
         getActions: (params) => [
-          <PaymentsButton debtId={params.row.id} refresh={refresh} />,
+          <PaymentsButton
+            debtId={params.row.id}
+            refresh={refresh}
+            onClose={false}
+          />,
         ],
       },
       {

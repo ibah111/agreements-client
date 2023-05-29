@@ -23,7 +23,6 @@ export default function Table(props: TableProps) {
       rows={props.rows}
       loading={props.loading}
       pinnedColumns={pinnedColumns}
-      experimentalFeatures={{ lazyLoading: true }}
     />
   );
 }
