@@ -1,11 +1,12 @@
 import React from "react";
-import { Debt, Person } from "@contact/models";
+import { Person } from "@contact/models";
 import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../../Reducer";
 import { addDebtDataInAgr } from "../../../../Reducer/Agreement/Agreement";
+import DebtInstance from "../../../../Models/Debt";
 
 interface AddAgreementActionProps {
-  debt: Debt;
+  debt: DebtInstance;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setPerson: React.Dispatch<React.SetStateAction<Person>>;
 }

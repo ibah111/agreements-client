@@ -1,13 +1,14 @@
-import { Debt, Person } from "@contact/models";
+import { Person } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
 import React from "react";
+import DebtInstance from "../../../Models/Debt";
 import AddAgreementAction from "./Actions/AddAgreementAction";
 
 export default function useSearchColumns(
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setPerson: React.Dispatch<React.SetStateAction<Person>>
 ) {
-  return React.useMemo<GridColDef<Debt>[]>(
+  return React.useMemo<GridColDef<DebtInstance>[]>(
     () => [
       { field: "id", headerName: "ID", type: "number" },
       { field: "contract", headerName: "КД", width: 120 },

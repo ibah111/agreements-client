@@ -5,7 +5,6 @@ import { DebtCalcInstance } from "../../../../../../Models/DebtCalc";
 import usePaymentsColumns from "./usePaymentsColumns";
 export default function usePayments(debtId: number) {
   const [payments, setPayments] = React.useState<DebtCalcInstance[]>([]);
-  const rows = payments;
   const [loading, setLoading] = React.useState(false);
   const buttonClick = React.useCallback(async () => {
     setLoading(true);
@@ -19,5 +18,5 @@ export default function usePayments(debtId: number) {
     buttonClick();
   }, [buttonClick]);
   const columns = usePaymentsColumns();
-  return { rows, buttonClick, loading, columns };
+  return { rows: payments, buttonClick, loading, columns };
 }

@@ -17,40 +17,40 @@ export class DebtCalcInstance implements CreationAttributes<DebtCalc> {
   @TransformDate(false)
   calc_date: moment.Moment;
   int_sum: number;
-  id?: number | undefined;
-  is_cancel?: number | undefined;
-  r_promise_id?: number | null | undefined;
-  dsc?: string | null | undefined;
-  r_currency_id?: number | undefined;
-  commission?: number | null | undefined;
-  id$?: number | null | undefined;
-  r_user_id?: number | null | undefined;
-  req_change?: number | null | undefined;
+  id?: number;
+  is_cancel?: number;
+  r_promise_id?: number;
+  dsc?: string;
+  r_currency_id?: number;
+  commission?: number;
+  id$?: number;
+  r_user_id?: number;
+  req_change?: number;
   @IsValidMoment()
   @DateType(false)
   @TransformDate(false)
-  report_date?: moment.Moment | undefined;
-  typ?: number | undefined;
+  report_date?: moment.Moment;
+  typ?: number;
   @IsValidMoment()
   @DateType(false)
   @TransformDate(false)
-  confirm_dt?: moment.Moment | null | undefined;
+  confirm_dt?: moment.Moment;
   @IsValidMoment()
   @DateType(false)
   @TransformDate(false)
-  cancel_dt?: moment.Moment | null | undefined;
-  invoice_flag?: number | undefined;
-  r_req_user_id?: number | null | undefined;
-  r_bank_requisites_id?: number | null | undefined;
-  ext_id?: number | null | undefined;
-  payer_name?: string | null | undefined;
-  contract_number?: string | null | undefined;
-  ticket_number?: string | null | undefined;
-  purpose?: number | null | undefined;
-  NUMBER_VALUE_1?: number | null | undefined;
-  NUMBER_VALUE_2?: number | null | undefined;
-  NUMBER_VALUE_3?: number | null | undefined;
-  NUMBER_VALUE_4?: number | null | undefined;
+  cancel_dt?: moment.Moment;
+  invoice_flag?: number;
+  r_req_user_id?: number;
+  r_bank_requisites_id?: number;
+  ext_id?: number;
+  payer_name?: string;
+  contract_number?: string;
+  ticket_number?: string;
+  purpose?: number;
+  NUMBER_VALUE_1?: number;
+  NUMBER_VALUE_2?: number;
+  NUMBER_VALUE_3?: number;
+  NUMBER_VALUE_4?: number;
   createdAt?: any;
   updatedAt?: any;
   deletedAt?: any;

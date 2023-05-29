@@ -1,14 +1,14 @@
-import { Debt } from "@contact/models";
 import {
   DataGridPremium,
   GridColDef,
   GridPinnedColumns,
 } from "@mui/x-data-grid-premium";
 import React from "react";
+import DebtInstance from "../../../../Models/Debt";
 
 interface TableProps {
-  columns: GridColDef<Debt>[];
-  rows: Debt[];
+  columns: GridColDef<DebtInstance>[];
+  rows: DebtInstance[];
   loading: boolean;
 }
 

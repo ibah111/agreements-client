@@ -32,7 +32,6 @@ export default function processError(e: unknown, name?: string) {
         } else {
           errorName = errorMessage;
         }
-        //доделать ошибку при невведенных данных
         store.dispatch(
           addMessage({
             message: t(

@@ -1,4 +1,4 @@
-import { Person } from "@contact/models";
+import { Dict, Person } from "@contact/models";
 import type { GetDate } from "@contact/models";
 import { Type } from "class-transformer";
 import { DateType } from "../Reducer/Utils/DateType";
@@ -17,4 +17,6 @@ export default class DebtInstance {
   Person?: Person;
   @IsNumber()
   debt_id: number; // GET /Debt/{id} // also // GET /Debt/Payments/{id}
+
+  StatusDict?: Dict;
 }

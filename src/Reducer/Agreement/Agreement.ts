@@ -1,8 +1,8 @@
 import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
 import { CreationAttributes } from "@sql-tools/sequelize";
 import { Agreement } from "../../Models/Agreement";
-import { Debt } from "@contact/models";
 import { AgreementInstance } from "./AgreementInstance";
+import DebtInstance from "../../Models/Debt";
 
 export type AgreementData = CreationAttributes<Agreement>;
 
@@ -21,7 +21,7 @@ const AgreementSlice = createSlice({
     ) => {
       state[action.payload[0]] = action.payload[1];
     },
-    addDebtDataInAgr(state, action: PayloadAction<Debt>) {
+    addDebtDataInAgr(state, action: PayloadAction<DebtInstance>) {
       if (action.payload.Person) state.personId = action.payload.Person.id;
     },
     resetAgreement() {
