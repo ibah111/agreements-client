@@ -31,13 +31,10 @@ export default function usePaymentsColumns() {
         type: "number",
       },
       {
-        ...dateColumnType,
-        align: "center",
-        headerAlign: "center",
-        headerName: "Дата платежа",
         field: "dt",
+        ...dateColumnType,
+        headerName: "Дата платежа",
         width: 200,
-        type: "date",
       },
       {
         align: "center",
@@ -45,11 +42,9 @@ export default function usePaymentsColumns() {
         headerName: "Подтверждение",
         field: "is_confirmed",
         width: 250,
-        type: "number",
-        valueGetter: (params) => {
-          if (params.row.is_confirmed === 1) return "Платёж подтвержден";
-          if (params.row.is_confirmed === 0) return "Платёж НЕ подтвержден";
-        },
+        type: "boolean",
+        valueGetter: (params) =>
+          params.row.is_confirmed === 1 && params.row.is_cancel === 0,
       },
     ],
     []

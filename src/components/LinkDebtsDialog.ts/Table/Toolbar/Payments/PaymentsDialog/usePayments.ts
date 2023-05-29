@@ -9,7 +9,7 @@ export default function usePayments(debtId: number) {
   const [loading, setLoading] = React.useState(false);
   const buttonClick = React.useCallback(async () => {
     setLoading(true);
-    (await getDebtPayments(debtId)).subscribe((res) => {
+    getDebtPayments(debtId).subscribe((res) => {
       const calcData = plainToInstance(DebtCalcInstance, res);
       setPayments(calcData);
       setLoading(false);

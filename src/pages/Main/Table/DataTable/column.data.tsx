@@ -9,7 +9,7 @@ import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstan
 import { dateColumnType } from "../../../../utils/DateCol";
 import { RegDoc } from "../../../../api/getRegDocType";
 import { Can } from "../../../../casl/casl";
-import { Action, Subject } from "../../../../casl/casl.factory";
+import { Action, AppAbility, Subject } from "../../../../casl/casl.factory";
 import { StatusAgreement } from "../../../../api/getStatusAgreement";
 import { EventDialog } from "../Table";
 
@@ -30,6 +30,7 @@ function RenderLink({ value }: RenderLinkProps) {
 
 export default function getColumns(
   refresh: () => void,
+  ability: AppAbility,
   purposes?: Purpose[],
   regDoc?: RegDoc[],
   status?: StatusAgreement[],
@@ -44,7 +45,7 @@ export default function getColumns(
       align: "center",
       headerAlign: "center",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
       field: "finish_date",
@@ -53,7 +54,7 @@ export default function getColumns(
       headerAlign: "center",
       headerName: "Дата завершения",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
       headerName: "ID Должника",
@@ -83,7 +84,7 @@ export default function getColumns(
       headerAlign: "center",
       field: "purpose",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
       valueOptions:
         purposes?.map((item) => ({
@@ -97,7 +98,7 @@ export default function getColumns(
       headerAlign: "center",
       field: "statusAgreement",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
       valueOptions:
         status?.map((item) => ({
@@ -111,7 +112,7 @@ export default function getColumns(
       headerAlign: "center",
       field: "court_sum",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
     {
@@ -121,7 +122,7 @@ export default function getColumns(
       headerAlign: "center",
       field: "debt_sum",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
     {
@@ -131,7 +132,7 @@ export default function getColumns(
       headerName: "Долг по пересчету",
       field: "recalculation_sum",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
     {
@@ -141,7 +142,7 @@ export default function getColumns(
       headerName: "Дисконт",
       field: "discount_sum",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
     {
@@ -245,7 +246,7 @@ export default function getColumns(
           label: item.title,
           value: item.id,
         })) || [],
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
       field: "receipt_dt",
@@ -254,7 +255,7 @@ export default function getColumns(
       align: "center",
       headerAlign: "center",
       headerName: "Дата получения листа",
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
       align: "center",
@@ -262,7 +263,7 @@ export default function getColumns(
       headerName: "Действия для получения или предъявления листа",
       field: "actions_for_get",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "string",
     },
     {
@@ -270,7 +271,7 @@ export default function getColumns(
       headerName: "Комментарий",
       field: "comment",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "string",
     },
 
@@ -280,7 +281,7 @@ export default function getColumns(
       headerName: "Ссылка на задачу",
       field: "task_link",
       width: 150,
-      editable: true,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "string",
       renderCell: ({ value }) => <RenderLink value={value} />,
     },

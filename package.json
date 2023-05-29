@@ -18,7 +18,7 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.124",
     "@mui/material": "^5.11.13",
-    "@mui/x-data-grid-premium": "^6.0.2",
+    "@mui/x-data-grid-premium": "^6.5.0",
     "@mui/x-date-pickers-pro": "^6.0.3",
     "@reduxjs/toolkit": "^1.9.3",
     "@sql-tools/sequelize": "^6.27.8",

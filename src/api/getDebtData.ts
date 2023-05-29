@@ -26,13 +26,11 @@ export async function getPersonDebts(personId: number) {
     throw e;
   }
 }
-export async function getDebtPayments(id: number) {
-  const res = new Observable<DebtCalcInstance[]>((subscriber) => {
+export function getDebtPayments(id: number) {
+  return new Observable<DebtCalcInstance[]>((subscriber) => {
     baseRequest
       .get<DebtCalcInstance[]>(`/Debt/Payments/${id}`)
       .then(createNextDefault(subscriber))
       .catch(createError(subscriber));
   }).pipe(createRetry());
-  console.log(res);
-  return res;
 }

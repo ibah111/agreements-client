@@ -1,4 +1,5 @@
 import { DataGridPremium, GridColDef } from "@mui/x-data-grid-premium";
+import React from "react";
 import { DebtCalcInstance } from "../../../../../../Models/DebtCalc";
 interface TablePaymentsProps {
   columns: GridColDef<DebtCalcInstance>[];

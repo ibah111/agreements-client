@@ -1,3 +1,4 @@
+import { useAbility } from "@casl/react";
 import {
   GridCallbackDetails,
   GridColDef,
@@ -12,6 +13,7 @@ import getAgreements from "../../../../api/getAgreements";
 import { Purpose } from "../../../../api/getPurpose";
 import { RegDoc } from "../../../../api/getRegDocType";
 import { StatusAgreement } from "../../../../api/getStatusAgreement";
+import { CaslContext } from "../../../../casl/casl";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 import getColumns from "../DataTable/column.data";
 
@@ -58,9 +60,10 @@ export function useGrid(
       setLoading(false);
     });
   }, [paginationModel, filterModel]);
+  const ability = useAbility(CaslContext);
   const columns = React.useMemo(
-    () => getColumns(refresh, purposes, regDoc!, status, DialogTarget),
-    [refresh, purposes, regDoc, status, DialogTarget]
+    () => getColumns(refresh, ability, purposes, regDoc!, status, DialogTarget),
+    [refresh, ability, purposes, regDoc, status, DialogTarget]
   );
   React.useEffect(() => {
     refresh();
