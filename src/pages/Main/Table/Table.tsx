@@ -241,6 +241,7 @@ export default function AgreementTable() {
           open={linkDialogControl.open}
           onClose={linkDialogControl.closeDialog}
           agreementId={linkDialogControl.personId}
+          debtId={0}
         />
       )}
     </Grid>
