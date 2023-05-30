@@ -5,7 +5,11 @@ import DeleteButton from "./Toolbar/DeleteButton";
 import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
 //import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
 
-export default function useColumns(agreementId: number, refresh: VoidFunction) {
+export default function useColumns(
+  agreementId: number,
+  refresh: VoidFunction,
+  handleOpenAgreements: (debtId: number) => void
+) {
   return React.useMemo<GridColDef<Debt>[]>(
     () => [
       {
@@ -51,71 +55,13 @@ export default function useColumns(agreementId: number, refresh: VoidFunction) {
       {
         align: "center",
         headerAlign: "center",
-        field: "status",
+        field: "StatusDict",
         headerName: "Статус долга",
         width: 150,
+        type: "singleSelect",
+        valueOptions: [],
         valueGetter: (params) => {
-          // ебать я дебил да? я просто не смог вызвать ДИКТы с сервера)))
-          if (params.row?.status === 1)
-            return "Не распределен" || params.row?.status;
-          if (params.row?.status === 2)
-            return "Не обработан" || params.row?.status;
-          if (params.row?.status === 3) return "Отказ" || params.row?.status;
-          if (params.row?.status === 4)
-            return "Контакт установлен" || params.row?.status;
-          if (params.row?.status === 5) return "Обещание" || params.row?.status;
-          if (params.row?.status === 6)
-            return "Завершено" || params.row?.status;
-          if (params.row?.status === 7)
-            return "Аннулировано" || params.row?.status;
-          if (params.row?.status === 8)
-            return "Отозван клиентом" || params.row?.status;
-          if (params.row?.status === 9)
-            return "Проблемный" || params.row?.status;
-          if (params.row?.status === 10)
-            return "Обещание" || params.row?.status;
-          if (params.row?.status === 11)
-            return "Возврат в работу" || params.row?.status;
-          if (params.row?.status === 12)
-            return "Без перспектив" || params.row?.status;
-          if (params.row?.status === 13)
-            return "Контак не установлен" || params.row?.status;
-          if (params.row?.status === 14)
-            return "Аутсорсинг" || params.row?.status;
-          if (params.row?.status === 15)
-            return "Поиск информации" || params.row?.status;
-          if (params.row?.status === 16)
-            return "Возврат из аутсорсинга" || params.row?.status;
-          if (params.row?.status === 17) return "Цессия" || params.row?.status;
-          if (params.row?.status === 103)
-            return "Погашен с пересчетом" || params.row?.status;
-          if (params.row?.status === 104)
-            return "Банкрот, освобожден" || params.row?.status;
-          if (params.row?.status === 105)
-            return "Умер, наследников нет" || params.row?.status;
-          if (params.row?.status === 106)
-            return (
-              "Нет перспектив юридического взыскания" || params.row?.status
-            );
-          if (params.row?.status === 107)
-            return "Сумма меньше 3 000 руб" || params.row?.status;
-          if (params.row?.status === 108)
-            return "Мошенничество подтверждено" || params.row?.status;
-          if (params.row?.status === 109)
-            return "Авто реализовано" || params.row?.status;
-          if (params.row?.status === 110)
-            return "Погашен" || params.row?.status;
-          if (params.row?.status === 111)
-            return "Оплата по графику" || params.row?.status;
-          if (params.row?.status === 112)
-            return "Банкрот в процедуре" || params.row?.status;
-          if (params.row?.status === 113)
-            return "Банкрот не освобожден" || params.row?.status;
-          if (params.row?.status === 114)
-            return "Умер, есть наследство" || params.row?.status;
-          if (params.row?.status === 115)
-            return "Погашен, в архив" || params.row?.status;
-          if (params.row?.status) return params.row?.status;
+          return params.row.StatusDict?.name;
         },
       },
       {
@@ -137,7 +83,7 @@ export default function useColumns(agreementId: number, refresh: VoidFunction) {
           <PaymentsButton
             debtId={params.row.id}
             refresh={refresh}
-            onClose={false}
+            handleOpen={handleOpenAgreements}
           />,
         ],
       },
@@ -158,6 +104,6 @@ export default function useColumns(agreementId: number, refresh: VoidFunction) {
         ],
       },
     ],
-    [agreementId, refresh]
+    [agreementId, handleOpenAgreements, refresh]
   );
 }
