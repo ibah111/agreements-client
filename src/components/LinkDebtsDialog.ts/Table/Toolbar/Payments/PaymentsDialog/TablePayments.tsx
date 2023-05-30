@@ -1,18 +1,19 @@
-import { DataGridPremium, GridColDef } from "@mui/x-data-grid-premium";
+import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
-import { DebtCalcInstance } from "../../../../../../Models/DebtCalc";
+import usePayments from "./usePayments";
 interface TablePaymentsProps {
-  columns: GridColDef<DebtCalcInstance>[];
-  rows: DebtCalcInstance[];
-  loading: boolean;
+  id: number;
 }
-export default function TablePayments(props: TablePaymentsProps) {
+export default function TablePayments({ id }: TablePaymentsProps) {
+  const { columns, loading, rows } = usePayments(id);
   return (
     <DataGridPremium
-      columns={props.columns}
-      rows={props.rows}
-      loading={props.loading}
+      columns={columns}
+      rows={rows}
+      loading={loading}
       hideFooter
+      rowSelection={false}
+      // onCellClick={(row, e) => e.stopPropagation()}
     />
   );
 }

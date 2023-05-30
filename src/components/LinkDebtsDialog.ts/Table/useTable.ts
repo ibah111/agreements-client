@@ -1,7 +1,6 @@
 import { Debt } from "@contact/models";
 import React from "react";
 import getLinkedDebts from "../../../api/DebtLinks/getLinkedDebts";
-import useColumns from "./useColumns";
 
 export default function useTable(agreementId: number) {
   const [debts, setDebts] = React.useState<Debt[]>([]);
@@ -14,11 +13,10 @@ export default function useTable(agreementId: number) {
       setLoading(false);
     });
   }, [agreementId]);
-  const columns = useColumns(agreementId, refresh);
 
   React.useEffect(() => {
     refresh();
   }, [refresh]);
 
-  return { rows: debts, refresh, loading, columns };
+  return { rows: debts, refresh, loading };
 }
