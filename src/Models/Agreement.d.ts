@@ -55,6 +55,10 @@ export class Agreement extends Model<
    */
   reg_doc: number | null;
   /**
+   * номер регистратора (если ИД = наличие в регистраторе)
+   */
+  registrator: string;
+  /**
    * Комментарии
    */
   comment: string | null;
@@ -74,6 +78,7 @@ export class Agreement extends Model<
    * Дата завершения
    */
   finish_date: moment.Moment;
+
   LawAct?: NonAttribute<LawAct>;
   Debt?: NonAttribute<Debt>;
   LawExec?: NonAttribute<LawExec>;

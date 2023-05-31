@@ -16,7 +16,7 @@ export default function StatusAgreementType() {
   const [status, setStatus] = React.useState<StatusAgreement[]>([]);
   React.useEffect(() => {
     getStatusAgreement().then((res) => setStatus(res));
-  });
+  }, []);
   const data = useAgreementData("statusAgreement");
   return (
     <Grid xs={2} item>

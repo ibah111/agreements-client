@@ -30,6 +30,8 @@ import FinishDate from "./Form/FinishDate";
 import ReceiptDt from "./Form/ReceiptDt";
 import RegDocType from "./Form/RegDoc";
 import StatusAgreementType from "./Form/StatusAgreement";
+import BankSum from "./Form/BankSum";
+import Registator from "./Form/Registator";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -53,7 +55,10 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
     dispatch(resetAgreement());
     props.fullClose();
   }, [dispatch, props]);
-
+  //TODO
+  /**
+   * Доделать ввод регистратора
+   */
   return (
     <>
       <Dialog open={props.open} onClose={handleClose} maxWidth="lg" fullWidth>
@@ -73,8 +78,9 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <DialogContent sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
             <ConclusionDate />
-            <FinishDate />
+            <StatusAgreementType />
             <PurposeField />
+            <BankSum />
             <CourtSum />
             <DebtSum />
             <RecalculationSum />
@@ -83,9 +89,10 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <Comment />
             <TaskLink />
             <RegDocType />
+            {agreement.new_regDoc === 2 && <Registator />}
             <ActionsForGet />
             <ReceiptDt />
-            <StatusAgreementType />
+            <FinishDate />
           </Grid>
         </DialogContent>
         <Divider />

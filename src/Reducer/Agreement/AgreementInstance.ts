@@ -70,6 +70,12 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   new_regDoc: number;
   /**
+   * Регистратор
+   */
+
+  @IsOptional()
+  registrator: string;
+  /**
    * Комментарии
    */
   @IsOptional()
