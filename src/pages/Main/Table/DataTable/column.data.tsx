@@ -249,6 +249,18 @@ export default function getColumns(
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
+      field: "registrator",
+      width: 150,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
+      field: "archive",
+      width: 150,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
       field: "receipt_dt",
       ...dateColumnType,
       width: 150,

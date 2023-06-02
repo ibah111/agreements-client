@@ -72,9 +72,13 @@ export class AgreementInstance implements AgreementData {
   /**
    * Регистратор
    */
-
   @IsOptional()
   registrator: string;
+  /**
+   * архив
+   */
+  @IsOptional()
+  archive: string;
   /**
    * Комментарии
    */

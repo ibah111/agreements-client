@@ -32,6 +32,7 @@ import RegDocType from "./Form/RegDoc";
 import StatusAgreementType from "./Form/StatusAgreement";
 import BankSum from "./Form/BankSum";
 import Registator from "./Form/Registator";
+import Archive from "./Form/Archive";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -90,6 +91,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <TaskLink />
             <RegDocType />
             {agreement.new_regDoc === 2 && <Registator />}
+            {agreement.new_regDoc === 3 && <Archive />}
             <ActionsForGet />
             <ReceiptDt />
             <FinishDate />
