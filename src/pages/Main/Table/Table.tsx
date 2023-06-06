@@ -212,7 +212,6 @@ export default function AgreementTable() {
           slotProps={{
             toolbar: { refresh, handleOpen },
           }}
-          rowCount={100}
           processRowUpdate={async (
             oldData: AgreementInstance,
             newData: AgreementInstance
@@ -227,8 +226,8 @@ export default function AgreementTable() {
           disableAggregation // убрал ненужные функции
           disableRowGrouping // убрал ненужные функции
           // пагинация = https://mui.com/x/react-data-grid/row-selection/#usage-with-server-side-pagination
-          pagination
           filterMode="server"
+          pagination
           paginationMode="server"
           getRowClassName={(params) =>
             `super-app-theme--${params.row.statusAgreement}`

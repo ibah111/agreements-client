@@ -37,6 +37,7 @@ interface GridResult<T extends GridValidRowModel> {
   ) => void;
   refresh: () => void;
   loading: boolean;
+  rowCount: number;
 }
 export function useGrid(
   purposes: Purpose[],
@@ -52,14 +53,20 @@ export function useGrid(
   const [paginationModel, onPaginationModelChange] =
     React.useState<GridPaginationModel>({ page: 0, pageSize: 25 });
   const [sortModel, onSortModelChange] = React.useState<GridSortModel>([]);
+  const [rowCount, setRowCount] = React.useState<number>(0);
   const refresh = React.useCallback(() => {
     setLoading(true);
-    getAgreements(paginationModel, filterModel).subscribe((res) => {
-      const classData = plainToInstance(AgreementInstance, res);
+    getAgreements({
+      paginationModel,
+      filterModel,
+    }).subscribe((res) => {
+      console.log("Res", res);
+      const classData = plainToInstance(AgreementInstance, res.rows);
+      setRowCount(res.count);
       setRows(classData);
       setLoading(false);
     });
-  }, [paginationModel, filterModel]);
+  }, [filterModel, paginationModel]);
   const ability = useAbility(CaslContext);
   const columns = React.useMemo(
     () => getColumns(refresh, ability, purposes, regDoc!, status, DialogTarget),
@@ -69,15 +76,16 @@ export function useGrid(
     refresh();
   }, [refresh]);
   return {
-    refresh,
     rows,
-    loading,
     columns,
+    refresh,
+    loading,
     filterModel,
     onFilterModelChange,
     sortModel,
     onSortModelChange,
     onPaginationModelChange,
     paginationModel,
+    rowCount,
   };
 }
