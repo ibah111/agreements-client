@@ -14,7 +14,7 @@ export default function RecalculationSum() {
           inputComponent: input,
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
-        label="Сумма пересчета"
+        label="Пересчет/Индексация"
         value={data.value}
         onChange={(event) => {
           data.onChange(Number(event.target.value));

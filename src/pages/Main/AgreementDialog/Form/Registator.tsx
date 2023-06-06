@@ -9,6 +9,8 @@ export default function Registator() {
   return (
     <Grid item xs={2}>
       <TextField
+        focused
+        color="warning"
         id="Registator"
         label="Регистратор"
         type="string"

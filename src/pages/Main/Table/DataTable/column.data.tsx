@@ -107,21 +107,30 @@ export default function getColumns(
         })) || [],
     },
     {
-      headerName: "Долг в пользу в банка",
+      align: "center",
+      headerAlign: "center",
+      headerName: "Переданная банком сумма долга (эл.реестр)",
+      field: "bank_sum",
+      width: 250,
+      editable: ability.can(Action.Update, Subject.Agreement),
+      type: "number",
+    },
+    {
+      headerName: "В пользу в банка (сумма долга)",
       align: "center",
       headerAlign: "center",
       field: "court_sum",
-      width: 150,
+      width: 250,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
     {
       // заполняется
-      headerName: "Долг в пользу НБК",
+      headerName: "В пользу НБК/Вымпел (сумма долга)",
       align: "center",
       headerAlign: "center",
       field: "debt_sum",
-      width: 150,
+      width: 250,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
@@ -129,9 +138,9 @@ export default function getColumns(
       // заполняется
       align: "center",
       headerAlign: "center",
-      headerName: "Долг по пересчету",
+      headerName: "Пересчет / Индексация",
       field: "recalculation_sum",
-      width: 150,
+      width: 250,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
@@ -139,7 +148,7 @@ export default function getColumns(
       // заполняется
       align: "center",
       headerAlign: "center",
-      headerName: "Дисконт",
+      headerName: "Сумма с дисконтом ",
       field: "discount_sum",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -149,20 +158,32 @@ export default function getColumns(
       // вычисляемое
       align: "center",
       headerAlign: "center",
-      headerName: "Сумма задолженности к погашению по соглашению с дисконтом",
-      field: "total_dis_sum",
-      width: 150,
+      headerName: "Расчетный дисконт",
+      field: "calculation_discount",
+      width: 300,
       editable: false,
       type: "number",
       valueGetter: (params) => {
         let result = 0;
-        if (params.row.recalculation_sum)
+        // просто пихнуть сумму по соглсу - дисконт
+        if (params.row.discount_sum === 0) {
+          result = 0;
+        } else if (params.row.recalculation_sum)
           result += params.row.recalculation_sum;
         else if (params.row.court_sum) result += params.row.court_sum;
         if (result > 0 && params.row.discount_sum)
           result -= params.row.discount_sum;
         return result;
       },
+    },
+    {
+      align: "center",
+      headerAlign: "center",
+      headerName: "Cтатичный дисконт (ред.)",
+      field: "discount",
+      width: 200,
+      editable: ability.can(Action.Update, Subject.Agreement),
+      type: "number",
     },
     {
       headerName: "День платежа",
@@ -249,12 +270,14 @@ export default function getColumns(
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
+      headerName: "№ в Регистраторе/Архиве",
       field: "registrator",
       width: 150,
       align: "center",
       headerAlign: "center",
     },
     {
+      headerName: "Наличие в архиве",
       field: "archive",
       width: 150,
       align: "center",

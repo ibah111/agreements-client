@@ -3,18 +3,18 @@ import { useAppDispatch } from "../../../../Reducer";
 import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
 import useAgreementData from "../../../../Hooks/useAgreementData";
 
-export default function Discount() {
+export default function DiscountSum() {
   const dispatch = useAppDispatch();
-  const data = useAgreementData("discount");
+  const data = useAgreementData("discount_sum");
   return (
     <Grid xs={2} item>
       <TextField
-        label="Дисконт (статичный)"
+        label="Cумма с дисконтом"
         type="number"
         onChange={(event) =>
           dispatch(
             setAgreementProperty([
-              "discount",
+              "discount_sum",
               event.target.value ? Number(event.target.value) : "",
             ])
           )

@@ -9,6 +9,8 @@ export default function Archive() {
   return (
     <Grid item xs={2}>
       <TextField
+        focused
+        color="warning"
         id="Archive"
         label="Архив"
         type="string"

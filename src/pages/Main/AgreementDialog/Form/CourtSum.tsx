@@ -12,7 +12,7 @@ export default function CourtSum() {
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
-        label="Сумма задолженности по судебному акту в пользу банка"
+        label="В пользу банка"
         type="number"
         onChange={(event) =>
           dispatch(

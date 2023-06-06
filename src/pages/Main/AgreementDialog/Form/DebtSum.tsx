@@ -13,7 +13,7 @@ export default function DebtSum() {
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
-        label="Сумма долга"
+        label="В пользу НБК"
         type="number"
         onChange={(event) =>
           dispatch(

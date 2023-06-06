@@ -38,6 +38,12 @@ export class AgreementInstance implements AgreementData {
   @IsNotEmpty()
   purpose: number;
   /**
+   * эл.реестр
+   * сумма переданная банком
+   */
+  @IsPositive()
+  bank_sum: number;
+  /**
    * Cумма задолженности по суд.акту
    */
   @IsPositive()
@@ -53,6 +59,12 @@ export class AgreementInstance implements AgreementData {
   @IsPositive()
   @IsOptional()
   recalculation_sum: number;
+  /**
+   * Статичный дисконт
+   */
+  @IsPositive()
+  @IsOptional()
+  discount: number;
   /**
    * Дисконт
    */

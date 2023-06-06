@@ -13,7 +13,7 @@ import PurposeField from "./Form/Purpose";
 import CourtSum from "./Form/CourtSum";
 import DebtSum from "./Form/DebtSum";
 import RecalculationSum from "./Form/RecalculationSum";
-import Discount from "./Form/Discount";
+
 import Comment from "./Form/Comment";
 import TaskLink from "./Form/TaskLink";
 import PersonID from "./DisableForm/PersonID";
@@ -33,6 +33,8 @@ import StatusAgreementType from "./Form/StatusAgreement";
 import BankSum from "./Form/BankSum";
 import Registator from "./Form/Registator";
 import Archive from "./Form/Archive";
+import DiscountSum from "./Form/DiscountSum";
+import Discount from "./Form/Discount";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -85,10 +87,12 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <CourtSum />
             <DebtSum />
             <RecalculationSum />
+            <DiscountSum />
             <Discount />
             <MonthPerDay />
             <Comment />
             <TaskLink />
+            <Divider />
             <RegDocType />
             {agreement.new_regDoc === 2 && <Registator />}
             {agreement.new_regDoc === 3 && <Archive />}
