@@ -1,8 +1,7 @@
 import { createSlice, Draft, PayloadAction } from "@reduxjs/toolkit";
-import { CreationAttributes } from "@sql-tools/sequelize";
 import AgreementDebtsLink from "../../Models/AgreementDebtLink";
 
-export type AgreementToDebtData = CreationAttributes<AgreementDebtsLink>;
+export type AgreementToDebtData = AgreementDebtsLink;
 
 const initialState = {} as AgreementToDebtData;
 

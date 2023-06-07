@@ -17,7 +17,6 @@ export type Subjects = Subject | "all";
 export type AppAbility = PureAbility<[Action, Subjects]>;
 //TODO Сделать разграниче на редактирование
 export function createUserAbility(user?: AuthUserSuccess) {
-  console.log(user);
   const { build, can } = new AbilityBuilder<AppAbility>(createMongoAbility);
   const roles = user?.roles;
   can(Action.Read, Subject.Agreement);

@@ -13,7 +13,6 @@ export default function useLinkDebtsControl(
   const [personId, setPersonId] = React.useState<number>(0);
   React.useEffect(() => {
     const callback = ((e: EventDialog) => {
-      console.log(e);
       setPersonId(e.value as number);
       setOpen(true);
     }) as EventListener;

@@ -10,7 +10,6 @@ export default function DiscountSum() {
     <Grid xs={2} item>
       <TextField
         label="Cумма с дисконтом"
-        type="number"
         onChange={(event) =>
           dispatch(
             setAgreementProperty([
@@ -23,6 +22,7 @@ export default function DiscountSum() {
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         value={data.value}
+        type="number"
       />
     </Grid>
   );

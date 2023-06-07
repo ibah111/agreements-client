@@ -13,7 +13,6 @@ export default function TablePayments({ id }: TablePaymentsProps) {
       loading={loading}
       hideFooter
       rowSelection={false}
-      // onCellClick={(row, e) => e.stopPropagation()}
     />
   );
 }

@@ -1,3 +1,4 @@
+import { plainToInstance } from "class-transformer";
 import React from "react";
 import { getDebtPayments } from "../../../../../../api/getDebtData";
 import { DebtCalcInstance } from "../../../../../../Models/DebtCalc";
@@ -9,7 +10,8 @@ export default function usePayments(debtId: number) {
   React.useEffect(() => {
     setLoading(true);
     getDebtPayments(debtId).subscribe((res) => {
-      setPayments(res);
+      const classData = plainToInstance(DebtCalcInstance, res);
+      setPayments(classData);
       setLoading(false);
     });
   }, [debtId]);

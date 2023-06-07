@@ -28,6 +28,8 @@ const columns: GridColDef<DebtCalcInstance>[] = [
   {
     align: "center",
     headerName: "Дата",
+    type: "date",
+    valueGetter: (params) => (params.row.dt ? params.row.dt.toDate() : null),
     field: "dt",
     width: 200,
   },

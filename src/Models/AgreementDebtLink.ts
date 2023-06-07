@@ -1,27 +1,8 @@
-import { CreateLiteralAssociation } from "@sql-tools/association-literal";
-import { InferAttributes, InferCreationAttributes } from "@sql-tools/sequelize";
-import {
-  PrimaryKey,
-  Model,
-  AllowNull,
-  Column,
-  DataType,
-  ForeignKey,
-} from "@sql-tools/sequelize-typescript";
-import { Agreement } from "./Agreement";
+import { Debt, Portfolio } from "@contact/models";
 
-export default class AgreementDebtsLink extends Model<
-  InferAttributes<AgreementDebtsLink>,
-  InferCreationAttributes<AgreementDebtsLink>,
-  CreateLiteralAssociation<AgreementDebtsLink>
-> {
-  @AllowNull(false)
-  @PrimaryKey
-  @Column(DataType.INTEGER)
+export default class AgreementDebtsLink {
+  Portfolio: Portfolio;
+  Debt: Debt;
   id_debt: number;
-  @AllowNull(false)
-  @PrimaryKey
-  @Column(DataType.INTEGER)
-  @ForeignKey(() => Agreement)
   id_agreement: number;
 }

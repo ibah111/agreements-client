@@ -109,6 +109,43 @@ export default function getColumns(
     {
       align: "center",
       headerAlign: "center",
+      headerName: "Портфель",
+      field: "portfolio",
+      type: "string",
+      width: 150,
+      valueGetter: (params) => {
+        return params.row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name); // алилуя
+      },
+    },
+    {
+      align: "center",
+      headerAlign: "center",
+      headerName: "Имя продукта",
+      field: "name",
+      width: 150,
+      type: "number",
+      valueGetter: (params) => {
+        return params.row.Person.Debts?.map((item) => item.name || "").join(
+          " "
+        );
+      },
+    },
+    {
+      align: "center",
+      headerAlign: "center",
+      headerName: "Начальный долг",
+      field: "start_sum",
+      width: 150,
+      type: "number",
+      valueGetter: (params) => {
+        return params.row.Person.Debts?.find(
+          (item) => !/.*[ПЕРЕСЧЕТ|ИНДЕКСАЦИЯ].*/.test(item.name || "")
+        )?.start_sum;
+      },
+    },
+    {
+      align: "center",
+      headerAlign: "center",
       headerName: "Переданная банком сумма долга (эл.реестр)",
       field: "bank_sum",
       width: 250,
@@ -309,7 +346,6 @@ export default function getColumns(
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "string",
     },
-
     {
       align: "center",
       headerAlign: "center",

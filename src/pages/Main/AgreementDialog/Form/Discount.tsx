@@ -10,7 +10,6 @@ export default function Discount() {
     <Grid xs={2} item>
       <TextField
         label="Дисконт (статичный)"
-        type="number"
         onChange={(event) =>
           dispatch(
             setAgreementProperty([

@@ -9,7 +9,8 @@ import { AgreementData } from "./Agreement";
 import { DateType } from "../Utils/DateType";
 import { TransformDate } from "../Utils/TransformDate";
 import moment from "moment";
-import { Debt, Person } from "@contact/models";
+import { Person } from "@contact/models";
+import AgreementDebtsLink from "../../Models/AgreementDebtLink";
 
 export class AgreementInstance implements AgreementData {
   @IsNumber()
@@ -77,6 +78,11 @@ export class AgreementInstance implements AgreementData {
   @IsPositive()
   month_pay_day: number;
   /**
+   * тип соглашения
+   */
+  @IsNotEmpty()
+  agreement_type: number;
+  /**
    * Наличие ИД в регистраторе
    */
   @IsOptional()
@@ -135,8 +141,8 @@ export class AgreementInstance implements AgreementData {
   @IsNotEmpty()
   statusAgreement: number;
 
-  Person?: Person;
-  Debt?: Debt;
+  Person: Person;
+  DebtLinks?: AgreementDebtsLink[];
 
   firstPayment: number | null;
   lastPayment: number | null;

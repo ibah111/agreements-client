@@ -10,11 +10,11 @@ export default function DebtSum() {
   return (
     <Grid xs={2} item>
       <TextField
+        type="number"
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         label="В пользу НБК"
-        type="number"
         onChange={(event) =>
           dispatch(
             setAgreementProperty(["debt_sum", Number(event.target.value)])

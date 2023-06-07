@@ -3,12 +3,12 @@ import {
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
   GridToolbarDensitySelector,
-  GridToolbarExport,
 } from "@mui/x-data-grid-premium";
 import RefreshToolbarButton from "../../../../components/Utils/RefreshToolbarButton";
 import { AuthUserSuccess } from "../../../../Schemas/Auth";
 
 import AddAgreement from "./AddAgreement";
+import AdminPanel from "./AdminPanel";
 import DeleteRowButton from "./DeleteRowButton";
 
 interface AgreementTableToolbarProps {
@@ -25,10 +25,10 @@ export default function AgreementTableToolbar(
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
-      <GridToolbarExport />
       <RefreshToolbarButton refresh={props.refresh} />
       <AddAgreement handleOpen={props.handleOpen} />
       <DeleteRowButton refresh={props.refresh} />
+      <AdminPanel />
     </GridToolbarContainer>
   );
 }

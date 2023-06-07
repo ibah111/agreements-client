@@ -10,6 +10,7 @@ export default function RecalculationSum() {
   return (
     <Grid xs={2} item>
       <TextField
+        type="number"
         InputProps={{
           inputComponent: input,
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,

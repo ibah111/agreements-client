@@ -35,6 +35,7 @@ import Registator from "./Form/Registator";
 import Archive from "./Form/Archive";
 import DiscountSum from "./Form/DiscountSum";
 import Discount from "./Form/Discount";
+import Type from "./Form/Type";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -81,6 +82,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <DialogContent sx={{ flexGrow: 1 }}>
           <Grid container spacing={1}>
             <ConclusionDate />
+            <Type />
             <StatusAgreementType />
             <PurposeField />
             <BankSum />

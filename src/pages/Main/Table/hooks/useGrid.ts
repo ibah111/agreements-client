@@ -60,7 +60,6 @@ export function useGrid(
       paginationModel,
       filterModel,
     }).subscribe((res) => {
-      console.log("Res", res);
       const classData = plainToInstance(AgreementInstance, res.rows);
       setRowCount(res.count);
       setRows(classData);

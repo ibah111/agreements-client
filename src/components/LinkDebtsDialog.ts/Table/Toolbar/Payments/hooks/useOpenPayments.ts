@@ -6,7 +6,6 @@ export default function useControlPayments() {
   const handleOpen = React.useCallback((debtId: number) => {
     setDebtId(debtId);
     setOpenPayments(true);
-    console.log("Открываю платежи");
   }, []);
   const handleClose = React.useCallback(() => {
     setOpenPayments(false);

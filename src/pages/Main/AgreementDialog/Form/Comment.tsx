@@ -7,7 +7,7 @@ export default function Comment() {
   const dispatch = useAppDispatch();
   const data = useAgreementData("comment");
   return (
-    <Grid xs={4} item>
+    <Grid xs={2} item>
       <TextField
         fullWidth
         label="Комментарий"
