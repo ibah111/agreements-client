@@ -42,7 +42,8 @@
     "react-router-dom": "^6.8.0",
     "redux": "^4.2.1",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "socket.io-client": "^4.6.2"
   },
   "devDependencies": {
     "@contact/models": "^0.3.38",

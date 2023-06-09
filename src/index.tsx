@@ -15,6 +15,7 @@ import { AdapterMoment } from "@mui/x-date-pickers-pro/AdapterMoment";
 import "moment/dist/locale/ru";
 import moment from "moment";
 import "moment-timezone";
+import { Connect } from "./components/Connect";
 
 moment.locale("ru");
 moment.tz.setDefault("GMT");
@@ -29,9 +30,11 @@ root.render(
         <Provider store={store}>
           <SnackbarProvider maxSnack={10}>
             <MessageProvider>
-              <Login>
-                <App />
-              </Login>
+              <Connect>
+                <Login>
+                  <App />
+                </Login>
+              </Connect>
             </MessageProvider>
           </SnackbarProvider>
         </Provider>
