@@ -2700,6 +2700,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tools/rxjs-pipes@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "@tools/rxjs-pipes@npm:0.1.3::__archiveUrl=https%3A%2F%2Fgit.usb.ru%2Fapi%2Fv4%2Fprojects%2F208%2Fpackages%2Fnpm%2F%40tools%2Frxjs-pipes%2F-%2F%40tools%2Frxjs-pipes-0.1.3.tgz"
+  dependencies:
+    rxjs: ^7.8.1
+  peerDependencies:
+    axios: ^1.x.x
+    class-transformer: ^0.5.x
+    class-validator: ^0.x.x
+    reflect-metadata: 0.1.x
+  checksum: c9c8193fb17da72b4ae2e0ce16e52f497c341e0135708a705cf9e667ee4793f23212bed3762c3103eb90558dc70e27d429bb9bb580bc84111e15adc2ef7f447e
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -6999,12 +7013,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.8.0":
-  version: 7.8.0
-  resolution: "rxjs@npm:7.8.0"
+"rxjs@npm:^7.8.1":
+  version: 7.8.1
+  resolution: "rxjs@npm:7.8.1"
   dependencies:
     tslib: ^2.1.0
-  checksum: 61b4d4fd323c1043d8d6ceb91f24183b28bcf5def4f01ca111511d5c6b66755bc5578587fe714ef5d67cf4c9f2e26f4490d4e1d8cabf9bd5967687835e9866a2
+  checksum: de4b53db1063e618ec2eca0f7965d9137cabe98cf6be9272efe6c86b47c17b987383df8574861bcced18ebd590764125a901d5506082be84a8b8e364bf05f119
   languageName: node
   linkType: hard
 
@@ -7984,6 +7998,7 @@ __metadata:
     "@sql-tools/association-literal": ^0.0.3
     "@sql-tools/sequelize": ^6.27.8
     "@sql-tools/sequelize-typescript": ^2.1.5
+    "@tools/rxjs-pipes": ^0.1.3
     "@types/node": ^18.11.18
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
@@ -8012,7 +8027,7 @@ __metadata:
     react-router-dom: ^6.8.0
     redux: ^4.2.1
     reflect-metadata: ^0.1.13
-    rxjs: ^7.8.0
+    rxjs: ^7.8.1
     terser: ^5.17.1
     typescript: ^4.9.5
     vite: ^4.2.0

@@ -23,19 +23,19 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  // <React.StrictMode>
-  <ThemeProvider>
-    <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="ru">
-      <Provider store={store}>
-        <SnackbarProvider maxSnack={10}>
-          <MessageProvider>
-            <Login>
-              <App />
-            </Login>
-          </MessageProvider>
-        </SnackbarProvider>
-      </Provider>
-    </LocalizationProvider>
-  </ThemeProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <ThemeProvider>
+      <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="ru">
+        <Provider store={store}>
+          <SnackbarProvider maxSnack={10}>
+            <MessageProvider>
+              <Login>
+                <App />
+              </Login>
+            </MessageProvider>
+          </SnackbarProvider>
+        </Provider>
+      </LocalizationProvider>
+    </ThemeProvider>
+  </React.StrictMode>
 );

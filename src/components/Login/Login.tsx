@@ -1,34 +1,11 @@
 import React from "react";
 import { NotLoged } from "./NotLoged";
 import PropTypes from "prop-types";
-import axios from "axios";
-import { AuthUserSuccess } from "../../Schemas/Auth";
 import { useAppDispatch, useAppSelector } from "../../Reducer";
 import { setUser } from "../../Reducer/User";
-import { baseRequest } from "../../utils/baseRequest";
-import getToken from "../../api/getToken";
 import { createUserAbility } from "../../casl/casl.factory";
 import { CaslContext } from "../../casl/casl";
-const connect = async (
-  callback: (value: AuthUserSuccess) => void,
-  setError: (value: string | null) => void
-) => {
-  try {
-    const token = await getToken();
-    baseRequest.defaults.headers["token"] = token;
-    const response = await baseRequest.post<AuthUserSuccess>("/login");
-    callback(response.data);
-  } catch (e: unknown) {
-    if (axios.isAxiosError(e)) {
-      const data = e.response?.data;
-      if (data.Result === "error") {
-        setError(data?.Message);
-      } else {
-        setError(null);
-      }
-    }
-  }
-};
+import connect from "./connect";
 interface LoginProps {
   children: React.ReactNode;
 }
@@ -39,14 +16,15 @@ export function Login({ children }: LoginProps) {
   const [ability, setAbility] = React.useState(createUserAbility());
   React.useEffect(() => {
     if (!loged) {
-      connect(
-        (value) => {
+      const sub = connect().subscribe({
+        next: (value) => {
           dispatch(setUser(value));
           console.log("Connect", value);
           setAbility(createUserAbility(value));
         },
-        (message) => setMessage(message)
-      );
+        error: (message) => setMessage(message),
+      });
+      return sub.unsubscribe.bind(sub);
     }
   }, [loged, dispatch]);
   return (
