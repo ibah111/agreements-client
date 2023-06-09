@@ -7,7 +7,6 @@ import {
   GridSortModel,
   GridValidRowModel,
 } from "@mui/x-data-grid-premium";
-import { plainToInstance } from "class-transformer";
 import React from "react";
 import getAgreements from "../../../../api/getAgreements";
 import { Purpose } from "../../../../api/getPurpose";
@@ -15,7 +14,7 @@ import { RegDoc } from "../../../../api/getRegDocType";
 import { StatusAgreement } from "../../../../api/getStatusAgreement";
 import { CaslContext } from "../../../../casl/casl";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
-import getColumns from "../DataTable/column.data";
+import GetColumns from "../DataTable/column.data";
 
 interface GridResult<T extends GridValidRowModel> {
   columns: GridColDef<T>[];
@@ -56,23 +55,37 @@ export function useGrid(
   const [rowCount, setRowCount] = React.useState<number>(0);
   const refresh = React.useCallback(() => {
     setLoading(true);
-    getAgreements({
+    const sub = getAgreements({
       paginationModel,
       filterModel,
     }).subscribe((res) => {
-      const classData = plainToInstance(AgreementInstance, res.rows);
-      setRowCount(res.count);
-      setRows(classData);
+      if (res) {
+        setRowCount(res.count);
+        setRows(res.rows);
+      }
+    });
+    sub.add(() => {
       setLoading(false);
     });
+    return sub.unsubscribe.bind(sub);
   }, [filterModel, paginationModel]);
   const ability = useAbility(CaslContext);
+  const handleOpenCard = (agreementIdCard: number) => {};
   const columns = React.useMemo(
-    () => getColumns(refresh, ability, purposes, regDoc!, status, DialogTarget),
+    () =>
+      GetColumns(
+        refresh,
+        handleOpenCard,
+        ability,
+        purposes,
+        regDoc!,
+        status,
+        DialogTarget
+      ),
     [refresh, ability, purposes, regDoc, status, DialogTarget]
   );
   React.useEffect(() => {
-    refresh();
+    return refresh();
   }, [refresh]);
   return {
     rows,

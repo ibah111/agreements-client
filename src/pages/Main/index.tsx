@@ -9,7 +9,7 @@ export default function Main() {
         <Grid
           container
           item
-          spacing={1}
+          spacing={2}
           style={{ marginTop: "2px" }}
           alignContent={"center"}
         >

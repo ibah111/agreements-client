@@ -11,8 +11,8 @@ import { RegDoc } from "../../../../api/getRegDocType";
 import { Can } from "../../../../casl/casl";
 import { Action, AppAbility, Subject } from "../../../../casl/casl.factory";
 import { StatusAgreement } from "../../../../api/getStatusAgreement";
-import { EventDialog } from "../Table";
-
+import { CustomEvents, EventDialog } from "../Table";
+import IpIcon from "../CardIpDialog/IpIcon";
 interface RenderLinkProps {
   value: string;
 }
@@ -27,14 +27,14 @@ function RenderLink({ value }: RenderLinkProps) {
     </>
   );
 }
-
-export default function getColumns(
+export default function GetColumns(
   refresh: () => void,
+  handleOpenCard: (agreementId: number) => void,
   ability: AppAbility,
   purposes?: Purpose[],
   regDoc?: RegDoc[],
   status?: StatusAgreement[],
-  onOpenDialog?: EventTarget
+  eventTarget?: EventTarget
 ) {
   const columns: GridColDef<AgreementInstance>[] = [
     { field: "id", headerName: "ID", width: 50, type: "number" },
@@ -357,12 +357,25 @@ export default function getColumns(
       renderCell: ({ value }) => <RenderLink value={value} />,
     },
     {
+      headerName: "ИП",
+      field: "Card_IP",
+      type: "actions",
+      width: 100,
+      getActions: (params) => [
+        <IpIcon
+          eventTarget={eventTarget || null}
+          refresh={refresh}
+          agreementId={params.row.id}
+        />,
+      ],
+    },
+    {
       headerAlign: "center",
       headerName: "Действия",
       align: "center",
       field: "actions",
       type: "actions",
-      width: 160,
+      width: 100,
       getActions: (params) => [
         <Can I={Action.Delete} a={Subject.Agreement}>
           <GridActionsCellItem
@@ -371,7 +384,10 @@ export default function getColumns(
             onClick={() => {
               deleteAgreement(params.row.id).subscribe(() => {
                 refresh();
-                enqueueSnackbar("Удалено", { variant: "warning" });
+                enqueueSnackbar("Удалено", {
+                  variant: "warning",
+                  autoHideDuration: 1000,
+                });
               });
             }}
           />
@@ -381,8 +397,8 @@ export default function getColumns(
             icon={<AddIcon />}
             label="AddDebt"
             onClick={() => {
-              onOpenDialog?.dispatchEvent(
-                new EventDialog("onOpenDialog", params.row.id)
+              eventTarget?.dispatchEvent(
+                new EventDialog(CustomEvents.onOpenDialog, params.row.id)
               );
             }}
           />

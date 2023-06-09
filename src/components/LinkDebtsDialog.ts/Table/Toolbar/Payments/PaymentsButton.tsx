@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import React from "react";
 interface PaymentsButtonProps {
   refresh: VoidFunction;
   debtId: number;

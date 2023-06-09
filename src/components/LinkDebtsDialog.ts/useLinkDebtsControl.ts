@@ -1,5 +1,5 @@
 import React from "react";
-import { EventDialog } from "../../pages/Main/Table/Table";
+import { CustomEvents, EventDialog } from "../../pages/Main/Table/Table";
 
 interface UseLinkDebtsControlOptions {
   DialogTarget: EventTarget;
@@ -16,9 +16,12 @@ export default function useLinkDebtsControl(
       setPersonId(e.value as number);
       setOpen(true);
     }) as EventListener;
-    options?.DialogTarget.addEventListener("onOpenDialog", callback);
+    options?.DialogTarget.addEventListener(CustomEvents.onOpenDialog, callback);
     return () =>
-      options?.DialogTarget.removeEventListener("onOpenDialog", callback);
+      options?.DialogTarget.removeEventListener(
+        CustomEvents.onOpenDialog,
+        callback
+      );
   }, [options?.DialogTarget]);
 
   const closeDialog = React.useCallback(() => {

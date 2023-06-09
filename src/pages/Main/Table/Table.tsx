@@ -16,15 +16,22 @@ import useLinkDebtsControl from "../../../components/LinkDebtsDialog.ts/useLinkD
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import SearchDialog from "../SearchDialog";
+import CardIpDialog from "./CardIpDialog";
+import useCardControls from "./CardIpDialog/hooks/useCardControls";
 import { useGrid } from "./hooks/useGrid";
 import AgreementTableToolbar from "./ToolBar/Toolbar";
 export class EventDialog extends Event {
-  constructor(type: string, value: string | number | object) {
+  constructor(type: CustomEvents, value: string | number | object) {
     super(type);
     this.value = value;
   }
   value: number | string | object;
 }
+export enum CustomEvents {
+  onOpenCardDialog = "onOpenCardDialog",
+  onOpenDialog = "onOpenDialog",
+}
+
 export default function AgreementTable() {
   const purposes = useAsyncMemo(getPurposes, []);
   const regDoc = useAsyncMemo(getRegDoc, []);
@@ -42,7 +49,12 @@ export default function AgreementTable() {
       refresh();
     },
   });
-
+  const cardIpControl = useCardControls({
+    DialogTarget,
+    onClose: () => {
+      refresh();
+    },
+  });
   const [open, setOpen] = React.useState(false);
   const handleOpen = React.useCallback(() => {
     setOpen(true);
@@ -63,7 +75,7 @@ export default function AgreementTable() {
       "debt_id",
       "r_law_act_id",
     ],
-    right: ["actions"],
+    right: ["Card_IP", "actions"],
   });
   const handlePinnedColumnsChange = React.useCallback(
     (updatedPinnedColumns: GridPinnedColumns) => {
@@ -225,7 +237,6 @@ export default function AgreementTable() {
           hideFooterSelectedRowCount
           disableAggregation // убрал ненужные функции
           disableRowGrouping // убрал ненужные функции
-          // пагинация = https://mui.com/x/react-data-grid/row-selection/#usage-with-server-side-pagination
           filterMode="server"
           pagination
           paginationMode="server"
@@ -241,6 +252,13 @@ export default function AgreementTable() {
           onClose={linkDialogControl.closeDialog}
           agreementId={linkDialogControl.personId}
           debtId={0}
+        />
+      )}
+      {cardIpControl.openCard && (
+        <CardIpDialog
+          open={cardIpControl.openCard}
+          onClose={cardIpControl.handleCloseCard}
+          agreementId={cardIpControl.agreementIdCard}
         />
       )}
     </Grid>
