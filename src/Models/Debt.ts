@@ -12,7 +12,7 @@ export default class DebtInstance {
   personId: number; // GET /Debt/Parent_id/{id}
   @DateType()
   @TransformDate()
-  debt_dt: GetDate;
+  debt_dt?: GetDate | null;
   @Type(() => PersonInstance)
   Person?: Person;
   @IsNumber()

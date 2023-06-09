@@ -58,7 +58,6 @@ export default function useColumns(
         field: "StatusDict",
         headerName: "Статус долга",
         width: 150,
-        type: "singleSelect",
         valueOptions: [],
         valueGetter: (params) => {
           return params.row.StatusDict?.name;

@@ -32,7 +32,7 @@ export default function useSearchColumns(
         headerName: "Дата загрузки долга",
         type: "date",
         valueGetter: (params) => {
-          return params.row.debt_dt.toDate();
+          return params.row.debt_dt?.toDate() || null;
         },
       },
       {
