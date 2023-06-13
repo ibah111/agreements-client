@@ -1,24 +1,23 @@
-import { darken, Grid, lighten, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import {
   DataGridPremium,
   GridPinnedColumns,
   GRID_CHECKBOX_SELECTION_COL_DEF,
 } from "@mui/x-data-grid-premium";
-import { enqueueSnackbar } from "notistack";
 import React from "react";
-import { lastValueFrom } from "rxjs";
-import editAgremeent from "../../../api/editAgreement";
+import getAgreementType from "../../../api/getAgreementType";
 import getPurposes from "../../../api/getPurpose";
 import getRegDoc from "../../../api/getRegDocType";
 import getStatusAgreement from "../../../api/getStatusAgreement";
 import LinkDebtsDialog from "../../../components/LinkDebtsDialog.ts";
 import useLinkDebtsControl from "../../../components/LinkDebtsDialog.ts/useLinkDebtsControl";
-import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import SearchDialog from "../SearchDialog";
 import CardIpDialog from "./CardIpDialog";
 import useCardControls from "./CardIpDialog/hooks/useCardControls";
 import { useGrid } from "./hooks/useGrid";
+import useRowUpdater from "./RowUpdater";
+import { Root } from "./Style/style";
 import AgreementTableToolbar from "./ToolBar/Toolbar";
 export class EventDialog extends Event {
   constructor(type: CustomEvents, value: string | number | object) {
@@ -36,11 +35,13 @@ export default function AgreementTable() {
   const purposes = useAsyncMemo(getPurposes, []);
   const regDoc = useAsyncMemo(getRegDoc, []);
   const status = useAsyncMemo(getStatusAgreement, []);
+  const agreementType = useAsyncMemo(getAgreementType, []);
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
   const { refresh, ...gridProps } = useGrid(
     purposes!,
     regDoc!,
     status!,
+    agreementType!,
     DialogTarget
   );
   const linkDialogControl = useLinkDebtsControl({
@@ -83,136 +84,19 @@ export default function AgreementTable() {
     },
     []
   );
-  const getBackgroundColor = (color: string, mode: string) =>
-    mode === "dark" ? darken(color, 0.7) : lighten(color, 0.7);
-
-  const getHoverBackgroundColor = (color: string, mode: string) =>
-    mode === "dark" ? darken(color, 0.6) : lighten(color, 0.6);
-
-  const getSelectedBackgroundColor = (color: string, mode: string) =>
-    mode === "dark" ? darken(color, 0.5) : lighten(color, 0.5);
-
-  const getSelectedHoverBackgroundColor = (color: string, mode: string) =>
-    mode === "dark" ? darken(color, 0.4) : lighten(color, 0.4);
+  const { processRowUpdate, RenderDialog } = useRowUpdater();
   return (
     <Grid item container xs direction={"column"}>
-      <Grid item style={{ margin: "3px" }}>
+      <Grid item sx={{ margin: "3px" }}>
         <Typography variant="h5">Таблица соглашений</Typography>
       </Grid>
-      <Grid
+      <RenderDialog />
+      <Root
         item
         xs
-        style={{
+        sx={{
           height: 400,
           width: "100%",
-        }}
-        sx={{
-          "& .super-app-theme--1": {
-            backgroundColor: (theme) =>
-              getBackgroundColor(theme.palette.info.main, theme.palette.mode),
-            "&:hover": {
-              backgroundColor: (theme) =>
-                getHoverBackgroundColor(
-                  theme.palette.info.main,
-                  theme.palette.mode
-                ),
-            },
-            "&.Mui-selected": {
-              backgroundColor: (theme) =>
-                getSelectedBackgroundColor(
-                  theme.palette.info.main,
-                  theme.palette.mode
-                ),
-              "&:hover": {
-                backgroundColor: (theme) =>
-                  getSelectedHoverBackgroundColor(
-                    theme.palette.info.main,
-                    theme.palette.mode
-                  ),
-              },
-            },
-          },
-          "& .super-app-theme--2": {
-            backgroundColor: (theme) =>
-              getBackgroundColor(
-                theme.palette.success.main,
-                theme.palette.mode
-              ),
-            "&:hover": {
-              backgroundColor: (theme) =>
-                getHoverBackgroundColor(
-                  theme.palette.success.main,
-                  theme.palette.mode
-                ),
-            },
-            "&.Mui-selected": {
-              backgroundColor: (theme) =>
-                getSelectedBackgroundColor(
-                  theme.palette.success.main,
-                  theme.palette.mode
-                ),
-              "&:hover": {
-                backgroundColor: (theme) =>
-                  getSelectedHoverBackgroundColor(
-                    theme.palette.success.main,
-                    theme.palette.mode
-                  ),
-              },
-            },
-          },
-          "& .super-app-theme--3": {
-            backgroundColor: (theme) =>
-              getBackgroundColor(theme.palette.error.main, theme.palette.mode),
-            "&:hover": {
-              backgroundColor: (theme) =>
-                getHoverBackgroundColor(
-                  theme.palette.error.main,
-                  theme.palette.mode
-                ),
-            },
-            "&.Mui-selected": {
-              backgroundColor: (theme) =>
-                getSelectedBackgroundColor(
-                  theme.palette.error.main,
-                  theme.palette.mode
-                ),
-              "&:hover": {
-                backgroundColor: (theme) =>
-                  getSelectedHoverBackgroundColor(
-                    theme.palette.error.main,
-                    theme.palette.mode
-                  ),
-              },
-            },
-          },
-          "& .super-app-theme--4": {
-            backgroundColor: (theme) =>
-              getBackgroundColor(
-                theme.palette.warning.main,
-                theme.palette.mode
-              ),
-            "&:hover": {
-              backgroundColor: (theme) =>
-                getHoverBackgroundColor(
-                  theme.palette.warning.main,
-                  theme.palette.mode
-                ),
-            },
-            "&.Mui-selected": {
-              backgroundColor: (theme) =>
-                getSelectedBackgroundColor(
-                  theme.palette.warning.main,
-                  theme.palette.mode
-                ),
-              "&:hover": {
-                backgroundColor: (theme) =>
-                  getSelectedHoverBackgroundColor(
-                    theme.palette.warning.main,
-                    theme.palette.mode
-                  ),
-              },
-            },
-          },
         }}
       >
         <DataGridPremium
@@ -224,14 +108,7 @@ export default function AgreementTable() {
           slotProps={{
             toolbar: { refresh, handleOpen },
           }}
-          processRowUpdate={async (
-            oldData: AgreementInstance,
-            newData: AgreementInstance
-          ) => {
-            const data = await lastValueFrom(editAgremeent(oldData, newData));
-            enqueueSnackbar("Изменено", { variant: "success" });
-            return data;
-          }}
+          processRowUpdate={processRowUpdate}
           pinnedColumns={pinnedColumns}
           onPinnedColumnsChange={handlePinnedColumnsChange}
           hideFooterSelectedRowCount
@@ -245,7 +122,7 @@ export default function AgreementTable() {
             `super-app-theme--${params.row.statusAgreement}`
           }
         />
-      </Grid>
+      </Root>
       {open && <SearchDialog open={open} onClose={handleClose} />}
       {linkDialogControl.open && (
         <LinkDebtsDialog

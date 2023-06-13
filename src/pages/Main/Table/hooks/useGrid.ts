@@ -9,6 +9,7 @@ import {
 } from "@mui/x-data-grid-premium";
 import React from "react";
 import getAgreements from "../../../../api/getAgreements";
+import { AgreementType } from "../../../../api/getAgreementType";
 import { Purpose } from "../../../../api/getPurpose";
 import { RegDoc } from "../../../../api/getRegDocType";
 import { StatusAgreement } from "../../../../api/getStatusAgreement";
@@ -42,6 +43,7 @@ export function useGrid(
   purposes: Purpose[],
   regDoc: RegDoc[],
   status: StatusAgreement[],
+  agreementType: AgreementType[],
   DialogTarget: EventTarget
 ): GridResult<AgreementInstance> {
   const [loading, setLoading] = React.useState(false);
@@ -71,8 +73,17 @@ export function useGrid(
   }, [filterModel, paginationModel]);
   const ability = useAbility(CaslContext);
   const columns = React.useMemo(
-    () => GetColumns(refresh, ability, purposes, regDoc!, status, DialogTarget),
-    [refresh, ability, purposes, regDoc, status, DialogTarget]
+    () =>
+      GetColumns(
+        refresh,
+        ability,
+        agreementType,
+        purposes,
+        regDoc!,
+        status,
+        DialogTarget
+      ),
+    [refresh, ability, purposes, regDoc, status, agreementType, DialogTarget]
   );
   React.useEffect(() => {
     return refresh();

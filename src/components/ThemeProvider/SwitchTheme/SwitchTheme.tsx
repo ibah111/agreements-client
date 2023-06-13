@@ -4,7 +4,7 @@ import { ColorModeContext } from "../ThemeProvider";
 export default function SwitchTheme() {
   const { toggleColorMode } = React.useContext(ColorModeContext);
   return (
-    <Button color="secondary" onClick={() => toggleColorMode()}>
+    <Button color="primary" onClick={() => toggleColorMode()}>
       Cменить тему
     </Button>
   );

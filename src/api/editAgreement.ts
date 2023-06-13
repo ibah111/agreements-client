@@ -13,7 +13,7 @@ export class EditAgreementInput {
 async function edit(data: AgreementInstance, old: AgreementInstance) {
   const changed = diff(old, data);
   for (const key of Object.keys(changed) as (keyof AgreementInstance)[]) {
-    await baseRequest.patch<boolean>(`/Agreements/${data.id}`, {
+    await baseRequest.patch<AgreementInstance>(`/Agreements/${data.id}`, {
       field: key,
       value: data[key] as string,
     });

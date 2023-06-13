@@ -34,6 +34,11 @@ export class AgreementInstance implements AgreementData {
   @TransformDate(false)
   conclusion_date: moment.Moment;
   /**
+   * Тип соглашения
+   */
+  @IsNotEmpty()
+  agreement_type: number;
+  /**
    * Назначение
    */
   @IsNotEmpty()
@@ -80,8 +85,6 @@ export class AgreementInstance implements AgreementData {
   /**
    * тип соглашения
    */
-  @IsNotEmpty()
-  agreement_type: number;
   /**
    * Наличие ИД в регистраторе
    */

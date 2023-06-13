@@ -9,8 +9,8 @@ export default function Main() {
         <Grid
           container
           item
-          spacing={2}
-          style={{ marginTop: "2px" }}
+          spacing={0}
+          sx={{ marginTop: "2px" }}
           alignContent={"center"}
         >
           <SwitchTheme />

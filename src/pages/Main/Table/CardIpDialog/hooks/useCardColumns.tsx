@@ -3,17 +3,7 @@ import { LawExecInstance } from "../../../../../Models/LawExec";
 export default function useCardColumns() {
   const columns: GridColDef<LawExecInstance>[] = [
     {
-      field: "r_portfolio_id",
-      headerAlign: "center",
-      align: "center",
-      headerName: "Ссылка на портфель",
-      width: 170,
-      valueGetter: (params) => {
-        return params.row.Portfolio;
-      },
-    },
-    {
-      width: 170,
+      width: 220,
       field: "court_name",
       headerName: "Имя суда",
       align: "center",

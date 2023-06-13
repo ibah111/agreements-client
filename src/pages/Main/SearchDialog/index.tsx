@@ -47,7 +47,7 @@ export default function SearchDialog(props: SearchDialogProps) {
             <Grid item container alignItems={"center"} spacing={1} xs={1}>
               <Form refresh={refresh} />
             </Grid>
-            <Grid item xs style={{ height: 400, width: "100%" }}>
+            <Grid item xs sx={{ height: 400, width: "100%" }}>
               <Table columns={columns} loading={loading} rows={rows} />
             </Grid>
           </Grid>

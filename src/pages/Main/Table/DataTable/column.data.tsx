@@ -13,6 +13,7 @@ import { Action, AppAbility, Subject } from "../../../../casl/casl.factory";
 import { StatusAgreement } from "../../../../api/getStatusAgreement";
 import { CustomEvents, EventDialog } from "../Table";
 import IpIcon from "../CardIpDialog/IpIcon";
+import { AgreementType } from "../../../../api/getAgreementType";
 interface RenderLinkProps {
   value: string;
 }
@@ -30,6 +31,7 @@ function RenderLink({ value }: RenderLinkProps) {
 export default function GetColumns(
   refresh: () => void,
   ability: AppAbility,
+  agreementType?: AgreementType[],
   purposes?: Purpose[],
   regDoc?: RegDoc[],
   status?: StatusAgreement[],
@@ -43,15 +45,6 @@ export default function GetColumns(
       headerName: "Дата заключения",
       align: "center",
       headerAlign: "center",
-      width: 150,
-      editable: ability.can(Action.Update, Subject.Agreement),
-    },
-    {
-      field: "finish_date",
-      ...dateColumnType,
-      align: "center",
-      headerAlign: "center",
-      headerName: "Дата завершения",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
     },
@@ -76,7 +69,29 @@ export default function GetColumns(
       type: "string",
       valueGetter: (params) => params.row.Person?.fio || "",
     },
-
+    {
+      headerName: "Тип соглашения",
+      headerAlign: "center",
+      field: "agreement_type",
+      width: 150,
+      align: "center",
+      editable: true,
+      type: "singleSelect",
+      valueOptions:
+        agreementType?.map((item) => ({
+          label: item.title,
+          value: item.id,
+        })) || [],
+    },
+    {
+      field: "finish_date",
+      ...dateColumnType,
+      align: "center",
+      headerAlign: "center",
+      headerName: "Дата завершения",
+      width: 200,
+      editable: ability.can(Action.Update, Subject.Agreement),
+    },
     {
       headerName: "Назначение",
       align: "center",
@@ -114,19 +129,6 @@ export default function GetColumns(
       width: 150,
       valueGetter: (params) => {
         return params.row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name); // алилуя
-      },
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Имя продукта",
-      field: "name",
-      width: 150,
-      type: "number",
-      valueGetter: (params) => {
-        return params.row.Person.Debts?.map((item) => item.name || "").join(
-          " "
-        );
       },
     },
     {
