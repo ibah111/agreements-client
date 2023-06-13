@@ -70,18 +70,8 @@ export function useGrid(
     return sub.unsubscribe.bind(sub);
   }, [filterModel, paginationModel]);
   const ability = useAbility(CaslContext);
-  const handleOpenCard = (agreementIdCard: number) => {};
   const columns = React.useMemo(
-    () =>
-      GetColumns(
-        refresh,
-        handleOpenCard,
-        ability,
-        purposes,
-        regDoc!,
-        status,
-        DialogTarget
-      ),
+    () => GetColumns(refresh, ability, purposes, regDoc!, status, DialogTarget),
     [refresh, ability, purposes, regDoc, status, DialogTarget]
   );
   React.useEffect(() => {

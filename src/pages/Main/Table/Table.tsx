@@ -239,6 +239,7 @@ export default function AgreementTable() {
           disableRowGrouping // убрал ненужные функции
           filterMode="server"
           pagination
+          disableMultipleColumnsSorting
           paginationMode="server"
           getRowClassName={(params) =>
             `super-app-theme--${params.row.statusAgreement}`

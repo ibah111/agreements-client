@@ -29,7 +29,6 @@ function RenderLink({ value }: RenderLinkProps) {
 }
 export default function GetColumns(
   refresh: () => void,
-  handleOpenCard: (agreementId: number) => void,
   ability: AppAbility,
   purposes?: Purpose[],
   regDoc?: RegDoc[],
@@ -406,5 +405,5 @@ export default function GetColumns(
       ],
     },
   ];
-  return columns;
+  return columns.map((item) => ({ ...item, sortable: false }));
 }
