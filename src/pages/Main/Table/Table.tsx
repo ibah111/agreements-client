@@ -85,7 +85,7 @@ export default function AgreementTable() {
     },
     []
   );
-  const { processRowUpdate, RenderDialog } = useRowUpdater();
+  const { processRowUpdate, RenderDialog } = useRowUpdater(refresh);
   return (
     <Grid item container xs direction={"column"}>
       <Grid item sx={{ margin: "3px" }}>

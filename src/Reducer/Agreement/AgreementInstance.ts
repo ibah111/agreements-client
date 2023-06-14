@@ -41,23 +41,23 @@ export class AgreementInstance implements AgreementData {
   /**
    * Назначение
    */
-  @IsNotEmpty()
+  @IsOptional()
   purpose: number;
   /**
    * эл.реестр
    * сумма переданная банком
    */
-  @IsPositive()
+  @IsOptional()
   bank_sum: number;
   /**
    * Cумма задолженности по суд.акту
    */
-  @IsPositive()
+  @IsOptional()
   court_sum: number;
   /**
    * Сумма задолженности ОД взысканная в пользу НБК / Вымпел
    */
-  @IsPositive()
+  @IsOptional()
   debt_sum: number;
   /**
    * Сумма задолженности по пересчету

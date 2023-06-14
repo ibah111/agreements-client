@@ -17,11 +17,13 @@ interface PromiseAgreements {
   resolve: (value: AgreementInstance) => void;
   reject: (e: unknown) => void;
 }
-export default function useRowUpdater() {
+
+export default function useRowUpdater(refresh: () => void) {
   const [promiseArguments, setPromiseArguments] =
     React.useState<PromiseAgreements | null>(null);
   const [open, setOpen] = React.useState(false);
   const [newDate, setDate] = React.useState<null | moment.Moment>(null);
+
   const processRowUpdate = React.useCallback(
     (newRow: AgreementInstance, oldRow: AgreementInstance) => {
       return new Promise<AgreementInstance>((resolve, reject) => {
@@ -35,9 +37,10 @@ export default function useRowUpdater() {
           next: () => resolve(newRow),
           error: reject,
         });
+        refresh();
       });
     },
-    []
+    [refresh]
   );
   const updateConclusionDate = React.useCallback(() => {
     const data = { ...promiseArguments!.newRow, finish_date: newDate };
@@ -59,8 +62,8 @@ export default function useRowUpdater() {
         <DialogTitle>Введите дату заключения</DialogTitle>
         <DialogContent>
           <DatePicker
-            //minDate={moment().year(2000)}
-            //maxDate={moment()}
+            minDate={moment().year(2000)}
+            maxDate={moment()}
             onChange={(newValue) => {
               setDate(newValue as moment.Moment);
             }}
