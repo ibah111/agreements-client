@@ -14,6 +14,7 @@ import { StatusAgreement } from "../../../../api/getStatusAgreement";
 import { CustomEvents, EventDialog } from "../Table";
 import IpIcon from "../CardIpDialog/IpIcon";
 import { AgreementType } from "../../../../api/getAgreementType";
+import { Portfolio } from "@contact/models";
 interface RenderLinkProps {
   value: string;
 }
@@ -31,12 +32,17 @@ function RenderLink({ value }: RenderLinkProps) {
 export default function GetColumns(
   refresh: () => void,
   ability: AppAbility,
-  agreementType?: AgreementType[],
-  purposes?: Purpose[],
-  regDoc?: RegDoc[],
-  status?: StatusAgreement[],
-  eventTarget?: EventTarget
+  agreementType: AgreementType[],
+  purposes: Purpose[],
+  regDoc: RegDoc[],
+  status: StatusAgreement[],
+  portfolios: Portfolio[],
+  eventTarget: EventTarget
 ) {
+  const selectPortfolio = portfolios.map((port) => ({
+    label: port.name,
+    value: port.id,
+  }));
   const columns: GridColDef<AgreementInstance>[] = [
     { field: "id", headerName: "ID", width: 50, type: "number" },
     {
@@ -125,11 +131,15 @@ export default function GetColumns(
       headerAlign: "center",
       headerName: "Портфель",
       field: "portfolio",
-      type: "string",
       width: 150,
-
-      valueGetter: (params) => {
-        return params.row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name); // алилуя
+      type: "singleSelect",
+      valueOptions: selectPortfolio,
+      valueFormatter: (params) => {
+        if (!params.id) return;
+        const row = params.api.getRow(params.id) as AgreementInstance;
+        return row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name).join(
+          " ,"
+        );
       },
     },
     {
