@@ -27,7 +27,6 @@ export default function RegDocType() {
             </MenuItem>
           ))}
         </Select>
-        {}
       </FormControl>
     </Grid>
   );

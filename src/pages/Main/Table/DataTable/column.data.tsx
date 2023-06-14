@@ -89,7 +89,7 @@ export default function GetColumns(
       align: "center",
       headerAlign: "center",
       headerName: "Дата завершения",
-      width: 200,
+      width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
@@ -127,6 +127,7 @@ export default function GetColumns(
       field: "portfolio",
       type: "string",
       width: 150,
+
       valueGetter: (params) => {
         return params.row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name); // алилуя
       },
@@ -139,7 +140,7 @@ export default function GetColumns(
       width: 150,
       type: "number",
       valueGetter: (params) => {
-        return params.row.Person.Debts?.find(
+        return params.row.Person?.Debts?.find(
           (item) => !/.*[ПЕРЕСЧЕТ|ИНДЕКСАЦИЯ].*/.test(item.name || "")
         )?.start_sum;
       },

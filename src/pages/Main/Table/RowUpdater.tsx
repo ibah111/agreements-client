@@ -1,7 +1,14 @@
-import { Dialog } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers-pro";
 import { diff } from "deep-object-diff";
+import moment from "moment";
 import React from "react";
-import { map } from "rxjs";
 import editAgremeent from "../../../api/editAgreement";
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
 interface PromiseAgreements {
@@ -14,6 +21,7 @@ export default function useRowUpdater() {
   const [promiseArguments, setPromiseArguments] =
     React.useState<PromiseAgreements | null>(null);
   const [open, setOpen] = React.useState(false);
+  const [newDate, setDate] = React.useState<null | moment.Moment>(null);
   const processRowUpdate = React.useCallback(
     (newRow: AgreementInstance, oldRow: AgreementInstance) => {
       return new Promise<AgreementInstance>((resolve, reject) => {
@@ -23,14 +31,23 @@ export default function useRowUpdater() {
           setOpen(true);
           return;
         }
-        editAgremeent(newRow, oldRow)
-          .pipe(map(() => newRow))
-          .subscribe({ next: resolve, error: reject });
+        editAgremeent(newRow, oldRow).subscribe({
+          next: () => resolve(newRow),
+          error: reject,
+        });
       });
     },
     []
   );
-  const RenderDialog = React.useCallback(
+  const updateConclusionDate = React.useCallback(() => {
+    const data = { ...promiseArguments!.newRow, finish_date: newDate };
+    editAgremeent(data, promiseArguments!.oldRow).subscribe({
+      next: () => promiseArguments!.resolve(data),
+      error: promiseArguments!.reject,
+    });
+    setOpen(false);
+  }, [newDate, promiseArguments]);
+  const RenderDialog = React.useMemo(
     () => (
       <Dialog
         open={open}
@@ -38,9 +55,23 @@ export default function useRowUpdater() {
           setOpen(false);
           promiseArguments?.resolve(promiseArguments.oldRow);
         }}
-      ></Dialog>
+      >
+        <DialogTitle>Введите дату заключения</DialogTitle>
+        <DialogContent>
+          <DatePicker
+            //minDate={moment().year(2000)}
+            //maxDate={moment()}
+            onChange={(newValue) => {
+              setDate(newValue as moment.Moment);
+            }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={updateConclusionDate}>Подтвердить</Button>
+        </DialogActions>
+      </Dialog>
     ),
-    [open, promiseArguments]
+    [open, promiseArguments, updateConclusionDate]
   );
   return { processRowUpdate, RenderDialog };
 }

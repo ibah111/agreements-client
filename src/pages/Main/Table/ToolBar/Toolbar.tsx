@@ -8,7 +8,6 @@ import RefreshToolbarButton from "../../../../components/Utils/RefreshToolbarBut
 import { AuthUserSuccess } from "../../../../Schemas/Auth";
 
 import AddAgreement from "./AddAgreement";
-import AdminPanel from "./AdminPanel";
 import DeleteRowButton from "./DeleteRowButton";
 
 interface AgreementTableToolbarProps {
@@ -28,7 +27,8 @@ export default function AgreementTableToolbar(
       <RefreshToolbarButton refresh={props.refresh} />
       <AddAgreement handleOpen={props.handleOpen} />
       <DeleteRowButton refresh={props.refresh} />
-      <AdminPanel />
+
+      {/*TODO <AdminPanel /> */}
     </GridToolbarContainer>
   );
 }

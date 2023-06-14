@@ -70,9 +70,10 @@ export default function AgreementTable() {
       GRID_CHECKBOX_SELECTION_COL_DEF.field,
       "id",
       "personId",
-      "FIO",
-      "KD",
+      // "FIO",
+      // "KD",
       "conclusion_date",
+      "finish_date",
       "debt_id",
       "r_law_act_id",
     ],
@@ -90,7 +91,7 @@ export default function AgreementTable() {
       <Grid item sx={{ margin: "3px" }}>
         <Typography variant="h5">Таблица соглашений</Typography>
       </Grid>
-      <RenderDialog />
+      {RenderDialog}
       <Root
         item
         xs
@@ -107,6 +108,9 @@ export default function AgreementTable() {
           slots={{ toolbar: AgreementTableToolbar }}
           slotProps={{
             toolbar: { refresh, handleOpen },
+          }}
+          onProcessRowUpdateError={(e) => {
+            console.log(e);
           }}
           processRowUpdate={processRowUpdate}
           pinnedColumns={pinnedColumns}

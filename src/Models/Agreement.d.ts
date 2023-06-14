@@ -65,7 +65,7 @@ export class Agreement extends Model<
   /**
    * Ссылка на задачу
    */
-  task_link: string;
+  task_link: string | null;
   /**
    * Дата получения листа
    */
@@ -77,7 +77,7 @@ export class Agreement extends Model<
   /**
    * Дата завершения
    */
-  finish_date: moment.Moment;
+  finish_date: moment.Moment | null;
 
   LawAct?: NonAttribute<LawAct>;
   Debt?: NonAttribute<Debt>;

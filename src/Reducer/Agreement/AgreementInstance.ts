@@ -139,7 +139,7 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   @DateType(false)
   @TransformDate(false)
-  finish_date: moment.Moment;
+  finish_date: moment.Moment | null;
 
   @IsNotEmpty()
   statusAgreement: number;

@@ -59,10 +59,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
     dispatch(resetAgreement());
     props.fullClose();
   }, [dispatch, props]);
-  //TODO
-  /**
-   * Доделать ввод регистратора
-   */
+
   return (
     <>
       <Dialog open={props.open} onClose={handleClose} maxWidth="lg" fullWidth>
