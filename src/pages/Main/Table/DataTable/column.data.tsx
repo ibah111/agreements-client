@@ -67,6 +67,7 @@ export default function GetColumns(
     },
     {
       headerName: "ФИО должника",
+      align: "center",
       headerAlign: "center",
       field: "FIO",
       sortable: false,
@@ -324,13 +325,17 @@ export default function GetColumns(
       width: 150,
       align: "center",
       headerAlign: "center",
+      editable: true,
+      type: "number",
     },
     {
       headerName: "Наличие в архиве",
       field: "archive",
       width: 150,
       align: "center",
+      editable: true,
       headerAlign: "center",
+      type: "number",
     },
     {
       field: "receipt_dt",

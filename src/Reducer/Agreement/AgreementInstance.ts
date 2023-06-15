@@ -20,7 +20,6 @@ export class AgreementInstance implements AgreementData {
    * ID записи
    */
   id: number;
-
   /**
    * Дата заключения
    */
@@ -83,9 +82,6 @@ export class AgreementInstance implements AgreementData {
   @IsPositive()
   month_pay_day: number;
   /**
-   * тип соглашения
-   */
-  /**
    * Наличие ИД в регистраторе
    */
   @IsOptional()
@@ -127,7 +123,6 @@ export class AgreementInstance implements AgreementData {
    */
   @IsOptional()
   actions_for_get: string;
-
   /**
    * Дата завершения
    */

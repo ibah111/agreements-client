@@ -4,6 +4,7 @@ import {
   GridPinnedColumns,
   GRID_CHECKBOX_SELECTION_COL_DEF,
 } from "@mui/x-data-grid-premium";
+import { enqueueSnackbar } from "notistack";
 import React from "react";
 import getAgreementType from "../../../api/getAgreementType";
 import getPurposes from "../../../api/getPurpose";
@@ -110,7 +111,7 @@ export default function AgreementTable() {
             toolbar: { refresh, handleOpen },
           }}
           onProcessRowUpdateError={(e) => {
-            console.log(e);
+            enqueueSnackbar(`Возникла ошибка ${e}`, { variant: "error" });
           }}
           processRowUpdate={processRowUpdate}
           pinnedColumns={pinnedColumns}

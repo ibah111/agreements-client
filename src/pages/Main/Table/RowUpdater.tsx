@@ -8,7 +8,9 @@ import {
 import { DatePicker } from "@mui/x-date-pickers-pro";
 import { diff } from "deep-object-diff";
 import moment from "moment";
+import { enqueueSnackbar } from "notistack";
 import React from "react";
+import { tap } from "rxjs";
 import editAgremeent from "../../../api/editAgreement";
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
 interface PromiseAgreements {
@@ -33,14 +35,26 @@ export default function useRowUpdater(refresh: () => void) {
           setOpen(true);
           return;
         }
-        editAgremeent(newRow, oldRow).subscribe({
-          next: () => resolve(newRow),
-          error: reject,
-        });
-        refresh();
+        editAgremeent(newRow, oldRow)
+          .pipe(
+            tap(() => {
+              enqueueSnackbar(`Изменения внесены`, {
+                variant: "success",
+              });
+              // refresh();
+            })
+          )
+          .subscribe({
+            next: resolve,
+            error: reject,
+          });
       });
     },
-    [refresh]
+    [
+      /*
+       * refresh()
+       */
+    ]
   );
   const updateConclusionDate = React.useCallback(() => {
     const data = { ...promiseArguments!.newRow, finish_date: newDate };
