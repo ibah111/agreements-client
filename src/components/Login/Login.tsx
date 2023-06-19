@@ -19,7 +19,6 @@ export function Login({ children }: LoginProps) {
       const sub = connect().subscribe({
         next: (value) => {
           dispatch(setUser(value));
-          console.log("Connect", value);
           setAbility(createUserAbility(value));
         },
         error: (message) => setMessage(message),

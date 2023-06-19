@@ -71,8 +71,6 @@ export default function AgreementTable() {
       GRID_CHECKBOX_SELECTION_COL_DEF.field,
       "id",
       "personId",
-      // "FIO",
-      // "KD",
       "conclusion_date",
       "finish_date",
       "debt_id",

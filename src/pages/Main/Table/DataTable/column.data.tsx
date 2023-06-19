@@ -1,9 +1,6 @@
 import { Button } from "@mui/material";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { Purpose } from "../../../../api/getPurpose";
-import deleteAgreement from "../../../../api/deleteAgreement";
-import { enqueueSnackbar } from "notistack";
 import AddIcon from "@mui/icons-material/Add";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 import { dateColumnType } from "../../../../utils/DateCol";
@@ -15,6 +12,7 @@ import { CustomEvents, EventDialog } from "../Table";
 import IpIcon from "../CardIpDialog/IpIcon";
 import { AgreementType } from "../../../../api/getAgreementType";
 import { Portfolio } from "@contact/models";
+import DeleteButton from "./DeleteIcon";
 interface RenderLinkProps {
   value: string;
 }
@@ -395,19 +393,7 @@ export default function GetColumns(
       width: 100,
       getActions: (params) => [
         <Can I={Action.Delete} a={Subject.Agreement}>
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={() => {
-              deleteAgreement(params.row.id).subscribe(() => {
-                refresh();
-                enqueueSnackbar("Удалено", {
-                  variant: "warning",
-                  autoHideDuration: 1000,
-                });
-              });
-            }}
-          />
+          <DeleteButton id={params.row.id} refresh={refresh} />
         </Can>,
         <Can I={Action.Create} a={Subject.AgreementToDebt}>
           <GridActionsCellItem

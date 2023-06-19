@@ -16,7 +16,7 @@ export default function LinkDebtsDialog(props: LinkDebtsDialogProps) {
   return (
     <>
       <Dialog fullWidth maxWidth={"xl"} open={props.open} onClose={handleClose}>
-        <DialogTitle>Связаные долги</DialogTitle>
+        <DialogTitle>Связанные долги</DialogTitle>
         <DialogContent>
           <Grid container sx={{ height: "40vh" }}>
             <Grid item xs>

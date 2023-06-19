@@ -15,7 +15,12 @@ export default function Registator() {
         label="Регистратор"
         type="string"
         onChange={(event) => {
-          dispatch(setAgreementProperty(["registrator", event.target.value]));
+          dispatch(
+            setAgreementProperty([
+              "registrator",
+              event.target.value.toUpperCase(),
+            ])
+          );
         }}
         value={data.value}
         error={data.error}

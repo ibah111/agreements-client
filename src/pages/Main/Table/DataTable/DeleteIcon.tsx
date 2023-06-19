@@ -1,0 +1,55 @@
+import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { enqueueSnackbar } from "notistack";
+import React from "react";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import deleteAgreement from "../../../../api/deleteAgreement";
+import { GridActionsCellItem } from "@mui/x-data-grid-premium";
+
+interface DeleteIconProps {
+  id: number;
+  refresh: () => void;
+}
+export default function DeleteButton(props: DeleteIconProps) {
+  const [open, setOpen] = React.useState(false);
+  const handleClick = React.useCallback(() => {
+    setOpen(true);
+  }, []);
+  const handleClose = React.useCallback(() => {
+    setOpen(false);
+  }, []);
+  return (
+    <>
+      <GridActionsCellItem
+        label="Delete"
+        icon={<DeleteForeverIcon />}
+        onClick={handleClick}
+        size="small"
+        color="inherit"
+      />
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>
+          {`Вы уверены, что хотите удалить соглашение №${props.id}`}
+        </DialogTitle>
+        <DialogContent>
+          <Button
+            fullWidth
+            startIcon={<DeleteForeverIcon />}
+            variant="contained"
+            color="error"
+            onClick={() =>
+              deleteAgreement(props.id).subscribe(() => {
+                props.refresh();
+                enqueueSnackbar(`Удалено соглашение №${props.id}`, {
+                  variant: "warning",
+                  autoHideDuration: 1000,
+                });
+              })
+            }
+          >
+            Удалить
+          </Button>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}

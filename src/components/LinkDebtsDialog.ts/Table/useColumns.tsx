@@ -49,6 +49,13 @@ export default function useColumns(
         align: "center",
         headerAlign: "center",
         width: 150,
+        field: "debt_sum",
+        headerName: "Остаток задолженности",
+      },
+      {
+        align: "center",
+        headerAlign: "center",
+        width: 150,
         field: "name",
         headerName: "Название продукта",
       },

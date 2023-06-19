@@ -15,7 +15,9 @@ export default function Archive() {
         label="Архив"
         type="string"
         onChange={(event) => {
-          dispatch(setAgreementProperty(["archive", event.target.value]));
+          dispatch(
+            setAgreementProperty(["archive", event.target.value.toUpperCase()])
+          );
         }}
         value={data.value}
         error={data.error}
