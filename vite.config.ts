@@ -11,6 +11,6 @@ export default defineConfig({
       eslint: { lintCommand: 'eslint "src/**/*.{ts,tsx}"' },
     }),
   ],
-  server: { port: 3000 },
+  server: { port: 3000, host: "0.0.0.0" },
   build: { outDir: "build" },
 });
