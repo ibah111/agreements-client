@@ -38,6 +38,7 @@ export default function DeleteRowButton(props: DeleteRowButtonProps) {
         rows.sort();
         callMessage(`Удалены строки ${rows}`, { variant: "info" });
         props.refresh();
+        setOpen(false);
       });
     }
   };
@@ -54,13 +55,14 @@ export default function DeleteRowButton(props: DeleteRowButtonProps) {
         Удалить строки
       </Button>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth={"sm"}>
-        <DialogTitle>Удаление нескольких строк</DialogTitle>
+        <DialogTitle align="center">Удаление нескольких строк</DialogTitle>
         <DialogContentText
           align="center"
           fontSize={20}
         >{`Вы точно хотите удалить строки по №: ${rows}`}</DialogContentText>
         <DialogActions>
           <Button
+            fullWidth
             startIcon={<DeleteForeverOutlinedIcon />}
             variant="contained"
             color="error"

@@ -41,7 +41,6 @@ export default function useRowUpdater(refresh: () => void) {
               enqueueSnackbar(`Изменения внесены`, {
                 variant: "success",
               });
-              // refresh();
             })
           )
           .subscribe({
@@ -50,11 +49,7 @@ export default function useRowUpdater(refresh: () => void) {
           });
       });
     },
-    [
-      /*
-       * refresh()
-       */
-    ]
+    []
   );
   const updateConclusionDate = React.useCallback(() => {
     const data = { ...promiseArguments!.newRow, finish_date: newDate };

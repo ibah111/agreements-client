@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import {
   DataGridPremium,
   GridPinnedColumns,
@@ -70,11 +70,10 @@ export default function AgreementTable() {
     left: [
       GRID_CHECKBOX_SELECTION_COL_DEF.field,
       "id",
+      "agreement_type",
       "personId",
+      "FIO",
       "conclusion_date",
-      "finish_date",
-      "debt_id",
-      "r_law_act_id",
     ],
     right: ["Card_IP", "actions"],
   });
@@ -87,9 +86,6 @@ export default function AgreementTable() {
   const { processRowUpdate, RenderDialog } = useRowUpdater(refresh);
   return (
     <Grid item container xs direction={"column"}>
-      <Grid item sx={{ margin: "3px" }}>
-        <Typography variant="h5">Таблица соглашений</Typography>
-      </Grid>
       {RenderDialog}
       <Root
         item

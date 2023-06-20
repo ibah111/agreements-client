@@ -12,7 +12,7 @@ const columns: GridColDef<DebtCalcInstance>[] = [
   {
     align: "center",
     headerAlign: "center",
-    headerName: "ID должника",
+    headerName: "ID долга",
     field: "parent_id",
     width: 150,
     type: "number",
@@ -27,6 +27,7 @@ const columns: GridColDef<DebtCalcInstance>[] = [
   },
   {
     align: "center",
+    headerAlign: "center",
     headerName: "Дата",
     type: "date",
     valueGetter: (params) => (params.row.dt ? params.row.dt.toDate() : null),

@@ -22,7 +22,7 @@ export function createUserAbility(user?: AuthUserSuccess) {
   can(Action.Read, Subject.Agreement);
   if (!user) return build();
   if (roles?.includes("moderator")) {
-    can([Action.Create, Action.Update, Action.Delete], Subject.Agreement);
+    can([Action.Create, Action.Update], Subject.Agreement);
     can([Action.Create, Action.Read], Subject.AgreementToDebt);
   }
   if (roles?.includes("admin")) {

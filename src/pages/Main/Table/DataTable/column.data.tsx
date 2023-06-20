@@ -41,6 +41,7 @@ export default function GetColumns(
     label: port.name,
     value: port.id,
   }));
+
   const columns: GridColDef<AgreementInstance>[] = [
     { field: "id", headerName: "ID", width: 50, type: "number" },
     {
@@ -56,7 +57,7 @@ export default function GetColumns(
       headerName: "ID Должника",
       align: "center",
       headerAlign: "center",
-      field: "personId", // parent_id = 221
+      field: "personId",
       width: 100,
       editable: false,
       sortable: false,
@@ -87,6 +88,46 @@ export default function GetColumns(
           label: item.title,
           value: item.id,
         })) || [],
+    },
+    {
+      disableColumnMenu: true,
+      width: 150,
+      headerAlign: "center",
+      headerName: "Платежный статус",
+      align: "center",
+      field: "payableStatus",
+      type: "singleSelect",
+      valueGetter: (params) => {
+        if (params.row.statusAgreement !== 1) return "Соглашений закрыто";
+        else if (
+          params.row.DebtLinks?.map((item) =>
+            item.Debt.DebtCalcs?.map((item) => item)
+          )
+        ) {
+          return params.row;
+        }
+      },
+    },
+    {
+      disableColumnMenu: true,
+      align: "center",
+      headerAlign: "center",
+      headerName: "Дата посл.платежа",
+      field: "lastPaymentDate",
+      type: "date",
+      editable: false,
+      width: 250,
+      valueGetter: (params) => params.row.lastPaymentDate?.toDate() || null,
+    },
+    {
+      disableColumnMenu: true,
+      align: "center",
+      headerAlign: "center",
+      headerName: "Сумма платежей после соглашения",
+      field: "sumAfterAgr",
+      width: 150,
+      type: "number",
+      valueGetter: (params) => params.row.sumAfterAgr || null,
     },
     {
       field: "finish_date",
@@ -283,25 +324,6 @@ export default function GetColumns(
       type: "number",
       editable: false,
       valueGetter: (params) => params.row.lastPayment || null,
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Дата посл.платежа",
-      field: "lastPaymentDate",
-      type: "date",
-      editable: false,
-      width: 250,
-      valueGetter: (params) => params.row.lastPaymentDate?.toDate() || null,
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Сумма платежей после соглашения",
-      field: "sumAfterAgr",
-      width: 150,
-      type: "number",
-      valueGetter: (params) => params.row.sumAfterAgr || null,
     },
     {
       align: "center",

@@ -1,6 +1,8 @@
 import { Debt } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
 import React from "react";
+import { Can } from "../../../casl/casl";
+import { Action, Subject } from "../../../casl/casl.factory";
 import DeleteButton from "./Toolbar/DeleteButton";
 import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
 //import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
@@ -102,11 +104,13 @@ export default function useColumns(
         description: "Удалить",
         type: "actions",
         getActions: (params) => [
-          <DeleteButton
-            debtId={params.row.id}
-            agreementId={agreementId}
-            refresh={refresh}
-          />,
+          <Can I={Action.Delete} a={Subject.Agreement}>
+            <DeleteButton
+              debtId={params.row.id}
+              agreementId={agreementId}
+              refresh={refresh}
+            />
+          </Can>,
         ],
       },
     ],

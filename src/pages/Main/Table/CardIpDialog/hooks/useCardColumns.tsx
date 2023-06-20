@@ -3,7 +3,7 @@ import { LawExecInstance } from "../../../../../Models/LawExec";
 export default function useCardColumns() {
   const columns: GridColDef<LawExecInstance>[] = [
     {
-      width: 220,
+      width: 170,
       field: "court_name",
       headerName: "Имя суда",
       align: "center",
@@ -25,6 +25,32 @@ export default function useCardColumns() {
       align: "center",
       headerName: "Номер ИП",
       field: "fssp_doc_num",
+    },
+    {
+      width: 150,
+      headerAlign: "center",
+      align: "center",
+      headerName: "Наличие залогового имущества",
+      field: "deposit_typ",
+      type: "string",
+      valueGetter: (params) => {
+        if (params.row.deposit_typ === null || 0) return "Нет";
+        else return "Есть";
+      },
+    },
+    {
+      width: 150,
+      headerAlign: "center",
+      headerName: "Имя залога",
+      field: "deposit_name",
+      type: "string",
+      valueGetter: (params) => {
+        if (params.row.Person?.PersonProperties?.map((item) => item.name)) {
+          return params.row.Person?.PersonProperties?.map((item) => item.name);
+        } else {
+          return "Нет имени залога";
+        }
+      },
     },
     {
       width: 170,
