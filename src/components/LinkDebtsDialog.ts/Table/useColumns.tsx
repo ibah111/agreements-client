@@ -5,7 +5,6 @@ import { Can } from "../../../casl/casl";
 import { Action, Subject } from "../../../casl/casl.factory";
 import DeleteButton from "./Toolbar/DeleteButton";
 import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
-//import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
 
 export default function useColumns(
   agreementId: number,

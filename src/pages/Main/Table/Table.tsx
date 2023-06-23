@@ -70,10 +70,12 @@ export default function AgreementTable() {
     left: [
       GRID_CHECKBOX_SELECTION_COL_DEF.field,
       "id",
-      "agreement_type",
       "personId",
+      "agreement_type",
+      "statusAgreement",
       "FIO",
       "conclusion_date",
+      "payableStatus",
     ],
     right: ["Card_IP", "actions"],
   });

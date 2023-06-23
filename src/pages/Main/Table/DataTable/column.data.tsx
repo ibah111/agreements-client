@@ -58,7 +58,7 @@ export default function GetColumns(
       align: "center",
       headerAlign: "center",
       field: "personId",
-      width: 100,
+      width: 75,
       editable: false,
       sortable: false,
       type: "number",
@@ -79,7 +79,7 @@ export default function GetColumns(
       headerName: "Тип соглашения",
       headerAlign: "center",
       field: "agreement_type",
-      width: 150,
+      width: 100,
       align: "center",
       editable: true,
       type: "singleSelect",
@@ -90,23 +90,51 @@ export default function GetColumns(
         })) || [],
     },
     {
-      disableColumnMenu: true,
-      width: 150,
+      width: 100,
       headerAlign: "center",
       headerName: "Платежный статус",
       align: "center",
       field: "payableStatus",
-      type: "singleSelect",
+      type: "boolean",
       valueGetter: (params) => {
-        if (params.row.statusAgreement !== 1) return "Соглашений закрыто";
-        else if (
-          params.row.DebtLinks?.map((item) =>
-            item.Debt.DebtCalcs?.map((item) => item)
-          )
-        ) {
-          return params.row;
-        }
+        const count = params.row.DebtLinks?.reduce(
+          (prev, item) => prev + Number(item.Debt?.LastCalcs?.length),
+          0
+        );
+        return count && count > 0;
+
+        // function sum(points: (number | undefined)[]) {
+        //   if (points) {
+        //     const summa = points.reduce((prev, curr) => {
+        //       return Number(prev) + Number(curr);
+        //     }, 0);
+        //     return summa;
+        //   } else if (!points) {
+        //     return undefined;
+        //   }
+        // }
+        // const endParameter = parameter ? sum(parameter) : undefined;
+        // if (params.row.statusAgreement !== 1) {
+        //   if (params.row.statusAgreement === 2) {
+        //     return "Соглашение закрыто, т.к. статус ИСПОЛНЕННО";
+        //   } else if (params.row.statusAgreement === 3) {
+        //     return "Соглашение закрыто, т.к. статус УТРАТИЛО СИЛУ";
+        //   }
+        // } else if (endParameter) {
+        //   return `Чел платит `;
+        // } else {
+        //   return `Чел не платит `;
+        // }
       },
+    },
+    {
+      headerName: "День платежа",
+      align: "center",
+      headerAlign: "center",
+      description: "Дата платежа по соглашению",
+      field: "month_pay_day",
+      width: 75,
+      type: "number",
     },
     {
       disableColumnMenu: true,
@@ -116,14 +144,14 @@ export default function GetColumns(
       field: "lastPaymentDate",
       type: "date",
       editable: false,
-      width: 250,
+      width: 125,
       valueGetter: (params) => params.row.lastPaymentDate?.toDate() || null,
     },
     {
       disableColumnMenu: true,
       align: "center",
       headerAlign: "center",
-      headerName: "Сумма платежей после соглашения",
+      headerName: "Сум. плат. после соглашения",
       field: "sumAfterAgr",
       width: 150,
       type: "number",
@@ -157,7 +185,7 @@ export default function GetColumns(
       align: "center",
       headerAlign: "center",
       field: "statusAgreement",
-      width: 150,
+      width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
       valueOptions:
@@ -272,15 +300,6 @@ export default function GetColumns(
       field: "discount",
       width: 200,
       editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
-    {
-      headerName: "День платежа",
-      align: "center",
-      headerAlign: "center",
-      description: "Дата платежа по соглашению",
-      field: "month_pay_day",
-      width: 150,
       type: "number",
     },
     {
