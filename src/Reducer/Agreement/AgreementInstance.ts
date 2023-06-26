@@ -79,7 +79,8 @@ export class AgreementInstance implements AgreementData {
   /**
    * Число платежа каждого месяца
    */
-  @IsPositive()
+  @IsNotEmpty()
+  @IsNumber()
   month_pay_day: number;
   /**
    * Наличие ИД в регистраторе

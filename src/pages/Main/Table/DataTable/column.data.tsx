@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import { Purpose } from "../../../../api/getPurpose";
 import AddIcon from "@mui/icons-material/Add";
@@ -41,7 +41,7 @@ export default function GetColumns(
     label: port.name,
     value: port.id,
   }));
-
+  const styleHeader = "super-app-theme--header";
   const columns: GridColDef<AgreementInstance>[] = [
     { field: "id", headerName: "ID", width: 50, type: "number" },
     {
@@ -102,29 +102,6 @@ export default function GetColumns(
           0
         );
         return count && count > 0;
-
-        // function sum(points: (number | undefined)[]) {
-        //   if (points) {
-        //     const summa = points.reduce((prev, curr) => {
-        //       return Number(prev) + Number(curr);
-        //     }, 0);
-        //     return summa;
-        //   } else if (!points) {
-        //     return undefined;
-        //   }
-        // }
-        // const endParameter = parameter ? sum(parameter) : undefined;
-        // if (params.row.statusAgreement !== 1) {
-        //   if (params.row.statusAgreement === 2) {
-        //     return "Соглашение закрыто, т.к. статус ИСПОЛНЕННО";
-        //   } else if (params.row.statusAgreement === 3) {
-        //     return "Соглашение закрыто, т.к. статус УТРАТИЛО СИЛУ";
-        //   }
-        // } else if (endParameter) {
-        //   return `Чел платит `;
-        // } else {
-        //   return `Чел не платит `;
-        // }
       },
     },
     {
@@ -135,6 +112,7 @@ export default function GetColumns(
       field: "month_pay_day",
       width: 75,
       type: "number",
+      // valueGetter: ()
     },
     {
       disableColumnMenu: true,
@@ -413,6 +391,7 @@ export default function GetColumns(
       renderCell: ({ value }) => <RenderLink value={value} />,
     },
     {
+      headerClassName: styleHeader,
       headerName: "ИП",
       field: "Card_IP",
       type: "actions",
@@ -426,6 +405,7 @@ export default function GetColumns(
       ],
     },
     {
+      headerClassName: styleHeader,
       headerAlign: "center",
       headerName: "Действия",
       align: "center",
@@ -437,15 +417,17 @@ export default function GetColumns(
           <DeleteButton id={params.row.id} refresh={refresh} />
         </Can>,
         <Can I={Action.Create} a={Subject.AgreementToDebt}>
-          <GridActionsCellItem
-            icon={<AddIcon />}
-            label="AddDebt"
-            onClick={() => {
-              eventTarget?.dispatchEvent(
-                new EventDialog(CustomEvents.onOpenDialog, params.row.id)
-              );
-            }}
-          />
+          <Tooltip title="Связать долг">
+            <GridActionsCellItem
+              icon={<AddIcon />}
+              label="AddDebt"
+              onClick={() => {
+                eventTarget?.dispatchEvent(
+                  new EventDialog(CustomEvents.onOpenDialog, params.row.id)
+                );
+              }}
+            />
+          </Tooltip>
         </Can>,
       ],
     },

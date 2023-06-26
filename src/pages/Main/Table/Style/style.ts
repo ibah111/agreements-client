@@ -49,9 +49,13 @@ const createThemeApp = (theme: Theme, color: keyof Palette) => ({
       ),
     },
   },
+  "& .MuiCheckbox-root svg": {},
 });
 export const Root = styled(Grid)(({ theme }) => ({
   "& .super-app-theme--1": createThemeApp(theme, "info"),
   "& .super-app-theme--2": createThemeApp(theme, "success"),
   "& .super-app-theme--3": createThemeApp(theme, "error"),
+  "& .super-app-theme--header": {
+    backgroundColor: "rgba(224, 213, 240, 0.55)",
+  },
 }));

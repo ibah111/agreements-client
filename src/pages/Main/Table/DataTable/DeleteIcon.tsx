@@ -1,4 +1,10 @@
-import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Tooltip,
+} from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -19,13 +25,15 @@ export default function DeleteButton(props: DeleteIconProps) {
   }, []);
   return (
     <>
-      <GridActionsCellItem
-        label="Delete"
-        icon={<DeleteForeverIcon />}
-        onClick={handleClick}
-        size="small"
-        color="inherit"
-      />
+      <Tooltip title="Удалить соглашение">
+        <GridActionsCellItem
+          label="Delete"
+          icon={<DeleteForeverIcon />}
+          onClick={handleClick}
+          size="small"
+          color="inherit"
+        />
+      </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>
           {`Вы уверены, что хотите удалить соглашение №${props.id}`}
