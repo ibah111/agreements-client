@@ -6,7 +6,7 @@ import Main from "../../pages/Main";
 
 export default function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/apps/agreements">
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/ActionLog" element={<ActionLog />} />

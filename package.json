@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "author": "Ibah <starlord77@mail.ru>",
   "license": "MIT",
+  "homepage": "/apps/agreements",
   "packageManager": "yarn@3.4.1",
   "scripts": {
     "start": "vite",
