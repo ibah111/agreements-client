@@ -2707,17 +2707,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tools/rxjs-pipes@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@tools/rxjs-pipes@npm:0.1.3::__archiveUrl=https%3A%2F%2Fgit.usb.ru%2Fapi%2Fv4%2Fprojects%2F208%2Fpackages%2Fnpm%2F%40tools%2Frxjs-pipes%2F-%2F%40tools%2Frxjs-pipes-0.1.3.tgz"
-  dependencies:
-    rxjs: ^7.8.1
+"@tools/rxjs-pipes@npm:^0.1.11":
+  version: 0.1.11
+  resolution: "@tools/rxjs-pipes@npm:0.1.11::__archiveUrl=https%3A%2F%2Fgit.usb.ru%2Fapi%2Fv4%2Fprojects%2F208%2Fpackages%2Fnpm%2F%40tools%2Frxjs-pipes%2F-%2F%40tools%2Frxjs-pipes-0.1.11.tgz"
   peerDependencies:
-    axios: ^1.x.x
+    axios: ^1.0.0
     class-transformer: ^0.5.x
     class-validator: ^0.x.x
     reflect-metadata: 0.1.x
-  checksum: c9c8193fb17da72b4ae2e0ce16e52f497c341e0135708a705cf9e667ee4793f23212bed3762c3103eb90558dc70e27d429bb9bb580bc84111e15adc2ef7f447e
+    rxjs: ^7.3.0
+  checksum: 2b0fc2a139801ee0ac5e66f5c970a44d4b5f083d14b0473e7fcfa31ab0172d9cbf67011454f49ae11a08389f1f6054d5f7bedc8aa0c94b634147426eb563fe6b
   languageName: node
   linkType: hard
 
@@ -8069,7 +8068,7 @@ __metadata:
     "@sql-tools/association-literal": ^0.0.3
     "@sql-tools/sequelize": ^6.27.8
     "@sql-tools/sequelize-typescript": ^2.1.5
-    "@tools/rxjs-pipes": ^0.1.3
+    "@tools/rxjs-pipes": ^0.1.11
     "@types/node": ^18.11.18
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
