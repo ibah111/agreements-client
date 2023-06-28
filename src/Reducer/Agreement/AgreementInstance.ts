@@ -79,14 +79,13 @@ export class AgreementInstance implements AgreementData {
   /**
    * Число платежа каждого месяца
    */
-  @IsNotEmpty()
   @IsNumber()
   month_pay_day: number;
   /**
    * Наличие ИД в регистраторе
    */
   @IsOptional()
-  new_regDoc: number;
+  new_reg_doc: number;
   /**
    * Регистратор
    */
@@ -139,6 +138,9 @@ export class AgreementInstance implements AgreementData {
 
   @IsNotEmpty()
   statusAgreement: number;
+
+  @IsOptional()
+  collector: string;
 
   Person: Person;
   DebtLinks?: AgreementDebtsLink[];

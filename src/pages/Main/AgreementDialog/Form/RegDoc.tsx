@@ -8,7 +8,7 @@ export default function RegDocType() {
   React.useEffect(() => {
     getRegDoc().then((res) => setRegDoc(res));
   }, []);
-  const data = useAgreementData("new_regDoc");
+  const data = useAgreementData("new_reg_doc");
   return (
     <Grid xs={2} item>
       <FormControl error={data.error} fullWidth>

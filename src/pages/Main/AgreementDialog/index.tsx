@@ -36,6 +36,7 @@ import Archive from "./Form/Archive";
 import DiscountSum from "./Form/DiscountSum";
 import Discount from "./Form/Discount";
 import Type from "./Form/Type";
+import Collector from "./Form/Collector";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -89,15 +90,16 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <DiscountSum />
             <Discount />
             <MonthPerDay />
-            <Comment />
-            <TaskLink />
             <Divider />
             <RegDocType />
-            {agreement.new_regDoc === 2 && <Registator />}
-            {agreement.new_regDoc === 3 && <Archive />}
+            {agreement.new_reg_doc === 2 && <Registator />}
+            {agreement.new_reg_doc === 3 && <Archive />}
             <ActionsForGet />
+            <Collector />
             <ReceiptDt />
             <FinishDate />
+            <Comment />
+            <TaskLink />
           </Grid>
         </DialogContent>
         <Divider />

@@ -76,6 +76,7 @@ export default function AgreementTable() {
       "FIO",
       "conclusion_date",
       "payableStatus",
+      "portfolio",
     ],
     right: ["Card_IP", "actions"],
   });

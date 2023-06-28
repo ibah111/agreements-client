@@ -112,7 +112,22 @@ export default function GetColumns(
       field: "month_pay_day",
       width: 75,
       type: "number",
-      // valueGetter: ()
+      editable: ability.can(Action.Update, Subject.Agreement),
+      valueGetter: (params) => {
+        if (params.row.month_pay_day === 0) return "Единовременно";
+        return params.row.month_pay_day;
+      },
+    },
+    {
+      align: "center",
+      headerAlign: "center",
+      headerName: "Последний платеж",
+      description: "Последний зарег. платеж из контакта",
+      field: "lastPayment",
+      width: 150,
+      type: "number",
+      editable: false,
+      valueGetter: (params) => params.row.lastPayment || null,
     },
     {
       disableColumnMenu: true,
@@ -314,19 +329,8 @@ export default function GetColumns(
     {
       align: "center",
       headerAlign: "center",
-      headerName: "Последний платеж",
-      description: "Последний зарег. платеж из контакта",
-      field: "lastPayment",
-      width: 150,
-      type: "number",
-      editable: false,
-      valueGetter: (params) => params.row.lastPayment || null,
-    },
-    {
-      align: "center",
-      headerAlign: "center",
       headerName: "Наличие ИД",
-      field: "new_regDoc",
+      field: "new_reg_doc",
       width: 150,
       type: "singleSelect",
       valueOptions:
@@ -376,6 +380,14 @@ export default function GetColumns(
       headerAlign: "center",
       headerName: "Комментарий",
       field: "comment",
+      width: 150,
+      editable: ability.can(Action.Update, Subject.Agreement),
+      type: "string",
+    },
+    {
+      headerAlign: "center",
+      headerName: "Взыскатель",
+      field: "collector",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "string",

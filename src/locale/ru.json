@@ -10,7 +10,8 @@
       "isValidMoment": "Дата занесена не правильно",
       "IsPositive": "Значение должно быть больше нуля",
       "DateRangeBeforeMin": "Дата должна быть минимум с {{minDate}}",
-      "DateRangeAfterMax": "Дата должна быть до {{maxDate}}"
+      "DateRangeAfterMax": "Дата должна быть до {{maxDate}}",
+      "IsNumber": "Введите цифру"
     },
     "Agreement": {
       "debt_sum": "Сумма долга",
@@ -28,7 +29,8 @@
         "isValidMoment": "Дата в поле \"$t(form.Agreement.{{property}})\" занесена не правильно",
         "IsPositive": "Поле \"$t(form.Agreement.{{property}})\" должно быть больше нуля",
         "DateRangeBeforeMin": "Дата в поле \"$t(form.Agreement.{{property}})\" должна быть минимум с {{minDate}}",
-        "DateRangeAfterMax": "Дата в поле \"$t(form.Agreement.{{property}})\" должна быть до {{maxDate}}"
+        "DateRangeAfterMax": "Дата в поле \"$t(form.Agreement.{{property}})\" должна быть до {{maxDate}}",
+        "IsNumber": "Введите цифру"
       }
     }
   },

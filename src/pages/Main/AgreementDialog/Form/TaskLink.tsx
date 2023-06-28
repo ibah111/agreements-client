@@ -7,8 +7,9 @@ export default function TaskLink() {
   const dispatch = useAppDispatch();
   const data = useAgreementData("task_link");
   return (
-    <Grid xs={2} item>
+    <Grid xs={4} item>
       <TextField
+        fullWidth
         label="Ссылка на задачу"
         type="string"
         value={data.value}

@@ -16,7 +16,6 @@ export default function MonthPerDay() {
         }}
         error={data.error}
         required={data.required}
-        helperText={data.helperText}
         InputProps={{ inputComponent: input }}
       />
     </Grid>

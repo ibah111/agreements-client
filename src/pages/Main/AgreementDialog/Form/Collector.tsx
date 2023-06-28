@@ -1,23 +1,21 @@
 import { Grid, TextField } from "@mui/material";
-import useAgreementData from "../../../../Hooks/useAgreementData";
 import { useAppDispatch } from "../../../../Reducer";
 import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
+import useAgreementData from "../../../../Hooks/useAgreementData";
 
-export default function ActionsForGet() {
+export default function Collector() {
   const dispatch = useAppDispatch();
-  const data = useAgreementData("actions_for_get");
+  const data = useAgreementData("collector");
   return (
     <Grid xs={4} item>
       <TextField
         fullWidth
-        label="Действия для пол-я листа"
+        label="Взыскатель"
         type="string"
-        onChange={(event) =>
-          dispatch(
-            setAgreementProperty(["actions_for_get", event.target.value])
-          )
-        }
         value={data.value}
+        onChange={(event) =>
+          dispatch(setAgreementProperty(["collector", event.target.value]))
+        }
       />
     </Grid>
   );
