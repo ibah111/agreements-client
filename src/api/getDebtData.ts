@@ -1,35 +1,14 @@
-import { Debt, DebtCalc } from "@contact/models";
-import { Observable } from "rxjs";
+import { DebtCalc } from "@contact/models";
+import { authRetry, get, transformAxios } from "@tools/rxjs-pipes";
+import { of } from "rxjs";
 import { baseRequest } from "../utils/baseRequest";
-import processError, {
-  createError,
-  createNextDefault,
-  createRetry,
-} from "../utils/processError";
+import { transformError } from "../utils/processError";
 
-export async function getDebtPerson(id: number) {
-  try {
-    const res = await baseRequest.get<Debt[]>(`/Debt/${id}`);
-    return res.data;
-  } catch (e) {
-    processError(e);
-    throw e;
-  }
-}
-export async function getPersonDebts(personId: number) {
-  try {
-    const res = await baseRequest.get<Debt[]>(`/Debt/Person/${personId}`);
-    return res.data;
-  } catch (e) {
-    processError(e);
-    throw e;
-  }
-}
 export function getDebtPayments(id: number) {
-  return new Observable<DebtCalc[]>((subscriber) => {
-    baseRequest
-      .get<DebtCalc[]>(`/Debt/Payments/${id}`)
-      .then(createNextDefault(subscriber))
-      .catch(createError(subscriber));
-  }).pipe(createRetry());
+  return of(`/Debt/Payments/${id}`).pipe(
+    get<DebtCalc[]>(baseRequest),
+    transformAxios(),
+    transformError(),
+    authRetry()
+  );
 }

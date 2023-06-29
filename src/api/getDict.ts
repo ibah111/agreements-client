@@ -1,19 +1,13 @@
 import { Dict } from "@contact/models";
-import { Observable } from "rxjs";
+import { post, transformAxios } from "@tools/rxjs-pipes";
+import { of } from "rxjs";
 import { baseRequest } from "../utils/baseRequest";
-import {
-  createError,
-  createNextDefault,
-  createRetry,
-} from "../utils/processError";
+import { transformError } from "../utils/processError";
 
 export default function getDict(value: number) {
-  return new Observable<Dict[]>((subscriber) => {
-    baseRequest
-      .post<Dict[]>("/dict", {
-        id: value,
-      })
-      .then(createNextDefault(subscriber))
-      .catch(createError(subscriber));
-  }).pipe(createRetry());
+  return of({ id: value }).pipe(
+    post<Dict[]>(baseRequest, "/dict"),
+    transformAxios(),
+    transformError()
+  );
 }

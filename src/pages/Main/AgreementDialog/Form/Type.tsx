@@ -6,17 +6,12 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import React from "react";
-import getAgreementType, {
-  AgreementType,
-} from "../../../../api/getAgreementType";
+import getAgreementType from "../../../../api/getAgreementType";
 import useAgreementData from "../../../../Hooks/useAgreementData";
+import useAsyncMemo from "../../../../utils/asyncMemo";
 
 export default function Type() {
-  const [type, setType] = React.useState<AgreementType[]>([]);
-  React.useEffect(() => {
-    getAgreementType().then((res) => setType(res));
-  }, []);
+  const type = useAsyncMemo(getAgreementType, []);
   const data = useAgreementData("agreement_type");
   return (
     <Grid xs={2} item>

@@ -1,17 +1,14 @@
-import { Observable } from "rxjs";
+import { of } from "rxjs";
 import { Debt } from "@contact/models";
-import {
-  createError,
-  createNextDefault,
-  createRetry,
-} from "../../utils/processError";
 import { baseRequest } from "../../utils/baseRequest";
+import { authRetry, get, transformAxios } from "@tools/rxjs-pipes";
+import { transformError } from "../../utils/processError";
 
 export default function getLinkedDebts(id_agreement: number) {
-  return new Observable<Debt[]>((subscriber) => {
-    baseRequest
-      .get<Debt[]>(`/AgreementToDebt/${id_agreement}`)
-      .then(createNextDefault(subscriber))
-      .catch(createError(subscriber));
-  }).pipe(createRetry());
+  return of(`/AgreementToDebt/${id_agreement}`).pipe(
+    get<Debt[]>(baseRequest),
+    transformAxios(),
+    transformError(),
+    authRetry()
+  );
 }

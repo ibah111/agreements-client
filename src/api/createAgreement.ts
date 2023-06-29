@@ -1,24 +1,20 @@
-import { plainToInstance } from "class-transformer";
-import { validateOrReject } from "class-validator";
-import { Observable } from "rxjs";
-import { Agreement } from "../Models/Agreement";
+import {
+  authRetry,
+  post,
+  transformAxios,
+  validateData,
+} from "@tools/rxjs-pipes";
+import { of } from "rxjs";
 import { AgreementInstance } from "../Reducer/Agreement/AgreementInstance";
 import { baseRequest } from "../utils/baseRequest";
-import { createError, createNextDefault } from "../utils/processError";
-
-async function create(value: AgreementInstance) {
-  const data = plainToInstance(AgreementInstance, value);
-  await validateOrReject(data);
-  const create = await baseRequest.post<Agreement>(`/Agreements`, {
-    ...data,
-  });
-  return create;
-}
+import { transformError } from "../utils/processError";
 
 export default function createAgreement(data: AgreementInstance) {
-  return new Observable((sub) => {
-    create(data)
-      .then(createNextDefault(sub))
-      .catch(createError(sub, "Agreement"));
-  });
+  return of(data).pipe(
+    validateData(AgreementInstance),
+    post(baseRequest, "/Agreements"),
+    transformAxios(),
+    transformError("Agreement"),
+    authRetry()
+  );
 }

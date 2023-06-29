@@ -1,12 +1,12 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { enqueueSnackbar } from "notistack";
-import { map, mergeMap, Observable, of, retry, Subscriber } from "rxjs";
+import { map, mergeMap, of } from "rxjs";
 import { ValidationError } from "class-validator";
 import { TranslateMessage } from "../Hooks/Validation/checker";
 import { store } from "../Reducer";
 import { addMessage } from "../Reducer/Message";
 import { t } from "i18next";
-import { createError as createErrorRx } from "@tools/rxjs-pipes";
+import { createError } from "@tools/rxjs-pipes";
 import getToken from "../api/getToken";
 import { baseRequest } from "./baseRequest";
 
@@ -86,29 +86,4 @@ export default function processError(e: unknown, name?: string) {
     })
   );
 }
-export const transformError = createErrorRx(processError);
-export function createError<T>(subscriber: Subscriber<T>, name?: string) {
-  return (e: unknown) =>
-    processError(e, name).subscribe((e) => subscriber.error(e));
-}
-export function createNextDefault<T>(subscriber: Subscriber<T>) {
-  return (res: AxiosResponse<T>) => {
-    subscriber.next(res.data);
-    subscriber.complete();
-  };
-}
-export function createNextPlain<T>(subscriber: Subscriber<T>) {
-  return (res: T) => {
-    subscriber.next(res);
-    subscriber.complete();
-  };
-}
-export function createRetry<T>() {
-  return retry<T>({
-    delay: (err) =>
-      new Observable((subscriber) => {
-        if (err === "retry") subscriber.next();
-        subscriber.complete();
-      }),
-  });
-}
+export const transformError = createError(processError);

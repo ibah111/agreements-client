@@ -1,13 +1,10 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
-import React from "react";
-import getRegDoc, { RegDoc } from "../../../../api/getRegDocType";
+import getRegDoc from "../../../../api/getRegDocType";
 import useAgreementData from "../../../../Hooks/useAgreementData";
+import useAsyncMemo from "../../../../utils/asyncMemo";
 
 export default function RegDocType() {
-  const [regDoc, setRegDoc] = React.useState<RegDoc[]>([]);
-  React.useEffect(() => {
-    getRegDoc().then((res) => setRegDoc(res));
-  }, []);
+  const regDoc = useAsyncMemo(getRegDoc, []);
   const data = useAgreementData("new_reg_doc");
   return (
     <Grid xs={2} item>

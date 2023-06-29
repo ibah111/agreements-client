@@ -1,19 +1,14 @@
-import { Observable } from "rxjs";
+import { of } from "rxjs";
 import { Debt } from "@contact/models";
-import {
-  createError,
-  createNextDefault,
-  createRetry,
-} from "../../utils/processError";
 import { baseRequest } from "../../utils/baseRequest";
+import { authRetry, post, transformAxios } from "@tools/rxjs-pipes";
+import { transformError } from "../../utils/processError";
 
 export default function getAvailableDebts(id_agreement: number) {
-  return new Observable<Debt[]>((subscriber) => {
-    baseRequest
-      .post<Debt[]>("/AgreementToDebt/getAllowedDebts", {
-        id_agreement,
-      })
-      .then(createNextDefault(subscriber))
-      .catch(createError(subscriber));
-  }).pipe(createRetry());
+  return of({ id_agreement }).pipe(
+    post<Debt[]>(baseRequest, "/AgreementToDebt/getAllowedDebts"),
+    transformAxios(),
+    transformError(),
+    authRetry()
+  );
 }

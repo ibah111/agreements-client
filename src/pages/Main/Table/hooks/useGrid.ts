@@ -12,11 +12,8 @@ import { get, transformAxios } from "@tools/rxjs-pipes";
 import React from "react";
 import { of } from "rxjs";
 import getAgreements from "../../../../api/getAgreements";
-import { AgreementType } from "../../../../api/getAgreementType";
-import { Purpose } from "../../../../api/getPurpose";
-import { RegDoc } from "../../../../api/getRegDocType";
-import { StatusAgreement } from "../../../../api/getStatusAgreement";
 import { CaslContext } from "../../../../casl/casl";
+import { IdTitle } from "../../../../Models/IdTitle";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 import useAsyncMemo from "../../../../utils/asyncMemo";
 import { baseRequest } from "../../../../utils/baseRequest";
@@ -45,10 +42,10 @@ interface GridResult<T extends GridValidRowModel> {
   rowCount: number;
 }
 export function useGrid(
-  purposes: Purpose[],
-  regDoc: RegDoc[],
-  status: StatusAgreement[],
-  agreementType: AgreementType[],
+  purposes: IdTitle[],
+  regDoc: IdTitle[],
+  status: IdTitle[],
+  agreementType: IdTitle[],
   DialogTarget: EventTarget
 ): GridResult<AgreementInstance> {
   const [loading, setLoading] = React.useState(false);

@@ -7,16 +7,12 @@ import {
   Select,
 } from "@mui/material";
 import React from "react";
-import getStatusAgreement, {
-  StatusAgreement,
-} from "../../../../api/getStatusAgreement";
+import getStatusAgreement from "../../../../api/getStatusAgreement";
 import useAgreementData from "../../../../Hooks/useAgreementData";
+import useAsyncMemo from "../../../../utils/asyncMemo";
 
 export default function StatusAgreementType() {
-  const [status, setStatus] = React.useState<StatusAgreement[]>([]);
-  React.useEffect(() => {
-    getStatusAgreement().then((res) => setStatus(res));
-  }, []);
+  const status = useAsyncMemo(getStatusAgreement, []);
   const data = useAgreementData("statusAgreement");
   return (
     <Grid xs={2} item>

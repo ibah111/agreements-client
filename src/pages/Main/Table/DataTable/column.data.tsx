@@ -1,18 +1,15 @@
 import { Button, Tooltip } from "@mui/material";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
-import { Purpose } from "../../../../api/getPurpose";
 import AddIcon from "@mui/icons-material/Add";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 import { dateColumnType } from "../../../../utils/DateCol";
-import { RegDoc } from "../../../../api/getRegDocType";
 import { Can } from "../../../../casl/casl";
 import { Action, AppAbility, Subject } from "../../../../casl/casl.factory";
-import { StatusAgreement } from "../../../../api/getStatusAgreement";
 import { CustomEvents, EventDialog } from "../Table";
 import IpIcon from "../CardIpDialog/IpIcon";
-import { AgreementType } from "../../../../api/getAgreementType";
 import { Portfolio } from "@contact/models";
 import DeleteButton from "./DeleteIcon";
+import { IdTitle } from "../../../../Models/IdTitle";
 interface RenderLinkProps {
   value: string;
 }
@@ -30,10 +27,10 @@ function RenderLink({ value }: RenderLinkProps) {
 export default function GetColumns(
   refresh: () => void,
   ability: AppAbility,
-  agreementType: AgreementType[],
-  purposes: Purpose[],
-  regDoc: RegDoc[],
-  status: StatusAgreement[],
+  agreementType: IdTitle[],
+  purposes: IdTitle[],
+  regDoc: IdTitle[],
+  status: IdTitle[],
   portfolios: Portfolio[],
   eventTarget: EventTarget
 ) {

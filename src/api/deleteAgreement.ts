@@ -1,16 +1,13 @@
-import { Observable } from "rxjs";
+import { remove, transformAxios, authRetry } from "@tools/rxjs-pipes";
+import { of } from "rxjs";
 import { baseRequest } from "../utils/baseRequest";
-import {
-  createError,
-  createNextDefault,
-  createRetry,
-} from "../utils/processError";
+import { transformError } from "../utils/processError";
 
 export default function deleteAgreement(id: number) {
-  return new Observable<boolean>((sub) => {
-    baseRequest
-      .delete<boolean>(`/Agreements/${id}`)
-      .then(createNextDefault(sub))
-      .catch(createError(sub));
-  }).pipe(createRetry());
+  return of("").pipe(
+    remove<boolean>(baseRequest, `/Agreements/${id}`),
+    transformAxios(),
+    transformError(),
+    authRetry()
+  );
 }
