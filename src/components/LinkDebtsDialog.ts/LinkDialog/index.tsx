@@ -33,9 +33,10 @@ export default function LinkDialog(props: LinkDialogProps) {
   }, [selectedDebt]);
 
   React.useEffect(() => {
-    getAvailableDebts(props.agreementId).subscribe((res) => {
+    const sub = getAvailableDebts(props.agreementId).subscribe((res) => {
       setDebts(res);
     });
+    return sub.unsubscribe.bind(sub);
   }, [props.agreementId]);
 
   const handleClose = React.useCallback(() => {

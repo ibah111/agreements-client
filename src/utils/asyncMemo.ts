@@ -1,21 +1,24 @@
 import React from "react";
-import { Observable } from "rxjs";
+import { isObservable, Observable } from "rxjs";
 
-export default function useAsyncMemo<T = unknown>(
-  factory: () => Observable<T> | Promise<T> | T,
-  deps?: React.DependencyList,
+export default function useAsyncMemo<T, V extends T | undefined>(
+  effect: (...args: []) => Observable<T> | Promise<T> | T,
+  deps: React.DependencyList,
+  initialState?: V,
   onError?: (e: unknown) => void
 ) {
-  const [value, setValue] = React.useState<T>();
-  React.useEffect(() => {
-    const data = factory();
-    if (data instanceof Observable) {
+  const [value, setValue] = React.useState<T>(initialState as T);
+  React.useEffect((...args) => {
+    const data = effect(...args);
+    if (isObservable(data)) {
       const sub = data.subscribe({ next: setValue, error: onError });
       return sub.unsubscribe.bind(sub);
     } else {
-      Promise.resolve(data).then(setValue).catch(onError);
+      Promise.resolve(data)
+        .then((res) => setValue(res as T))
+        .catch(onError);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
-  return value;
+  return value as V extends undefined ? T | undefined : T;
 }

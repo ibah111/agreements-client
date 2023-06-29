@@ -1,4 +1,4 @@
-import { plainToInstance } from "class-transformer";
+import { transformInstance } from "@tools/rxjs-pipes";
 import React from "react";
 import { getDebtPayments } from "../../../../../../api/getDebtData";
 import { DebtCalcInstance } from "../../../../../../Models/DebtCalc";
@@ -9,11 +9,11 @@ export default function usePayments(debtId: number) {
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     setLoading(true);
-    getDebtPayments(debtId).subscribe((res) => {
-      const classData = plainToInstance(DebtCalcInstance, res);
-      setPayments(classData);
-      setLoading(false);
-    });
+    const sub = getDebtPayments(debtId)
+      .pipe(transformInstance(DebtCalcInstance))
+      .subscribe(setPayments);
+    sub.add(() => setLoading(false));
+    return sub.unsubscribe.bind(sub);
   }, [debtId]);
   return { rows: payments, loading, columns };
 }

@@ -13,6 +13,9 @@ const connect = (callback: (value: boolean) => void) => {
   socket.on("disconnect", () => {
     callback(false);
   });
+  return () => {
+    socket.close();
+  };
 };
 interface ConnectProps {
   children: React.ReactNode;
@@ -21,7 +24,7 @@ export function Connect({ children }: ConnectProps) {
   const dispatch = useAppDispatch();
   const [connected, setConnected] = React.useState(false);
   React.useEffect(() => {
-    connect(setConnected);
+    return connect(setConnected);
   }, []);
   React.useEffect(() => {
     if (connected === false) {

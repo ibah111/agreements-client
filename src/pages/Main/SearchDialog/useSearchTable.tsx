@@ -1,5 +1,5 @@
 import { Person } from "@contact/models";
-import { plainToInstance } from "class-transformer";
+import { transformInstance } from "@tools/rxjs-pipes";
 import React from "react";
 import Search from "../../../api/searchContact";
 import DebtInstance from "../../../Models/Debt";
@@ -15,11 +15,11 @@ export default function useSearchTable(
 
   const refresh = React.useCallback(() => {
     setLoading(true);
-    Search().subscribe((res) => {
-      const classData = plainToInstance(DebtInstance, res);
-      setRows(classData);
-      setLoading(false);
-    });
+    const sub = Search()
+      .pipe(transformInstance(DebtInstance))
+      .subscribe(setRows);
+    sub.add(() => setLoading(false));
+    return sub.unsubscribe.bind(sub);
   }, []);
 
   React.useEffect(() => {

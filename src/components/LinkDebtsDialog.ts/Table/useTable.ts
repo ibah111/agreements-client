@@ -8,14 +8,13 @@ export default function useTable(agreementId: number) {
 
   const refresh = React.useCallback(() => {
     setLoading(true);
-    getLinkedDebts(agreementId).subscribe((res) => {
-      setDebts(res);
-      setLoading(false);
-    });
+    const sub = getLinkedDebts(agreementId).subscribe(setDebts);
+    sub.add(() => setLoading(false));
+    return sub.unsubscribe.bind(sub);
   }, [agreementId]);
 
   React.useEffect(() => {
-    refresh();
+    return refresh();
   }, [refresh]);
 
   return { rows: debts, refresh, loading };

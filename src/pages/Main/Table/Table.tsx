@@ -33,16 +33,16 @@ export enum CustomEvents {
 }
 
 export default function AgreementTable() {
-  const purposes = useAsyncMemo(getPurposes, []);
-  const regDoc = useAsyncMemo(getRegDoc, []);
-  const status = useAsyncMemo(getStatusAgreement, []);
-  const agreementType = useAsyncMemo(getAgreementType, []);
+  const purposes = useAsyncMemo(getPurposes, [], []);
+  const regDoc = useAsyncMemo(getRegDoc, [], []);
+  const status = useAsyncMemo(getStatusAgreement, [], []);
+  const agreementType = useAsyncMemo(getAgreementType, [], []);
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
   const { refresh, ...gridProps } = useGrid(
-    purposes!,
-    regDoc!,
-    status!,
-    agreementType!,
+    purposes,
+    regDoc,
+    status,
+    agreementType,
     DialogTarget
   );
   const linkDialogControl = useLinkDebtsControl({
