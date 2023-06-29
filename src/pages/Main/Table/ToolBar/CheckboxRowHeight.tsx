@@ -1,16 +1,13 @@
 import { Checkbox, FormControlLabel } from "@mui/material";
-import { enqueueSnackbar } from "notistack";
-function snackbak() {
-  enqueueSnackbar("aaa", {
-    variant: "success",
-  });
-}
-
-export default function CheckboxRowHeight() {
+export default function CheckboxRowHeight({
+  onClick,
+}: {
+  onClick: () => void;
+}) {
   return (
     <FormControlLabel
-      label="Высота ячеек"
-      control={<Checkbox onChange={snackbak} />}
+      label="AutoRowHeight"
+      control={<Checkbox onChange={onClick} />}
     />
   );
 }

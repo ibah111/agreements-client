@@ -14,7 +14,7 @@ import DeleteRowButton from "./DeleteRowButton";
 interface AgreementTableToolbarProps {
   refresh: VoidFunction;
   handleOpen: VoidFunction;
-  logedRole: AuthUserSuccess;
+  refreshHeight: () => void;
 }
 
 export default function AgreementTableToolbar(
@@ -28,7 +28,7 @@ export default function AgreementTableToolbar(
       <RefreshToolbarButton refresh={props.refresh} />
       <AddAgreement handleOpen={props.handleOpen} />
       <DeleteRowButton refresh={props.refresh} />
-      <CheckboxRowHeight />
+      <CheckboxRowHeight onClick={props.refreshHeight} />
       {/*TODO <AdminPanel /> */}
     </GridToolbarContainer>
   );

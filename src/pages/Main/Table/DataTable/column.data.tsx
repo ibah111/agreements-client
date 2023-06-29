@@ -1,5 +1,9 @@
-import { Button, Tooltip } from "@mui/material";
-import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
+import { Box, Button, Link, Tooltip } from "@mui/material";
+import {
+  GridActionsCellItem,
+  GridColDef,
+  GridRenderCellParams,
+} from "@mui/x-data-grid-premium";
 import AddIcon from "@mui/icons-material/Add";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 import { dateColumnType } from "../../../../utils/DateCol";
@@ -11,6 +15,7 @@ import { Portfolio } from "@contact/models";
 import DeleteButton from "./DeleteIcon";
 import { IdTitle } from "../../../../Models/IdTitle";
 import ZalogIcon from "../Zalog/ZalogIcon";
+import React from "react";
 interface RenderLinkProps {
   value: string;
 }
@@ -23,6 +28,25 @@ function RenderLink({ value }: RenderLinkProps) {
         </Button>
       ) : undefined}
     </>
+  );
+}
+function ExpandableCell({ value }: GridRenderCellParams) {
+  const [expanded, setExpanded] = React.useState(false);
+
+  return (
+    <Box>
+      {expanded ? value : value.slice(0, 20)}&nbsp;
+      {value.length > 20 && (
+        <Link
+          type="button"
+          component="button"
+          sx={{ fontSize: "inherit" }}
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? "назад" : "...больше"}
+        </Link>
+      )}
+    </Box>
   );
 }
 export default function GetColumns(
@@ -39,10 +63,18 @@ export default function GetColumns(
     label: port.name,
     value: port.id,
   }));
-  const styleHeader = "super-app-theme--header";
+  const styleHeaderPinnedLeft = "super-app-theme--headerPinnedLeft";
+  const styleHeaderPinnedRight = "super-app-theme--headerPinnedRight";
   const columns: GridColDef<AgreementInstance>[] = [
-    { field: "id", headerName: "ID", width: 50, type: "number" },
     {
+      headerClassName: styleHeaderPinnedLeft,
+      field: "id",
+      headerName: "ID",
+      width: 50,
+      type: "number",
+    },
+    {
+      headerClassName: styleHeaderPinnedLeft,
       field: "conclusion_date",
       ...dateColumnType,
       headerName: "Дата заключения",
@@ -52,6 +84,7 @@ export default function GetColumns(
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
+      headerClassName: styleHeaderPinnedLeft,
       headerName: "ID Должника",
       align: "center",
       headerAlign: "center",
@@ -63,6 +96,7 @@ export default function GetColumns(
       valueGetter: (params) => params.row.Person?.id,
     },
     {
+      headerClassName: styleHeaderPinnedLeft,
       headerName: "ФИО должника",
       align: "center",
       headerAlign: "center",
@@ -88,6 +122,7 @@ export default function GetColumns(
         })) || [],
     },
     {
+      headerClassName: styleHeaderPinnedLeft,
       width: 100,
       headerAlign: "center",
       headerName: "Платежный статус",
@@ -172,6 +207,7 @@ export default function GetColumns(
         })) || [],
     },
     {
+      headerClassName: styleHeaderPinnedLeft,
       headerName: "Статус",
       align: "center",
       headerAlign: "center",
@@ -186,6 +222,7 @@ export default function GetColumns(
         })) || [],
     },
     {
+      headerClassName: styleHeaderPinnedLeft,
       align: "center",
       headerAlign: "center",
       headerName: "Портфель",
@@ -202,7 +239,8 @@ export default function GetColumns(
       },
     },
     {
-      width: 150,
+      headerClassName: styleHeaderPinnedRight,
+      width: 100,
       headerAlign: "center",
       headerName: "Залог",
       field: "deposit_typ",
@@ -272,7 +310,7 @@ export default function GetColumns(
       headerAlign: "center",
       headerName: "Сумма с дисконтом ",
       field: "discount_sum",
-      width: 150,
+      width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
@@ -282,7 +320,7 @@ export default function GetColumns(
       headerAlign: "center",
       headerName: "Расчетный дисконт",
       field: "calculation_discount",
-      width: 300,
+      width: 100,
       editable: false,
       type: "number",
       valueGetter: (params) => {
@@ -303,7 +341,7 @@ export default function GetColumns(
       headerAlign: "center",
       headerName: "Cтатичный дисконт (ред.)",
       field: "discount",
-      width: 200,
+      width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
@@ -313,7 +351,7 @@ export default function GetColumns(
       headerAlign: "center",
       description: "Сумма платежей до соглашения",
       field: "sumBeforeAgr",
-      width: 200,
+      width: 150,
       type: "number",
     },
     {
@@ -323,7 +361,7 @@ export default function GetColumns(
       headerAlign: "center",
       description: "Первый платеж по соглашению из контакта",
       field: "firstPayment",
-      width: 200,
+      width: 150,
       type: "number",
       valueGetter: (params) => params.row.firstPayment || null,
     },
@@ -395,10 +433,14 @@ export default function GetColumns(
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "string",
+      renderCell: (params: GridRenderCellParams) => (
+        <ExpandableCell {...params} />
+      ),
     },
     {
       headerAlign: "center",
       headerName: "Взыскатель",
+      align: "center",
       field: "collector",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -415,7 +457,7 @@ export default function GetColumns(
       renderCell: ({ value }) => <RenderLink value={value} />,
     },
     {
-      headerClassName: styleHeader,
+      headerClassName: styleHeaderPinnedRight,
       headerName: "ИП",
       field: "Card_IP",
       type: "actions",
@@ -429,7 +471,7 @@ export default function GetColumns(
       ],
     },
     {
-      headerClassName: styleHeader,
+      headerClassName: styleHeaderPinnedRight,
       headerAlign: "center",
       headerName: "Действия",
       align: "center",

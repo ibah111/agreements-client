@@ -31,7 +31,7 @@ export default function AdminPanel() {
       {open && (
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>Admin panel</DialogTitle>
-          <DialogContent>dadadada</DialogContent>
+          <DialogContent></DialogContent>
         </Dialog>
       )}
     </>

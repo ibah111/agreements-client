@@ -18,10 +18,12 @@ import CardIpDialog from "./CardIpDialog";
 import useCardControls from "./CardIpDialog/hooks/useCardControls";
 import { useGrid } from "./hooks/useGrid";
 import useRowUpdater from "./RowUpdater";
-import { Root } from "./Style/style";
+import { correctDensity, Root } from "./Style/style";
+import useCheck from "./ToolBar/hooks/getRowHeight";
 import AgreementTableToolbar from "./ToolBar/Toolbar";
 import useZalogControls from "./Zalog/hooks/useZalogControls";
-import ZalogDialog from "./Zalog/zalogIndex";
+import ZalogDialog from "./Zalog/ZalogIndex";
+
 export class EventDialog extends Event {
   constructor(type: CustomEvents, value: string | number | object) {
     super(type);
@@ -87,7 +89,7 @@ export default function AgreementTable() {
       "payableStatus",
       "portfolio",
     ],
-    right: ["Card_IP", "actions"],
+    right: ["deposit_typ", "Card_IP", "actions"],
   });
   const handlePinnedColumnsChange = React.useCallback(
     (updatedPinnedColumns: GridPinnedColumns) => {
@@ -96,6 +98,9 @@ export default function AgreementTable() {
     []
   );
   const { processRowUpdate, RenderDialog } = useRowUpdater(refresh);
+
+  const { getRowHeight, refreshHeight } = useCheck();
+
   return (
     <Grid item container xs direction={"column"}>
       {RenderDialog}
@@ -105,6 +110,7 @@ export default function AgreementTable() {
         sx={{
           height: 400,
           width: "100%",
+          correctDensity,
         }}
       >
         <DataGridPremium
@@ -114,7 +120,7 @@ export default function AgreementTable() {
           disableRowSelectionOnClick
           slots={{ toolbar: AgreementTableToolbar }}
           slotProps={{
-            toolbar: { refresh, handleOpen },
+            toolbar: { refresh, handleOpen, refreshHeight },
           }}
           onProcessRowUpdateError={(e) => {
             enqueueSnackbar(`Возникла ошибка ${e}`, { variant: "error" });
@@ -132,6 +138,8 @@ export default function AgreementTable() {
           getRowClassName={(params) =>
             `super-app-theme--${params.row.statusAgreement}`
           }
+          getRowHeight={getRowHeight}
+          getEstimatedRowHeight={() => 10}
         />
       </Root>
       {open && <SearchDialog open={open} onClose={handleClose} />}

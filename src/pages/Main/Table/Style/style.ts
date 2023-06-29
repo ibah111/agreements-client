@@ -55,7 +55,15 @@ export const Root = styled(Grid)(({ theme }) => ({
   "& .super-app-theme--1": createThemeApp(theme, "info"),
   "& .super-app-theme--2": createThemeApp(theme, "success"),
   "& .super-app-theme--3": createThemeApp(theme, "error"),
-  "& .super-app-theme--header": {
-    backgroundColor: "rgba(224, 213, 240, 0.55)",
+  "& .super-app-theme--headerPinnedRight": {
+    backgroundColor: "rgba(15, 200, 250, 0.40)",
+  },
+  "& .super-app-theme--headerPinnedLeft": {
+    backgroundColor: "rgba(235, 42, 42, 0.40)",
   },
 }));
+export const correctDensity = {
+  "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": { py: "8px" },
+  "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": { py: "15px" },
+  "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": { py: "22px" },
+};
