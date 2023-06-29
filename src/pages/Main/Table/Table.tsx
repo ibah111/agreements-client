@@ -71,7 +71,8 @@ export default function AgreementTable() {
       GRID_CHECKBOX_SELECTION_COL_DEF.field,
       "id",
       "personId",
-      "agreement_type",
+      // "agreement_type",
+      "KD",
       "statusAgreement",
       "FIO",
       "conclusion_date",
@@ -103,6 +104,7 @@ export default function AgreementTable() {
           keepNonExistentRowsSelected
           checkboxSelection
           disableRowSelectionOnClick
+          getRowHeight={() => "auto"}
           slots={{ toolbar: AgreementTableToolbar }}
           slotProps={{
             toolbar: { refresh, handleOpen },
