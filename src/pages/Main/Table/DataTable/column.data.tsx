@@ -10,6 +10,7 @@ import IpIcon from "../CardIpDialog/IpIcon";
 import { Portfolio } from "@contact/models";
 import DeleteButton from "./DeleteIcon";
 import { IdTitle } from "../../../../Models/IdTitle";
+import ZalogIcon from "../Zalog/ZalogIcon";
 interface RenderLinkProps {
   value: string;
 }
@@ -199,6 +200,20 @@ export default function GetColumns(
           " ,"
         );
       },
+    },
+    {
+      width: 150,
+      headerAlign: "center",
+      headerName: "Залог",
+      field: "deposit_typ",
+      type: "actions",
+      getActions: (params) => [
+        <ZalogIcon
+          eventTarget={eventTarget || null}
+          refresh={refresh}
+          agreementId={params.row.id}
+        />,
+      ],
     },
     {
       align: "center",

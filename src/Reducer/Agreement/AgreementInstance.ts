@@ -11,6 +11,7 @@ import { TransformDate } from "../Utils/TransformDate";
 import moment from "moment";
 import { Person } from "@contact/models";
 import AgreementDebtsLink from "../../Models/AgreementDebtLink";
+import { LawExecInstance } from "../../Models/LawExec";
 
 export class AgreementInstance implements AgreementData {
   @IsNumber()
@@ -142,6 +143,7 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   collector: string;
 
+  LawExecs: LawExecInstance;
   Person: Person;
   DebtLinks?: AgreementDebtsLink[];
 

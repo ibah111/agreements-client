@@ -20,6 +20,8 @@ import { useGrid } from "./hooks/useGrid";
 import useRowUpdater from "./RowUpdater";
 import { Root } from "./Style/style";
 import AgreementTableToolbar from "./ToolBar/Toolbar";
+import useZalogControls from "./Zalog/hooks/useZalogControls";
+import ZalogDialog from "./Zalog/zalogIndex";
 export class EventDialog extends Event {
   constructor(type: CustomEvents, value: string | number | object) {
     super(type);
@@ -30,6 +32,7 @@ export class EventDialog extends Event {
 export enum CustomEvents {
   onOpenCardDialog = "onOpenCardDialog",
   onOpenDialog = "onOpenDialog",
+  onOpenZalogDialog = "onOpenZalogDialog",
 }
 
 export default function AgreementTable() {
@@ -57,6 +60,12 @@ export default function AgreementTable() {
       refresh();
     },
   });
+  const zalogControl = useZalogControls({
+    DialogTarget,
+    onClose: () => {
+      refresh();
+    },
+  });
   const [open, setOpen] = React.useState(false);
   const handleOpen = React.useCallback(() => {
     setOpen(true);
@@ -71,7 +80,6 @@ export default function AgreementTable() {
       GRID_CHECKBOX_SELECTION_COL_DEF.field,
       "id",
       "personId",
-      // "agreement_type",
       "KD",
       "statusAgreement",
       "FIO",
@@ -104,7 +112,6 @@ export default function AgreementTable() {
           keepNonExistentRowsSelected
           checkboxSelection
           disableRowSelectionOnClick
-          getRowHeight={() => "auto"}
           slots={{ toolbar: AgreementTableToolbar }}
           slotProps={{
             toolbar: { refresh, handleOpen },
@@ -141,6 +148,13 @@ export default function AgreementTable() {
           open={cardIpControl.openCard}
           onClose={cardIpControl.handleCloseCard}
           agreementId={cardIpControl.agreementIdCard}
+        />
+      )}
+      {zalogControl.openZalog && (
+        <ZalogDialog
+          open={zalogControl.openZalog}
+          onClose={zalogControl.handleCloseZalog}
+          agreementId={zalogControl.zalogAgreementId}
         />
       )}
     </Grid>
