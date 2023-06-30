@@ -61,6 +61,12 @@ export const Root = styled(Grid)(({ theme }) => ({
   "& .super-app-theme--headerPinnedLeft": {
     backgroundColor: "rgba(235, 42, 42, 0.40)",
   },
+  "& .super-app-theme--headerTime": {
+    backgroundColor: "rgba(255, 180, 0, 0.40)",
+  },
+  "& .super-app-theme--headerUsless": {
+    backgroundColor: "rgba(27, 159, 0, 0.40)",
+  },
 }));
 export const correctDensity = {
   "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": { py: "8px" },

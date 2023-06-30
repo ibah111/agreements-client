@@ -21,7 +21,7 @@ export class Agreement extends Model<
    * ID записи
    */
   declare id: CreationOptional<number>;
-  personId: number;
+  person_id: number;
   /** Дата заключения
    */
   conclusion_date: moment.Moment;
@@ -79,6 +79,7 @@ export class Agreement extends Model<
    */
   finish_date: moment.Moment | null;
 
+  statusAgreement: number;
   LawAct?: NonAttribute<LawAct>;
   Debt?: NonAttribute<Debt>;
   LawExec?: NonAttribute<LawExec>;

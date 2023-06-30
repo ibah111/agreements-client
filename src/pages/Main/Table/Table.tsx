@@ -89,7 +89,7 @@ export default function AgreementTable() {
       "payableStatus",
       "portfolio",
     ],
-    right: ["deposit_typ", "Card_IP", "actions"],
+    right: ["finish_date", "deposit_typ", "Card_IP", "actions"],
   });
   const handlePinnedColumnsChange = React.useCallback(
     (updatedPinnedColumns: GridPinnedColumns) => {

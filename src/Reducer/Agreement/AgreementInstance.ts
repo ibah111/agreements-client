@@ -16,7 +16,7 @@ import { LawExecInstance } from "../../Models/LawExec";
 export class AgreementInstance implements AgreementData {
   @IsNumber()
   @IsNotEmpty()
-  personId: number;
+  person_id: number;
   /**
    * ID записи
    */

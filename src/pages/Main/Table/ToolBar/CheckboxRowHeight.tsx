@@ -6,7 +6,7 @@ export default function CheckboxRowHeight({
 }) {
   return (
     <FormControlLabel
-      label="AutoRowHeight"
+      label="Изменить высоту ячеек"
       control={<Checkbox onChange={onClick} />}
     />
   );

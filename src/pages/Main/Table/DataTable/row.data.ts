@@ -5,6 +5,7 @@ import { AgreementData } from "../../../../Reducer/Agreement/Agreement";
 import { baseRequest } from "../../../../utils/baseRequest";
 
 export default async function Rows(data: AgreementData) {
+  // TODO ПЕРЕПИСАТЬ
   try {
     const res = await baseRequest.post<Agreement>("/Agreements/getAll", {
       ...data,

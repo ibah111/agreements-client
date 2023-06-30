@@ -14,7 +14,7 @@ export default function createAgreement(data: AgreementInstance) {
     validateData(AgreementInstance),
     post(baseRequest, "/Agreements"),
     transformAxios(),
-    transformError("Agreement"),
+    transformError("Agreements"),
     authRetry()
   );
 }

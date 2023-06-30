@@ -1,4 +1,3 @@
-import { enqueueSnackbar } from "notistack";
 import React from "react";
 
 /**
@@ -10,10 +9,7 @@ export default function useCheck() {
 
   const refreshHeight = React.useCallback(() => {
     setState((prev) => (prev ? null : "auto"));
-    enqueueSnackbar(`State value: ${state}`, {
-      autoHideDuration: 1000,
-    });
-  }, [state]);
+  }, []);
 
   return { getRowHeight, refreshHeight };
 }

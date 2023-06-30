@@ -5,7 +5,6 @@ import {
   GridToolbarDensitySelector,
 } from "@mui/x-data-grid-premium";
 import RefreshToolbarButton from "../../../../components/Utils/RefreshToolbarButton";
-import { AuthUserSuccess } from "../../../../Schemas/Auth";
 
 import AddAgreement from "./AddAgreement";
 import CheckboxRowHeight from "./CheckboxRowHeight";
@@ -29,7 +28,6 @@ export default function AgreementTableToolbar(
       <AddAgreement handleOpen={props.handleOpen} />
       <DeleteRowButton refresh={props.refresh} />
       <CheckboxRowHeight onClick={props.refreshHeight} />
-      {/*TODO <AdminPanel /> */}
     </GridToolbarContainer>
   );
 }
