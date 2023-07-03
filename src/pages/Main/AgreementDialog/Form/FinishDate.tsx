@@ -18,11 +18,14 @@ export default function FinishDate() {
             data.onChange(value);
           }
         }}
+        slots={{}}
         slotProps={{
           textField: {
             error: data.error,
-            helperText: data.helperText,
-            required: data.required,
+            helperText: "Введите дату",
+            required: true,
+            focused: true,
+            color: "warning",
           },
         }}
       />

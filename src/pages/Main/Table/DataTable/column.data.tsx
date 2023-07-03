@@ -30,13 +30,14 @@ function RenderLink({ value }: RenderLinkProps) {
     </>
   );
 }
+
 function ExpandableCell({ value }: GridRenderCellParams) {
   const [expanded, setExpanded] = React.useState(false);
 
   return (
     <Box>
-      {expanded ? value : value.slice(0, 20)}&nbsp;
-      {value.length > 20 && (
+      {expanded ? value : value?.slice(0, 20)}
+      {value?.length > 20 && (
         <Link
           type="button"
           component="button"
@@ -161,9 +162,9 @@ export default function GetColumns(
       width: 75,
       type: "number",
       editable: ability.can(Action.Update, Subject.Agreement),
-      valueGetter: (params) => {
-        if (params.row.month_pay_day === 0) return "Единовременно";
-        return params.row.month_pay_day;
+      valueFormatter: (params) => {
+        if (params.value === null) return "Единовременно";
+        return params.value;
       },
     },
     {
@@ -453,8 +454,8 @@ export default function GetColumns(
       headerName: "Комментарий",
       field: "comment",
       width: 150,
+      type: "any",
       editable: ability.can(Action.Update, Subject.Agreement),
-      type: "string",
       renderCell: (params: GridRenderCellParams) => (
         <ExpandableCell {...params} />
       ),

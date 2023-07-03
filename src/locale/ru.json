@@ -11,7 +11,7 @@
       "IsPositive": "Значение должно быть больше нуля",
       "DateRangeBeforeMin": "Дата должна быть минимум с {{minDate}}",
       "DateRangeAfterMax": "Дата должна быть до {{maxDate}}",
-      "IsNumber": "Введите цифру"
+      "isNumber": "Введите цифру"
     },
     "Agreement": {
       "debt_sum": "Сумма долга",

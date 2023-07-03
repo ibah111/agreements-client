@@ -49,7 +49,7 @@ export class Agreement extends Model<
   /**
    * Число платежа каждого месяца
    */
-  month_pay_day: number;
+  month_pay_day: number | null;
   /**
    * Наличие ИД в регистраторе
    */

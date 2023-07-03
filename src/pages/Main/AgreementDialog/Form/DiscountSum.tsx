@@ -21,8 +21,11 @@ export default function DiscountSum() {
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
-        value={data.value}
         type="number"
+        value={data.value}
+        required={data.required}
+        error={data.error}
+        helperText={data.helperText}
       />
     </Grid>
   );

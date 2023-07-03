@@ -82,6 +82,8 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <ConclusionDate />
             <Type />
             <StatusAgreementType />
+            {agreement.statusAgreement === 2 && <FinishDate />}
+            {agreement.statusAgreement === 3 && <FinishDate />}
             <PurposeField />
             <BankSum />
             <CourtSum />
@@ -97,7 +99,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <ActionsForGet />
             <Collector />
             <ReceiptDt />
-            <FinishDate />
             <Comment />
             <TaskLink />
           </Grid>

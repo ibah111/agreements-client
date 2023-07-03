@@ -5,7 +5,7 @@ import { transformError } from "../utils/processError";
 
 export default function deleteSelectedAgreements(list: number[]) {
   return of({ list }).pipe(
-    remove(baseRequest, "/Agreements/all"),
+    remove(baseRequest, "/Agreements"),
     transformAxios(),
     transformError(),
     authRetry()

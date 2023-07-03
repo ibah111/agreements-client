@@ -1,9 +1,10 @@
-import { IsNumber, IsOptional } from "class-validator";
+import { IsOptional } from "class-validator";
 import {
   DateRange,
   IsNotEmpty,
   IsPositive,
   IsValidMoment,
+  IsNumber,
 } from "../../Hooks/Validation/locale";
 import { AgreementData } from "./Agreement";
 import { DateType } from "../Utils/DateType";
@@ -75,13 +76,13 @@ export class AgreementInstance implements AgreementData {
    * Дисконт
    */
   @IsPositive()
-  @IsOptional()
   discount_sum: number;
   /**
    * Число платежа каждого месяца
    */
+  @IsOptional()
   @IsNumber()
-  month_pay_day: number;
+  month_pay_day: number | null;
   /**
    * Наличие ИД в регистраторе
    */

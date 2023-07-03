@@ -17,6 +17,7 @@ export default function MonthPerDay() {
         error={data.error}
         required={data.required}
         InputProps={{ inputComponent: input }}
+        helperText={data.helperText || "Оставьте пустым если платёж единый"}
       />
     </Grid>
   );
