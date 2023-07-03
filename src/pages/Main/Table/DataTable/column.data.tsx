@@ -137,6 +137,26 @@ export default function GetColumns(
         })) || [],
     },
     {
+      headerClassName: HeaderTime,
+      align: "center",
+      headerAlign: "center",
+      headerName: "Сумма с дисконтом ",
+      field: "discount_sum",
+      width: 100,
+      editable: ability.can(Action.Update, Subject.Agreement),
+      type: "number",
+    },
+    {
+      headerClassName: HeaderTime,
+      align: "center",
+      headerAlign: "center",
+      headerName: "Cтатичный дисконт (ред.)",
+      field: "discount",
+      width: 100,
+      editable: ability.can(Action.Update, Subject.Agreement),
+      type: "number",
+    },
+    {
       headerClassName: HeaderPinnedLeft,
       width: 100,
       headerAlign: "center",
@@ -325,7 +345,7 @@ export default function GetColumns(
       align: "center",
       headerAlign: "center",
       editable: true,
-      type: "number",
+      type: "string",
     },
     {
       headerName: "Наличие в архиве",
@@ -394,16 +414,6 @@ export default function GetColumns(
       headerClassName: HeaderUsless,
       align: "center",
       headerAlign: "center",
-      headerName: "Сумма с дисконтом ",
-      field: "discount_sum",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
-    {
-      headerClassName: HeaderUsless,
-      align: "center",
-      headerAlign: "center",
       headerName: "Расчетный дисконт",
       field: "calculation_discount",
       width: 100,
@@ -421,15 +431,6 @@ export default function GetColumns(
           result -= params.row.discount_sum;
         return result;
       },
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      headerName: "Cтатичный дисконт (ред.)",
-      field: "discount",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
     },
     {
       field: "receipt_dt",

@@ -57,7 +57,7 @@ export class Agreement extends Model<
   /**
    * номер регистратора (если ИД = наличие в регистраторе)
    */
-  registrator: string;
+  registrator: string | null;
   /**
    * Комментарии
    */
@@ -69,7 +69,7 @@ export class Agreement extends Model<
   /**
    * Дата получения листа
    */
-  receipt_dt: moment.Moment;
+  receipt_dt: moment.Moment | null;
   /**
    * Действия для получения листа
    */
