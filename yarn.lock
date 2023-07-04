@@ -2707,6 +2707,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tools/health-status-react-component@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@tools/health-status-react-component@npm:0.1.5::__archiveUrl=https%3A%2F%2Fgit.usb.ru%2Fapi%2Fv4%2Fprojects%2F158%2Fpackages%2Fnpm%2F%40tools%2Fhealth-status-react-component%2F-%2F%40tools%2Fhealth-status-react-component-0.1.5.tgz"
+  peerDependencies:
+    "@mui/icons-material": ^5.6.0
+    "@mui/material": ^5.6.0
+    "@tools/rxjs-pipes": ^0.1.0
+    axios: ^1.0.0
+    react: ^18.2.0
+    react-transition-group: ^4.0.0
+    rxjs: ^7.3.0
+  checksum: b7ef740757c5cf420318846afb014237b0967169958f2d15b3d01cb7e1ff99d2c26200398146644fe081a36cc8d5d12e994dcb606f45d8e20d03aebb7ce322a7
+  languageName: node
+  linkType: hard
+
 "@tools/rxjs-pipes@npm:^0.1.11":
   version: 0.1.11
   resolution: "@tools/rxjs-pipes@npm:0.1.11::__archiveUrl=https%3A%2F%2Fgit.usb.ru%2Fapi%2Fv4%2Fprojects%2F208%2Fpackages%2Fnpm%2F%40tools%2Frxjs-pipes%2F-%2F%40tools%2Frxjs-pipes-0.1.11.tgz"
@@ -8068,6 +8083,7 @@ __metadata:
     "@sql-tools/association-literal": ^0.0.3
     "@sql-tools/sequelize": ^6.27.8
     "@sql-tools/sequelize-typescript": ^2.1.5
+    "@tools/health-status-react-component": ^0.1.5
     "@tools/rxjs-pipes": ^0.1.11
     "@types/node": ^18.11.18
     "@types/react": ^18.0.27

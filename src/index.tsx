@@ -16,6 +16,8 @@ import "moment/dist/locale/ru";
 import moment from "moment";
 import "moment-timezone";
 import { Connect } from "./components/Connect";
+import { HealthProvider } from "@tools/health-status-react-component";
+import server from "./config/server.json";
 
 moment.locale("ru");
 moment.tz.setDefault("GMT");
@@ -31,9 +33,11 @@ root.render(
           <SnackbarProvider maxSnack={10}>
             <MessageProvider>
               <Connect>
-                <Login>
-                  <App />
-                </Login>
+                <HealthProvider url={server.server}>
+                  <Login>
+                    <App />
+                  </Login>
+                </HealthProvider>
               </Connect>
             </MessageProvider>
           </SnackbarProvider>

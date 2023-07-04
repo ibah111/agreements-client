@@ -23,6 +23,7 @@
     "@mui/x-data-grid-premium": "^6.5.0",
     "@mui/x-date-pickers-pro": "^6.0.3",
     "@reduxjs/toolkit": "^1.9.3",
+    "@tools/health-status-react-component": "^0.1.5",
     "@tools/rxjs-pipes": "^0.1.11",
     "axios": "^1.3.0",
     "class-transformer": "^0.5.1",
