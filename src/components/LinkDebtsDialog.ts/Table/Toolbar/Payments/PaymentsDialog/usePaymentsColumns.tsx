@@ -34,6 +34,17 @@ const columns: GridColDef<DebtCalcInstance>[] = [
     field: "dt",
     width: 200,
   },
+  {
+    align: "center",
+    headerAlign: "center",
+    headerName: "Комментарий",
+    type: "string",
+    field: "dsc",
+    width: 150,
+    valueGetter: (params) => {
+      return params.row.dsc;
+    },
+  },
 ];
 export default function usePaymentsColumns() {
   return columns;

@@ -16,6 +16,7 @@ import DeleteButton from "./DeleteIcon";
 import { IdTitle } from "../../../../Models/IdTitle";
 import ZalogIcon from "../Zalog/ZalogIcon";
 import React from "react";
+import { classes } from "../Style/style";
 interface RenderLinkProps {
   value: string;
 }
@@ -44,7 +45,7 @@ function ExpandableCell({ value }: GridRenderCellParams) {
           sx={{ fontSize: "inherit" }}
           onClick={() => setExpanded(!expanded)}
         >
-          {expanded ? "назад" : "...больше"}
+          {expanded ? " назад" : " ...больше"}
         </Link>
       )}
     </Box>
@@ -64,13 +65,9 @@ export default function GetColumns(
     label: port.name,
     value: port.id,
   }));
-  const HeaderPinnedLeft = "super-app-theme--headerPinnedLeft";
-  const HeaderPinnedRight = "super-app-theme--headerPinnedRight";
-  const HeaderUsless = "super-app-theme--headerUsless";
-  const HeaderTime = "super-app-theme--headerTime";
   const columns: GridColDef<AgreementInstance>[] = [
     {
-      headerClassName: HeaderPinnedLeft,
+      headerClassName: classes.HeaderPinnedLeft,
       field: "id",
       headerName: "ID",
       width: 50,
@@ -82,13 +79,13 @@ export default function GetColumns(
       headerName: "№ КД",
       headerAlign: "center",
       align: "center",
-      headerClassName: HeaderPinnedLeft,
+      headerClassName: classes.HeaderPinnedLeft,
       valueGetter: (params) => {
         return params.row.Person.Debts?.map((item) => item.contract)[0];
       },
     },
     {
-      headerClassName: HeaderPinnedLeft,
+      headerClassName: classes.HeaderPinnedLeft,
       field: "conclusion_date",
       ...dateColumnType,
       headerName: "Дата заключения",
@@ -98,19 +95,7 @@ export default function GetColumns(
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
-      headerClassName: HeaderPinnedLeft,
-      headerName: "ID Должника",
-      align: "center",
-      headerAlign: "center",
-      field: "personId",
-      width: 75,
-      editable: false,
-      sortable: false,
-      type: "number",
-      valueGetter: (params) => params.row.Person?.id,
-    },
-    {
-      headerClassName: HeaderPinnedLeft,
+      headerClassName: classes.HeaderPinnedLeft,
       headerName: "ФИО должника",
       align: "center",
       headerAlign: "center",
@@ -122,7 +107,7 @@ export default function GetColumns(
       valueGetter: (params) => params.row.Person?.fio || "",
     },
     {
-      headerClassName: HeaderTime,
+      headerClassName: classes.HeaderTime,
       headerName: "Тип соглашения",
       headerAlign: "center",
       field: "agreement_type",
@@ -137,7 +122,7 @@ export default function GetColumns(
         })) || [],
     },
     {
-      headerClassName: HeaderTime,
+      headerClassName: classes.HeaderTime,
       align: "center",
       headerAlign: "center",
       headerName: "Сумма с дисконтом ",
@@ -147,7 +132,7 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: HeaderTime,
+      headerClassName: classes.HeaderTime,
       align: "center",
       headerAlign: "center",
       headerName: "Cтатичный дисконт (ред.)",
@@ -157,7 +142,7 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: HeaderPinnedLeft,
+      headerClassName: classes.HeaderPinnedLeft,
       width: 100,
       headerAlign: "center",
       headerName: "Платежный статус",
@@ -173,7 +158,7 @@ export default function GetColumns(
       },
     },
     {
-      headerClassName: HeaderTime,
+      headerClassName: classes.HeaderTime,
       headerName: "День платежа",
       align: "center",
       headerAlign: "center",
@@ -188,7 +173,7 @@ export default function GetColumns(
       },
     },
     {
-      headerClassName: HeaderTime,
+      headerClassName: classes.HeaderTime,
       align: "center",
       headerAlign: "center",
       headerName: "Последний платеж",
@@ -200,7 +185,7 @@ export default function GetColumns(
       valueGetter: (params) => params.row.lastPayment || null,
     },
     {
-      headerClassName: HeaderTime,
+      headerClassName: classes.HeaderTime,
       disableColumnMenu: true,
       align: "center",
       headerAlign: "center",
@@ -212,7 +197,7 @@ export default function GetColumns(
       valueGetter: (params) => params.row.lastPaymentDate?.toDate() || null,
     },
     {
-      headerClassName: HeaderTime,
+      headerClassName: classes.HeaderTime,
       disableColumnMenu: true,
       align: "center",
       headerAlign: "center",
@@ -223,7 +208,7 @@ export default function GetColumns(
       valueGetter: (params) => params.row.sumAfterAgr || null,
     },
     {
-      headerClassName: HeaderTime,
+      headerClassName: classes.HeaderTime,
       headerName: "Сумма платежей до соглашения",
       align: "center",
       headerAlign: "center",
@@ -233,7 +218,7 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: HeaderPinnedRight,
+      headerClassName: classes.HeaderPinnedRight,
       field: "finish_date",
       ...dateColumnType,
       align: "center",
@@ -257,7 +242,7 @@ export default function GetColumns(
         })) || [],
     },
     {
-      headerClassName: HeaderPinnedLeft,
+      headerClassName: classes.HeaderPinnedLeft,
       headerName: "Статус",
       align: "center",
       headerAlign: "center",
@@ -272,7 +257,7 @@ export default function GetColumns(
         })) || [],
     },
     {
-      headerClassName: HeaderPinnedLeft,
+      headerClassName: classes.HeaderPinnedLeft,
       align: "center",
       headerAlign: "center",
       headerName: "Портфель",
@@ -290,7 +275,7 @@ export default function GetColumns(
     },
 
     {
-      headerClassName: HeaderPinnedRight,
+      headerClassName: classes.HeaderPinnedRight,
       width: 100,
       headerAlign: "center",
       headerName: "Залог",
@@ -354,10 +339,10 @@ export default function GetColumns(
       align: "center",
       editable: true,
       headerAlign: "center",
-      type: "number",
+      type: "string",
     },
     {
-      headerClassName: HeaderUsless,
+      headerClassName: classes.HeaderUsless,
       align: "center",
       headerAlign: "center",
       headerName: "Начальный долг",
@@ -371,7 +356,7 @@ export default function GetColumns(
       },
     },
     {
-      headerClassName: HeaderUsless,
+      headerClassName: classes.HeaderUsless,
       align: "center",
       headerAlign: "center",
       headerName: "Переданная банком сумма долга (эл.реестр)",
@@ -381,7 +366,7 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: HeaderUsless,
+      headerClassName: classes.HeaderUsless,
       headerName: "В пользу в банка (сумма долга)",
       align: "center",
       headerAlign: "center",
@@ -391,7 +376,7 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: HeaderUsless,
+      headerClassName: classes.HeaderUsless,
       headerName: "В пользу НБК/Вымпел (сумма долга)",
       align: "center",
       headerAlign: "center",
@@ -401,7 +386,7 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: HeaderUsless,
+      headerClassName: classes.HeaderUsless,
       align: "center",
       headerAlign: "center",
       headerName: "Пересчет / Индексация",
@@ -411,7 +396,7 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: HeaderUsless,
+      headerClassName: classes.HeaderUsless,
       align: "center",
       headerAlign: "center",
       headerName: "Расчетный дисконт",
@@ -481,7 +466,7 @@ export default function GetColumns(
       renderCell: ({ value }) => <RenderLink value={value} />,
     },
     {
-      headerClassName: HeaderPinnedRight,
+      headerClassName: classes.HeaderPinnedRight,
       headerName: "ИП",
       field: "Card_IP",
       type: "actions",
@@ -495,7 +480,7 @@ export default function GetColumns(
       ],
     },
     {
-      headerClassName: HeaderPinnedRight,
+      headerClassName: classes.HeaderPinnedRight,
       headerAlign: "center",
       headerName: "Действия",
       align: "center",

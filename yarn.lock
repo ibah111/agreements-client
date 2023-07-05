@@ -1438,6 +1438,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.22.5":
+  version: 7.22.6
+  resolution: "@babel/runtime@npm:7.22.6"
+  dependencies:
+    regenerator-runtime: ^0.13.11
+  checksum: e585338287c4514a713babf4fdb8fc2a67adcebab3e7723a739fc62c79cfda875b314c90fd25f827afb150d781af97bc16c85bfdbfa2889f06053879a1ddb597
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.18.10, @babel/template@npm:^7.20.7":
   version: 7.20.7
   resolution: "@babel/template@npm:7.20.7"
@@ -2361,30 +2370,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/utils@npm:^5.12.3":
-  version: 5.13.1
-  resolution: "@mui/utils@npm:5.13.1"
+"@mui/utils@npm:^5.13.1, @mui/utils@npm:^5.13.6":
+  version: 5.13.7
+  resolution: "@mui/utils@npm:5.13.7"
   dependencies:
-    "@babel/runtime": ^7.21.0
+    "@babel/runtime": ^7.22.5
     "@types/prop-types": ^15.7.5
-    "@types/react-is": ^18.2.0
+    "@types/react-is": ^18.2.1
     prop-types: ^15.8.1
     react-is: ^18.2.0
   peerDependencies:
     react: ^17.0.0 || ^18.0.0
-  checksum: 79cfc91e5a61311ac88680df3ea09f1218d0a5a766b6dadf0c5c9c72a3c36cbd903895ebb0f16497dcffb2e3601cb3b46742ae3c5e2c1f62d5ebf02babfd910f
+  checksum: 80d50b3453f98ee708db0c0264ea530b3c9a75fe97d26b509d1f228bd06ebe9eb203b01e019f8ba9d2bd10ef864b9d523405c0fcdccccb74d5a93350722eb359
   languageName: node
   linkType: hard
 
-"@mui/x-data-grid-premium@npm:^6.5.0":
-  version: 6.5.0
-  resolution: "@mui/x-data-grid-premium@npm:6.5.0"
+"@mui/x-data-grid-premium@npm:^6.9.1":
+  version: 6.9.1
+  resolution: "@mui/x-data-grid-premium@npm:6.9.1"
   dependencies:
-    "@babel/runtime": ^7.21.0
-    "@mui/utils": ^5.12.3
-    "@mui/x-data-grid": 6.5.0
-    "@mui/x-data-grid-pro": 6.5.0
-    "@mui/x-license-pro": 6.0.4
+    "@babel/runtime": ^7.22.5
+    "@mui/utils": ^5.13.6
+    "@mui/x-data-grid": 6.9.1
+    "@mui/x-data-grid-pro": 6.9.1
+    "@mui/x-license-pro": 6.9.0
     "@types/format-util": ^1.0.2
     clsx: ^1.2.1
     exceljs: ^4.3.0
@@ -2393,20 +2402,20 @@ __metadata:
   peerDependencies:
     "@mui/material": ^5.4.1
     "@mui/system": ^5.4.1
-    react: ^17.0.2 || ^18.0.0
-    react-dom: ^17.0.2 || ^18.0.0
-  checksum: 1bd5392f6780a08afd7e83b04f48a23ee36d4e620b8159f37129928b9231bfbba7f9bd5328fa2024ddd69cc6da4d2b419a5303cb2d29ec3805037e7bbbcb041f
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: bf811f9621e3e244d9a306e06ab9c3687685c568e37e232d3a82285ac8dd99c817cc61cc850365fa713fd52a07249caebe53cacc8b8407f87a2a1222f2db852c
   languageName: node
   linkType: hard
 
-"@mui/x-data-grid-pro@npm:6.5.0":
-  version: 6.5.0
-  resolution: "@mui/x-data-grid-pro@npm:6.5.0"
+"@mui/x-data-grid-pro@npm:6.9.1":
+  version: 6.9.1
+  resolution: "@mui/x-data-grid-pro@npm:6.9.1"
   dependencies:
-    "@babel/runtime": ^7.21.0
-    "@mui/utils": ^5.12.3
-    "@mui/x-data-grid": 6.5.0
-    "@mui/x-license-pro": 6.0.4
+    "@babel/runtime": ^7.22.5
+    "@mui/utils": ^5.13.6
+    "@mui/x-data-grid": 6.9.1
+    "@mui/x-license-pro": 6.9.0
     "@types/format-util": ^1.0.2
     clsx: ^1.2.1
     prop-types: ^15.8.1
@@ -2414,27 +2423,27 @@ __metadata:
   peerDependencies:
     "@mui/material": ^5.4.1
     "@mui/system": ^5.4.1
-    react: ^17.0.2 || ^18.0.0
-    react-dom: ^17.0.2 || ^18.0.0
-  checksum: 33587b5a59fd2beeb3192b3d5cbeb9b748052cee4a240dcbd9fcd9bed99e794e81d60aabaf21b6f7a09e6f15f7118b4aabc2c8e01c1552ea13133396f90356b0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: f91aae976cb11d0af7648d5368456c2e1670eb2938bcac22293d8a2dc80c6b2138c3d44d3748287299162a91986b896ca5805799e09dca73e35aed62af985c5f
   languageName: node
   linkType: hard
 
-"@mui/x-data-grid@npm:6.5.0":
-  version: 6.5.0
-  resolution: "@mui/x-data-grid@npm:6.5.0"
+"@mui/x-data-grid@npm:6.9.1":
+  version: 6.9.1
+  resolution: "@mui/x-data-grid@npm:6.9.1"
   dependencies:
-    "@babel/runtime": ^7.21.0
-    "@mui/utils": ^5.12.3
+    "@babel/runtime": ^7.22.5
+    "@mui/utils": ^5.13.6
     clsx: ^1.2.1
     prop-types: ^15.8.1
     reselect: ^4.1.8
   peerDependencies:
     "@mui/material": ^5.4.1
     "@mui/system": ^5.4.1
-    react: ^17.0.2 || ^18.0.0
-    react-dom: ^17.0.2 || ^18.0.0
-  checksum: 01d01ce35a141c52a69c05eecc3cb00243648b5ba0600927a861fa5f13cea2447f6758d1a81bfdaf21d72ce11bbed70717eeeee1e8952469aafeeee405597485
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+  checksum: cc8cfd361aa5bdcaa9d30d8c2fb03650a31b6696a6cc03d7d03c9fcac22590b95fef1abc0af74b1f5f28baa19dec22f881a20fe0cc1a47379190507a826d971b
   languageName: node
   linkType: hard
 
@@ -2542,15 +2551,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/x-license-pro@npm:6.0.4":
-  version: 6.0.4
-  resolution: "@mui/x-license-pro@npm:6.0.4"
+"@mui/x-license-pro@npm:6.9.0":
+  version: 6.9.0
+  resolution: "@mui/x-license-pro@npm:6.9.0"
   dependencies:
-    "@babel/runtime": ^7.21.0
-    "@mui/utils": ^5.11.13
+    "@babel/runtime": ^7.22.5
+    "@mui/utils": ^5.13.1
   peerDependencies:
-    react: ^17.0.2 || ^18.0.0
-  checksum: 3b172af7f20657ed9f77449b5e4f3c6bc41446c069818d9055915dab268555de2f923f9de0a518903a46a6cc131cdaec6e1d9e7331bb5f8e03db0bc7afc1a169
+    react: ^17.0.0 || ^18.0.0
+  checksum: 582232c103df88c5b2e978011bf71739d17e3c9bfd3579b946c068ed2636d18e338b54898bb0f89e57a20f2627c3eafef7189383698fd9bc1d67f91589c92939
   languageName: node
   linkType: hard
 
@@ -2842,12 +2851,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-is@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "@types/react-is@npm:18.2.0"
+"@types/react-is@npm:^18.2.1":
+  version: 18.2.1
+  resolution: "@types/react-is@npm:18.2.1"
   dependencies:
     "@types/react": "*"
-  checksum: bceec20a57c91fa9b6b63898a228f6074b8d62dce29b7069a7e986bc7f8cd910ffd197808b559b0a0dd53221e6058db13622a1d1f1faa708557e8c41af1326e4
+  checksum: b44c3262efa2c68fa6fe2beb9ef86170b18305469461a3f97aa14943cc033cb21a26944f718bdb6434eea6e8f7fcba251c4f45b65b897a3fcf751b5a6003cf82
   languageName: node
   linkType: hard
 
@@ -8077,7 +8086,7 @@ __metadata:
     "@mui/icons-material": ^5.11.11
     "@mui/lab": ^5.0.0-alpha.124
     "@mui/material": ^5.11.13
-    "@mui/x-data-grid-premium": ^6.5.0
+    "@mui/x-data-grid-premium": ^6.9.1
     "@mui/x-date-pickers-pro": ^6.0.3
     "@reduxjs/toolkit": ^1.9.3
     "@sql-tools/association-literal": ^0.0.3

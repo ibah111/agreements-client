@@ -26,6 +26,13 @@ interface Palette {
   info: PaletteColor;
   success: PaletteColor;
 }
+export const classes = {
+  HeaderPinnedLeft: "super-app-theme--headerPinnedLeft",
+  HeaderPinnedRight: "super-app-theme--headerPinnedRight",
+  HeaderUsless: "super-app-theme--headerUsless",
+  HeaderTime: "super-app-theme--headerTime",
+};
+
 const createThemeApp = (theme: Theme, color: keyof Palette) => ({
   backgroundColor: getBackgroundColor(
     theme.palette[color].main,
@@ -55,21 +62,16 @@ export const Root = styled(Grid)(({ theme }) => ({
   "& .super-app-theme--1": createThemeApp(theme, "info"),
   "& .super-app-theme--2": createThemeApp(theme, "success"),
   "& .super-app-theme--3": createThemeApp(theme, "error"),
-  "& .super-app-theme--headerPinnedRight": {
+  [`& .${classes.HeaderPinnedRight}`]: {
     backgroundColor: "rgba(15, 200, 250, 0.40)",
   },
-  "& .super-app-theme--headerPinnedLeft": {
+  [`& .${classes.HeaderPinnedLeft}`]: {
     backgroundColor: "rgba(235, 42, 42, 0.40)",
   },
-  "& .super-app-theme--headerTime": {
+  [`& .${classes.HeaderTime}`]: {
     backgroundColor: "rgba(255, 180, 0, 0.40)",
   },
-  "& .super-app-theme--headerUsless": {
+  [`& .${classes.HeaderUsless}`]: {
     backgroundColor: "rgba(27, 159, 0, 0.40)",
   },
 }));
-export const correctDensity = {
-  "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": { py: "8px" },
-  "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": { py: "15px" },
-  "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": { py: "22px" },
-};

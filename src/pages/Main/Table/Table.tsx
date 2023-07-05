@@ -18,11 +18,12 @@ import CardIpDialog from "./CardIpDialog";
 import useCardControls from "./CardIpDialog/hooks/useCardControls";
 import { useGrid } from "./hooks/useGrid";
 import useRowUpdater from "./RowUpdater";
-import { correctDensity, Root } from "./Style/style";
+import { Root } from "./Style/style";
 import useCheck from "./ToolBar/hooks/getRowHeight";
 import AgreementTableToolbar from "./ToolBar/Toolbar";
 import useZalogControls from "./Zalog/hooks/useZalogControls";
 import ZalogDialog from "./Zalog/ZalogIndex";
+import CustomPagination from "../../../components/CustomPagination/CustomPagination";
 
 export class EventDialog extends Event {
   constructor(type: CustomEvents, value: string | number | object) {
@@ -110,7 +111,6 @@ export default function AgreementTable() {
         sx={{
           height: 400,
           width: "100%",
-          correctDensity,
         }}
       >
         <DataGridPremium
@@ -118,7 +118,10 @@ export default function AgreementTable() {
           keepNonExistentRowsSelected
           checkboxSelection
           disableRowSelectionOnClick
-          slots={{ toolbar: AgreementTableToolbar }}
+          slots={{
+            toolbar: AgreementTableToolbar,
+            pagination: CustomPagination,
+          }}
           slotProps={{
             toolbar: { refresh, handleOpen, refreshHeight },
           }}
@@ -128,18 +131,16 @@ export default function AgreementTable() {
           processRowUpdate={processRowUpdate}
           pinnedColumns={pinnedColumns}
           onPinnedColumnsChange={handlePinnedColumnsChange}
-          hideFooterSelectedRowCount
           disableAggregation // убрал ненужные функции
           disableRowGrouping // убрал ненужные функции
           filterMode="server"
           pagination
-          disableMultipleColumnsSorting
           paginationMode="server"
+          disableMultipleColumnsSorting
           getRowClassName={(params) =>
             `super-app-theme--${params.row.statusAgreement}`
           }
           getRowHeight={getRowHeight}
-          getEstimatedRowHeight={() => 10}
         />
       </Root>
       {open && <SearchDialog open={open} onClose={handleClose} />}

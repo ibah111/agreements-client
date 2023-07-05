@@ -1,4 +1,4 @@
-import { IsOptional } from "class-validator";
+import { IsOptional, Max } from "class-validator";
 import {
   DateRange,
   IsNotEmpty,
@@ -26,8 +26,8 @@ export class AgreementInstance implements AgreementData {
    * Дата заключения
    */
   @DateRange({
-    minDate: moment("2001"),
-    maxDate: moment().add(1, "m"),
+    minDate: moment("2000"),
+    maxDate: moment().add(1, "d"),
   })
   @IsValidMoment()
   @IsNotEmpty()
@@ -63,13 +63,11 @@ export class AgreementInstance implements AgreementData {
   /**
    * Сумма задолженности по пересчету
    */
-  @IsPositive()
   @IsOptional()
   recalculation_sum: number;
   /**
    * Статичный дисконт
    */
-  @IsPositive()
   @IsOptional()
   discount: number;
   /**
@@ -80,6 +78,7 @@ export class AgreementInstance implements AgreementData {
   /**
    * Число платежа каждого месяца
    */
+  @Max(30)
   @IsOptional()
   @IsNumber()
   month_pay_day: number | null;
@@ -112,8 +111,8 @@ export class AgreementInstance implements AgreementData {
    * Дата листа
    */
   @DateRange({
-    minDate: moment("2001"),
-    maxDate: moment().add(1, "m"),
+    minDate: moment("2000"),
+    maxDate: moment().add(1, "M"),
   })
   @IsValidMoment()
   @IsOptional()
@@ -128,12 +127,11 @@ export class AgreementInstance implements AgreementData {
   /**
    * Дата завершения
    */
-  @DateRange({
-    minDate: moment("2001"),
-    maxDate: moment().add(1, "m"),
-  })
-  @IsValidMoment()
   @IsOptional()
+  @DateRange({
+    minDate: moment("2000"),
+    maxDate: moment().add(1, "M"),
+  })
   @DateType(false)
   @TransformDate(false)
   finish_date: moment.Moment | null;

@@ -68,7 +68,7 @@ export default function useRowUpdater(refresh: () => void) {
           promiseArguments?.resolve(promiseArguments.oldRow);
         }}
       >
-        <DialogTitle>Введите дату заключения</DialogTitle>
+        <DialogTitle>Введите дату завершения</DialogTitle>
         <DialogContent>
           <DatePicker
             minDate={moment().year(2000)}

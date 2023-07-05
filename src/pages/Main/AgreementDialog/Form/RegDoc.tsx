@@ -16,8 +16,15 @@ export default function RegDocType() {
           value={data.value}
           required={data.required}
           error={data.error}
-          onChange={(event) => data.onChange(Number(event.target.value))}
+          onChange={(event) =>
+            data.onChange(
+              event.target.value ? Number(event.target.value) : null
+            )
+          }
         >
+          <MenuItem value="">
+            <em>Не выбрано</em>
+          </MenuItem>
           {regDoc?.map((item) => (
             <MenuItem key={item.id} value={item.id}>
               {item.title}

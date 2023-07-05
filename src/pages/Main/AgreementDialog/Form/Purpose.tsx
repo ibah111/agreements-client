@@ -17,8 +17,15 @@ export default function PurposeField() {
           label="Назначение"
           value={data.value}
           required={data.required}
-          onChange={(event) => data.onChange(Number(event.target.value))}
+          onChange={(event) =>
+            data.onChange(
+              event.target.value ? Number(event.target.value) : null
+            )
+          }
         >
+          <MenuItem value="">
+            <em>Не выбрано</em>
+          </MenuItem>
           {purposes?.map((item) => (
             <MenuItem key={item.id} value={item.id}>
               {item.title}
