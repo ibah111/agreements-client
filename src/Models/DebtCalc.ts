@@ -1,8 +1,9 @@
-import { DebtCalc } from "@contact/models";
-import { CreationAttributes } from "@sql-tools/sequelize";
+import { DebtCalc, Dict } from "@contact/models";
+import { CreationAttributes, NonAttribute } from "@sql-tools/sequelize";
 import { IsValidMoment } from "../Hooks/Validation/IsValidMoment";
 import { DateType } from "../Reducer/Utils/DateType";
 import { TransformDate } from "../Reducer/Utils/TransformDate";
+import { HasOneAttribute } from "@sql-tools/association-literal";
 
 export class DebtCalcInstance implements CreationAttributes<DebtCalc> {
   parent_id: number;
@@ -47,6 +48,7 @@ export class DebtCalcInstance implements CreationAttributes<DebtCalc> {
   contract_number?: string;
   ticket_number?: string;
   purpose?: number;
+  PurposeDict?: HasOneAttribute<NonAttribute<Dict>>;
   NUMBER_VALUE_1?: number;
   NUMBER_VALUE_2?: number;
   NUMBER_VALUE_3?: number;

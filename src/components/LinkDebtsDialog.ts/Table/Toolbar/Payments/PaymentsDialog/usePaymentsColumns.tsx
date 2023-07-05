@@ -34,10 +34,10 @@ const columns: GridColDef<DebtCalcInstance>[] = [
     headerAlign: "center",
     headerName: "Назначение платежа",
     type: "string",
-    field: "purpose",
+    field: "PurposeDict",
     width: 400,
     valueGetter: (params) => {
-      if (params.row.purpose === 7) return "УФК ОСП";
+      if (params.row.PurposeDict?.name) return params.row.PurposeDict?.name;
     },
   },
 ];

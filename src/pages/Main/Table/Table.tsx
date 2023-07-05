@@ -140,7 +140,6 @@ export default function AgreementTable() {
           getRowClassName={(params) =>
             `super-app-theme--${params.row.statusAgreement}`
           }
-          getRowHeight={getRowHeight}
           experimentalFeatures={{
             clipboardPaste: true,
           }}
@@ -152,6 +151,8 @@ export default function AgreementTable() {
             });
           }}
           unstable_ignoreValueFormatterDuringExport
+          getRowHeight={() => "auto"}
+          getEstimatedRowHeight={() => 1000}
         />
       </Root>
       {open && <SearchDialog open={open} onClose={handleClose} />}
