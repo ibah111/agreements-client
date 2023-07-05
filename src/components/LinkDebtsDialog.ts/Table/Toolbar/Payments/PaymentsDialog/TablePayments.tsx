@@ -31,6 +31,7 @@ export default function TablePayments({ id }: TablePaymentsProps) {
       loading={loading}
       rowSelection={false}
       hideFooter
+      getRowHeight={() => "auto"}
     />
   );
 }

@@ -4,22 +4,6 @@ const columns: GridColDef<DebtCalcInstance>[] = [
   {
     align: "center",
     headerAlign: "center",
-    headerName: "ID платежа",
-    field: "id",
-    width: 150,
-    type: "number",
-  },
-  {
-    align: "center",
-    headerAlign: "center",
-    headerName: "ID долга",
-    field: "parent_id",
-    width: 150,
-    type: "number",
-  },
-  {
-    align: "center",
-    headerAlign: "center",
     headerName: "Сумма",
     field: "sum",
     width: 200,
@@ -40,9 +24,20 @@ const columns: GridColDef<DebtCalcInstance>[] = [
     headerName: "Комментарий",
     type: "string",
     field: "dsc",
-    width: 150,
+    width: 400,
     valueGetter: (params) => {
       return params.row.dsc;
+    },
+  },
+  {
+    align: "center",
+    headerAlign: "center",
+    headerName: "Назначение платежа",
+    type: "string",
+    field: "purpose",
+    width: 400,
+    valueGetter: (params) => {
+      if (params.row.purpose === 7) return "УФК ОСП";
     },
   },
 ];

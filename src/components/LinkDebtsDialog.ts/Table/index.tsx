@@ -7,6 +7,7 @@ import useOpenPayments from "./Toolbar/Payments/hooks/useOpenPayments";
 import TablePayments from "./Toolbar/Payments/PaymentsDialog/TablePayments";
 import useColumns from "./useColumns";
 import useTable from "./useTable";
+import { enqueueSnackbar } from "notistack";
 
 interface TableProps {
   agreementId: number;
@@ -25,6 +26,7 @@ export default function Table(props: TableProps) {
   }, [refresh]);
   const { openPayments, handleOpen, handleClose, debtId } = useOpenPayments();
   const columns = useColumns(props.agreementId, refresh, handleOpen);
+  const [, setCopiedData] = React.useState("");
   return (
     <>
       <DataGridPremium
@@ -34,6 +36,16 @@ export default function Table(props: TableProps) {
         rows={rows}
         columns={columns}
         loading={loading}
+        disableRowSelectionOnClick
+        experimentalFeatures={{ clipboardPaste: true }}
+        onClipboardCopy={(copiedString) => {
+          setCopiedData(copiedString);
+          enqueueSnackbar(`Скопировано: ${copiedString}`, {
+            hideIconVariant: true,
+            variant: "info",
+          });
+        }}
+        unstable_ignoreValueFormatterDuringExport
       />
       {open && (
         <LinkDialog

@@ -101,7 +101,7 @@ export default function AgreementTable() {
   const { processRowUpdate, RenderDialog } = useRowUpdater(refresh);
 
   const { getRowHeight, refreshHeight } = useCheck();
-
+  const [, setCopiedData] = React.useState("");
   return (
     <Grid item container xs direction={"column"}>
       {RenderDialog}
@@ -141,6 +141,17 @@ export default function AgreementTable() {
             `super-app-theme--${params.row.statusAgreement}`
           }
           getRowHeight={getRowHeight}
+          experimentalFeatures={{
+            clipboardPaste: true,
+          }}
+          onClipboardCopy={(copiedString) => {
+            setCopiedData(copiedString);
+            enqueueSnackbar(`Скопировано: ${copiedString}`, {
+              hideIconVariant: true,
+              variant: "info",
+            });
+          }}
+          unstable_ignoreValueFormatterDuringExport
         />
       </Root>
       {open && <SearchDialog open={open} onClose={handleClose} />}

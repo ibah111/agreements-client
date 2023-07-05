@@ -34,7 +34,6 @@ function RenderLink({ value }: RenderLinkProps) {
 
 function ExpandableCell({ value }: GridRenderCellParams) {
   const [expanded, setExpanded] = React.useState(false);
-
   return (
     <Box>
       {expanded ? value : value?.slice(0, 20)}
@@ -340,20 +339,6 @@ export default function GetColumns(
       editable: true,
       headerAlign: "center",
       type: "string",
-    },
-    {
-      headerClassName: classes.HeaderUsless,
-      align: "center",
-      headerAlign: "center",
-      headerName: "Начальный долг",
-      field: "start_sum",
-      width: 150,
-      type: "number",
-      valueGetter: (params) => {
-        return params.row.Person?.Debts?.find(
-          (item) => !/.*[ПЕРЕСЧЕТ|ИНДЕКСАЦИЯ].*/.test(item.name || "")
-        )?.start_sum;
-      },
     },
     {
       headerClassName: classes.HeaderUsless,
