@@ -27,7 +27,6 @@ export default function Table(props: TableProps) {
   }, [refresh]);
   const { openPayments, handleOpen, handleClose, debtId } = useOpenPayments();
   const columns = useColumns(props.agreementId, refresh, handleOpen);
-  const [, setCopiedData] = React.useState("");
   return (
     <>
       <DataGridPremium
@@ -40,7 +39,6 @@ export default function Table(props: TableProps) {
         disableRowSelectionOnClick
         experimentalFeatures={{ clipboardPaste: true }}
         onClipboardCopy={(copiedString) => {
-          setCopiedData(copiedString);
           enqueueSnackbar(`Скопировано: ${copiedString}`, {
             hideIconVariant: true,
             variant: "info",
