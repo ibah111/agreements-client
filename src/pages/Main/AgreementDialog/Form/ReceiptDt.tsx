@@ -8,7 +8,7 @@ export default function ReceiptDt() {
     <Grid xs={2} item>
       <DatePicker
         label="Дата пол-я листа"
-        value={data.value}
+        value={data.value || null}
         minDate={moment().year(2000)}
         maxDate={moment()}
         onChange={(value) => {

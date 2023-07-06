@@ -206,7 +206,7 @@ function GridEditDateCell({
 
   return (
     <Component
-      value={value}
+      value={value || null}
       autoFocus
       onChange={handleChange}
       slots={{ textField: WrappedGridEditDateInput }}

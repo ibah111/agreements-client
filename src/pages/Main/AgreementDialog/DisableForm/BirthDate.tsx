@@ -11,7 +11,7 @@ export default function BirthDate(props: BirthDateProps) {
     <Grid item xs={2}>
       <DatePicker
         disabled={true}
-        value={props.person.birth_date}
+        value={props.person.birth_date || null}
         label={"Дата рождения"}
       />
     </Grid>

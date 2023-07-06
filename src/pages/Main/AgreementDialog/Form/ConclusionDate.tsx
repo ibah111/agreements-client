@@ -9,7 +9,7 @@ export default function ConclusionDate() {
     <Grid item xs={2}>
       <DatePicker
         label="Дата заключения"
-        value={data.value}
+        value={data.value || null}
         minDate={moment().year(2000)}
         maxDate={moment()}
         onChange={(value) => {

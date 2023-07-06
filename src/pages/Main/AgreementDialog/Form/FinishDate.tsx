@@ -14,7 +14,7 @@ export default function FinishDate() {
     <Grid xs={2} item>
       <DatePicker
         label="Дата завершения"
-        value={data.value}
+        value={data.value || null}
         {...dates}
         onChange={(value) => {
           if (typeof value === "string") {

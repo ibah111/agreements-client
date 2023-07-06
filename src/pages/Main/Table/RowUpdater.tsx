@@ -74,6 +74,7 @@ export default function useRowUpdater(refresh: () => void) {
           <DatePicker
             minDate={moment().year(2000)}
             maxDate={moment()}
+            value={newDate}
             onChange={(newValue) => {
               setDate(newValue as moment.Moment);
             }}
@@ -84,7 +85,7 @@ export default function useRowUpdater(refresh: () => void) {
         </DialogActions>
       </Dialog>
     ),
-    [open, promiseArguments, updateConclusionDate]
+    [newDate, open, promiseArguments, updateConclusionDate]
   );
   return { processRowUpdate, RenderDialog };
 }
