@@ -94,16 +94,9 @@ export function useGrid(
         portfolios || [],
         DialogTarget
       ),
-    [
-      refresh,
-      ability,
-      agreementType,
-      purposes,
-      regDoc,
-      status,
-      portfolios,
-      DialogTarget,
-    ]
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ability, agreementType, purposes, regDoc, status, portfolios, DialogTarget]
   );
   React.useEffect(() => {
     return refresh();
