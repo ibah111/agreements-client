@@ -36,8 +36,8 @@ function ExpandableCell({ value }: GridRenderCellParams) {
   const [expanded, setExpanded] = React.useState(false);
   return (
     <Box>
-      {expanded ? value : value.slice(0, 20)}
-      {value.length > 20 && (
+      {expanded ? value : value?.slice(0, 20)}
+      {value?.length > 20 && (
         <Link
           type="button"
           component="button"
