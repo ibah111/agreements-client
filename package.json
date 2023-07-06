@@ -9,7 +9,10 @@
     "start": "vite",
     "start:debug": "vite --debug",
     "build": "vite build",
-    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix"
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix",
+    "prepare": "husky install",
+    "postinstall": "husky install",
+    "commitlint": "commitlint --edit"
   },
   "dependencies": {
     "@casl/ability": "^6.5.0",
@@ -47,6 +50,8 @@
     "socket.io-client": "^4.6.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.6.6",
+    "@commitlint/config-conventional": "^17.6.6",
     "@contact/models": "^0.3.38",
     "@sql-tools/association-literal": "^0.0.3",
     "@sql-tools/sequelize": "^6.27.8",
@@ -60,6 +65,7 @@
     "eslint-config-prettier": "^8.7.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
     "prettier": "^2.8.4",
     "terser": "^5.17.1",
     "typescript": "^4.9.5",
