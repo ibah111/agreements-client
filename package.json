@@ -4,7 +4,7 @@
   "author": "Ibah <starlord77@mail.ru>",
   "license": "MIT",
   "homepage": "/apps/agreements",
-  "packageManager": "yarn@3.4.1",
+  "packageManager": "yarn@3.6.1",
   "scripts": {
     "start": "vite",
     "start:debug": "vite --debug",
