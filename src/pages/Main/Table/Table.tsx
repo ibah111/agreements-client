@@ -140,16 +140,12 @@ export default function AgreementTable() {
           getRowClassName={(params) =>
             `super-app-theme--${params.row.statusAgreement}`
           }
-          experimentalFeatures={{
-            clipboardPaste: true,
-          }}
           onClipboardCopy={(copiedString) => {
             enqueueSnackbar(`Скопировано: ${copiedString}`, {
               hideIconVariant: true,
               variant: "info",
             });
           }}
-          unstable_ignoreValueFormatterDuringExport
           getRowHeight={getRowHeight}
           getEstimatedRowHeight={() => 1000}
         />
