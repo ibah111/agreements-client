@@ -101,7 +101,6 @@ export default function AgreementTable() {
   const { processRowUpdate, RenderDialog } = useRowUpdater(refresh);
 
   const { getRowHeight, refreshHeight } = useCheck();
-  const [, setCopiedData] = React.useState("");
   return (
     <Grid item container xs direction={"column"}>
       {RenderDialog}
@@ -144,14 +143,13 @@ export default function AgreementTable() {
             clipboardPaste: true,
           }}
           onClipboardCopy={(copiedString) => {
-            setCopiedData(copiedString);
             enqueueSnackbar(`Скопировано: ${copiedString}`, {
               hideIconVariant: true,
               variant: "info",
             });
           }}
           unstable_ignoreValueFormatterDuringExport
-          getRowHeight={() => "auto"}
+          getRowHeight={getRowHeight}
           getEstimatedRowHeight={() => 1000}
         />
       </Root>
