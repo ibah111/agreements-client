@@ -8,11 +8,11 @@ import {
 import { DatePicker } from "@mui/x-date-pickers-pro";
 import { diff } from "deep-object-diff";
 import moment from "moment";
-import { enqueueSnackbar } from "notistack";
 import React from "react";
 import { tap } from "rxjs";
 import editAgremeent from "../../../api/editAgreement";
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
+import { useSnackbar } from "notistack";
 interface PromiseAgreements {
   oldRow: AgreementInstance;
   newRow: AgreementInstance;
@@ -21,6 +21,7 @@ interface PromiseAgreements {
 }
 
 export default function useRowUpdater(refresh: () => void) {
+  const { enqueueSnackbar } = useSnackbar();
   const [promiseArguments, setPromiseArguments] =
     React.useState<PromiseAgreements | null>(null);
   const [open, setOpen] = React.useState(false);
@@ -49,7 +50,7 @@ export default function useRowUpdater(refresh: () => void) {
           });
       });
     },
-    []
+    [enqueueSnackbar]
   );
   const updateConclusionDate = React.useCallback(() => {
     const data = { ...promiseArguments!.newRow, finish_date: newDate };

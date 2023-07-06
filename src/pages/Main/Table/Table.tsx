@@ -4,7 +4,6 @@ import {
   GridPinnedColumns,
   GRID_CHECKBOX_SELECTION_COL_DEF,
 } from "@mui/x-data-grid-premium";
-import { enqueueSnackbar } from "notistack";
 import React from "react";
 import getAgreementType from "../../../api/getAgreementType";
 import getPurposes from "../../../api/getPurpose";
@@ -24,6 +23,7 @@ import AgreementTableToolbar from "./ToolBar/Toolbar";
 import useZalogControls from "./Zalog/hooks/useZalogControls";
 import ZalogDialog from "./Zalog/ZalogIndex";
 import CustomPagination from "../../../components/CustomPagination/CustomPagination";
+import { useSnackbar } from "notistack";
 
 export class EventDialog extends Event {
   constructor(type: CustomEvents, value: string | number | object) {
@@ -39,6 +39,7 @@ export enum CustomEvents {
 }
 
 export default function AgreementTable() {
+  const { enqueueSnackbar } = useSnackbar();
   const purposes = useAsyncMemo(getPurposes, [], []);
   const regDoc = useAsyncMemo(getRegDoc, [], []);
   const status = useAsyncMemo(getStatusAgreement, [], []);

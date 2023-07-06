@@ -7,7 +7,7 @@ import useOpenPayments from "./Toolbar/Payments/hooks/useOpenPayments";
 import TablePayments from "./Toolbar/Payments/PaymentsDialog/TablePayments";
 import useColumns from "./useColumns";
 import useTable from "./useTable";
-import { enqueueSnackbar } from "notistack";
+import { useSnackbar } from "notistack";
 
 interface TableProps {
   agreementId: number;
@@ -15,6 +15,7 @@ interface TableProps {
 
 export default function Table(props: TableProps) {
   const { loading, rows, refresh } = useTable(props.agreementId);
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const handleOpenLinks = React.useCallback(() => {
     setOpen(true);

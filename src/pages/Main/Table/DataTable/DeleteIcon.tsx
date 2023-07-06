@@ -5,17 +5,18 @@ import {
   DialogTitle,
   Tooltip,
 } from "@mui/material";
-import { enqueueSnackbar } from "notistack";
 import React from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import deleteAgreement from "../../../../api/deleteAgreement";
 import { GridActionsCellItem } from "@mui/x-data-grid-premium";
+import { useSnackbar } from "notistack";
 
 interface DeleteIconProps {
   id: number;
   refresh: () => void;
 }
 export default function DeleteButton(props: DeleteIconProps) {
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const handleClick = React.useCallback(() => {
     setOpen(true);

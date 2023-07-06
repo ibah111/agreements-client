@@ -23,7 +23,6 @@ import { Person } from "@contact/models";
 import ConclusionDate from "./Form/ConclusionDate";
 import createAgreement from "../../../api/createAgreement";
 import { useAppDispatch, useAppSelector } from "../../../Reducer";
-import { enqueueSnackbar } from "notistack";
 import { resetAgreement } from "../../../Reducer/Agreement/Agreement";
 import ActionsForGet from "./Form/ActionsForGet";
 import FinishDate from "./Form/FinishDate";
@@ -37,6 +36,7 @@ import DiscountSum from "./Form/DiscountSum";
 import Discount from "./Form/Discount";
 import Type from "./Form/Type";
 import Collector from "./Form/Collector";
+import { useSnackbar } from "notistack";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -48,6 +48,7 @@ export function CloseAll() {
   return closeAll;
 }
 export default function AgreementDialog(props: CreateAgreementDialogProps) {
+  const { enqueueSnackbar } = useSnackbar();
   const agreement = useAppSelector((state) => state.Agreement);
   const dispatch = useAppDispatch();
 

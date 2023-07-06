@@ -1,5 +1,4 @@
 import axios from "axios";
-import { enqueueSnackbar } from "notistack";
 import { map, mergeMap, of } from "rxjs";
 import { ValidationError } from "class-validator";
 import { TranslateMessage } from "../Hooks/Validation/checker";
@@ -64,9 +63,14 @@ export default function processError(e: unknown, name?: string) {
           if (e.response.status === 401) {
             return { e, addon: "retry" };
           }
-          enqueueSnackbar(`${e.message}`, {
-            variant: "error",
-          });
+          store.dispatch(
+            addMessage({
+              message: `${e.message}`,
+              options: {
+                variant: "error",
+              },
+            })
+          );
         }
       }
       return { e };
