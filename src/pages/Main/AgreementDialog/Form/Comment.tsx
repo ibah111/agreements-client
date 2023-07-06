@@ -9,9 +9,7 @@ export default function Comment() {
   return (
     <Grid xs={8} item>
       <TextField
-        fullWidth
-        label="Комментарий"
-        type="string"
+        multiline
         value={data.value}
         onChange={(event) =>
           dispatch(setAgreementProperty(["comment", event.target.value]))
