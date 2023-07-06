@@ -1,4 +1,4 @@
-import { Box, Button, Link, Tooltip } from "@mui/material";
+import { Button, Tooltip, Typography } from "@mui/material";
 import {
   GridActionsCellItem,
   GridColDef,
@@ -33,21 +33,10 @@ function RenderLink({ value }: RenderLinkProps) {
 }
 
 function ExpandableCell({ value }: GridRenderCellParams) {
-  const [expanded, setExpanded] = React.useState(false);
   return (
-    <Box>
-      {expanded ? value : value?.slice(0, 20)}
-      {value?.length > 20 && (
-        <Link
-          type="button"
-          component="button"
-          sx={{ fontSize: "inherit" }}
-          onClick={() => setExpanded(!expanded)}
-        >
-          {expanded ? " <= меньше" : "...больше"}
-        </Link>
-      )}
-    </Box>
+    <Tooltip title={<Typography>{value}</Typography>}>
+      {value?.slice(0, 20) || ""}
+    </Tooltip>
   );
 }
 export default function GetColumns(
