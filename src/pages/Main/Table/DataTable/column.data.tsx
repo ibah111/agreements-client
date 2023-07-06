@@ -33,9 +33,18 @@ function RenderLink({ value }: RenderLinkProps) {
 }
 
 function ExpandableCell({ value }: GridRenderCellParams) {
+  const [text, sized] = React.useMemo(
+    () => [value?.slice(0, 200), value?.length > 200],
+    [value]
+  );
   return (
-    <Tooltip title={<Typography>{value}</Typography>}>
-      {value?.slice(0, 20) || ""}
+    <Tooltip
+      title={<Typography sx={{ whiteSpace: "pre-line" }}>{value}</Typography>}
+    >
+      <Typography>
+        {text?.slice(0, 200) || ""}
+        {sized && "..."}
+      </Typography>
     </Tooltip>
   );
 }
@@ -257,7 +266,7 @@ export default function GetColumns(
         if (!params.id) return;
         const row = params.api.getRow(params.id) as AgreementInstance;
         return row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name).join(
-          " ,"
+          "\n"
         );
       },
     },
@@ -413,8 +422,8 @@ export default function GetColumns(
       headerAlign: "center",
       headerName: "Комментарий",
       field: "comment",
-      width: 150,
-      type: "any",
+      width: 300,
+      type: "stirng",
       editable: ability.can(Action.Update, Subject.Agreement),
       renderCell: (params: GridRenderCellParams) => (
         <ExpandableCell {...params} />
