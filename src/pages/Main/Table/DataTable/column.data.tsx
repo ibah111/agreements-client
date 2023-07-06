@@ -17,6 +17,7 @@ import { IdTitle } from "../../../../Models/IdTitle";
 import ZalogIcon from "../Zalog/ZalogIcon";
 import React from "react";
 import { classes } from "../Style/style";
+import _ from "lodash";
 interface RenderLinkProps {
   value: string;
 }
@@ -265,10 +266,15 @@ export default function GetColumns(
       valueFormatter: (params) => {
         if (!params.id) return;
         const row = params.api.getRow(params.id) as AgreementInstance;
-        return row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name).join(
-          "\n"
-        );
+        return _.uniq(
+          row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name)
+        ).join("\n");
       },
+      renderCell: ({ formattedValue }) => (
+        <Typography sx={{ whiteSpace: "pre-line" }}>
+          {formattedValue}
+        </Typography>
+      ),
     },
 
     {

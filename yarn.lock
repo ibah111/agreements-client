@@ -2989,6 +2989,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4.14.195":
+  version: 4.14.195
+  resolution: "@types/lodash@npm:4.14.195"
+  checksum: 39b75ca635b3fa943d17d3d3aabc750babe4c8212485a4df166fe0516e39288e14b0c60afc6e21913cc0e5a84734633c71e617e2bd14eaa1cf51b8d7799c432e
+  languageName: node
+  linkType: hard
+
 "@types/minimist@npm:^1.2.0":
   version: 1.2.2
   resolution: "@types/minimist@npm:1.2.2"
@@ -9111,6 +9118,7 @@ __metadata:
     "@sql-tools/sequelize-typescript": ^2.1.5
     "@tools/health-status-react-component": ^0.1.5
     "@tools/rxjs-pipes": ^0.1.12
+    "@types/lodash": ^4.14.195
     "@types/node": ^18.16.19
     "@types/react": ^18.2.14
     "@types/react-dom": ^18.2.6
@@ -9127,6 +9135,7 @@ __metadata:
     husky: ^8.0.3
     i18next: ^23.2.7
     i18next-resources-to-backend: ^1.1.4
+    lodash: ^4.17.21
     moment: ^2.29.4
     moment-timezone: ^0.5.43
     notistack: ^3.0.1
