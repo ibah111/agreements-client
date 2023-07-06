@@ -74,7 +74,8 @@ export class AgreementInstance implements AgreementData {
    * Дисконт
    */
   @IsPositive()
-  discount_sum: number;
+  @IsOptional()
+  discount_sum: number | null;
   /**
    * Число платежа каждого месяца
    */
