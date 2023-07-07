@@ -147,7 +147,6 @@ export default function AgreementTable() {
             });
           }}
           getRowHeight={getRowHeight}
-          getEstimatedRowHeight={() => 1000}
         />
       </Root>
       {open && <SearchDialog open={open} onClose={handleClose} />}

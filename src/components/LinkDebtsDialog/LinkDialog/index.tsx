@@ -1,4 +1,3 @@
-import { Debt } from "@contact/models";
 import {
   Button,
   Dialog,
@@ -13,6 +12,7 @@ import addDebtLink from "../../../api/DebtLinks/addDebtLink";
 import getAvailableDebts from "../../../api/DebtLinks/getAvailableDebts";
 import callMessage from "../../../utils/callMessage";
 import GridSelectField from "../../Utils/GridSelectField";
+import useAsyncMemo from "../../../utils/asyncMemo";
 
 interface LinkDialogProps {
   open: boolean;
@@ -22,22 +22,19 @@ interface LinkDialogProps {
 
 export default function LinkDialog(props: LinkDialogProps) {
   const [error, setError] = React.useState("");
-  const [debts, setDebts] = React.useState<Debt[]>([]);
   const [selectedDebt, setSelectedDebts] = React.useState<number>(
     "" as unknown as number
   );
-
   React.useEffect(() => {
     if (!selectedDebt) setError("Выберите долг для связи");
     else setError("");
   }, [selectedDebt]);
 
-  React.useEffect(() => {
-    const sub = getAvailableDebts(props.agreementId).subscribe((res) => {
-      setDebts(res);
-    });
-    return sub.unsubscribe.bind(sub);
-  }, [props.agreementId]);
+  const debts = useAsyncMemo(
+    () => getAvailableDebts(props.agreementId),
+    [props.agreementId],
+    []
+  );
 
   const handleClose = React.useCallback(() => {
     props.onClose();

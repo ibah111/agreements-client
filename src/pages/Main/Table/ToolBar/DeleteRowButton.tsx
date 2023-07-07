@@ -36,7 +36,10 @@ export default function DeleteRowButton(props: DeleteRowButtonProps) {
     } else {
       deleteSelectedAgreements(rows).subscribe(() => {
         rows.sort();
-        callMessage(`Удалены строки ${rows}`, { variant: "info" });
+        callMessage(`Удалены строки ${rows.slice(0, 3)} и др.`, {
+          variant: "info",
+          autoHideDuration: 1000,
+        });
         props.refresh();
         setOpen(false);
       });
