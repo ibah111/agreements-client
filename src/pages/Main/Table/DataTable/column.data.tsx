@@ -443,6 +443,15 @@ export default function GetColumns(
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "string",
+      valueGetter: (params) => {
+        if (
+          params.row.collector_id === null /** or params.row.collector_id */
+        ) {
+          return params.row.collector;
+        } else {
+          return params.row.collector_id;
+        }
+      },
     },
     {
       align: "center",

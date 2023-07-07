@@ -143,6 +143,9 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   collector: string;
 
+  @IsOptional()
+  collector_id: number;
+
   LawExecs: LawExecInstance;
   Person: Person;
   DebtLinks?: AgreementDebtsLink[];
