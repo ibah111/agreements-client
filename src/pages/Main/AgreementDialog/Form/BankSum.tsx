@@ -10,15 +10,18 @@ export default function BankSum() {
   return (
     <Grid xs={2} item>
       <TextField
-        InputProps={{
-          endAdornment: <InputAdornment position="end">₽</InputAdornment>,
-        }}
-        label="Передано банком"
         type="number"
+        label="Передано банком"
         onChange={(event) => {
           dispatch(
-            setAgreementProperty(["bank_sum", Number(event.target.value)])
+            setAgreementProperty([
+              "bank_sum",
+              event.target.value ? Number(event.target.value) : "",
+            ])
           );
+        }}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         value={data.value}
         error={data.error}

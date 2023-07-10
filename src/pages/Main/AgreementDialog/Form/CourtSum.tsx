@@ -9,11 +9,11 @@ export default function CourtSum() {
   return (
     <Grid xs={2} item>
       <TextField
+        type="number"
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         label="В пользу банка"
-        type="number"
         onChange={(event) =>
           dispatch(
             setAgreementProperty(["court_sum", Number(event.target.value)])

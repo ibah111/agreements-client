@@ -9,6 +9,7 @@ export default function Discount() {
   return (
     <Grid xs={2} item>
       <TextField
+        type="number"
         label="Дисконт (статичный)"
         onChange={(event) =>
           dispatch(

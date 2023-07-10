@@ -33,11 +33,11 @@ export class Agreement extends Model<
   /**
    * Cумма задолженности по суд.акту
    */
-  court_sum: number;
+  court_sum: number | null;
   /**
    * Сумма задолженности ОД взысканная в пользу НБК / Вымпел
    */
-  debt_sum: number;
+  debt_sum: number | null;
   /**
    * Сумма задолженности по пересчету
    */
@@ -73,7 +73,7 @@ export class Agreement extends Model<
   /**
    * Действия для получения листа
    */
-  actions_for_get: string;
+  actions_for_get: string | null;
   /**
    * Дата завершения
    */

@@ -9,6 +9,7 @@ export default function DiscountSum() {
   return (
     <Grid xs={2} item>
       <TextField
+        type="number"
         label="Cумма с дисконтом"
         onChange={(event) =>
           dispatch(
@@ -21,7 +22,6 @@ export default function DiscountSum() {
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
-        type="number"
         value={data.value}
         required={data.required}
         error={data.error}

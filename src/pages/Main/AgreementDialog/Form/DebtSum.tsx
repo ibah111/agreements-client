@@ -17,7 +17,10 @@ export default function DebtSum() {
         label="В пользу НБК"
         onChange={(event) =>
           dispatch(
-            setAgreementProperty(["debt_sum", Number(event.target.value)])
+            setAgreementProperty([
+              "debt_sum",
+              event.target.value ? Number(event.target.value) : "",
+            ])
           )
         }
         value={data.value}

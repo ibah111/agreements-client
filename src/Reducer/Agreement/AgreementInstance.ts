@@ -49,27 +49,27 @@ export class AgreementInstance implements AgreementData {
    * сумма переданная банком
    */
   @IsOptional()
-  bank_sum: number;
+  bank_sum: number | null;
   /**
    * Cумма задолженности по суд.акту
    */
   @IsOptional()
-  court_sum: number;
+  court_sum: number | null;
   /**
    * Сумма задолженности ОД взысканная в пользу НБК / Вымпел
    */
   @IsOptional()
-  debt_sum: number;
+  debt_sum: number | null;
   /**
    * Сумма задолженности по пересчету
    */
   @IsOptional()
-  recalculation_sum: number;
+  recalculation_sum: number | null;
   /**
    * Статичный дисконт
    */
   @IsOptional()
-  discount: number;
+  discount: number | null;
   /**
    * Дисконт
    */
