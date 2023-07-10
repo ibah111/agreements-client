@@ -18,6 +18,7 @@ import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstan
 import useAsyncMemo from "../../../../utils/asyncMemo";
 import { baseRequest } from "../../../../utils/baseRequest";
 import GetColumns from "../DataTable/column.data";
+import getAllCollectors from "../../../../api/getAllCollectors";
 
 interface GridResult<T extends GridValidRowModel> {
   columns: GridColDef<T>[];
@@ -82,6 +83,7 @@ export function useGrid(
       ),
     []
   );
+  const collectors = useAsyncMemo(getAllCollectors, [], []);
   const columns = React.useMemo(
     () =>
       GetColumns(
@@ -92,6 +94,7 @@ export function useGrid(
         regDoc!,
         status,
         portfolios || [],
+        collectors,
         DialogTarget
       ),
 

@@ -11,13 +11,14 @@ import { Can } from "../../../../casl/casl";
 import { Action, AppAbility, Subject } from "../../../../casl/casl.factory";
 import { CustomEvents, EventDialog } from "../Table";
 import IpIcon from "../CardIpDialog/IpIcon";
-import { Portfolio } from "@contact/models";
+import { Portfolio, User } from "@contact/models";
 import DeleteButton from "./DeleteIcon";
 import { IdTitle } from "../../../../Models/IdTitle";
 import ZalogIcon from "../Zalog/ZalogIcon";
 import React from "react";
 import { classes } from "../Style/style";
 import _ from "lodash";
+import getName from "../../../../Reducer/getName";
 interface RenderLinkProps {
   value: string;
 }
@@ -57,11 +58,16 @@ export default function GetColumns(
   regDoc: IdTitle[],
   status: IdTitle[],
   portfolios: Portfolio[],
+  collectors: User[],
   eventTarget: EventTarget
 ) {
   const selectPortfolio = portfolios.map((port) => ({
     label: port.name,
     value: port.id,
+  }));
+  const selectCollectors = collectors.map((item) => ({
+    value: item.id,
+    label: getName(item.f, item.i, item.o),
   }));
   const columns: GridColDef<AgreementInstance>[] = [
     {
@@ -439,18 +445,17 @@ export default function GetColumns(
       headerAlign: "center",
       headerName: "Взыскатель",
       align: "center",
-      field: "collector",
+      field: "collector_id",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
-      type: "string",
-      valueGetter: (params) => {
-        if (
-          params.row.collector_id === null /** or params.row.collector_id */
-        ) {
-          return params.row.collector;
-        } else {
-          return params.row.collector_id;
-        }
+      type: "singleSelect",
+      valueOptions: (params) => {
+        return params.row?.collector_id
+          ? selectCollectors
+          : [params.row?.collector || ""];
+      },
+      valueGetter(params) {
+        return params.value || params.row.collector;
       },
     },
     {

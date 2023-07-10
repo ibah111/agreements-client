@@ -6,6 +6,7 @@ interface TablePaymentsProps {
 }
 export default function TablePayments({ id }: TablePaymentsProps) {
   const { columns, loading, rows } = usePayments(id);
+
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     right: ["Payments", "Delete"],
   });
