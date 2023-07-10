@@ -1,20 +1,10 @@
-import { plainToInstance } from "class-transformer";
-import React from "react";
-import getLinkedLawExec from "../../../../../api/getLinkedLawExec";
-import { LawExecInstance } from "../../../../../Models/LawExec";
 import useZalogColumns from "./useZalogColumns";
+import getPersonProperty from "../../../../../api/getPersonProperty";
+import useAsyncMemo from "../../../../../utils/asyncMemo";
 
-export default function useZalogTable(agreementId: number) {
-  const zalogColumns = useZalogColumns();
-  const [cardRows, setCardRows] = React.useState<LawExecInstance[]>([]);
+export default function useZalogTable(personId: number) {
+  const columns = useZalogColumns();
+  const rows = useAsyncMemo(() => getPersonProperty(personId), [personId], []);
 
-  const refresh = React.useCallback(() => {
-    const sub = getLinkedLawExec(agreementId).subscribe((res) => {
-      const cardData = plainToInstance(LawExecInstance, res);
-      setCardRows(cardData);
-    });
-    return sub.unsubscribe.bind(sub);
-  }, [agreementId]);
-
-  return { rows: cardRows, columns: zalogColumns, refresh };
+  return { rows, columns };
 }

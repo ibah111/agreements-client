@@ -47,8 +47,20 @@ export default function usePaymentsColumns() {
         headerName: "Назначение платежа",
         type: "singleSelect",
         field: "purpose",
-        width: 400,
+        width: 250,
         valueOptions: selectPurposes,
+      },
+      {
+        align: "center",
+        headerAlign: "center",
+        headerName: "Подтвержден?",
+        width: 150,
+        field: "is_confirmed",
+        valueGetter(params) {
+          if (params.row.is_confirmed === 1) {
+            return "Да";
+          } else return "Нет";
+        },
       },
     ],
     [selectPurposes]

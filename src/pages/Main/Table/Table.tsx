@@ -169,7 +169,7 @@ export default function AgreementTable() {
         <ZalogDialog
           open={zalogControl.openZalog}
           onClose={zalogControl.handleCloseZalog}
-          agreementId={zalogControl.zalogAgreementId}
+          personId={zalogControl.zalogAgreementId}
         />
       )}
     </Grid>

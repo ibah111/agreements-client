@@ -35,6 +35,17 @@ export class AgreementInstance implements AgreementData {
   @TransformDate(false)
   conclusion_date: moment.Moment;
   /**
+   * дата завершения заключения
+   */
+  @IsOptional()
+  @DateRange({
+    minDate: moment("2000"),
+    maxDate: moment().add(1, "M"),
+  })
+  @DateType(false)
+  @TransformDate(false)
+  finish_date: moment.Moment | null;
+  /**
    * Тип соглашения
    */
   @IsNotEmpty()
@@ -125,18 +136,7 @@ export class AgreementInstance implements AgreementData {
    */
   @IsOptional()
   actions_for_get: string;
-  /**
-   * Дата завершения
-   */
-  @IsOptional()
-  @DateRange({
-    minDate: moment("2000"),
-    maxDate: moment().add(1, "M"),
-  })
-  @DateType(false)
-  @TransformDate(false)
-  finish_date: moment.Moment | null;
-
+  /** статус соглашения */
   @IsNotEmpty()
   statusAgreement: number;
 

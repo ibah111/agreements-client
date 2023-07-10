@@ -294,7 +294,7 @@ export default function GetColumns(
         <ZalogIcon
           eventTarget={eventTarget || null}
           refresh={refresh}
-          agreementId={params.row.id}
+          person_id={params.row.person_id}
         />,
       ],
     },
@@ -440,6 +440,7 @@ export default function GetColumns(
       renderCell: (params: GridRenderCellParams) => (
         <ExpandableCell {...params} />
       ),
+      //TODO getActions
     },
     {
       headerAlign: "center",
@@ -449,10 +450,11 @@ export default function GetColumns(
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
+
       valueOptions: (params) => {
-        return params.row?.collector_id
+        return 1 || params.row?.collector_id
           ? selectCollectors
-          : [params.row?.collector || ""];
+          : [params.row?.collector || " "];
       },
       valueGetter(params) {
         return params.value || params.row.collector;
