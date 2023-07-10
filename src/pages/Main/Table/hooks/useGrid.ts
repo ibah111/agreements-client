@@ -1,5 +1,4 @@
 import { useAbility } from "@casl/react";
-import { Portfolio } from "@contact/models";
 import {
   GridCallbackDetails,
   GridColDef,
@@ -8,17 +7,15 @@ import {
   GridSortModel,
   GridValidRowModel,
 } from "@mui/x-data-grid-premium";
-import { get, transformAxios } from "@tools/rxjs-pipes";
 import React from "react";
-import { of } from "rxjs";
 import getAgreements from "../../../../api/getAgreements";
 import { CaslContext } from "../../../../casl/casl";
 import { IdTitle } from "../../../../Models/IdTitle";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 import useAsyncMemo from "../../../../utils/asyncMemo";
-import { baseRequest } from "../../../../utils/baseRequest";
 import GetColumns from "../DataTable/column.data";
 import getAllCollectors from "../../../../api/getAllCollectors";
+import getPortfolio from "../../../../api/getPortfolio";
 
 interface GridResult<T extends GridValidRowModel> {
   columns: GridColDef<T>[];
@@ -75,14 +72,7 @@ export function useGrid(
     return sub.unsubscribe.bind(sub);
   }, [filterModel, paginationModel]);
   const ability = useAbility(CaslContext);
-  const portfolios = useAsyncMemo(
-    () =>
-      of("/Agreements/portfolio").pipe(
-        get<Portfolio[]>(baseRequest),
-        transformAxios()
-      ),
-    []
-  );
+  const portfolios = useAsyncMemo(getPortfolio, [], []);
   const collectors = useAsyncMemo(getAllCollectors, [], []);
   const columns = React.useMemo(
     () =>
@@ -93,7 +83,7 @@ export function useGrid(
         purposes,
         regDoc!,
         status,
-        portfolios || [],
+        portfolios,
         collectors,
         DialogTarget
       ),
