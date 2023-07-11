@@ -6,6 +6,13 @@ export default function useCardColumns() {
       width: 170,
       headerAlign: "center",
       align: "center",
+      headerName: "Имя продукта",
+      field: "name",
+    },
+    {
+      width: 170,
+      headerAlign: "center",
+      align: "center",
       headerName: "Статус",
       field: "state",
       valueGetter: (params) => {
@@ -30,7 +37,7 @@ export default function useCardColumns() {
       headerName: "Номер ИД",
     },
     {
-      width: 170,
+      width: 160,
       headerAlign: "center",
       align: "center",
       headerName: "Номер ИП",

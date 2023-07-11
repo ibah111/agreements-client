@@ -9,7 +9,5 @@ export default function CardDataGrid(props: CardProps) {
   React.useEffect(() => {
     return refresh();
   }, [refresh]);
-  return (
-    <DataGridPremium autoHeight columns={columns} rows={rows} hideFooter />
-  );
+  return <DataGridPremium columns={columns} rows={rows} hideFooter />;
 }

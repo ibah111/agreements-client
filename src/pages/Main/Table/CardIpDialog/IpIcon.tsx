@@ -11,6 +11,7 @@ interface IpProps {
 export default function IpIcon(props: IpProps) {
   return (
     <Button
+      size="small"
       startIcon={<InsertChartIcon />}
       color={"inherit"}
       onClick={() => {

@@ -14,8 +14,8 @@ export default function CardIpDialog(props: CardIpDialogControl) {
   }, [props]);
   return (
     <Dialog fullWidth maxWidth="md" open={props.open} onClose={handleCardClose}>
-      <DialogTitle>Карточка ИП</DialogTitle>
-      <DialogContent>
+      <DialogTitle align="center">Карточка ИП</DialogTitle>
+      <DialogContent sx={{ height: 400, width: "100%" }}>
         <CardDataGrid agreementId={props.agreementId} />
       </DialogContent>
     </Dialog>
