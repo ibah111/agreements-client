@@ -52,7 +52,6 @@ export function useGrid(
 ): GridResult<AgreementInstance> {
   const [loading, setLoading] = React.useState(false);
   const [rows, setRows] = React.useState<AgreementInstance[]>([]);
-
   const [pinnedColumns, handlePinnedColumnsChange] =
     React.useState<GridPinnedColumns>({
       left: [

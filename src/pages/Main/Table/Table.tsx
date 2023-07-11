@@ -1,9 +1,5 @@
-import { Grid, useTheme } from "@mui/material";
-import {
-  DataGridPremium,
-  GridPinnedColumns,
-  GRID_CHECKBOX_SELECTION_COL_DEF,
-} from "@mui/x-data-grid-premium";
+import { Grid } from "@mui/material";
+import { DataGridPremium } from "@mui/x-data-grid-premium";
 import React from "react";
 import getAgreementType from "../../../api/getAgreementType";
 import getPurposes from "../../../api/getPurpose";
@@ -94,7 +90,6 @@ export default function AgreementTable() {
       >
         <DataGridPremium
           {...gridProps}
-          keepNonExistentRowsSelected
           checkboxSelection
           disableRowSelectionOnClick
           slots={{

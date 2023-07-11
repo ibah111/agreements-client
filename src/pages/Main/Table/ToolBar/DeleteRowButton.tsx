@@ -31,8 +31,11 @@ export default function DeleteRowButton(props: DeleteRowButtonProps) {
     setOpen(false);
   };
   const handleClick = () => {
-    if (!rows) {
-      return callMessage("Строки не выбраны", { variant: "info" });
+    if (rows.length === 0) {
+      return callMessage("Строки не выбраны", {
+        variant: "error",
+        autoHideDuration: 1000,
+      });
     } else {
       deleteSelectedAgreements(rows).subscribe(() => {
         rows.sort();
