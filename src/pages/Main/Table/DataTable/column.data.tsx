@@ -2,6 +2,7 @@ import { Button, ButtonGroup, Tooltip, Typography } from "@mui/material";
 import {
   GridActionsCellItem,
   GridColDef,
+  GridColumnHeaderParams,
   GridPinnedColumns,
   GridRenderCellParams,
 } from "@mui/x-data-grid-premium";
@@ -50,6 +51,13 @@ function ExpandableCell({ value }: GridRenderCellParams) {
     </Tooltip>
   );
 }
+
+const getPinnedStyle =
+  (pinned: GridPinnedColumns) => (params: GridColumnHeaderParams) => {
+    if (pinned.left?.includes(params.field)) return classes.red;
+    if (pinned.right?.includes(params.field)) return classes.blue;
+    return classes.yellow;
+  };
 export default function GetColumns(
   refresh: () => void,
   ability: AppAbility,
@@ -70,11 +78,9 @@ export default function GetColumns(
     value: item.id,
     label: getName(item.f, item.i, item.o),
   }));
+
   const columns: GridColDef<AgreementInstance>[] = [
     {
-      headerClassName: (params) => {
-        return classes.red;
-      },
       field: "id",
       headerName: "ID",
       width: 50,
@@ -83,9 +89,8 @@ export default function GetColumns(
     {
       filterable: false,
       field: "KD",
+      width: 150,
       headerName: "№ КД",
-      headerAlign: "center",
-      align: "center",
       valueGetter: (params) => {
         return params.row.Person.Debts?.map((item) => item.contract)[0];
       },
@@ -94,17 +99,12 @@ export default function GetColumns(
       field: "conclusion_date",
       ...dateColumnType,
       headerName: "Дата заключения",
-      align: "center",
-      headerAlign: "center",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
       headerName: "ФИО должника",
-      align: "center",
-      headerAlign: "center",
       field: "FIO",
-      sortable: false,
       width: 150,
       editable: false,
       type: "string",
@@ -112,10 +112,8 @@ export default function GetColumns(
     },
     {
       headerName: "Тип соглашения",
-      headerAlign: "center",
       field: "agreement_type",
       width: 100,
-      align: "center",
       editable: true,
       type: "singleSelect",
       valueOptions:
@@ -125,8 +123,6 @@ export default function GetColumns(
         })) || [],
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Сумма с дисконтом",
       field: "discount_sum",
       width: 100,
@@ -134,8 +130,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Cтатичный дисконт (ред.)",
       field: "discount",
       width: 100,
@@ -144,9 +138,9 @@ export default function GetColumns(
     },
     {
       width: 100,
-      headerAlign: "center",
+
       headerName: "Платежный статус",
-      align: "center",
+
       field: "payableStatus",
       type: "boolean",
       valueGetter: (params) => {
@@ -159,8 +153,6 @@ export default function GetColumns(
     },
     {
       headerName: "День платежа",
-      align: "center",
-      headerAlign: "center",
       description: "Дата платежа по соглашению",
       field: "month_pay_day",
       width: 75,
@@ -172,8 +164,6 @@ export default function GetColumns(
       },
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Последний платеж",
       description: "Последний зарег. платеж из контакта",
       field: "lastPayment",
@@ -184,8 +174,7 @@ export default function GetColumns(
     },
     {
       disableColumnMenu: true,
-      align: "center",
-      headerAlign: "center",
+
       headerName: "Дата посл.платежа",
       field: "lastPaymentDate",
       type: "date",
@@ -195,8 +184,6 @@ export default function GetColumns(
     },
     {
       disableColumnMenu: true,
-      align: "center",
-      headerAlign: "center",
       headerName: "Сум. плат. после соглашения",
       field: "sumAfterAgr",
       width: 150,
@@ -205,8 +192,6 @@ export default function GetColumns(
     },
     {
       headerName: "Сумма платежей до соглашения",
-      align: "center",
-      headerAlign: "center",
       description: "Сумма платежей до соглашения",
       field: "sumBeforeAgr",
       width: 150,
@@ -215,16 +200,13 @@ export default function GetColumns(
     {
       field: "finish_date",
       ...dateColumnType,
-      align: "center",
-      headerAlign: "center",
       headerName: "Дата завершения",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
       headerName: "Назначение",
-      align: "center",
-      headerAlign: "center",
+
       field: "purpose",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -237,8 +219,7 @@ export default function GetColumns(
     },
     {
       headerName: "Статус",
-      align: "center",
-      headerAlign: "center",
+
       field: "statusAgreement",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -250,8 +231,6 @@ export default function GetColumns(
         })) || [],
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Портфель",
       field: "portfolio",
       width: 150,
@@ -271,9 +250,7 @@ export default function GetColumns(
       ),
     },
     {
-      align: "center",
       headerName: "Первый платеж по соглашению",
-      headerAlign: "center",
       description: "Первый платеж по соглашению из контакта",
       field: "firstPayment",
       width: 150,
@@ -281,9 +258,7 @@ export default function GetColumns(
       valueGetter: (params) => params.row.firstPayment || null,
     },
     {
-      align: "center",
       headerName: "Дата первого платежа",
-      headerAlign: "center",
       description: "Дата первого платежа",
       field: "firstPaymentDate",
       width: 250,
@@ -291,8 +266,6 @@ export default function GetColumns(
       valueGetter: (params) => params.row.firstPaymentDate?.toDate() || null,
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Наличие ИД",
       field: "new_reg_doc",
       width: 150,
@@ -308,8 +281,7 @@ export default function GetColumns(
       headerName: "№ в Регистраторе/Архиве",
       field: "registrator",
       width: 150,
-      align: "center",
-      headerAlign: "center",
+
       editable: true,
       type: "string",
     },
@@ -317,14 +289,10 @@ export default function GetColumns(
       headerName: "Наличие в архиве",
       field: "archive",
       width: 150,
-      align: "center",
       editable: true,
-      headerAlign: "center",
       type: "string",
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Переданная банком сумма долга (эл.реестр)",
       field: "bank_sum",
       width: 100,
@@ -333,8 +301,7 @@ export default function GetColumns(
     },
     {
       headerName: "В пользу в банка (сумма долга)",
-      align: "center",
-      headerAlign: "center",
+
       field: "court_sum",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -342,16 +309,12 @@ export default function GetColumns(
     },
     {
       headerName: "В пользу НБК/Вымпел (сумма долга)",
-      align: "center",
-      headerAlign: "center",
       field: "debt_sum",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Пересчет / Индексация",
       field: "recalculation_sum",
       width: 100,
@@ -359,8 +322,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Расчетный дисконт",
       field: "calculation_discount",
       width: 100,
@@ -383,14 +344,10 @@ export default function GetColumns(
       field: "receipt_dt",
       ...dateColumnType,
       width: 150,
-      align: "center",
-      headerAlign: "center",
       headerName: "Дата получения листа",
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Действия для получения или предъявления листа",
       field: "actions_for_get",
       width: 150,
@@ -398,7 +355,7 @@ export default function GetColumns(
       type: "string",
     },
     {
-      headerAlign: "center",
+      align: "left",
       headerName: "Комментарий",
       field: "comment",
       width: 300,
@@ -410,9 +367,7 @@ export default function GetColumns(
       //TODO getActions
     },
     {
-      headerAlign: "center",
       headerName: "Взыскатель",
-      align: "center",
       field: "collector_id",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -428,8 +383,6 @@ export default function GetColumns(
       },
     },
     {
-      align: "center",
-      headerAlign: "center",
       headerName: "Ссылка на задачу",
       field: "task_link",
       width: 150,
@@ -458,9 +411,7 @@ export default function GetColumns(
       ],
     },
     {
-      headerAlign: "center",
       headerName: "Действия",
-      align: "center",
       field: "actions",
       type: "actions",
       width: 100,
@@ -484,5 +435,11 @@ export default function GetColumns(
       ],
     },
   ];
-  return columns.map((item) => ({ ...item, sortable: false }));
+  return columns.map((item) => ({
+    ...item,
+    sortable: false,
+    headerClassName: getPinnedStyle(pinned),
+    align: "center",
+    headerAlign: "center",
+  }));
 }

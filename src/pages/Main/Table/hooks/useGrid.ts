@@ -22,7 +22,7 @@ import getPortfolio from "../../../../api/getPortfolio";
 interface GridResult<T extends GridValidRowModel> {
   columns: GridColDef<T>[];
   pinnedColumns: GridPinnedColumns;
-  handlePinnedColumnsChange: (model: GridPinnedColumns) => void;
+  onPinnedColumnsChange: (model: GridPinnedColumns) => void;
   rows: T[];
   onPaginationModelChange: (
     model: GridPaginationModel,
@@ -52,7 +52,7 @@ export function useGrid(
 ): GridResult<AgreementInstance> {
   const [loading, setLoading] = React.useState(false);
   const [rows, setRows] = React.useState<AgreementInstance[]>([]);
-  const [pinnedColumns, handlePinnedColumnsChange] =
+  const [pinnedColumns, onPinnedColumnsChange] =
     React.useState<GridPinnedColumns>({
       left: [
         GRID_CHECKBOX_SELECTION_COL_DEF.field,
@@ -104,7 +104,6 @@ export function useGrid(
         DialogTarget,
         pinnedColumns
       ),
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       ability,
@@ -124,8 +123,9 @@ export function useGrid(
   }, [refresh]);
   return {
     rows,
-    handlePinnedColumnsChange,
+    onPinnedColumnsChange,
     pinnedColumns,
+    //@ts-ignore
     columns,
     refresh,
     loading,
