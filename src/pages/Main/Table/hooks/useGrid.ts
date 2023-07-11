@@ -1,9 +1,11 @@
 import { useAbility } from "@casl/react";
 import {
+  GRID_CHECKBOX_SELECTION_COL_DEF,
   GridCallbackDetails,
   GridColDef,
   GridFilterModel,
   GridPaginationModel,
+  GridPinnedColumns,
   GridSortModel,
   GridValidRowModel,
 } from "@mui/x-data-grid-premium";
@@ -19,6 +21,8 @@ import getPortfolio from "../../../../api/getPortfolio";
 
 interface GridResult<T extends GridValidRowModel> {
   columns: GridColDef<T>[];
+  pinnedColumns: GridPinnedColumns;
+  handlePinnedColumnsChange: (model: GridPinnedColumns) => void;
   rows: T[];
   onPaginationModelChange: (
     model: GridPaginationModel,
@@ -48,6 +52,19 @@ export function useGrid(
 ): GridResult<AgreementInstance> {
   const [loading, setLoading] = React.useState(false);
   const [rows, setRows] = React.useState<AgreementInstance[]>([]);
+
+  const [pinnedColumns, handlePinnedColumnsChange] =
+    React.useState<GridPinnedColumns>({
+      left: [
+        GRID_CHECKBOX_SELECTION_COL_DEF.field,
+        "id",
+        "statusAgreement",
+        "FIO",
+        "conclusion_date",
+        "payableStatus",
+      ],
+      right: ["finish_date", "Card_IP", "actions"],
+    });
   const [filterModel, onFilterModelChange] = React.useState<GridFilterModel>({
     items: [],
   });
@@ -85,17 +102,31 @@ export function useGrid(
         status,
         portfolios,
         collectors,
-        DialogTarget
+        DialogTarget,
+        pinnedColumns
       ),
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ability, agreementType, purposes, regDoc, status, portfolios, DialogTarget]
+    [
+      ability,
+      agreementType,
+      purposes,
+      regDoc,
+      status,
+      collectors,
+      portfolios,
+      DialogTarget,
+      pinnedColumns,
+    ]
   );
+
   React.useEffect(() => {
     return refresh();
   }, [refresh]);
   return {
     rows,
+    handlePinnedColumnsChange,
+    pinnedColumns,
     columns,
     refresh,
     loading,

@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, useTheme } from "@mui/material";
 import {
   DataGridPremium,
   GridPinnedColumns,
@@ -78,27 +78,6 @@ export default function AgreementTable() {
     refresh();
     setOpen(false);
   }, [refresh]);
-
-  const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
-    left: [
-      GRID_CHECKBOX_SELECTION_COL_DEF.field,
-      "id",
-      "personId",
-      "KD",
-      "statusAgreement",
-      "FIO",
-      "conclusion_date",
-      "payableStatus",
-      "portfolio",
-    ],
-    right: ["finish_date", "deposit_typ", "Card_IP", "actions"],
-  });
-  const handlePinnedColumnsChange = React.useCallback(
-    (updatedPinnedColumns: GridPinnedColumns) => {
-      setPinnedColumns(updatedPinnedColumns);
-    },
-    []
-  );
   const { processRowUpdate, RenderDialog } = useRowUpdater(refresh);
 
   const { getRowHeight, refreshHeight } = useCheck();
@@ -129,8 +108,6 @@ export default function AgreementTable() {
             enqueueSnackbar(`Возникла ошибка ${e}`, { variant: "error" });
           }}
           processRowUpdate={processRowUpdate}
-          pinnedColumns={pinnedColumns}
-          onPinnedColumnsChange={handlePinnedColumnsChange}
           disableAggregation // убрал ненужные функции
           disableRowGrouping // убрал ненужные функции
           filterMode="server"
@@ -146,6 +123,7 @@ export default function AgreementTable() {
               variant: "info",
             });
           }}
+          rowHeight={64}
           getRowHeight={getRowHeight}
         />
       </Root>

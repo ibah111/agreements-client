@@ -1,7 +1,8 @@
-import { Button, Tooltip, Typography } from "@mui/material";
+import { Button, ButtonGroup, Tooltip, Typography } from "@mui/material";
 import {
   GridActionsCellItem,
   GridColDef,
+  GridPinnedColumns,
   GridRenderCellParams,
 } from "@mui/x-data-grid-premium";
 import AddIcon from "@mui/icons-material/Add";
@@ -16,9 +17,9 @@ import DeleteButton from "./DeleteIcon";
 import { IdTitle } from "../../../../Models/IdTitle";
 import ZalogIcon from "../Zalog/ZalogIcon";
 import React from "react";
-import { classes } from "../Style/style";
 import _ from "lodash";
 import getName from "../../../../Reducer/getName";
+import { classes } from "../Style/style";
 interface RenderLinkProps {
   value: string;
 }
@@ -33,7 +34,6 @@ function RenderLink({ value }: RenderLinkProps) {
     </>
   );
 }
-
 function ExpandableCell({ value }: GridRenderCellParams) {
   const [text, sized] = React.useMemo(
     () => [value?.slice(0, 200), value?.length > 200],
@@ -59,7 +59,8 @@ export default function GetColumns(
   status: IdTitle[],
   portfolios: Portfolio[],
   collectors: User[],
-  eventTarget: EventTarget
+  eventTarget: EventTarget,
+  pinned: GridPinnedColumns
 ) {
   const selectPortfolio = portfolios.map((port) => ({
     label: port.name,
@@ -71,7 +72,9 @@ export default function GetColumns(
   }));
   const columns: GridColDef<AgreementInstance>[] = [
     {
-      headerClassName: classes.HeaderPinnedLeft,
+      headerClassName: (params) => {
+        return classes.red;
+      },
       field: "id",
       headerName: "ID",
       width: 50,
@@ -83,13 +86,11 @@ export default function GetColumns(
       headerName: "№ КД",
       headerAlign: "center",
       align: "center",
-      headerClassName: classes.HeaderPinnedLeft,
       valueGetter: (params) => {
         return params.row.Person.Debts?.map((item) => item.contract)[0];
       },
     },
     {
-      headerClassName: classes.HeaderPinnedLeft,
       field: "conclusion_date",
       ...dateColumnType,
       headerName: "Дата заключения",
@@ -99,7 +100,6 @@ export default function GetColumns(
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
-      headerClassName: classes.HeaderPinnedLeft,
       headerName: "ФИО должника",
       align: "center",
       headerAlign: "center",
@@ -111,7 +111,6 @@ export default function GetColumns(
       valueGetter: (params) => params.row.Person?.fio || "",
     },
     {
-      headerClassName: classes.HeaderTime,
       headerName: "Тип соглашения",
       headerAlign: "center",
       field: "agreement_type",
@@ -126,17 +125,15 @@ export default function GetColumns(
         })) || [],
     },
     {
-      headerClassName: classes.HeaderTime,
       align: "center",
       headerAlign: "center",
-      headerName: "Сумма с дисконтом ",
+      headerName: "Сумма с дисконтом",
       field: "discount_sum",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
     {
-      headerClassName: classes.HeaderTime,
       align: "center",
       headerAlign: "center",
       headerName: "Cтатичный дисконт (ред.)",
@@ -146,7 +143,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: classes.HeaderPinnedLeft,
       width: 100,
       headerAlign: "center",
       headerName: "Платежный статус",
@@ -162,7 +158,6 @@ export default function GetColumns(
       },
     },
     {
-      headerClassName: classes.HeaderTime,
       headerName: "День платежа",
       align: "center",
       headerAlign: "center",
@@ -177,7 +172,6 @@ export default function GetColumns(
       },
     },
     {
-      headerClassName: classes.HeaderTime,
       align: "center",
       headerAlign: "center",
       headerName: "Последний платеж",
@@ -189,7 +183,6 @@ export default function GetColumns(
       valueGetter: (params) => params.row.lastPayment || null,
     },
     {
-      headerClassName: classes.HeaderTime,
       disableColumnMenu: true,
       align: "center",
       headerAlign: "center",
@@ -201,7 +194,6 @@ export default function GetColumns(
       valueGetter: (params) => params.row.lastPaymentDate?.toDate() || null,
     },
     {
-      headerClassName: classes.HeaderTime,
       disableColumnMenu: true,
       align: "center",
       headerAlign: "center",
@@ -212,7 +204,6 @@ export default function GetColumns(
       valueGetter: (params) => params.row.sumAfterAgr || null,
     },
     {
-      headerClassName: classes.HeaderTime,
       headerName: "Сумма платежей до соглашения",
       align: "center",
       headerAlign: "center",
@@ -222,7 +213,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: classes.HeaderPinnedRight,
       field: "finish_date",
       ...dateColumnType,
       align: "center",
@@ -246,7 +236,6 @@ export default function GetColumns(
         })) || [],
     },
     {
-      headerClassName: classes.HeaderPinnedLeft,
       headerName: "Статус",
       align: "center",
       headerAlign: "center",
@@ -261,7 +250,6 @@ export default function GetColumns(
         })) || [],
     },
     {
-      headerClassName: classes.HeaderPinnedLeft,
       align: "center",
       headerAlign: "center",
       headerName: "Портфель",
@@ -281,22 +269,6 @@ export default function GetColumns(
           {formattedValue}
         </Typography>
       ),
-    },
-
-    {
-      headerClassName: classes.HeaderPinnedRight,
-      width: 100,
-      headerAlign: "center",
-      headerName: "Залог",
-      field: "deposit_typ",
-      type: "actions",
-      getActions: (params) => [
-        <ZalogIcon
-          eventTarget={eventTarget || null}
-          refresh={refresh}
-          person_id={params.row.person_id}
-        />,
-      ],
     },
     {
       align: "center",
@@ -351,7 +323,6 @@ export default function GetColumns(
       type: "string",
     },
     {
-      headerClassName: classes.HeaderUsless,
       align: "center",
       headerAlign: "center",
       headerName: "Переданная банком сумма долга (эл.реестр)",
@@ -361,7 +332,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: classes.HeaderUsless,
       headerName: "В пользу в банка (сумма долга)",
       align: "center",
       headerAlign: "center",
@@ -371,7 +341,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: classes.HeaderUsless,
       headerName: "В пользу НБК/Вымпел (сумма долга)",
       align: "center",
       headerAlign: "center",
@@ -381,7 +350,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: classes.HeaderUsless,
       align: "center",
       headerAlign: "center",
       headerName: "Пересчет / Индексация",
@@ -391,7 +359,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      headerClassName: classes.HeaderUsless,
       align: "center",
       headerAlign: "center",
       headerName: "Расчетный дисконт",
@@ -471,21 +438,26 @@ export default function GetColumns(
       renderCell: ({ value }) => <RenderLink value={value} />,
     },
     {
-      headerClassName: classes.HeaderPinnedRight,
-      headerName: "ИП",
+      headerName: "Карточка ИП",
       field: "Card_IP",
       type: "actions",
-      width: 100,
+      width: 125,
       getActions: (params) => [
-        <IpIcon
-          eventTarget={eventTarget || null}
-          refresh={refresh}
-          agreementId={params.row.id}
-        />,
+        <ButtonGroup size="small" orientation="vertical" variant="text">
+          <IpIcon
+            eventTarget={eventTarget || null}
+            refresh={refresh}
+            agreementId={params.row.id}
+          />
+          <ZalogIcon
+            eventTarget={eventTarget || null}
+            refresh={refresh}
+            person_id={params.row.person_id}
+          />
+        </ButtonGroup>,
       ],
     },
     {
-      headerClassName: classes.HeaderPinnedRight,
       headerAlign: "center",
       headerName: "Действия",
       align: "center",
