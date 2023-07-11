@@ -11,6 +11,7 @@ interface ZalogProps {
 export default function ZalogIcon(props: ZalogProps) {
   return (
     <Button
+      size="small"
       startIcon={<CarCrash />}
       color={"inherit"}
       onClick={() => {

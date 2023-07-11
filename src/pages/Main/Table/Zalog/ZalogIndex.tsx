@@ -13,9 +13,9 @@ export default function ZalogDialog(props: ZalogDialogControl) {
     props.onClose();
   }, [props]);
   return (
-    <Dialog fullWidth maxWidth="sm" open={props.open} onClose={handleCardClose}>
+    <Dialog fullWidth maxWidth="lg" open={props.open} onClose={handleCardClose}>
       <DialogTitle align="center">Залог</DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ height: 400, width: "100%" }}>
         <ZalogDataGrid personId={props.personId} />
       </DialogContent>
     </Dialog>

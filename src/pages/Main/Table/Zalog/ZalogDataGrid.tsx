@@ -6,7 +6,5 @@ interface ZalogProps {
 }
 export default function ZalogDataGrid(props: ZalogProps) {
   const { columns, rows } = useZalogTable(props.personId);
-  return (
-    <DataGridPremium autoHeight columns={columns} rows={rows} hideFooter />
-  );
+  return <DataGridPremium columns={columns} rows={rows} hideFooter />;
 }

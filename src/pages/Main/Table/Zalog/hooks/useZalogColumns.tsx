@@ -10,7 +10,7 @@ export default function useZalogColumns() {
   const columns: GridColDef<PersonProperty>[] = [
     {
       align: "center",
-      width: 150,
+      width: 100,
       headerAlign: "center",
       headerName: "ID",
       field: "id",
@@ -18,7 +18,7 @@ export default function useZalogColumns() {
     },
     {
       align: "center",
-      width: 150,
+      width: 250,
       headerAlign: "center",
       headerName: "VIN",
       field: "vin",
@@ -42,14 +42,14 @@ export default function useZalogColumns() {
     },
     {
       align: "center",
-      width: 150,
+      width: 250,
       headerAlign: "center",
       headerName: "Название",
       field: "car_names",
       valueGetter: getParam(7),
     },
     {
-      width: 150,
+      width: 250,
       headerAlign: "center",
       headerName: "Владелец ТС",
       field: "owner_name",
