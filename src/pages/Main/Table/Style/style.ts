@@ -27,10 +27,10 @@ interface Palette {
   success: PaletteColor;
 }
 export const classes = {
-  HeaderPinnedLeft: "super-app-theme--headerPinnedLeft",
-  HeaderPinnedRight: "super-app-theme--headerPinnedRight",
-  HeaderUsless: "super-app-theme--headerUsless",
-  HeaderTime: "super-app-theme--headerTime",
+  red: "super-app-theme--headerPinnedLeft",
+  blue: "super-app-theme--headerPinnedRight",
+  green: "super-app-theme--headerUsless",
+  yellow: "super-app-theme--headerTime",
 };
 
 const createThemeApp = (theme: Theme, color: keyof Palette) => ({
@@ -62,16 +62,16 @@ export const Root = styled(Grid)(({ theme }) => ({
   "& .super-app-theme--1": createThemeApp(theme, "info"),
   "& .super-app-theme--2": createThemeApp(theme, "success"),
   "& .super-app-theme--3": createThemeApp(theme, "error"),
-  [`& .${classes.HeaderPinnedRight}`]: {
+  [`& .${classes.blue}`]: {
     backgroundColor: "rgba(15, 200, 250, 0.40)",
   },
-  [`& .${classes.HeaderPinnedLeft}`]: {
+  [`& .${classes.red}`]: {
     backgroundColor: "rgba(235, 42, 42, 0.40)",
   },
-  [`& .${classes.HeaderTime}`]: {
+  [`& .${classes.yellow}`]: {
     backgroundColor: "rgba(255, 180, 0, 0.40)",
   },
-  [`& .${classes.HeaderUsless}`]: {
+  [`& .${classes.green}`]: {
     backgroundColor: "rgba(27, 159, 0, 0.40)",
   },
 }));
