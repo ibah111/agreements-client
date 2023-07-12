@@ -9,6 +9,7 @@ import RefreshToolbarButton from "../../../../components/Utils/RefreshToolbarBut
 import AddAgreement from "./AddAgreement";
 import CheckboxRowHeight from "./CheckboxRowHeight";
 import DeleteRowButton from "./DeleteRowButton";
+import SwitchTheme from "../../../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 
 interface AgreementTableToolbarProps {
   refresh: VoidFunction;
@@ -21,6 +22,7 @@ export default function AgreementTableToolbar(
 ) {
   return (
     <GridToolbarContainer>
+      <SwitchTheme />
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
