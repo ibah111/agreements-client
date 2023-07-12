@@ -25,7 +25,7 @@ export default function ThemeProvider({ children }: ThemeProviderProps) {
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProviderOrigin theme={theme}>
-        <CssBaseline />
+        <CssBaseline enableColorScheme />
         {children}
       </ThemeProviderOrigin>
     </ColorModeContext.Provider>
