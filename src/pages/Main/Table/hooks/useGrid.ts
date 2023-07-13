@@ -60,6 +60,7 @@ export function useGrid(
         "statusAgreement",
         "FIO",
         "conclusion_date",
+        "portfolio",
         "payableStatus",
       ],
       right: ["finish_date", "Card_IP", "actions"],
@@ -79,6 +80,7 @@ export function useGrid(
     }).subscribe((res) => {
       if (res) {
         setRowCount(res.count);
+        console.log(res.rows);
         setRows(res.rows);
       }
     });
@@ -90,7 +92,7 @@ export function useGrid(
   const ability = useAbility(CaslContext);
   const portfolios = useAsyncMemo(getPortfolio, [], []);
   const collectors = useAsyncMemo(getAllCollectors, [], []);
-  const columns = React.useMemo(
+  const columns = React.useMemo<GridColDef<AgreementInstance>[]>(
     () =>
       GetColumns(
         refresh,
@@ -125,7 +127,6 @@ export function useGrid(
     rows,
     onPinnedColumnsChange,
     pinnedColumns,
-    //@ts-ignore
     columns,
     refresh,
     loading,
