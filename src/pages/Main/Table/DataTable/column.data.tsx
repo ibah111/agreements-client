@@ -1,8 +1,7 @@
-import { Button, ButtonGroup, Tooltip, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import {
   GridActionsCellItem,
   GridColDef,
-  GridColumnHeaderParams,
   GridPinnedColumns,
   GridRenderCellParams,
 } from "@mui/x-data-grid-premium";
@@ -12,15 +11,15 @@ import { dateColumnType } from "../../../../utils/DateCol";
 import { Can } from "../../../../casl/casl";
 import { Action, AppAbility, Subject } from "../../../../casl/casl.factory";
 import { CustomEvents, EventDialog } from "../Table";
-import IpIcon from "../CardIpDialog/IpIcon";
 import { Portfolio, User } from "@contact/models";
-import DeleteButton from "./DeleteIcon";
 import { IdTitle } from "../../../../Models/IdTitle";
 import ZalogIcon from "../Zalog/ZalogIcon";
 import React from "react";
 import _ from "lodash";
 import getName from "../../../../Reducer/getName";
-import { classes } from "../Style/style";
+import IpIcon from "../CardIpDialog/IpIcon";
+import { getPinnedStyle } from "./additional.settings";
+import DeleteIcon from "./DeleteAgreement/DeleteIcon";
 interface RenderLinkProps {
   value: string;
 }
@@ -41,23 +40,13 @@ function ExpandableCell({ value }: GridRenderCellParams) {
     [value]
   );
   return (
-    <Tooltip
-      title={<Typography sx={{ whiteSpace: "pre-line" }}>{value}</Typography>}
-    >
-      <Typography>
-        {text?.slice(0, 200) || ""}
-        {sized && "..."}
-      </Typography>
-    </Tooltip>
+    <Typography>
+      {text?.slice(0, 200) || ""}
+      {sized && "..."}
+    </Typography>
   );
 }
 
-const getPinnedStyle =
-  (pinned: GridPinnedColumns) => (params: GridColumnHeaderParams) => {
-    if (pinned.left?.includes(params.field)) return classes.red;
-    if (pinned.right?.includes(params.field)) return classes.blue;
-    return classes.yellow;
-  };
 export default function GetColumns(
   refresh: () => void,
   ability: AppAbility,
@@ -78,7 +67,6 @@ export default function GetColumns(
     value: item.id,
     label: getName(item.f, item.i, item.o),
   }));
-
   const columns: GridColDef<AgreementInstance>[] = [
     {
       field: "id",
@@ -201,7 +189,7 @@ export default function GetColumns(
       field: "finish_date",
       ...dateColumnType,
       headerName: "Дата завершения",
-      width: 150,
+      width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
@@ -301,7 +289,6 @@ export default function GetColumns(
     },
     {
       headerName: "В пользу в банка (сумма долга)",
-
       field: "court_sum",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -364,7 +351,13 @@ export default function GetColumns(
       renderCell: (params: GridRenderCellParams) => (
         <ExpandableCell {...params} />
       ),
-      //TODO getActions
+    },
+    {
+      headerName: "+коммент",
+      field: "add_comment",
+      width: 100,
+      type: "actions",
+      getActions: (params) => [],
     },
     {
       headerName: "Взыскатель",
@@ -372,11 +365,10 @@ export default function GetColumns(
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
-
       valueOptions: (params) => {
-        return 1 || params.row?.collector_id
+        return params.row?.collector_id
           ? selectCollectors
-          : [params.row?.collector || " "];
+          : [params.row?.collector || ""];
       },
       valueGetter(params) {
         return params.value || params.row.collector;
@@ -391,51 +383,53 @@ export default function GetColumns(
       renderCell: ({ value }) => <RenderLink value={value} />,
     },
     {
-      headerName: "Карточка ИП",
+      headerName: "ИП/Залог",
       field: "Card_IP",
       type: "actions",
-      width: 125,
+      width: 90,
       getActions: (params) => [
-        <ButtonGroup size="small" orientation="vertical" variant="text">
+        <Can I={Action.Delete} a={Subject.Agreement}>
           <IpIcon
             eventTarget={eventTarget || null}
             refresh={refresh}
             agreementId={params.row.id}
           />
-          <ZalogIcon
-            eventTarget={eventTarget || null}
-            refresh={refresh}
-            person_id={params.row.person_id}
-          />
-        </ButtonGroup>,
+        </Can>,
+        <ZalogIcon
+          eventTarget={eventTarget || null}
+          refresh={refresh}
+          person_id={params.row.person_id}
+        />,
       ],
     },
     {
       headerName: "Действия",
       field: "actions",
       type: "actions",
-      width: 100,
+      width: 90,
       getActions: (params) => [
         <Can I={Action.Delete} a={Subject.Agreement}>
-          <DeleteButton id={params.row.id} refresh={refresh} />
+          <DeleteIcon
+            eventTarget={eventTarget || null}
+            refresh={refresh}
+            agreementId={params.row.id}
+          />
         </Can>,
         <Can I={Action.Create} a={Subject.AgreementToDebt}>
-          <Tooltip title="Связать долг">
-            <GridActionsCellItem
-              icon={<AddIcon />}
-              label="AddDebt"
-              onClick={() => {
-                eventTarget?.dispatchEvent(
-                  new EventDialog(CustomEvents.onOpenDialog, params.row.id)
-                );
-              }}
-            />
-          </Tooltip>
+          <GridActionsCellItem
+            icon={<AddIcon />}
+            label="AddDebt"
+            onClick={() => {
+              eventTarget?.dispatchEvent(
+                new EventDialog(CustomEvents.onOpenDialog, params.row.id)
+              );
+            }}
+          />
         </Can>,
       ],
     },
   ];
-  return columns.map((item) => ({
+  return columns.map<GridColDef<AgreementInstance>>((item) => ({
     ...item,
     sortable: false,
     headerClassName: getPinnedStyle(pinned),
