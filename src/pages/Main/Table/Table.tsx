@@ -20,6 +20,8 @@ import useZalogControls from "./Zalog/hooks/useZalogControls";
 import ZalogDialog from "./Zalog/ZalogIndex";
 import CustomPagination from "../../../components/CustomPagination/CustomPagination";
 import { useSnackbar } from "notistack";
+import useDeleteControl from "./DataTable/DeleteAgreement/useDeleteControl";
+import DeleteDialog from "./DataTable/DeleteAgreement/DeleteDialog";
 
 export class EventDialog extends Event {
   constructor(type: CustomEvents, value: string | number | object) {
@@ -32,6 +34,7 @@ export enum CustomEvents {
   onOpenCardDialog = "onOpenCardDialog",
   onOpenDialog = "onOpenDialog",
   onOpenZalogDialog = "onOpenZalogDialog",
+  onOpenDeleteDialog = "onOpenDeleteDialog",
 }
 
 export default function AgreementTable() {
@@ -61,6 +64,12 @@ export default function AgreementTable() {
     },
   });
   const zalogControl = useZalogControls({
+    DialogTarget,
+    onClose: () => {
+      refresh();
+    },
+  });
+  const deleteDialogControl = useDeleteControl({
     DialogTarget,
     onClose: () => {
       refresh();
@@ -143,6 +152,13 @@ export default function AgreementTable() {
           open={zalogControl.openZalog}
           onClose={zalogControl.handleCloseZalog}
           personId={zalogControl.zalogAgreementId}
+        />
+      )}
+      {deleteDialogControl.openDeleteDialog && (
+        <DeleteDialog
+          open={deleteDialogControl.openDeleteDialog}
+          onClose={deleteDialogControl.handleCloseDeleteDialog}
+          agreementId={deleteDialogControl.deleteAgreementId}
         />
       )}
     </Grid>
