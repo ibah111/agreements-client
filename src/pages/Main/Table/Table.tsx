@@ -22,6 +22,7 @@ import CustomPagination from "../../../components/CustomPagination/CustomPaginat
 import { useSnackbar } from "notistack";
 import useDeleteControl from "./DataTable/DeleteAgreement/useDeleteControl";
 import DeleteDialog from "./DataTable/DeleteAgreement/DeleteDialog";
+import CommentDialog from "./CommentDialog";
 
 export class EventDialog extends Event {
   constructor(type: CustomEvents, value: string | number | object) {
@@ -35,6 +36,7 @@ export enum CustomEvents {
   onOpenDialog = "onOpenDialog",
   onOpenZalogDialog = "onOpenZalogDialog",
   onOpenDeleteDialog = "onOpenDeleteDialog",
+  onCommentDialog = "onCommentDialog",
 }
 
 export default function AgreementTable() {
@@ -161,6 +163,7 @@ export default function AgreementTable() {
           agreementId={deleteDialogControl.deleteAgreementId}
         />
       )}
+      {<CommentDialog />}
     </Grid>
   );
 }

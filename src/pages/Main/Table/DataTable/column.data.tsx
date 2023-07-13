@@ -20,6 +20,7 @@ import getName from "../../../../Reducer/getName";
 import IpIcon from "../CardIpDialog/IpIcon";
 import { getPinnedStyle } from "./additional.settings";
 import DeleteIcon from "./DeleteAgreement/DeleteIcon";
+import CommentActionCellItem from "../CommentDialog/CommentActionItem";
 interface RenderLinkProps {
   value: string;
 }
@@ -357,7 +358,11 @@ export default function GetColumns(
       field: "add_comment",
       width: 100,
       type: "actions",
-      getActions: (params) => [],
+      getActions: (params) => [
+        <Can I={Action.Delete} a={Subject.Agreement}>
+          <CommentActionCellItem />
+        </Can>,
+      ],
     },
     {
       headerName: "Взыскатель",
