@@ -1,6 +1,6 @@
-import { Button } from "@mui/material";
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import { CustomEvents, EventDialog } from "../Table";
+import { GridActionsCellItem } from "@mui/x-data-grid-premium";
 
 interface IpProps {
   refresh: VoidFunction;
@@ -10,17 +10,16 @@ interface IpProps {
 
 export default function IpIcon(props: IpProps) {
   return (
-    <Button
+    <GridActionsCellItem
       size="small"
-      startIcon={<InsertChartIcon />}
+      label="ИП"
+      icon={<InsertChartIcon />}
       color={"inherit"}
       onClick={() => {
         props.eventTarget?.dispatchEvent(
           new EventDialog(CustomEvents.onOpenCardDialog, props.agreementId)
         );
       }}
-    >
-      ип
-    </Button>
+    />
   );
 }
