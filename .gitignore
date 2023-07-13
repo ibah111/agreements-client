@@ -3,3 +3,4 @@ node_modules
 .yarnrc.yml
 build
 debug.log
+src/config/server.json
