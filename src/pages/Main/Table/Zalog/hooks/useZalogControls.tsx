@@ -3,7 +3,7 @@ import { CustomEvents, EventDialog } from "../../Table";
 
 interface useZalogControlsOptions {
   DialogTarget: EventTarget;
-  onClose?: VoidFunction;
+  onClose: VoidFunction;
 }
 
 export default function useZalogControls(options?: useZalogControlsOptions) {
