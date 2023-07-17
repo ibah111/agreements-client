@@ -81,7 +81,13 @@ export default function GetColumns(
       width: 150,
       headerName: "№ КД",
       valueGetter: (params) => {
-        return params.row.Person.Debts?.map((item) => item.contract)[0];
+        const row = params.api.getRow(params.id) as AgreementInstance;
+        return _.uniq(row.DebtLinks?.map((item) => item.Debt?.contract)).join(
+          ", \n"
+        );
+      },
+      renderCell({ value }) {
+        return <Typography sx={{ whiteSpace: "pre-line" }}>{value}</Typography>;
       },
     },
     {
@@ -230,7 +236,7 @@ export default function GetColumns(
         const row = params.api.getRow(params.id) as AgreementInstance;
         return _.uniq(
           row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name)
-        ).join("\n");
+        ).join(", \n");
       },
       renderCell: ({ formattedValue }) => (
         <Typography sx={{ whiteSpace: "pre-line" }}>
