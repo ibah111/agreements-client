@@ -118,8 +118,15 @@ export default function GetColumns(
         })) || [],
     },
     {
-      headerName: "Сумма с дисконтом",
+      headerName: "Дисконт",
       field: "discount_sum",
+      width: 100,
+      editable: ability.can(Action.Update, Subject.Agreement),
+      type: "number",
+    },
+    {
+      headerName: "Сумма с дисконтом",
+      field: "discount_total",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
@@ -133,9 +140,7 @@ export default function GetColumns(
     },
     {
       width: 100,
-
       headerName: "Платежный статус",
-
       field: "payableStatus",
       type: "boolean",
       valueGetter: (params) => {
@@ -323,7 +328,6 @@ export default function GetColumns(
       type: "number",
       valueGetter: (params) => {
         let result = 0;
-        // просто пихнуть сумму по соглсу - дисконт
         if (params.row.discount_sum === 0) {
           result = 0;
         } else if (params.row.recalculation_sum)
