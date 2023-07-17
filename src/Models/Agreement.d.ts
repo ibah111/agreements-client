@@ -31,21 +31,13 @@ export class Agreement extends Model<
   purpose: FK<number>;
   PurposeType?: BelongsToAttribute<NonAttribute<PurposeType>>;
   /**
-   * Cумма задолженности по суд.акту
-   */
-  court_sum: number | null;
-  /**
-   * Сумма задолженности ОД взысканная в пользу НБК / Вымпел
-   */
-  debt_sum: number | null;
-  /**
-   * Сумма задолженности по пересчету
-   */
-  recalculation_sum: number | null;
-  /**
    * Дисконт
    */
-  discount_sum: number | null;
+  discount: number | null;
+  /**
+   * Сумма с дисконтом
+   */
+  sum: number | null;
   /**
    * Число платежа каждого месяца
    */
@@ -78,7 +70,7 @@ export class Agreement extends Model<
    * Дата завершения
    */
   finish_date: moment.Moment | null;
-
+  /** */
   statusAgreement: number;
   LawAct?: NonAttribute<LawAct>;
   Debt?: NonAttribute<Debt>;

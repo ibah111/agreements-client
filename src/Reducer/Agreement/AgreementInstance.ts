@@ -56,27 +56,6 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   purpose: number;
   /**
-   * эл.реестр
-   * сумма переданная банком
-   */
-  @IsOptional()
-  bank_sum: number | null;
-  /**
-   * Cумма задолженности по суд.акту
-   */
-  @IsOptional()
-  court_sum: number | null;
-  /**
-   * Сумма задолженности ОД взысканная в пользу НБК / Вымпел
-   */
-  @IsOptional()
-  debt_sum: number | null;
-  /**
-   * Сумма задолженности по пересчету
-   */
-  @IsOptional()
-  recalculation_sum: number | null;
-  /**
    * Статичный дисконт
    */
   @IsOptional()
@@ -86,7 +65,7 @@ export class AgreementInstance implements AgreementData {
    */
   @IsPositive()
   @IsOptional()
-  discount_sum: number | null;
+  sum: number | null;
   /**
    * Число платежа каждого месяца
    */

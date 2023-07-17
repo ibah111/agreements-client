@@ -4,13 +4,8 @@ import {
   GridAlignment,
 } from "@mui/x-data-grid-premium";
 import { classes } from "../Style/style";
-const columns = [
-  "bank_sum",
-  "court_sum",
-  "debt_sum",
-  "recalculation_sum",
-  "calculation_discount",
-];
+// оставлю для будущих настроек стиля
+const columns = ["calculation_discount"];
 export const getPinnedStyle =
   (pinned: GridPinnedColumns) => (params: GridColumnHeaderParams) => {
     if (pinned.left?.includes(params.field)) return classes.red;

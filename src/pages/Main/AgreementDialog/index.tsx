@@ -10,10 +10,6 @@ import {
 import React from "react";
 import MonthPerDay from "./Form/MonthPerDay";
 import PurposeField from "./Form/Purpose";
-import CourtSum from "./Form/CourtSum";
-import DebtSum from "./Form/DebtSum";
-import RecalculationSum from "./Form/RecalculationSum";
-
 import Comment from "./Form/Comment";
 import TaskLink from "./Form/TaskLink";
 import PersonID from "./DisableForm/PersonID";
@@ -29,14 +25,13 @@ import FinishDate from "./Form/FinishDate";
 import ReceiptDt from "./Form/ReceiptDt";
 import RegDocType from "./Form/RegDoc";
 import StatusAgreementType from "./Form/StatusAgreement";
-import BankSum from "./Form/BankSum";
 import Registator from "./Form/Registator";
 import Archive from "./Form/Archive";
-import DiscountSum from "./Form/DiscountSum";
 import Discount from "./Form/Discount";
 import Type from "./Form/Type";
 import Collector from "./Form/Collector";
 import { useSnackbar } from "notistack";
+import Sum from "./Form/Sum";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -85,11 +80,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <StatusAgreementType />
             <FinishDate />
             <PurposeField />
-            <BankSum />
-            <CourtSum />
-            <DebtSum />
-            <RecalculationSum />
-            <DiscountSum />
+            <Sum />
             <Discount />
             <MonthPerDay />
             <Divider />

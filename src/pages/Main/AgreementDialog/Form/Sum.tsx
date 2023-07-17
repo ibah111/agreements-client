@@ -1,31 +1,30 @@
-import { Grid, InputAdornment, TextField } from "@mui/material";
-import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
+import { Grid, TextField, InputAdornment } from "@mui/material";
 import { useAppDispatch } from "../../../../Reducer";
+import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
 import useAgreementData from "../../../../Hooks/useAgreementData";
 
-export default function DebtSum() {
+export default function Sum() {
   const dispatch = useAppDispatch();
-  const data = useAgreementData("debt_sum");
-
+  const data = useAgreementData("sum");
   return (
     <Grid xs={2} item>
       <TextField
         type="number"
-        InputProps={{
-          endAdornment: <InputAdornment position="end">₽</InputAdornment>,
-        }}
-        label="В пользу НБК"
+        label="Размер требования"
         onChange={(event) =>
           dispatch(
             setAgreementProperty([
-              "debt_sum",
+              "sum",
               event.target.value ? Number(event.target.value) : "",
             ])
           )
         }
+        InputProps={{
+          endAdornment: <InputAdornment position="end">₽</InputAdornment>,
+        }}
         value={data.value}
-        error={data.error}
         required={data.required}
+        error={data.error}
         helperText={data.helperText}
       />
     </Grid>
