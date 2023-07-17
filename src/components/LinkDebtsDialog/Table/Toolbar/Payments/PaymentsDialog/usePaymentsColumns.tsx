@@ -26,12 +26,22 @@ export default function usePaymentsColumns() {
       {
         align: "center",
         headerAlign: "center",
-        headerName: "Дата",
+        headerName: "Дата платежа",
+        type: "date",
+        valueGetter: (params) =>
+          params.row.calc_date ? params.row.calc_date.toDate() : null,
+        field: "calc_date",
+        width: 150,
+      },
+      {
+        align: "center",
+        headerAlign: "center",
+        headerName: "Дата занесения в КСК",
         type: "date",
         valueGetter: (params) =>
           params.row.dt ? params.row.dt.toDate() : null,
         field: "dt",
-        width: 200,
+        width: 150,
       },
       {
         align: "center",
