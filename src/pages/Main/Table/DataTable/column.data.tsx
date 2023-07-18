@@ -117,26 +117,34 @@ export default function GetColumns(
           value: item.id,
         })) || [],
     },
-    {
-      headerName: "Дисконт",
-      field: "discount_sum",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
+
     {
       headerName: "Сумма с дисконтом",
-      field: "discount_total",
+      description: "Сумма задолженности к погашению по соглашению с дисконтом",
+      field: "sum",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
     },
     {
-      headerName: "Cтатичный дисконт (ред.)",
+      headerName: "Дисконт",
       field: "discount",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
+    },
+    {
+      headerName: "Полный размер требования",
+      description:
+        "Составное число из суммы к погашению с дисконтом + дисконта",
+      field: "full_amount_requirements",
+      width: 100,
+      editable: false,
+      type: "number",
+      valueGetter: (params) => {
+        let result = 0;
+        return result;
+      },
     },
     {
       width: 100,
@@ -206,7 +214,6 @@ export default function GetColumns(
     },
     {
       headerName: "Назначение",
-
       field: "purpose",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -219,7 +226,6 @@ export default function GetColumns(
     },
     {
       headerName: "Статус",
-
       field: "statusAgreement",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -281,7 +287,6 @@ export default function GetColumns(
       headerName: "№ в Регистраторе/Архиве",
       field: "registrator",
       width: 150,
-
       editable: true,
       type: "string",
     },
@@ -291,52 +296,6 @@ export default function GetColumns(
       width: 150,
       editable: true,
       type: "string",
-    },
-    {
-      headerName: "Переданная банком сумма долга (эл.реестр)",
-      field: "bank_sum",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
-    {
-      headerName: "В пользу в банка (сумма долга)",
-      field: "court_sum",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
-    {
-      headerName: "В пользу НБК/Вымпел (сумма долга)",
-      field: "debt_sum",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
-    {
-      headerName: "Пересчет / Индексация",
-      field: "recalculation_sum",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
-    {
-      headerName: "Расчетный дисконт",
-      field: "calculation_discount",
-      width: 100,
-      editable: false,
-      type: "number",
-      valueGetter: (params) => {
-        let result = 0;
-        if (params.row.discount_sum === 0) {
-          result = 0;
-        } else if (params.row.recalculation_sum)
-          result += params.row.recalculation_sum;
-        else if (params.row.court_sum) result += params.row.court_sum;
-        if (result > 0 && params.row.discount_sum)
-          result -= params.row.discount_sum;
-        return result;
-      },
     },
     {
       field: "receipt_dt",

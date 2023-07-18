@@ -5,7 +5,7 @@ import {
 } from "@mui/x-data-grid-premium";
 import { classes } from "../Style/style";
 // оставлю для будущих настроек стиля
-const columns = ["calculation_discount"];
+const columns = ["sum", "discount", "full_amount_requirements"];
 export const getPinnedStyle =
   (pinned: GridPinnedColumns) => (params: GridColumnHeaderParams) => {
     if (pinned.left?.includes(params.field)) return classes.red;
