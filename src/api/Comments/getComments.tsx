@@ -1,7 +1,13 @@
+import { authRetry, get, transformAxios } from "@tools/rxjs-pipes";
 import { of } from "rxjs";
-interface getCommentsArgs {
-  id_agreement: number;
-}
-export default function getComments(args: getCommentsArgs) {
-  return of(args.id_agreement).subscribe;
+import { baseRequest } from "../../utils/baseRequest";
+import { transformError } from "../../utils/processError";
+import { Comments } from "../../Models/Comments";
+export default function getComments(id_agreement: number) {
+  return of(`/Comments/${id_agreement}`).pipe(
+    get<Comments[]>(baseRequest),
+    transformAxios(),
+    transformError(),
+    authRetry()
+  );
 }
