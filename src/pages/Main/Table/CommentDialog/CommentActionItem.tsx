@@ -1,16 +1,25 @@
 import { GridActionsCellItem } from "@mui/x-data-grid-premium";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 import { enqueueSnackbar } from "notistack";
-import getComments from "../../../../api/Comments/getComments";
-
-export default function CommentActionCellItem() {
+import { CustomEvents, EventDialog } from "../Table";
+interface CommentsProps {
+  refresh: VoidFunction;
+  agreement_id: number;
+  eventTarget: EventTarget | null;
+}
+export default function CommentActionCellItem(props: CommentsProps) {
   return (
     <GridActionsCellItem
       icon={<AddCommentIcon />}
       label="openCommentDialog"
       onClick={() => {
-        enqueueSnackbar("ddada", { variant: "info", autoHideDuration: 1000 });
-        getComments();
+        enqueueSnackbar("Открываю комментарии", {
+          variant: "info",
+          autoHideDuration: 1000,
+        });
+        props.eventTarget?.dispatchEvent(
+          new EventDialog(CustomEvents.onOpenCommentDialog, props.agreement_id)
+        );
       }}
     />
   );

@@ -329,7 +329,11 @@ export default function GetColumns(
       type: "actions",
       getActions: (params) => [
         <Can I={Action.Delete} a={Subject.Agreement}>
-          <CommentActionCellItem />
+          <CommentActionCellItem
+            refresh={refresh}
+            agreement_id={params.row.id}
+            eventTarget={eventTarget || null}
+          />
         </Can>,
       ],
     },

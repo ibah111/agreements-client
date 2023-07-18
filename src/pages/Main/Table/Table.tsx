@@ -5,8 +5,6 @@ import getAgreementType from "../../../api/getAgreementType";
 import getPurposes from "../../../api/getPurpose";
 import getRegDoc from "../../../api/getRegDocType";
 import getStatusAgreement from "../../../api/getStatusAgreement";
-import LinkDebtsDialog from "../../../components/LinkDebtsDialog";
-import useLinkDebtsControl from "../../../components/LinkDebtsDialog/useLinkDebtsControl";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import SearchDialog from "../SearchDialog";
 import CardIpDialog from "./CardIpDialog";
@@ -23,6 +21,9 @@ import { useSnackbar } from "notistack";
 import useDeleteControl from "./DataTable/DeleteAgreement/useDeleteControl";
 import DeleteDialog from "./DataTable/DeleteAgreement/DeleteDialog";
 import CommentDialog from "./CommentDialog";
+import useLinkDebtsControl from "../../LinkDebtsDialog/useLinkDebtsControl";
+import LinkDebtsDialog from "../../LinkDebtsDialog";
+import useCommentControl from "./CommentDialog/hooks/useCommentControl";
 
 export class EventDialog extends Event {
   constructor(type: CustomEvents, value: string | number | object) {
@@ -36,7 +37,7 @@ export enum CustomEvents {
   onOpenDialog = "onOpenDialog",
   onOpenZalogDialog = "onOpenZalogDialog",
   onOpenDeleteDialog = "onOpenDeleteDialog",
-  onCommentDialog = "onCommentDialog",
+  onOpenCommentDialog = "onOpenCommentDialog",
 }
 
 export default function AgreementTable() {
@@ -72,6 +73,12 @@ export default function AgreementTable() {
     },
   });
   const deleteDialogControl = useDeleteControl({
+    DialogTarget,
+    onClose: () => {
+      refresh();
+    },
+  });
+  const commentDialogControl = useCommentControl({
     DialogTarget,
     onClose: () => {
       refresh();
@@ -163,7 +170,13 @@ export default function AgreementTable() {
           agreementId={deleteDialogControl.deleteAgreementId}
         />
       )}
-      {<CommentDialog />}
+      {commentDialogControl.openCommentDialog && (
+        <CommentDialog
+          agreementId={commentDialogControl.commentAgreementId}
+          open={commentDialogControl.openCommentDialog}
+          onClose={commentDialogControl.handleCloseCommentDialog}
+        />
+      )}
     </Grid>
   );
 }

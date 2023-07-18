@@ -11,8 +11,8 @@ import React from "react";
 import addDebtLink from "../../../api/DebtLinks/addDebtLink";
 import getAvailableDebts from "../../../api/DebtLinks/getAvailableDebts";
 import callMessage from "../../../utils/callMessage";
-import GridSelectField from "../../Utils/GridSelectField";
 import useAsyncMemo from "../../../utils/asyncMemo";
+import GridSelectField from "../../../components/Utils/GridSelectField";
 
 interface LinkDialogProps {
   open: boolean;

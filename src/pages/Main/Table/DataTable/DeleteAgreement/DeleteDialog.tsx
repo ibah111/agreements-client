@@ -9,7 +9,7 @@ interface DeleteDialogProps {
 }
 export default function DeleteDialog(props: DeleteDialogProps) {
   return (
-    <Dialog open={props.open} onClose={undefined}>
+    <Dialog open={props.open} onClose={props.onClose}>
       <DialogTitle>
         {`Вы уверены, что хотите удалить соглашение № ${props.agreementId}`}
       </DialogTitle>
