@@ -1,7 +1,7 @@
 import { GridActionsCellItem } from "@mui/x-data-grid-premium";
-import { CustomEvents, EventDialog } from "../Table";
 import AddCommentIcon from "@mui/icons-material/AddComment";
 import { enqueueSnackbar } from "notistack";
+import getComments from "../../../../api/Comments/getComments";
 
 export default function CommentActionCellItem() {
   return (
@@ -10,6 +10,7 @@ export default function CommentActionCellItem() {
       label="openCommentDialog"
       onClick={() => {
         enqueueSnackbar("ddada", { variant: "info", autoHideDuration: 1000 });
+        getComments();
       }}
     />
   );

@@ -9,14 +9,13 @@ import { IsNumber } from "class-validator";
 
 export default class DebtInstance {
   declare id: CreationOptional<number>;
-  personId: number; // GET /Debt/Parent_id/{id}
+  personId: number;
   @DateType()
   @TransformDate()
   debt_dt?: GetDate | null;
   @Type(() => PersonInstance)
   Person?: Person;
   @IsNumber()
-  debt_id: number; // GET /Debt/{id} // also // GET /Debt/Payments/{id}
-
+  debt_id: number;
   StatusDict?: Dict;
 }
