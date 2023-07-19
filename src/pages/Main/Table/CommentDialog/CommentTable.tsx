@@ -26,6 +26,7 @@ export default function CommentTable(props: CommentTableProps) {
         hideFooter
         slots={{ toolbar: CommentToolbar }}
         slotProps={{ toolbar: { setOpen: handleOpenComments } }}
+        getRowHeight={() => "auto"}
       />
       {open && (
         <AddCommentDialog

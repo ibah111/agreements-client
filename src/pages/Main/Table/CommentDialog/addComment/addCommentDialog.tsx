@@ -21,7 +21,7 @@ export default function AddCommentDialog(props: AddCommentDialogProps) {
     <Dialog fullWidth maxWidth={"md"} open={props.open} onClose={props.onClose}>
       <DialogTitle>{`Добавьте комментарий к соглашению ${props.agreementId}`}</DialogTitle>
       <DialogContent>
-        <Grid>
+        <Grid item xs>
           <TextField
             fullWidth
             label="Доп.комм."
@@ -45,6 +45,7 @@ export default function AddCommentDialog(props: AddCommentDialogProps) {
                 variant: "success",
                 autoHideDuration: 1000,
               });
+              props.onClose();
             });
           }}
         >

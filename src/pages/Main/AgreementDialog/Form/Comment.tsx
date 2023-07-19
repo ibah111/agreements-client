@@ -1,23 +1,21 @@
 import { Grid, TextField } from "@mui/material";
-import { useAppDispatch } from "../../../../Reducer";
-import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
 import useAgreementData from "../../../../Hooks/useAgreementData";
 
 export default function Comment() {
-  const dispatch = useAppDispatch();
   const data = useAgreementData("comment");
   return (
-    <Grid xs={8} item>
+    <Grid xs item>
       <TextField
         fullWidth
         label="Комментарий"
         type="string"
-        multiline
-        maxRows={4}
+        onChange={(event) => {
+          data.onChange(event.target.value);
+        }}
         value={data.value}
-        onChange={(event) =>
-          dispatch(setAgreementProperty(["comment", event.target.value]))
-        }
+        helperText={data.helperText}
+        error={data.error}
+        required={data.required}
       />
     </Grid>
   );

@@ -1,4 +1,4 @@
-import { IsOptional, Max } from "class-validator";
+import { IsOptional, IsString, Max } from "class-validator";
 import {
   DateRange,
   IsNotEmpty,
@@ -13,6 +13,7 @@ import moment from "moment";
 import { Person } from "@contact/models";
 import AgreementDebtsLink from "../../Models/AgreementDebtLink";
 import { LawExecInstance } from "../../Models/LawExec";
+import { Comments } from "../../Models/Comments";
 
 export class AgreementInstance implements AgreementData {
   @IsNumber()
@@ -89,11 +90,6 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   archive: string;
   /**
-   * Комментарии
-   */
-  @IsOptional()
-  comment: string;
-  /**
    * Ссылка на задачу
    */
   @IsOptional()
@@ -125,9 +121,14 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   collector_id: number;
 
+  @IsOptional()
+  @IsString()
+  comment: string;
+
   LawExecs: LawExecInstance;
   Person: Person;
   DebtLinks?: AgreementDebtsLink[];
+  Comments?: Comments[];
 
   firstPayment: number | null;
   lastPayment: number | null;

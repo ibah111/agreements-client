@@ -316,8 +316,13 @@ export default function GetColumns(
       headerName: "Комментарий",
       field: "comment",
       width: 300,
-      type: "stirng",
-      editable: ability.can(Action.Update, Subject.Agreement),
+      type: "string",
+      editable: false,
+      valueGetter(params) {
+        return (
+          params.row.Comments?.[params.row.Comments.length - 1]?.comment || ""
+        );
+      },
       renderCell: (params: GridRenderCellParams) => (
         <ExpandableCell {...params} />
       ),

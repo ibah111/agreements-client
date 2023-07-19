@@ -76,4 +76,5 @@ export class Agreement extends Model<
   Debt?: NonAttribute<Debt>;
   LawExec?: NonAttribute<LawExec>;
   Person?: NonAttribute<Person>;
+  Comments?: NonAttribute<Comment[]>;
 }

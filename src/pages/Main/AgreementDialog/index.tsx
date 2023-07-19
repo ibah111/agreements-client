@@ -10,7 +10,6 @@ import {
 import React from "react";
 import MonthPerDay from "./Form/MonthPerDay";
 import PurposeField from "./Form/Purpose";
-import Comment from "./Form/Comment";
 import TaskLink from "./Form/TaskLink";
 import PersonID from "./DisableForm/PersonID";
 import PersonFIO from "./DisableForm/PersonFIO";
@@ -32,6 +31,7 @@ import Type from "./Form/Type";
 import Collector from "./Form/Collector";
 import { useSnackbar } from "notistack";
 import Sum from "./Form/Sum";
+import Comment from "./Form/Comment";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -56,7 +56,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
     dispatch(resetAgreement());
     props.fullClose();
   }, [dispatch, props]);
-
   return (
     <>
       <Dialog open={props.open} onClose={handleClose} maxWidth="lg" fullWidth>
@@ -70,7 +69,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         </DialogContent>
         <Divider />
         <DialogTitle alignSelf={"center"}>
-          Запишите дополнительные данные
+          {`Запишите данные соглашения`}
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ flexGrow: 1 }}>
@@ -88,9 +87,9 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             {agreement.new_reg_doc === 2 && <Registator />}
             {agreement.new_reg_doc === 3 && <Archive />}
             <ActionsForGet />
+            <Comment />
             <Collector />
             <ReceiptDt />
-            <Comment />
             <TaskLink />
           </Grid>
         </DialogContent>
@@ -111,7 +110,9 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             fullWidth
             onClick={async () => {
               createAgreement(agreement).subscribe(() => {
-                enqueueSnackbar("Успешно создано", { variant: "success" });
+                enqueueSnackbar(`Соглашение ${agreement.id} успешно создано`, {
+                  variant: "success",
+                });
                 handleFullClose();
               });
             }}

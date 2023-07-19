@@ -26,7 +26,13 @@ export default function CommentDialog(props: CommentDialogProps) {
           </Grid>
         </DialogContent>
       </Dialog>
-      {<AddCommentDialog open={false} onClose={props.onClose} />}
+      {
+        <AddCommentDialog
+          open={false}
+          onClose={props.onClose}
+          agreementId={props.agreementId}
+        />
+      }
     </>
   );
 }

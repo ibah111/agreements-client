@@ -17,7 +17,7 @@ export default function CommentActionCellItem(props: CommentsProps) {
           `Открываю комментарии соглашения №: ${props.agreement_id}`,
           {
             variant: "info",
-            autoHideDuration: 1000,
+            autoHideDuration: 2500,
           }
         );
         props.eventTarget?.dispatchEvent(
