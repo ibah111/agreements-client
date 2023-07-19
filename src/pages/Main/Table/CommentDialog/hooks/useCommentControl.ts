@@ -42,8 +42,7 @@ export default function useCommentControl(options: useCommentControlOptions) {
   const handleCloseCommentDialog = React.useCallback(() => {
     setOpenCommentDialog(false);
     setCommentAgreementId(0);
-    options.onClose();
-  }, [options]);
+  }, []);
   return {
     commentAgreementId,
     columns: commentColumns,

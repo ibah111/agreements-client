@@ -81,7 +81,7 @@ export default function AgreementTable() {
   const commentDialogControl = useCommentControl({
     DialogTarget,
     onClose: () => {
-      refresh();
+      handleClose();
     },
   });
   const [open, setOpen] = React.useState(false);

@@ -1,27 +1,56 @@
-import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Grid,
+} from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
-import CommentTextField from "./commentTextField";
-
-export default function useCommentDialog() {
+import addComment from "../../../../../api/Comments/addComment";
+interface AddCommentDialogProps {
+  open: boolean;
+  onClose: VoidFunction;
+  agreementId: number;
+}
+export default function AddCommentDialog(props: AddCommentDialogProps) {
+  const [text, setText] = React.useState<string>("");
   return (
-    <Dialog open={false}>
-      <DialogTitle>Добавьте комментарий</DialogTitle>
+    <Dialog fullWidth maxWidth={"md"} open={props.open} onClose={props.onClose}>
+      <DialogTitle>{`Добавьте комментарий к соглашению ${props.agreementId}`}</DialogTitle>
       <DialogContent>
-        <CommentTextField />
+        <Grid>
+          <TextField
+            fullWidth
+            label="Доп.комм."
+            type="string"
+            multiline
+            maxRows={6}
+            value={text}
+            onChange={(event) => {
+              setText(event.target.value);
+            }}
+          />
+        </Grid>
       </DialogContent>
-      <Button
-        variant="contained"
-        color="info"
-        onClick={() => {
-          enqueueSnackbar("aboba", {
-            variant: "default",
-            autoHideDuration: 1000,
-          });
-        }}
-      >
-        Добавить
-      </Button>
+      <DialogActions>
+        <Button
+          variant="contained"
+          color="info"
+          onClick={() => {
+            addComment(text, props.agreementId).subscribe(() => {
+              enqueueSnackbar("Комментарий добавлен", {
+                variant: "success",
+                autoHideDuration: 1000,
+              });
+            });
+          }}
+        >
+          Добавить
+        </Button>
+      </DialogActions>
     </Dialog>
   );
 }

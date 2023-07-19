@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
 import CommentTable from "./CommentTable";
+import AddCommentDialog from "./AddComment/AddCommentDialog";
 
 interface CommentDialogProps {
   agreementId: number;
@@ -8,15 +9,24 @@ interface CommentDialogProps {
 }
 export default function CommentDialog(props: CommentDialogProps) {
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
-      <DialogTitle>Дополнительные комментарии</DialogTitle>
-      <DialogContent>
-        <Grid>
-          <Grid>
-            <CommentTable />
+    <>
+      <Dialog
+        fullWidth
+        maxWidth={"md"}
+        open={props.open}
+        onClose={props.onClose}
+        sx={{ width: "100%" }}
+      >
+        <DialogTitle>{`Комментарии соглашения №${props.agreementId}`}</DialogTitle>
+        <DialogContent>
+          <Grid container sx={{ height: "40vh" }}>
+            <Grid item xs>
+              <CommentTable agreementId={props.agreementId} />
+            </Grid>
           </Grid>
-        </Grid>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+      {<AddCommentDialog open={false} onClose={props.onClose} />}
+    </>
   );
 }
