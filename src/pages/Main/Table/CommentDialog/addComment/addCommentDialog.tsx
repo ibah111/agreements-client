@@ -6,6 +6,7 @@ import {
   DialogTitle,
   TextField,
   Grid,
+  Divider,
 } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import React from "react";
@@ -20,6 +21,7 @@ export default function AddCommentDialog(props: AddCommentDialogProps) {
   return (
     <Dialog fullWidth maxWidth={"md"} open={props.open} onClose={props.onClose}>
       <DialogTitle>{`Добавьте комментарий к соглашению ${props.agreementId}`}</DialogTitle>
+      <Divider />
       <DialogContent>
         <Grid item xs>
           <TextField
@@ -35,6 +37,7 @@ export default function AddCommentDialog(props: AddCommentDialogProps) {
           />
         </Grid>
       </DialogContent>
+      <Divider />
       <DialogActions>
         <Button
           variant="contained"

@@ -9,14 +9,15 @@ interface CommentTableProps {
 }
 export default function CommentTable(props: CommentTableProps) {
   const columns = useCommentColumns();
-  const { loading, rows } = useCommentTable(props.agreementId);
+  const { loading, rows, refresh } = useCommentTable(props.agreementId);
   const [open, setOpen] = React.useState(false);
   const handleOpenComments = React.useCallback(() => {
     setOpen(true);
   }, []);
   const handleCloseComments = React.useCallback(() => {
     setOpen(false);
-  }, []);
+    refresh();
+  }, [refresh]);
   return (
     <>
       <DataGridPremium
@@ -25,7 +26,7 @@ export default function CommentTable(props: CommentTableProps) {
         rows={rows}
         hideFooter
         slots={{ toolbar: CommentToolbar }}
-        slotProps={{ toolbar: { setOpen: handleOpenComments } }}
+        slotProps={{ toolbar: { setOpen: handleOpenComments, refresh } }}
         getRowHeight={() => "auto"}
       />
       {open && (

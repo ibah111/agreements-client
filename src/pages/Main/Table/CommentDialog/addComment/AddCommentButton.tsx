@@ -5,7 +5,12 @@ interface AddCommentButtonProps {
 }
 export default function AddCommentButton(props: AddCommentButtonProps) {
   return (
-    <Button startIcon={<Add />} size="small" onClick={props.setOpen}>
+    <Button
+      startIcon={<Add />}
+      size="small"
+      onClick={props.setOpen}
+      variant="outlined"
+    >
       Добавить комментарий
     </Button>
   );

@@ -8,7 +8,7 @@ export default function Collector() {
   const data = useAgreementData("collector_id");
   const collectors = useAsyncMemo(getAllCollectors, [], []);
   return (
-    <Grid xs={4} item>
+    <Grid xs={2} item>
       <FormControl fullWidth>
         <InputLabel id="collector-label">Взыскатель</InputLabel>
         <Select

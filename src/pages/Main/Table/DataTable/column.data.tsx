@@ -93,7 +93,7 @@ export default function GetColumns(
       field: "conclusion_date",
       ...dateColumnType,
       headerName: "Дата заключения",
-      width: 150,
+      width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
@@ -107,7 +107,7 @@ export default function GetColumns(
     {
       headerName: "ДР должника",
       field: "birth_date",
-      width: 150,
+      width: 100,
       editable: false,
       filterable: false,
       type: "date",
@@ -127,22 +127,6 @@ export default function GetColumns(
           value: item.id,
         })) || [],
     },
-
-    {
-      headerName: "Сумма с дисконтом",
-      description: "Сумма задолженности к погашению по соглашению с дисконтом",
-      field: "sum",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
-    {
-      headerName: "Дисконт",
-      field: "discount",
-      width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "number",
-    },
     {
       headerName: "Полный размер требования",
       description:
@@ -151,14 +135,20 @@ export default function GetColumns(
       width: 100,
       editable: false,
       type: "number",
-      valueGetter: (params) => {
-        const discount = params.row.discount || null;
-        const sum = params.row.sum || null;
-        const full_req = params.row.full_req || null;
-        if (full_req) return full_req;
-        //@ts-ignore
-        return discount + sum;
-      },
+    },
+    {
+      headerName: "Дисконт",
+      field: "discount",
+      width: 100,
+      type: "number",
+    },
+    {
+      headerName: "Сумма с дисконтом",
+      description: "Сумма задолженности к погашению по соглашению с дисконтом",
+      field: "sum",
+      width: 100,
+      editable: ability.can(Action.Update, Subject.Agreement),
+      type: "number",
     },
     {
       width: 100,
@@ -294,6 +284,7 @@ export default function GetColumns(
           label: item.title,
           value: item.id,
         })) || [],
+
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
