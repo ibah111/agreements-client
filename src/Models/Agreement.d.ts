@@ -39,6 +39,10 @@ export class Agreement extends Model<
    */
   sum: number | null;
   /**
+   * Полная сумма требования
+   */
+  full_req: number | null;
+  /**
    * Число платежа каждого месяца
    */
   month_pay_day: number | null;

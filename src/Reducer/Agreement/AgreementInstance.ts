@@ -58,8 +58,9 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   purpose: number;
   /**
-   * Статичный дисконт
+   * дисконт
    */
+  @IsPositive()
   @IsOptional()
   discount: number | null;
   /**
@@ -68,6 +69,12 @@ export class AgreementInstance implements AgreementData {
   @IsPositive()
   @IsOptional()
   sum: number | null;
+  /**
+   * Полный размер требования
+   */
+  @IsPositive()
+  @IsOptional()
+  full_req: number | null;
   /**
    * Число платежа каждого месяца
    */

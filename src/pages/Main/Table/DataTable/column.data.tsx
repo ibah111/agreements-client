@@ -76,7 +76,6 @@ export default function GetColumns(
       type: "number",
     },
     {
-      filterable: false,
       field: "KD",
       width: 150,
       headerName: "№ КД",
@@ -148,13 +147,15 @@ export default function GetColumns(
       headerName: "Полный размер требования",
       description:
         "Составное число из суммы к погашению с дисконтом + дисконта",
-      field: "full_amount_requirements",
+      field: "full_req",
       width: 100,
       editable: false,
       type: "number",
       valueGetter: (params) => {
         const discount = params.row.discount || null;
         const sum = params.row.sum || null;
+        const full_req = params.row.full_req || null;
+        if (full_req) return full_req;
         //@ts-ignore
         return discount + sum;
       },

@@ -32,6 +32,7 @@ import Collector from "./Form/Collector";
 import { useSnackbar } from "notistack";
 import Sum from "./Form/Sum";
 import Comment from "./Form/Comment";
+import FullReq from "./Form/FullReq";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -79,9 +80,10 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <StatusAgreementType />
             <FinishDate />
             <PurposeField />
+            <MonthPerDay />
+            <FullReq />
             <Sum />
             <Discount />
-            <MonthPerDay />
             <Divider />
             <RegDocType />
             {agreement.new_reg_doc === 2 && <Registator />}

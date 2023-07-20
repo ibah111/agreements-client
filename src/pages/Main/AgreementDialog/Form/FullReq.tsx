@@ -3,18 +3,18 @@ import { useAppDispatch } from "../../../../Reducer";
 import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
 import useAgreementData from "../../../../Hooks/useAgreementData";
 
-export default function Sum() {
+export default function FullReq() {
   const dispatch = useAppDispatch();
-  const data = useAgreementData("sum");
+  const data = useAgreementData("full_req");
   return (
     <Grid xs={2} item>
       <TextField
         type="number"
-        label="Сумма с дисконтом"
+        label="Полный размер требования"
         onChange={(event) =>
           dispatch(
             setAgreementProperty([
-              "sum",
+              "full_req",
               event.target.value ? Number(event.target.value) : "",
             ])
           )
@@ -23,9 +23,6 @@ export default function Sum() {
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         value={data.value}
-        required={data.required}
-        error={data.error}
-        helperText={data.helperText}
       />
     </Grid>
   );
