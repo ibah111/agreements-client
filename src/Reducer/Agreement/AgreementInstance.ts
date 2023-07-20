@@ -10,10 +10,11 @@ import { AgreementData } from "./Agreement";
 import { DateType } from "../Utils/DateType";
 import { TransformDate } from "../Utils/TransformDate";
 import moment from "moment";
-import { Person } from "@contact/models";
 import AgreementDebtsLink from "../../Models/AgreementDebtLink";
 import { LawExecInstance } from "../../Models/LawExec";
 import { Comments } from "../../Models/Comments";
+import { Type } from "class-transformer";
+import { PersonInstance } from "../../Models/Person";
 
 export class AgreementInstance implements AgreementData {
   @IsNumber()
@@ -126,7 +127,9 @@ export class AgreementInstance implements AgreementData {
   comment: string;
 
   LawExecs: LawExecInstance;
-  Person: Person;
+
+  @Type(() => PersonInstance)
+  Person: PersonInstance;
   DebtLinks?: AgreementDebtsLink[];
   Comments?: Comments[];
 

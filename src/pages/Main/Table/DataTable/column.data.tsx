@@ -106,6 +106,17 @@ export default function GetColumns(
       valueGetter: (params) => params.row.Person?.fio || "",
     },
     {
+      headerName: "ДР должника",
+      field: "birth_date",
+      width: 150,
+      editable: false,
+      filterable: false,
+      type: "date",
+      valueGetter: (params) => {
+        return params.row.Person?.birth_date?.toDate() || "";
+      },
+    },
+    {
       headerName: "Тип соглашения",
       field: "agreement_type",
       width: 100,
@@ -142,8 +153,10 @@ export default function GetColumns(
       editable: false,
       type: "number",
       valueGetter: (params) => {
-        let result = 0;
-        return result;
+        const discount = params.row.discount || null;
+        const sum = params.row.sum || null;
+        //@ts-ignore
+        return discount + sum;
       },
     },
     {
@@ -182,7 +195,6 @@ export default function GetColumns(
     },
     {
       disableColumnMenu: true,
-
       headerName: "Дата посл.платежа",
       field: "lastPaymentDate",
       type: "date",
@@ -312,7 +324,6 @@ export default function GetColumns(
       type: "string",
     },
     {
-      align: "left",
       headerName: "Комментарий",
       field: "comment",
       width: 300,
@@ -416,7 +427,6 @@ export default function GetColumns(
     ...item,
     sortable: false,
     headerClassName: getPinnedStyle(pinned),
-    align: "center",
     headerAlign: "center",
   }));
 }

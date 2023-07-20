@@ -59,6 +59,7 @@ export function useGrid(
         "id",
         "statusAgreement",
         "FIO",
+        "birth_date",
         "conclusion_date",
         "portfolio",
         "payableStatus",
