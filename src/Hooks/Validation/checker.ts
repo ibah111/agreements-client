@@ -22,7 +22,8 @@ export class TranslateMessage {
 export default function checker<T extends object, F>(
   example: ClassConstructor<T>,
   name: string,
-  value: F
+  value: F,
+  additional?: T
 ): CheckerResult {
   const result: CheckerResult = {
     required: false,
@@ -35,6 +36,7 @@ export default function checker<T extends object, F>(
     {
       [name]:
         value === undefined || value === null || value === "" ? null : value,
+      ...(additional || {}),
     },
     { enableImplicitConversion: true }
   );

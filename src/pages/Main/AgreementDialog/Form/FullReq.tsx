@@ -23,6 +23,9 @@ export default function FullReq() {
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         value={data.value}
+        helperText={data.helperText}
+        required={data.required}
+        error={data.error}
       />
     </Grid>
   );

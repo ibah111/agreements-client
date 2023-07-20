@@ -15,7 +15,7 @@ import { LawExecInstance } from "../../Models/LawExec";
 import { Comments } from "../../Models/Comments";
 import { Type } from "class-transformer";
 import { PersonInstance } from "../../Models/Person";
-
+import { Condition } from "../../Hooks/Validation/Condition";
 export class AgreementInstance implements AgreementData {
   @IsNumber()
   @IsNotEmpty()
@@ -67,13 +67,13 @@ export class AgreementInstance implements AgreementData {
    * Дисконт
    */
   @IsPositive()
+  @Condition((value, obj) => (obj.full_req || 0) > (value || 0))
   @IsOptional()
   sum: number | null;
   /**
    * Полный размер требования
    */
   @IsPositive()
-  @IsOptional()
   full_req: number | null;
   /**
    * Число платежа каждого месяца

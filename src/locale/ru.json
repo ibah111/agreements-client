@@ -14,10 +14,11 @@
       "isNumber": "Введите цифру"
     },
     "Agreement": {
-      "debt_sum": "Сумма долга",
+      "discount": "Дисконт",
+      "sum": "Сумма с дисконтом",
+      "full_req": "Полный размер требования",
       "month_pay_day": "Число платежа",
       "purpose": "Назначение",
-      "court_sum": "Судебная сумма",
       "conclusuion_date": "Дата заключения",
       "statusAgreement": "Статус",
       "errors_popup": {

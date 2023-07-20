@@ -6,7 +6,8 @@ import checker from "./Validation/checker";
 import { ResultData } from "./Validation/ResultData";
 
 export default function useAgreementData<T extends keyof AgreementInstance>(
-  name: T
+  name: T,
+  additional?: Partial<AgreementInstance>
 ): ResultData<AgreementInstance, T> {
   const dispatch = useAppDispatch();
   const value = useAppSelector((state) =>
@@ -33,8 +34,8 @@ export default function useAgreementData<T extends keyof AgreementInstance>(
   }, [dispatch, name, value]);
 
   const { required, error, helperText } = React.useMemo(
-    () => checker(AgreementInstance, name, value),
-    [name, value]
+    () => checker(AgreementInstance, name, value, additional),
+    [name, value, additional]
   );
   return { value, onChange: setValue, required, error, helperText };
 }

@@ -1,11 +1,12 @@
 import { Grid, TextField, InputAdornment } from "@mui/material";
-import { useAppDispatch } from "../../../../Reducer";
+import { useAppDispatch, useAppSelector } from "../../../../Reducer";
 import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
 import useAgreementData from "../../../../Hooks/useAgreementData";
 
 export default function Sum() {
   const dispatch = useAppDispatch();
-  const data = useAgreementData("sum");
+  const full_req = useAppSelector((state) => state.Agreement.full_req);
+  const data = useAgreementData("sum", { full_req });
   return (
     <Grid xs={2} item>
       <TextField
