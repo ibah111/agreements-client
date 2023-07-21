@@ -23,6 +23,9 @@ export default function useCommentColumns() {
       width: 200,
       headerName: "Автор",
       field: "user",
+      valueGetter(params) {
+        return params.row.User.login;
+      },
     },
   ];
   return commentColumns;
