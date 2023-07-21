@@ -6,14 +6,7 @@ export default function useCommentColumns() {
     {
       align: "center",
       headerAlign: "center",
-      width: 150,
-      headerName: "id соглашения",
-      field: "id_agreement",
-    },
-    {
-      align: "center",
-      headerAlign: "center",
-      width: 500,
+      width: 650,
       headerName: "Комментарий",
       field: "comment",
     },

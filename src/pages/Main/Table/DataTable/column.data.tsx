@@ -16,7 +16,6 @@ import { IdTitle } from "../../../../Models/IdTitle";
 import ZalogIcon from "../Zalog/ZalogIcon";
 import React from "react";
 import _ from "lodash";
-import getName from "../../../../Reducer/getName";
 import IpIcon from "../CardIpDialog/IpIcon";
 import { getPinnedStyle } from "./additional.settings";
 import DeleteIcon from "./DeleteAgreement/DeleteIcon";
@@ -63,10 +62,6 @@ export default function GetColumns(
   const selectPortfolio = portfolios.map((port) => ({
     label: port.name,
     value: port.id,
-  }));
-  const selectCollectors = collectors.map((item) => ({
-    value: item.id,
-    label: getName(item.f, item.i, item.o),
   }));
   const columns: GridColDef<AgreementInstance>[] = [
     {
@@ -149,6 +144,7 @@ export default function GetColumns(
       field: "discount",
       width: 100,
       type: "number",
+      editable: ability.can(Action.Update, Subject.Agreement),
       valueGetter(params) {
         const discount = params.row.discount;
         const full_req = params.row.full_req;
@@ -358,7 +354,7 @@ export default function GetColumns(
       ),
     },
     {
-      headerName: "+коммент",
+      headerName: "Доб.комментарий",
       field: "add_comment",
       width: 100,
       type: "actions",
@@ -379,12 +375,10 @@ export default function GetColumns(
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
       valueOptions: (params) => {
-        return params.row?.collector_id
-          ? selectCollectors
-          : [params.row?.collector || ""];
+        return collectors.map((item) => ({ label: item.f, value: item.id }));
       },
       valueGetter(params) {
-        return params.value || params.row.collector;
+        return params.row.collector_id || "";
       },
     },
     {
