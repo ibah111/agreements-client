@@ -133,14 +133,32 @@ export default function GetColumns(
         "Составное число из суммы к погашению с дисконтом + дисконта",
       field: "full_req",
       width: 100,
-      editable: false,
+      editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
+      valueGetter(params) {
+        const discount = params.row.discount;
+        const full_req = params.row.full_req;
+        const sum = params.row.sum;
+        if (full_req) return full_req;
+        if (discount && sum) return discount + sum;
+        if (sum) return sum;
+      },
     },
     {
       headerName: "Дисконт",
       field: "discount",
       width: 100,
       type: "number",
+      valueGetter(params) {
+        const discount = params.row.discount;
+        const full_req = params.row.full_req;
+        const sum = params.row.sum;
+        if (discount) {
+          return discount;
+        } else if (full_req && sum) {
+          return full_req - sum;
+        } else return 0;
+      },
     },
     {
       headerName: "Сумма с дисконтом",
@@ -149,6 +167,15 @@ export default function GetColumns(
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
+      valueGetter(params) {
+        const discount = params.row.discount;
+        const full_req = params.row.full_req;
+        const sum = params.row.sum;
+        if (sum) return sum;
+        if (full_req && discount) return full_req - discount;
+        if (full_req) return full_req;
+        else return 0;
+      },
     },
     {
       width: 100,

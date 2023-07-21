@@ -67,7 +67,7 @@ export class AgreementInstance implements AgreementData {
    * Дисконт
    */
   @IsPositive()
-  @Condition((value, obj) => (obj.full_req || 0) > (value || 0))
+  @Condition((value, obj) => (obj.full_req || 0) >= (value || 0))
   @IsOptional()
   sum: number | null;
   /**
