@@ -20,6 +20,7 @@ import IpIcon from "../CardIpDialog/IpIcon";
 import { getPinnedStyle } from "./additional.settings";
 import DeleteIcon from "./DeleteAgreement/DeleteIcon";
 import CommentActionCellItem from "../CommentDialog/CommentActionItem";
+import { round } from "../../../../utils/round";
 interface RenderLinkProps {
   value: string;
 }
@@ -174,6 +175,27 @@ export default function GetColumns(
       },
     },
     {
+      disableColumnMenu: true,
+      headerName: "Плат.после соглашения",
+      description: "Сумма платежей после соглашения",
+      field: "sumAfterAgr",
+      width: 100,
+      type: "number",
+      valueGetter: (params) => params.row.sumAfterAgr || null,
+    },
+    {
+      headerName: "Остаток суммы по соглашению",
+      field: "sum_remains",
+      width: 100,
+      valueGetter(params) {
+        const sumAfterAgr = params.row.sumAfterAgr || 0;
+        const sum = params.row.sum || 0;
+        const full_req = params.row.full_req || 0;
+        if (sum) return round(sum - sumAfterAgr);
+        else if (full_req) return round(full_req - sumAfterAgr);
+      },
+    },
+    {
       width: 100,
       headerName: "Платежный статус",
       field: "payableStatus",
@@ -215,14 +237,6 @@ export default function GetColumns(
       editable: false,
       width: 125,
       valueGetter: (params) => params.row.lastPaymentDate?.toDate() || null,
-    },
-    {
-      disableColumnMenu: true,
-      headerName: "Сум. плат. после соглашения",
-      field: "sumAfterAgr",
-      width: 150,
-      type: "number",
-      valueGetter: (params) => params.row.sumAfterAgr || null,
     },
     {
       headerName: "Сумма платежей до соглашения",

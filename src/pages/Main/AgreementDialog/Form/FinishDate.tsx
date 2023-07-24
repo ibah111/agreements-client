@@ -6,9 +6,11 @@ import React from "react";
 
 export default function FinishDate() {
   const data = useAgreementData("finish_date");
+  const min_fd_value = useAgreementData("conclusion_date");
+
   const dates = React.useMemo(
-    () => ({ minDate: moment().year(2000), maxDate: moment() }),
-    []
+    () => ({ minDate: moment(min_fd_value.value), maxDate: moment() }),
+    [min_fd_value.value]
   );
   return (
     <Grid xs={2} item>
@@ -26,7 +28,7 @@ export default function FinishDate() {
           textField: {
             error: data.error || !data.value,
             helperText: data.helperText || "Введите дату",
-            required: true,
+            required: false,
           },
         }}
       />
