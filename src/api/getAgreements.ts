@@ -1,4 +1,8 @@
-import { GridFilterModel, GridPaginationModel } from "@mui/x-data-grid-premium";
+import {
+  GridFilterModel,
+  GridPaginationModel,
+  GridSortModel,
+} from "@mui/x-data-grid-premium";
 import {
   authRetry,
   post,
@@ -16,6 +20,7 @@ export interface Page {
 interface getAgreementInstanceParams {
   paginationModel: GridPaginationModel;
   filterModel: GridFilterModel;
+  sortModel: GridSortModel;
 }
 export default function getAgreements(params: getAgreementInstanceParams) {
   return of(params).pipe(

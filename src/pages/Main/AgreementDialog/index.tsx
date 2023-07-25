@@ -88,9 +88,9 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             {agreement.new_reg_doc === 2 && <Registator />}
             {agreement.new_reg_doc === 3 && <Archive />}
             <ActionsForGet />
-            <Comment />
-            <Collector />
             <ReceiptDt />
+            <Collector />
+            <Comment />
             <TaskLink />
           </Grid>
         </DialogContent>

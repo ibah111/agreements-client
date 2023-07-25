@@ -70,6 +70,7 @@ export default function GetColumns(
       headerName: "ID",
       width: 50,
       type: "number",
+      editable: false,
     },
     {
       field: "KD",
@@ -84,6 +85,8 @@ export default function GetColumns(
       renderCell({ value }) {
         return <Typography sx={{ whiteSpace: "pre-line" }}>{value}</Typography>;
       },
+      editable: false,
+      sortable: false,
     },
     {
       field: "conclusion_date",
@@ -97,6 +100,7 @@ export default function GetColumns(
       field: "FIO",
       width: 150,
       editable: false,
+      sortable: false,
       type: "string",
       valueGetter: (params) => params.row.Person?.fio || "",
     },
@@ -106,6 +110,7 @@ export default function GetColumns(
       width: 100,
       editable: false,
       filterable: false,
+      sortable: false,
       type: "date",
       valueGetter: (params) => {
         return params.row.Person?.birth_date?.toDate() || "";
@@ -115,13 +120,15 @@ export default function GetColumns(
       headerName: "Тип соглашения",
       field: "agreement_type",
       width: 100,
-      editable: true,
       type: "singleSelect",
       valueOptions:
         agreementType?.map((item) => ({
           label: item.title,
           value: item.id,
         })) || [],
+      editable: ability.can(Action.Update, Subject.Agreement),
+      filterable: false,
+      sortable: false,
     },
     {
       headerName: "Полный размер требования",
@@ -129,8 +136,9 @@ export default function GetColumns(
         "Составное число из суммы к погашению с дисконтом + дисконта",
       field: "full_req",
       width: 100,
-      editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
+      editable: ability.can(Action.Update, Subject.Agreement),
+      sortable: false,
       valueGetter(params) {
         const discount = params.row.discount;
         const full_req = params.row.full_req;
@@ -186,6 +194,7 @@ export default function GetColumns(
     {
       headerName: "Остаток суммы по соглашению",
       field: "sum_remains",
+      type: "number",
       width: 100,
       valueGetter(params) {
         const sumAfterAgr = params.row.sumAfterAgr || 0;
@@ -452,7 +461,6 @@ export default function GetColumns(
   ];
   return columns.map<GridColDef<AgreementInstance>>((item) => ({
     ...item,
-    sortable: false,
     headerClassName: getPinnedStyle(pinned),
     headerAlign: "center",
   }));
