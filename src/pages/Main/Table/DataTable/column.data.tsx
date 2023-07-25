@@ -252,18 +252,18 @@ export default function GetColumns(
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
     },
-    {
-      headerName: "Назначение",
-      field: "purpose",
-      width: 150,
-      editable: ability.can(Action.Update, Subject.Agreement),
-      type: "singleSelect",
-      valueOptions:
-        purposes?.map((item) => ({
-          label: item.title,
-          value: item.id,
-        })) || [],
-    },
+    // {
+    //   headerName: "Назначение",
+    //   field: "purpose",
+    //   width: 150,
+    //   editable: ability.can(Action.Update, Subject.Agreement),
+    //   type: "singleSelect",
+    //   valueOptions:
+    //     purposes?.map((item) => ({
+    //       label: item.title,
+    //       value: item.id,
+    //     })) || [],
+    // },
     {
       headerName: "Статус",
       field: "statusAgreement",

@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import MonthPerDay from "./Form/MonthPerDay";
-import PurposeField from "./Form/Purpose";
 import TaskLink from "./Form/TaskLink";
 import PersonID from "./DisableForm/PersonID";
 import PersonFIO from "./DisableForm/PersonFIO";
@@ -79,7 +78,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <Type />
             <StatusAgreementType />
             <FinishDate />
-            <PurposeField />
+            {/* <PurposeField /> */}
             <MonthPerDay />
             <FullReq />
             <Sum />
