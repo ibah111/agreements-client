@@ -121,12 +121,12 @@ export default function AgreementTable() {
             enqueueSnackbar(`Возникла ошибка ${e}`, { variant: "error" });
           }}
           processRowUpdate={processRowUpdate}
-          disableAggregation // убрал ненужные функции
-          disableRowGrouping // убрал ненужные функции
+          disableAggregation
+          disableRowGrouping
           filterMode="server"
           pagination
           paginationMode="server"
-          disableMultipleColumnsSorting
+          sortingMode="server"
           getRowClassName={(params) =>
             `super-app-theme--${params.row.statusAgreement}`
           }

@@ -452,7 +452,6 @@ export default function GetColumns(
   ];
   return columns.map<GridColDef<AgreementInstance>>((item) => ({
     ...item,
-    sortable: false,
     headerClassName: getPinnedStyle(pinned),
     headerAlign: "center",
   }));

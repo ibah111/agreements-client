@@ -78,6 +78,7 @@ export function useGrid(
     const sub = getAgreements({
       paginationModel,
       filterModel,
+      sortModel,
     }).subscribe((res) => {
       if (res) {
         setRowCount(res.count);
@@ -89,7 +90,7 @@ export function useGrid(
       setLoading(false);
     });
     return sub.unsubscribe.bind(sub);
-  }, [filterModel, paginationModel]);
+  }, [filterModel, paginationModel, sortModel]);
   const ability = useAbility(CaslContext);
   const portfolios = useAsyncMemo(getPortfolio, [], []);
   const collectors = useAsyncMemo(getAllCollectors, [], []);
