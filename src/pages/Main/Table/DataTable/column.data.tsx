@@ -53,13 +53,14 @@ export default function GetColumns(
   ability: AppAbility,
   agreementType: IdTitle[],
   purposes: IdTitle[],
-  regDoc: IdTitle[],
+  regDocs: IdTitle[],
   status: IdTitle[],
   portfolios: Portfolio[],
   collectors: User[],
   eventTarget: EventTarget,
   pinned: GridPinnedColumns
 ) {
+  const regDoc = [{ id: null, title: "Нет" }, ...regDocs];
   const selectPortfolio = portfolios.map((port) => ({
     label: port.name,
     value: port.id,
@@ -316,8 +317,8 @@ export default function GetColumns(
       type: "singleSelect",
       valueOptions:
         regDoc?.map((item) => ({
-          label: item.title,
-          value: item.id,
+          label: item?.title,
+          value: item?.id,
         })) || [],
 
       editable: ability.can(Action.Update, Subject.Agreement),
