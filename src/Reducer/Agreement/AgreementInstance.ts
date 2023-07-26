@@ -42,7 +42,7 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   @DateRange({
     minDate: moment("2000"),
-    maxDate: moment().add(1, "M"),
+    maxDate: moment().add(3, "M"),
   })
   @DateType(false)
   @TransformDate(false)

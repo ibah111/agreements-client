@@ -192,7 +192,8 @@ export default function GetColumns(
       valueGetter: (params) => params.row.sumAfterAgr || null,
     },
     {
-      headerName: "Остаток суммы по соглашению",
+      headerName: "Остаток задолженности",
+      description: "Остаток задолженности по соглашению",
       field: "sum_remains",
       type: "number",
       width: 100,
