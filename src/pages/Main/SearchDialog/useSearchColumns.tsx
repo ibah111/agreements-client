@@ -3,11 +3,14 @@ import { GridColDef } from "@mui/x-data-grid-premium";
 import React from "react";
 import DebtInstance from "../../../Models/Debt";
 import AddAgreementAction from "./Actions/AddAgreementAction";
+import getPortfolio from "../../../api/getPortfolio";
+import useAsyncMemo from "../../../utils/asyncMemo";
 
 export default function useSearchColumns(
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
   setPerson: React.Dispatch<React.SetStateAction<Person>>
 ) {
+  const portfolios = useAsyncMemo(getPortfolio, [], []);
   return React.useMemo<GridColDef<DebtInstance>[]>(
     () => [
       { field: "id", headerName: "ID", type: "number" },
@@ -28,16 +31,16 @@ export default function useSearchColumns(
         valueFormatter: (params) => `${params.value}₽`,
       },
       {
-        field: "debt_dt",
-        headerName: "Дата загрузки долга",
-        type: "date",
-        valueGetter: (params) => {
-          return params.row.debt_dt?.toDate() || null;
-        },
-      },
-      {
         field: "name",
         headerName: "Название продукта",
+      },
+      {
+        headerName: "Портфель",
+        field: "r_portfolio_id",
+        valueFormatter(params) {
+          const port = portfolios.filter((item) => item.id === params.value);
+          return port.map((item) => item.name);
+        },
       },
       {
         field: "status",
@@ -62,6 +65,6 @@ export default function useSearchColumns(
         ],
       },
     ],
-    [setOpen, setPerson]
+    [portfolios, setOpen, setPerson]
   );
 }
