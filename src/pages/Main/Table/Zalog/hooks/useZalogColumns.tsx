@@ -36,7 +36,17 @@ export default function useZalogColumns() {
       align: "center",
       width: 150,
       headerAlign: "center",
-      headerName: "Гос.номер",
+      headerName: "Статус",
+      field: "status",
+      valueGetter(params) {
+        return params.row.StatusDict?.name;
+      },
+    },
+    {
+      align: "center",
+      width: 150,
+      headerAlign: "center",
+      headerName: "Цвет",
       field: "color",
       valueGetter: getParam(3),
     },
