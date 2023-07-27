@@ -17,7 +17,7 @@ import ZalogIcon from "../Zalog/ZalogIcon";
 import React from "react";
 import _ from "lodash";
 import IpIcon from "../CardIpDialog/IpIcon";
-import { getPinnedStyle } from "./additional.settings";
+import { getAlign, getPinnedStyle } from "./additional.settings";
 import DeleteIcon from "./DeleteAgreement/DeleteIcon";
 import CommentActionCellItem from "../CommentDialog/CommentActionItem";
 import { round } from "../../../../utils/round";
@@ -453,5 +453,6 @@ export default function GetColumns(
     ...item,
     headerClassName: getPinnedStyle(pinned),
     headerAlign: "center",
+    align: getAlign(item.field),
   }));
 }

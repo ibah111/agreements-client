@@ -1,11 +1,12 @@
 import {
   GridPinnedColumns,
   GridColumnHeaderParams,
-  GridColDef,
   GridAlignment,
 } from "@mui/x-data-grid-premium";
 import { classes } from "../Style/style";
-// оставлю для будущих настроек стиля
+/**
+ * Закреп столбиков
+ */
 const columns = ["sum", "discount", "full_req", "sumAfterAgr", "sum_remains"];
 export const getPinnedStyle =
   (pinned: GridPinnedColumns) => (params: GridColumnHeaderParams) => {
@@ -17,12 +18,12 @@ export const getPinnedStyle =
 
     return classes.yellow;
   };
+
+/**
+ * Выравнивание содержимого ячеек
+ */
 const columnsAlign = ["comment", "actions_for_get"];
-export const getAlign =
-  (col: GridAlignment) =>
-  (params: GridColumnHeaderParams, cols: GridColDef) => {
-    for (const column of columnsAlign) {
-      if (params.field === column) return;
-    }
-    return;
-  };
+export const getAlign = (field: string): GridAlignment => {
+  if (columnsAlign.includes(field)) return "left";
+  return "center";
+};
