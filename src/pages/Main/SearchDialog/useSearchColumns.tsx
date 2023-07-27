@@ -14,8 +14,8 @@ export default function useSearchColumns(
   return React.useMemo<GridColDef<DebtInstance>[]>(
     () => [
       { field: "id", headerName: "ID", type: "number" },
-      { field: "contract", headerName: "КД", width: 120 },
       { field: "parent_id", headerName: "ID должника", width: 60 },
+      { field: "contract", headerName: "КД", width: 120 },
       {
         field: "Person.fio",
         headerName: "ФИО",

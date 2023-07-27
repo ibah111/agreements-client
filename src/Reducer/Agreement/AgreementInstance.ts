@@ -1,4 +1,4 @@
-import { IsOptional, IsString, Max } from "class-validator";
+import { IsOptional, IsString, Max, ValidateIf } from "class-validator";
 import {
   DateRange,
   IsNotEmpty,
@@ -39,13 +39,14 @@ export class AgreementInstance implements AgreementData {
   /**
    * дата завершения заключения
    */
-  @IsOptional()
   @DateRange({
     minDate: moment("2000"),
     maxDate: moment().add(3, "M"),
   })
   @DateType(false)
   @TransformDate(false)
+  @IsValidMoment()
+  @ValidateIf((o) => [2, 3].includes(o.statusAgreement))
   finish_date: moment.Moment | null;
   /**
    * Тип соглашения
@@ -57,6 +58,13 @@ export class AgreementInstance implements AgreementData {
    */
   @IsOptional()
   purpose: number;
+  /**
+   * Полный размер требования
+   */
+  @ValidateIf((o) => o.agreement_type !== 5)
+  @IsPositive()
+  @IsNumber()
+  full_req: number | null;
   /**
    * дисконт
    */
@@ -70,11 +78,6 @@ export class AgreementInstance implements AgreementData {
   @Condition((value, obj) => (obj.full_req || 0) >= (value || 0))
   @IsOptional()
   sum: number | null;
-  /**
-   * Полный размер требования
-   */
-  @IsPositive()
-  full_req: number | null;
   /**
    * Число платежа каждого месяца
    */
