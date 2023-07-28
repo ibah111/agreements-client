@@ -1,5 +1,5 @@
 import useZalogColumns from "./useZalogColumns";
-import getPersonProperty from "../../../../../api/getPersonProperty";
+import getPersonProperty from "../../../../../api/PersonPropertiesLink/getPersonProperty";
 import useAsyncMemo from "../../../../../utils/asyncMemo";
 
 export default function useZalogTable(personId: number) {
