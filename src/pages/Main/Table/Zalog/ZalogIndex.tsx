@@ -5,7 +5,8 @@ import ZalogDataGrid from "./ZalogDataGrid";
 interface ZalogDialogControl {
   open: boolean;
   onClose: VoidFunction;
-  personId: number;
+  id_person: number;
+  id_agreement: number;
 }
 
 export default function ZalogDialog(props: ZalogDialogControl) {
@@ -14,9 +15,12 @@ export default function ZalogDialog(props: ZalogDialogControl) {
   }, [props]);
   return (
     <Dialog fullWidth maxWidth="lg" open={props.open} onClose={handleCardClose}>
-      <DialogTitle align="center">Залог</DialogTitle>
+      <DialogTitle align="center">{`Привяжите залог к соглашению №${props.id_agreement}, ID должника №${props.id_person} `}</DialogTitle>
       <DialogContent sx={{ height: 400, width: "100%" }}>
-        <ZalogDataGrid personId={props.personId} />
+        <ZalogDataGrid
+          id_person={props.id_person}
+          id_agreement={props.id_agreement}
+        />
       </DialogContent>
     </Dialog>
   );

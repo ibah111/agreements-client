@@ -6,7 +6,6 @@ interface LinkDebtsDialogProps {
   open: boolean;
   onClose: VoidFunction;
   agreementId: number;
-  debtId: number;
 }
 
 export default function LinkDebtsDialog(props: LinkDebtsDialogProps) {
@@ -18,7 +17,7 @@ export default function LinkDebtsDialog(props: LinkDebtsDialogProps) {
         open={props.open}
         onClose={props.onClose}
       >
-        <DialogTitle>Связанные долги</DialogTitle>
+        <DialogTitle>{`Связанные долги на соглашение №${props.agreementId}`}</DialogTitle>
         <DialogContent>
           <Grid container sx={{ height: "40vh" }}>
             <Grid item xs>

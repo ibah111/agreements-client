@@ -3,7 +3,7 @@ import CommentTable from "./CommentTable";
 import AddCommentDialog from "./AddComment/AddCommentDialog";
 
 interface CommentDialogProps {
-  agreementId: number;
+  id_agreement: number;
   open: boolean;
   onClose: VoidFunction;
 }
@@ -17,11 +17,11 @@ export default function CommentDialog(props: CommentDialogProps) {
         onClose={props.onClose}
         sx={{ width: "100%" }}
       >
-        <DialogTitle>{`Комментарии соглашения №${props.agreementId}`}</DialogTitle>
+        <DialogTitle>{`Комментарии соглашения №${props.id_agreement}`}</DialogTitle>
         <DialogContent>
           <Grid container sx={{ height: "40vh" }}>
             <Grid item xs>
-              <CommentTable agreementId={props.agreementId} />
+              <CommentTable agreementId={props.id_agreement} />
             </Grid>
           </Grid>
         </DialogContent>
@@ -30,7 +30,7 @@ export default function CommentDialog(props: CommentDialogProps) {
         <AddCommentDialog
           open={false}
           onClose={props.onClose}
-          agreementId={props.agreementId}
+          agreementId={props.id_agreement}
         />
       }
     </>

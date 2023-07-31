@@ -5,7 +5,7 @@ import CardDataGrid from "./CardDataGrid";
 interface CardIpDialogControl {
   open: boolean;
   onClose: VoidFunction;
-  agreementId: number;
+  agreement_id: number;
 }
 
 export default function CardIpDialog(props: CardIpDialogControl) {
@@ -16,7 +16,7 @@ export default function CardIpDialog(props: CardIpDialogControl) {
     <Dialog fullWidth maxWidth="md" open={props.open} onClose={handleCardClose}>
       <DialogTitle align="center">Карточка ИП</DialogTitle>
       <DialogContent sx={{ height: 400, width: "100%" }}>
-        <CardDataGrid agreementId={props.agreementId} />
+        <CardDataGrid agreementId={props.agreement_id} />
       </DialogContent>
     </Dialog>
   );

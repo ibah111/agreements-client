@@ -1,12 +1,13 @@
-import { GridColDef, GridValueGetterParams } from "@mui/x-data-grid-premium";
-import { PersonProperty, PersonPropertyParam } from "@contact/models";
-const getParam = (typ: number) => {
-  const finder = (property: PersonPropertyParam) =>
-    property.r_property_typ_params_id === typ;
-  return (params: GridValueGetterParams<PersonProperty>) =>
-    params.row.PersonPropertyParams?.find(finder)?.value;
-};
-export default function useZalogColumns() {
+import { GridColDef } from "@mui/x-data-grid-premium";
+import { PersonProperty } from "@contact/models";
+import { getParam } from "../../../../../utils/getPersonParams";
+import DeleteZalogFromAgr from "../DeleteZalogFromAgr";
+
+export default function useZalogColumns(
+  id_agreement: number,
+  id_person_property: number,
+  refresh: VoidFunction
+) {
   const columns: GridColDef<PersonProperty>[] = [
     {
       align: "center",
@@ -64,6 +65,18 @@ export default function useZalogColumns() {
       headerName: "Владелец ТС",
       field: "owner_name",
       valueGetter: getParam(54),
+    },
+    {
+      headerName: "Delete",
+      field: "actions",
+      type: "actions",
+      getActions: () => [
+        <DeleteZalogFromAgr
+          id_agreement={id_agreement}
+          id_person_property={id_person_property}
+          refresh={refresh}
+        />,
+      ],
     },
   ];
   return columns;

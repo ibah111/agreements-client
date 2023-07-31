@@ -1,11 +1,12 @@
-import { CustomEvents, EventDialog } from "../Table";
+import { CustomEvents, EventDialog, OnOpenZalogDialogProps } from "../Table";
 import { CarCrash } from "@mui/icons-material";
 import { GridActionsCellItem } from "@mui/x-data-grid-premium";
 
 interface ZalogProps {
+  eventTarget: EventTarget | null;
   refresh: VoidFunction;
   person_id: number;
-  eventTarget: EventTarget | null;
+  agreement_id: number;
 }
 
 export default function ZalogIcon(props: ZalogProps) {
@@ -17,7 +18,10 @@ export default function ZalogIcon(props: ZalogProps) {
       color={"inherit"}
       onClick={() => {
         props.eventTarget?.dispatchEvent(
-          new EventDialog(CustomEvents.onOpenZalogDialog, props.person_id)
+          new EventDialog<OnOpenZalogDialogProps>(
+            CustomEvents.onOpenZalogDialog,
+            { agreementId: props.agreement_id, personId: props.person_id }
+          )
         );
       }}
     />

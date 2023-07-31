@@ -414,12 +414,13 @@ export default function GetColumns(
             refresh={refresh}
             agreementId={params.row.id}
           />
+          <ZalogIcon
+            eventTarget={eventTarget || null}
+            refresh={refresh}
+            agreement_id={params.row.id}
+            person_id={params.row.person_id}
+          />
         </Can>,
-        <ZalogIcon
-          eventTarget={eventTarget || null}
-          refresh={refresh}
-          person_id={params.row.person_id}
-        />,
       ],
     },
     {

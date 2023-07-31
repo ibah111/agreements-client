@@ -25,12 +25,12 @@ import useLinkDebtsControl from "../../LinkDebtsDialog/useLinkDebtsControl";
 import LinkDebtsDialog from "../../LinkDebtsDialog";
 import useCommentControl from "./CommentDialog/hooks/useCommentControl";
 
-export class EventDialog extends Event {
-  constructor(type: CustomEvents, value: string | number | object) {
+export class EventDialog<Value = number | string | object> extends Event {
+  constructor(type: CustomEvents, value: Value) {
     super(type);
     this.value = value;
   }
-  value: number | string | object;
+  value: Value;
 }
 export enum CustomEvents {
   onOpenCardDialog = "onOpenCardDialog",
@@ -38,6 +38,11 @@ export enum CustomEvents {
   onOpenZalogDialog = "onOpenZalogDialog",
   onOpenDeleteDialog = "onOpenDeleteDialog",
   onOpenCommentDialog = "onOpenCommentDialog",
+}
+
+export interface OnOpenZalogDialogProps {
+  personId: number;
+  agreementId: number;
 }
 
 export default function AgreementTable() {
@@ -145,34 +150,34 @@ export default function AgreementTable() {
         <LinkDebtsDialog
           open={linkDialogControl.open}
           onClose={linkDialogControl.closeDialog}
-          agreementId={linkDialogControl.personId}
-          debtId={0}
+          agreementId={linkDialogControl.agreementId}
         />
       )}
       {cardIpControl.openCard && (
         <CardIpDialog
           open={cardIpControl.openCard}
           onClose={cardIpControl.handleCloseCard}
-          agreementId={cardIpControl.agreementIdCard}
+          agreement_id={cardIpControl.agreementIdCard}
         />
       )}
       {zalogControl.openZalog && (
         <ZalogDialog
           open={zalogControl.openZalog}
           onClose={zalogControl.handleCloseZalog}
-          personId={zalogControl.zalogAgreementId}
+          id_agreement={zalogControl.agreementId}
+          id_person={zalogControl.personId}
         />
       )}
       {deleteDialogControl.openDeleteDialog && (
         <DeleteDialog
           open={deleteDialogControl.openDeleteDialog}
           onClose={deleteDialogControl.handleCloseDeleteDialog}
-          agreementId={deleteDialogControl.deleteAgreementId}
+          id_agreement={deleteDialogControl.deleteAgreementId}
         />
       )}
       {commentDialogControl.openCommentDialog && (
         <CommentDialog
-          agreementId={commentDialogControl.commentAgreementId}
+          id_agreement={commentDialogControl.commentAgreementId}
           open={commentDialogControl.openCommentDialog}
           onClose={commentDialogControl.handleCloseCommentDialog}
         />

@@ -1,10 +1,23 @@
 import useZalogColumns from "./useZalogColumns";
-import getPersonProperty from "../../../../../api/PersonPropertiesLink/getPersonProperty";
-import useAsyncMemo from "../../../../../utils/asyncMemo";
+import React from "react";
+import { PersonProperty } from "@contact/models";
+import getLinkedPersonProperties from "../../../../../api/PersonPropertiesLink/getLinkedPersonProperties";
 
-export default function useZalogTable(personId: number) {
-  const columns = useZalogColumns();
-  const rows = useAsyncMemo(() => getPersonProperty(personId), [personId], []);
+export default function useZalogTable(id_agreement: number) {
+  const [loading, setLoading] = React.useState(false);
+  const [properties, setProperties] = React.useState<PersonProperty[]>([]);
+  const refresh = React.useCallback(() => {
+    setLoading(true);
+    const sub =
+      getLinkedPersonProperties(id_agreement).subscribe(setProperties);
+    sub.add(() => setLoading(false));
+    return sub.unsubscribe.bind(sub);
+  }, [id_agreement]);
 
-  return { rows, columns };
+  React.useEffect(() => {
+    return refresh();
+  }, [refresh]);
+
+  const columns = useZalogColumns(id_agreement, 2, refresh);
+  return { refresh, loading, rows: properties, columns };
 }

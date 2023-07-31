@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomEvents, EventDialog } from "../../Table";
+import { CustomEvents, EventDialog, OnOpenZalogDialogProps } from "../../Table";
 
 interface useZalogControlsOptions {
   DialogTarget: EventTarget;
@@ -8,11 +8,15 @@ interface useZalogControlsOptions {
 
 export default function useZalogControls(options?: useZalogControlsOptions) {
   const [openZalog, setOpenZalog] = React.useState<boolean>(false);
-  const [zalogAgreementId, setZalogAgreementId] = React.useState<number>(0);
+
+  const [agreementId, setAgrementId] = React.useState<number>(0);
+
+  const [personId, setPersonId] = React.useState<number>(0);
 
   React.useEffect(() => {
-    const callback = ((e: EventDialog) => {
-      setZalogAgreementId(e.value as number);
+    const callback = ((e: EventDialog<OnOpenZalogDialogProps>) => {
+      setAgrementId(e.value.agreementId);
+      setPersonId(e.value.personId);
       setOpenZalog(true);
     }) as EventListener;
     options?.DialogTarget.addEventListener(
@@ -26,14 +30,20 @@ export default function useZalogControls(options?: useZalogControlsOptions) {
       );
   }, [options?.DialogTarget]);
 
-  const handleOpenZalog = React.useCallback((agreementIdCard: number) => {
-    setZalogAgreementId(agreementIdCard);
+  const handleOpenZalog = React.useCallback((num: number) => {
+    setAgrementId(num);
     setOpenZalog(true);
   }, []);
   const handleCloseZalog = React.useCallback(() => {
-    setZalogAgreementId(0);
+    setAgrementId(0);
     setOpenZalog(false);
     options?.onClose?.();
   }, [options]);
-  return { zalogAgreementId, openZalog, handleOpenZalog, handleCloseZalog };
+  return {
+    personId,
+    agreementId,
+    openZalog,
+    handleOpenZalog,
+    handleCloseZalog,
+  };
 }
