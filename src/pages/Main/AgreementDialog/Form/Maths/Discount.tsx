@@ -1,7 +1,7 @@
 import { Grid, TextField, InputAdornment } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../../Reducer";
-import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
-import { numberRound } from "../../../../utils/numberRound";
+import { useAppDispatch, useAppSelector } from "../../../../../Reducer";
+import { setAgreementProperty } from "../../../../../Reducer/Agreement/Agreement";
+import { numberRound } from "../../../../../utils/numberRound";
 
 export default function Discount() {
   const dispatch = useAppDispatch();

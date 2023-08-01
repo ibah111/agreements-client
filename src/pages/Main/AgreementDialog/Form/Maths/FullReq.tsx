@@ -1,21 +1,23 @@
 import { Grid, TextField, InputAdornment } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../../../Reducer";
-import { setAgreementProperty } from "../../../../Reducer/Agreement/Agreement";
-import useAgreementData from "../../../../Hooks/useAgreementData";
+import { useAppDispatch, useAppSelector } from "../../../../../Reducer";
+import { setAgreementProperty } from "../../../../../Reducer/Agreement/Agreement";
+import useAgreementData from "../../../../../Hooks/useAgreementData";
 
-export default function Sum() {
+export default function FullReq() {
+  const agreement_type = useAppSelector(
+    (state) => state.Agreement.agreement_type
+  );
   const dispatch = useAppDispatch();
-  const full_req = useAppSelector((state) => state.Agreement.full_req);
-  const data = useAgreementData("sum", { full_req });
+  const data = useAgreementData("full_req", { agreement_type });
   return (
     <Grid xs={2} item>
       <TextField
         type="number"
-        label="Сумма с дисконтом"
+        label="Полный размер требования"
         onChange={(event) =>
           dispatch(
             setAgreementProperty([
-              "sum",
+              "full_req",
               event.target.value ? Number(event.target.value) : "",
             ])
           )
@@ -24,9 +26,9 @@ export default function Sum() {
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
         }}
         value={data.value}
+        helperText={data.helperText}
         required={data.required}
         error={data.error}
-        helperText={data.helperText}
       />
     </Grid>
   );

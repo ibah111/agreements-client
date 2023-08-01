@@ -163,7 +163,8 @@ export default function GetColumns(
           return discount;
         } else if (full_req && sum) {
           return full_req - sum;
-        } else return 0;
+        } else if (discount === null) return 0;
+        else return 0;
       },
     },
     {

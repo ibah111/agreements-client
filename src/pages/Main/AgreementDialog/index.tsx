@@ -25,13 +25,13 @@ import RegDocType from "./Form/RegDoc";
 import StatusAgreementType from "./Form/StatusAgreement";
 import Registator from "./Form/Registator";
 import Archive from "./Form/Archive";
-import Discount from "./Form/Discount";
+import Discount from "./Form/Maths/Discount";
 import Type from "./Form/Type";
 import Collector from "./Form/Collector";
 import { useSnackbar } from "notistack";
-import Sum from "./Form/Sum";
+import Sum from "./Form/Maths/Sum";
 import Comment from "./Form/Comment";
-import FullReq from "./Form/FullReq";
+import FullReq from "./Form/Maths/FullReq";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
