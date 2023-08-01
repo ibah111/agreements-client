@@ -33,7 +33,7 @@ export default function AddZalogDialog(props: AddZalogDialogProps) {
   );
   React.useEffect(() => {
     if (!selectedZalog) setErr("Выберите залог");
-    else setErr("error");
+    else setErr("");
   }, [selectedZalog]);
 
   const handleClose = React.useCallback(() => {
@@ -41,21 +41,20 @@ export default function AddZalogDialog(props: AddZalogDialogProps) {
   }, [props]);
 
   const handleClick = React.useCallback(() => {
-    try {
-      createPersonPropertyLink(props.id_agreement, selectedZalog).subscribe(
-        () => {
-          callMessage(
-            `Залог ${selectedZalog} привязан к соглашению ${props.id_agreement}`,
-            { variant: "success" }
-          );
-          props.onClose();
-        }
-      );
-    } catch (error) {
-      console.log(error);
-      throw Error;
+    if (err) {
+      callMessage(err, { variant: "error" });
+      return;
     }
-  }, [props, selectedZalog]);
+    createPersonPropertyLink(props.id_agreement, selectedZalog).subscribe(
+      () => {
+        callMessage(
+          `Залог ${selectedZalog} привязан к соглашению ${props.id_agreement}`,
+          { variant: "success" }
+        );
+        props.onClose();
+      }
+    );
+  }, [err, props, selectedZalog]);
 
   return (
     <Dialog fullWidth maxWidth={"md"} open={props.open} onClose={handleClose}>
@@ -78,7 +77,7 @@ export default function AddZalogDialog(props: AddZalogDialogProps) {
           >
             {properties.map((item) => (
               <MenuItem key={item.id} value={item.id}>
-                {`id: ${
+                {`ID: ${
                   item.id
                 }, Статус залога: ${item.StatusDict?.name.toLocaleLowerCase()}; ${item.PersonPropertyParams?.find(
                   (item) => item.r_property_typ_params_id === 3

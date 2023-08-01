@@ -9,13 +9,14 @@ interface ZalogProps {
 }
 
 export default function ZalogDataGrid(props: ZalogProps) {
-  const { columns, rows } = useZalogTable(props.id_agreement);
+  const { columns, rows, refresh } = useZalogTable(props.id_agreement);
   const [open, setOpen] = React.useState(false);
   const handleOpenZalogLinks = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    refresh();
   };
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     right: ["Delete"],
@@ -40,6 +41,7 @@ export default function ZalogDataGrid(props: ZalogProps) {
         slotProps={{
           toolbar: {
             handleOpen: handleOpenZalogLinks,
+            refresh: refresh,
           },
         }}
       />

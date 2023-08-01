@@ -9,15 +9,23 @@ interface DeleteZalogFromAgrProps {
 }
 export default function DeleteZalogFromAgr(props: DeleteZalogFromAgrProps) {
   const handleClick = React.useCallback(() => {
+    console.log(
+      "id_agreement: => ",
+      props.id_agreement,
+      "id_pp: => ",
+      props.id_person_property
+    );
     deletePersonPropertyLink(
       props.id_agreement,
       props.id_person_property
     ).subscribe(() => {
       enqueueSnackbar(
-        `Связь залога ${props.id_person_property} с соглашением ${props.id_agreement} удалена`
+        `Связь залога с соглашением ${props.id_agreement} удалена`,
+        { variant: "success" }
       );
+      props.refresh();
     });
-  }, [props.id_agreement, props.id_person_property]);
+  }, [props]);
   return (
     <Button variant="contained" color="error" onClick={handleClick}>
       Удалить

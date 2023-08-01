@@ -18,6 +18,6 @@ export default function useZalogTable(id_agreement: number) {
     return refresh();
   }, [refresh]);
 
-  const columns = useZalogColumns(id_agreement, 2, refresh);
+  const columns = useZalogColumns(id_agreement, refresh);
   return { refresh, loading, rows: properties, columns };
 }

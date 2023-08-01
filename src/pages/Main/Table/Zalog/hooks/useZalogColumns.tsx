@@ -5,7 +5,6 @@ import DeleteZalogFromAgr from "../DeleteZalogFromAgr";
 
 export default function useZalogColumns(
   id_agreement: number,
-  id_person_property: number,
   refresh: VoidFunction
 ) {
   const columns: GridColDef<PersonProperty>[] = [
@@ -70,10 +69,10 @@ export default function useZalogColumns(
       headerName: "Delete",
       field: "actions",
       type: "actions",
-      getActions: () => [
+      getActions: (params) => [
         <DeleteZalogFromAgr
           id_agreement={id_agreement}
-          id_person_property={id_person_property}
+          id_person_property={params.row.id}
           refresh={refresh}
         />,
       ],
