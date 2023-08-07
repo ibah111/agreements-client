@@ -13,9 +13,8 @@ import moment from "moment";
 import AgreementDebtsLink from "../../Models/AgreementDebtLink";
 import { LawExecInstance } from "../../Models/LawExec";
 import { Comments } from "../../Models/Comments";
-import { Type } from "class-transformer";
-import { PersonInstance } from "../../Models/Person";
 import { Condition } from "../../Hooks/Validation/Condition";
+import { PersonPreview } from "../../Models/PersonPreview";
 export class AgreementInstance implements AgreementData {
   @IsNumber()
   @IsNotEmpty()
@@ -138,8 +137,7 @@ export class AgreementInstance implements AgreementData {
 
   LawExecs: LawExecInstance;
 
-  @Type(() => PersonInstance)
-  Person: PersonInstance;
+  PersonPreview: PersonPreview;
   DebtLinks?: AgreementDebtsLink[];
   Comments?: Comments[];
 

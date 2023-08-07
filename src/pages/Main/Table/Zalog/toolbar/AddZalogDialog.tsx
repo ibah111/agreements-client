@@ -68,7 +68,6 @@ export default function AddZalogDialog(props: AddZalogDialogProps) {
             helperText={err}
             onChange={(prop) => {
               if (prop) {
-                console.log(props.id_agreement, prop);
                 setSelectedZalog(prop);
               }
             }}

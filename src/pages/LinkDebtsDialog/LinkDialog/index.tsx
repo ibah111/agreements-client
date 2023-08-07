@@ -69,8 +69,8 @@ export default function LinkDialog(props: LinkDialogProps) {
           >
             {debts.map((debt) => (
               <MenuItem key={debt.id} value={debt.id}>
-                {`КД: ${debt.contract}, Cтатус: ${
-                  debt.StatusDict || ""
+                {`ID долга: ${debt.id}, КД: ${debt.contract}, Cтатус: ${
+                  debt.StatusDict?.name || ""
                 },  Имя продукта: ${debt.name}, Лиц.счёт: ${
                   debt.account
                 }, Сумма кредита: ${debt.debt_sum}, Полный размер кредита: ${

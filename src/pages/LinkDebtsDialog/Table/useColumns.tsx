@@ -1,82 +1,95 @@
-import { Debt } from "@contact/models";
 import { GridColDef } from "@mui/x-data-grid-premium";
 import React from "react";
 import { Can } from "../../../casl/casl";
 import { Action, Subject } from "../../../casl/casl.factory";
 import DeleteButton from "./Toolbar/DeleteButton";
 import PaymentsButton from "./Toolbar/Payments/PaymentsButton";
+import AgreementDebtsLink from "../../../Models/AgreementDebtLink";
+import moment from "moment-timezone";
+import useAsyncMemo from "../../../utils/asyncMemo";
+import getPortfolio from "../../../api/getPortfolio";
 
 export default function useColumns(
   agreementId: number,
   refresh: VoidFunction,
   handleOpenAgreements: (debtId: number) => void
 ) {
-  return React.useMemo<GridColDef<Debt>[]>(
+  const portfolios = useAsyncMemo(getPortfolio, [], []);
+  return React.useMemo<GridColDef<AgreementDebtsLink>[]>(
     () => [
       {
-        // ? main debt key
         align: "center",
         headerAlign: "center",
+        field: "id_debt",
         headerName: "ID долга",
-        field: "id",
-        width: 100,
         type: "number",
-      },
-      {
-        // ? person key
-        align: "center",
-        headerAlign: "center",
-        headerName: "ID должника",
-        field: "parent_id",
-        width: 100,
-        type: "number",
-      },
-      {
-        align: "center",
-        headerAlign: "center",
-        width: 150,
-        field: "contract",
-        headerName: "№ КД",
-      },
-      {
-        align: "center",
-        headerAlign: "center",
-        width: 150,
-        field: "start_sum",
-        headerName: "Начальная сумма",
-        description: "Начальная сумма, необходимая к погашению (не изменяется)",
-      },
-      {
-        align: "center",
-        headerAlign: "center",
-        width: 150,
-        field: "debt_sum",
-        headerName: "Остаток задолженности",
-      },
-      {
-        align: "center",
-        headerAlign: "center",
-        width: 150,
-        field: "name",
-        headerName: "Название продукта",
-      },
-      {
-        align: "center",
-        headerAlign: "center",
-        field: "StatusDict",
-        headerName: "Статус долга",
-        width: 150,
-        valueOptions: [],
-        valueGetter: (params) => {
-          return params.row.StatusDict?.name;
+        valueGetter(params) {
+          return params.row.id_debt;
         },
       },
       {
         align: "center",
         headerAlign: "center",
-        width: 150,
-        field: "dsc",
-        headerName: "Комментарий",
+        field: "payable_status",
+        headerName: "Плат.статус",
+        type: "boolean",
+        valueGetter(params) {
+          return params.row.payable_status;
+        },
+      },
+      {
+        align: "center",
+        headerAlign: "center",
+        field: "contract",
+        headerName: "КД",
+        valueGetter(params) {
+          return params.row.contract;
+        },
+      },
+      {
+        headerName: "Дата посл.платёж",
+        field: "last_payment_date",
+        type: "Date",
+        valueGetter(params) {
+          if (params.row.last_payment_date === null) return;
+          return moment(params.row.last_payment_date).format("DD.MM.YYYY");
+        },
+      },
+      {
+        headerName: "Посл.платёж",
+        field: "last_payment",
+        type: "number",
+        valueGetter(params) {
+          return params.row.last_payment;
+        },
+      },
+      {
+        headerName: "Дата перв.платежа",
+        field: "first_payment_date",
+        type: "Date",
+        valueGetter(params) {
+          if (params.row.first_payment_date === null) return;
+          return moment(params.row.last_payment_date).format("DD.MM.YYYY");
+        },
+      },
+      {
+        headerName: "Перв.платеж",
+        field: "first_payment",
+        type: "number",
+        valueGetter(params) {
+          if (params.row.first_payment === null) return;
+          return moment(params.row.last_payment_date).format("DD.MM.YYYY");
+        },
+      },
+      {
+        headerName: "Портфель",
+        field: "portfolio",
+        valueFormatter(params) {
+          const port_name = portfolios.filter(
+            (item) => item.id === params.value
+          );
+          return port_name.map((item) => item.name);
+        },
       },
       {
         align: "center",
@@ -88,7 +101,7 @@ export default function useColumns(
         type: "actions",
         getActions: (params) => [
           <PaymentsButton
-            debtId={params.row.id}
+            debtId={params.row.id_debt}
             refresh={refresh}
             handleOpen={handleOpenAgreements}
           />,
@@ -105,14 +118,14 @@ export default function useColumns(
         getActions: (params) => [
           <Can I={Action.Delete} a={Subject.Agreement}>
             <DeleteButton
-              debtId={params.row.id}
-              agreementId={agreementId}
+              debtId={params.row.id_debt}
+              agreementId={params.row.id_agreement}
               refresh={refresh}
             />
           </Can>,
         ],
       },
     ],
-    [agreementId, handleOpenAgreements, refresh]
+    [handleOpenAgreements, portfolios, refresh]
   );
 }

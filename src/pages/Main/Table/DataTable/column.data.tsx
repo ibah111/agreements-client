@@ -21,6 +21,8 @@ import { getAlign, getPinnedStyle } from "./additional.settings";
 import DeleteIcon from "./DeleteAgreement/DeleteIcon";
 import CommentActionCellItem from "../CommentDialog/CommentActionItem";
 import { round } from "../../../../utils/round";
+import getName from "../../../../Reducer/getName";
+import moment from "moment-timezone";
 interface RenderLinkProps {
   value: string;
 }
@@ -48,11 +50,10 @@ function ExpandableCell({ value }: GridRenderCellParams) {
   );
 }
 
-export default function GetColumns(
+export default function useGetColumns(
   refresh: () => void,
   ability: AppAbility,
   agreementType: IdTitle[],
-  purposes: IdTitle[],
   regDocs: IdTitle[],
   status: IdTitle[],
   portfolios: Portfolio[],
@@ -65,6 +66,7 @@ export default function GetColumns(
     label: port.name,
     value: port.id,
   }));
+
   const columns: GridColDef<AgreementInstance>[] = [
     {
       field: "id",
@@ -77,17 +79,16 @@ export default function GetColumns(
       field: "KD",
       width: 150,
       headerName: "№ КД",
+      editable: false,
+      sortable: false,
       valueGetter: (params) => {
-        const row = params.api.getRow(params.id) as AgreementInstance;
-        return _.uniq(row.DebtLinks?.map((item) => item.Debt?.contract)).join(
-          ", \n"
+        return _.uniq(params.row.DebtLinks?.map((item) => item.contract)).join(
+          ",\n"
         );
       },
       renderCell({ value }) {
         return <Typography sx={{ whiteSpace: "pre-line" }}>{value}</Typography>;
       },
-      editable: false,
-      sortable: false,
     },
     {
       field: "conclusion_date",
@@ -101,20 +102,20 @@ export default function GetColumns(
       field: "FIO",
       width: 150,
       editable: false,
-      sortable: false,
       type: "string",
-      valueGetter: (params) => params.row.Person?.fio || "",
+      valueGetter: (params) => {
+        const param = params.row.PersonPreview;
+        return getName(param.f, param.i, param.o);
+      },
     },
     {
       headerName: "ДР должника",
       field: "birth_date",
       width: 100,
       editable: false,
-      filterable: false,
-      sortable: false,
-      type: "date",
+      type: "Date",
       valueGetter: (params) => {
-        return params.row.Person?.birth_date?.toDate() || "";
+        return moment(params.row.PersonPreview.birth_date).format("DD.MM.YYYY");
       },
     },
     {
@@ -128,7 +129,6 @@ export default function GetColumns(
           value: item.id,
         })) || [],
       editable: ability.can(Action.Update, Subject.Agreement),
-      filterable: false,
       sortable: false,
     },
     {
@@ -139,7 +139,6 @@ export default function GetColumns(
       width: 100,
       type: "number",
       editable: ability.can(Action.Update, Subject.Agreement),
-      sortable: false,
       valueGetter(params) {
         const discount = params.row.discount;
         const full_req = params.row.full_req;
@@ -191,7 +190,8 @@ export default function GetColumns(
       field: "sumAfterAgr",
       width: 100,
       type: "number",
-      valueGetter: (params) => params.row.sumAfterAgr || null,
+      valueGetter: (params) =>
+        params.row.DebtLinks?.map((item) => item.sum_payments),
     },
     {
       headerName: "Остаток задолженности",
@@ -213,11 +213,7 @@ export default function GetColumns(
       field: "payableStatus",
       type: "boolean",
       valueGetter: (params) => {
-        const count = params.row.DebtLinks?.reduce(
-          (prev, item) => prev + Number(item.Debt?.LastCalcs?.length),
-          0
-        );
-        return count && count > 0;
+        params.row.DebtLinks?.map((item) => item.payable_status);
       },
     },
     {
@@ -239,7 +235,8 @@ export default function GetColumns(
       width: 150,
       type: "number",
       editable: false,
-      valueGetter: (params) => params.row.lastPayment || null,
+      valueGetter: (params) =>
+        params.row.DebtLinks?.map((item) => item.last_payment) || null,
     },
     {
       disableColumnMenu: true,
@@ -284,10 +281,19 @@ export default function GetColumns(
       valueOptions: selectPortfolio,
       valueFormatter: (params) => {
         if (!params.id) return;
-        const row = params.api.getRow(params.id) as AgreementInstance;
-        return _.uniq(
-          row.DebtLinks?.map((item) => item.Debt?.Portfolio?.name)
-        ).join(", \n");
+        const cell = params.api.getRow(params.id) as AgreementInstance;
+        const nums = cell.DebtLinks?.map((item) => item.portfolio);
+        if (nums === undefined) return "Портфелей нет";
+        else
+          for (const num of nums) {
+            const str_name = portfolios.filter((item) => item.id === num);
+            console.log(
+              `id_port: ${str_name.map(
+                (item) => item.id
+              )}, name: ${str_name.map((item) => item.name)}.`
+            );
+            return str_name.map((item) => item.name);
+          }
       },
       renderCell: ({ formattedValue }) => (
         <Typography sx={{ whiteSpace: "pre-line" }}>
@@ -301,7 +307,8 @@ export default function GetColumns(
       field: "firstPayment",
       width: 150,
       type: "number",
-      valueGetter: (params) => params.row.firstPayment || null,
+      valueGetter: (params) =>
+        params.row.DebtLinks?.map((item) => item.first_payment) || null,
     },
     {
       headerName: "Дата первого платежа",
@@ -309,7 +316,9 @@ export default function GetColumns(
       field: "firstPaymentDate",
       width: 250,
       type: "date",
-      valueGetter: (params) => params.row.firstPaymentDate?.toDate() || null,
+      valueGetter: (params) => {
+        params.row.DebtLinks?.map((item) => item.first_payment_date);
+      },
     },
     {
       headerName: "Наличие ИД",
@@ -321,7 +330,6 @@ export default function GetColumns(
           label: item?.title,
           value: item?.id,
         })) || [],
-
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
@@ -388,7 +396,7 @@ export default function GetColumns(
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
-      valueOptions: (params) => {
+      valueOptions: () => {
         return collectors.map((item) => ({ label: item.f, value: item.id }));
       },
       valueGetter(params) {

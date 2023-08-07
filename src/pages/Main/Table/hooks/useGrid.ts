@@ -82,7 +82,6 @@ export function useGrid(
     }).subscribe((res) => {
       if (res) {
         setRowCount(res.count);
-        console.log(res.rows);
         setRows(res.rows);
       }
     });
@@ -100,7 +99,6 @@ export function useGrid(
         refresh,
         ability,
         agreementType,
-        purposes,
         regDoc!,
         status,
         portfolios,

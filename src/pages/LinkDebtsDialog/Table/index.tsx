@@ -30,6 +30,7 @@ export default function Table(props: TableProps) {
   return (
     <>
       <DataGridPremium
+        getRowId={(row) => row.id_debt}
         hideFooter
         slotProps={{ toolbar: { refresh, setOpen: handleOpenLinks } }}
         slots={{ toolbar: Toolbar }}
