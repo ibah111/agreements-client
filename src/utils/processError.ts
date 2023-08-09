@@ -68,6 +68,7 @@ export default function processError(e: unknown, name?: string) {
               message: `${e.message}`,
               options: {
                 variant: "error",
+                autoHideDuration: 1000,
               },
             })
           );

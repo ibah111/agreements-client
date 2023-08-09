@@ -23,6 +23,7 @@ import CommentActionCellItem from "../CommentDialog/CommentActionItem";
 import { round } from "../../../../utils/round";
 import getName from "../../../../Reducer/getName";
 import moment from "moment-timezone";
+import SyncOneIcon from "./SyncOneIcon/SyncOneIcon";
 interface RenderLinkProps {
   value: string;
 }
@@ -76,7 +77,8 @@ export default function useGetColumns(
       editable: false,
     },
     {
-      field: "KD",
+      field: "contract",
+      type: "string",
       width: 150,
       headerName: "№ КД",
       editable: false,
@@ -91,8 +93,8 @@ export default function useGetColumns(
       },
     },
     {
-      field: "conclusion_date",
       ...dateColumnType,
+      field: "conclusion_date",
       headerName: "Дата заключения",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
@@ -112,7 +114,7 @@ export default function useGetColumns(
       headerName: "ДР должника",
       field: "birth_date",
       width: 100,
-      editable: false,
+      editable: true,
       type: "Date",
       valueGetter: (params) => {
         return moment(params.row.PersonPreview.birth_date).format("DD.MM.YYYY");
@@ -190,8 +192,11 @@ export default function useGetColumns(
       field: "sumAfterAgr",
       width: 100,
       type: "number",
-      valueGetter: (params) =>
-        params.row.DebtLinks?.map((item) => item.sum_payments),
+      valueGetter: (params) => {
+        const value =
+          params.row.DebtLinks?.map((item) => item.sum_payments) || [];
+        return value?.reduce((prev, curr) => prev + curr, 0);
+      },
     },
     {
       headerName: "Остаток задолженности",
@@ -235,8 +240,11 @@ export default function useGetColumns(
       width: 150,
       type: "number",
       editable: false,
-      valueGetter: (params) =>
-        params.row.DebtLinks?.map((item) => item.last_payment) || null,
+      valueGetter: (params) => {
+        const value =
+          params.row.DebtLinks?.map((item) => item.last_payment) || [];
+        return value?.reduce((prev, curr) => prev + curr, 0);
+      },
     },
     {
       disableColumnMenu: true,
@@ -287,11 +295,6 @@ export default function useGetColumns(
         else
           for (const num of nums) {
             const str_name = portfolios.filter((item) => item.id === num);
-            console.log(
-              `id_port: ${str_name.map(
-                (item) => item.id
-              )}, name: ${str_name.map((item) => item.name)}.`
-            );
             return str_name.map((item) => item.name);
           }
       },
@@ -303,19 +306,19 @@ export default function useGetColumns(
     },
     {
       headerName: "Первый платеж по соглашению",
-      description: "Первый платеж по соглашению из контакта",
+      description: "Первый платеж по соглашению первого связанного долга",
       field: "firstPayment",
       width: 150,
       type: "number",
       valueGetter: (params) =>
-        params.row.DebtLinks?.map((item) => item.first_payment) || null,
+        params.row.DebtLinks?.map((item) => item.first_payment)[0] || null,
     },
     {
       headerName: "Дата первого платежа",
       description: "Дата первого платежа",
       field: "firstPaymentDate",
       width: 250,
-      type: "date",
+      type: "Date",
       valueGetter: (params) => {
         params.row.DebtLinks?.map((item) => item.first_payment_date);
       },
@@ -436,7 +439,7 @@ export default function useGetColumns(
       headerName: "Действия",
       field: "actions",
       type: "actions",
-      width: 90,
+      width: 150,
       getActions: (params) => [
         <Can I={Action.Delete} a={Subject.Agreement}>
           <DeleteIcon
@@ -454,6 +457,13 @@ export default function useGetColumns(
                 new EventDialog(CustomEvents.onOpenDialog, params.row.id)
               );
             }}
+          />
+        </Can>,
+        <Can I={Action.Create} a={Subject.AgreementToDebt}>
+          <SyncOneIcon
+            id_agreement={params.row.id}
+            refresh={refresh}
+            eventTarget={eventTarget || null}
           />
         </Can>,
       ],

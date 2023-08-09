@@ -9,12 +9,6 @@ interface DeleteZalogFromAgrProps {
 }
 export default function DeleteZalogFromAgr(props: DeleteZalogFromAgrProps) {
   const handleClick = React.useCallback(() => {
-    // console.log(
-    //   "id_agreement: => ",
-    //   props.id_agreement,
-    //   "id_pp: => ",
-    //   props.id_person_property
-    // );
     deletePersonPropertyLink(
       props.id_agreement,
       props.id_person_property

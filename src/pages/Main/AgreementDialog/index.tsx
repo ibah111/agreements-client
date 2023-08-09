@@ -78,7 +78,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <Type />
             <StatusAgreementType />
             <FinishDate />
-            {/* <PurposeField /> */}
             <MonthPerDay />
             <FullReq />
             <Sum />
@@ -111,7 +110,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             fullWidth
             onClick={async () => {
               createAgreement(agreement).subscribe(() => {
-                enqueueSnackbar(`Соглашение ${agreement.id} успешно создано`, {
+                enqueueSnackbar(`Соглашение успешно создано`, {
                   variant: "success",
                 });
                 handleFullClose();

@@ -10,6 +10,7 @@ import AddAgreement from "./AddAgreement";
 import CheckboxRowHeight from "./CheckboxRowHeight";
 import DeleteRowButton from "./DeleteRowButton";
 import SwitchTheme from "../../../../components/ThemeProvider/SwitchTheme/SwitchTheme";
+import SyncAllButton from "./SyncAllButton";
 
 interface AgreementTableToolbarProps {
   refresh: VoidFunction;
@@ -27,6 +28,7 @@ export default function AgreementTableToolbar(
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
       <RefreshToolbarButton refresh={props.refresh} />
+      <SyncAllButton refresh={props.refresh} />
       <AddAgreement handleOpen={props.handleOpen} />
       <DeleteRowButton refresh={props.refresh} />
       <CheckboxRowHeight onClick={props.refreshHeight} />
