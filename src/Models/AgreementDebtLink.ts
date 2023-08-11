@@ -21,4 +21,5 @@ export default class AgreementDebtsLink {
   payable_status: boolean;
   portfolio: number;
   sum_payments: number;
+  status: number;
 }

@@ -8,12 +8,14 @@ import AgreementDebtsLink from "../../../Models/AgreementDebtLink";
 import moment from "moment-timezone";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import getPortfolio from "../../../api/getPortfolio";
+import useDict from "../../../Hooks/useDict";
 
 export default function useColumns(
   agreementId: number,
   refresh: VoidFunction,
   handleOpenAgreements: (debtId: number) => void
 ) {
+  const dict = useDict(6);
   const portfolios = useAsyncMemo(getPortfolio, [], []);
   return React.useMemo<GridColDef<AgreementDebtsLink>[]>(
     () => [
@@ -92,6 +94,15 @@ export default function useColumns(
         },
       },
       {
+        headerName: "Статус",
+        field: "status",
+        valueGetter(params) {
+          const status = params.row.status;
+          const status_name = dict.filter((item) => item.code === status);
+          return status_name.map((item) => item.name);
+        },
+      },
+      {
         align: "center",
         headerAlign: "center",
         width: 200,
@@ -126,6 +137,6 @@ export default function useColumns(
         ],
       },
     ],
-    [handleOpenAgreements, portfolios, refresh]
+    [dict, handleOpenAgreements, portfolios, refresh]
   );
 }
