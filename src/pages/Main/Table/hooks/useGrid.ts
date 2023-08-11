@@ -62,7 +62,7 @@ export function useGrid(
         "birth_date",
         "conclusion_date",
         "portfolio",
-        "payableStatus",
+        "payable_status",
       ],
       right: ["finish_date", "Card_IP", "actions"],
     });

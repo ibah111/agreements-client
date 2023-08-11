@@ -114,6 +114,8 @@ export default function useGetColumns(
       headerName: "ДР должника",
       field: "birth_date",
       width: 100,
+      sortable: false,
+      filterable: false,
       editable: true,
       type: "Date",
       valueGetter: (params) => {
@@ -215,10 +217,17 @@ export default function useGetColumns(
     {
       width: 100,
       headerName: "Платежный статус",
-      field: "payableStatus",
+      field: "payable_status",
       type: "boolean",
       valueGetter: (params) => {
-        params.row.DebtLinks?.map((item) => item.payable_status);
+        const statuses = params.row.DebtLinks?.map(
+          (item) => item.payable_status
+        );
+        if (!statuses) return;
+        for (const status of statuses) {
+          if (status === true) return true;
+          if (status === false) return false;
+        }
       },
     },
     {
@@ -370,29 +379,42 @@ export default function useGetColumns(
       type: "string",
       editable: false,
       valueGetter(params) {
-        return (
-          params.row.Comments?.[params.row.Comments.length - 1]?.comment || ""
-        );
+        const arr = params.row.Comments;
+        if (arr === undefined || arr.length === 0) return "Комментариев нет";
+        else {
+          const text =
+            arr?.[arr.length - 1]?.comment?.slice(0, 29) + "..." || "";
+          return text;
+        }
       },
       renderCell: (params: GridRenderCellParams) => (
-        <ExpandableCell {...params} />
+        <>
+          <ExpandableCell {...params} />
+          <Can I={Action.Delete} a={Subject.Agreement}>
+            <CommentActionCellItem
+              refresh={refresh}
+              agreement_id={params.row.id}
+              eventTarget={eventTarget || null}
+            />
+          </Can>
+        </>
       ),
     },
-    {
-      headerName: "Доб.комментарий",
-      field: "add_comment",
-      width: 100,
-      type: "actions",
-      getActions: (params) => [
-        <Can I={Action.Delete} a={Subject.Agreement}>
-          <CommentActionCellItem
-            refresh={refresh}
-            agreement_id={params.row.id}
-            eventTarget={eventTarget || null}
-          />
-        </Can>,
-      ],
-    },
+    // {
+    //   headerName: "Доб.комментарий",
+    //   field: "add_comment",
+    //   width: 100,
+    //   type: "actions",
+    //   getActions: (params) => [
+    //     <Can I={Action.Delete} a={Subject.Agreement}>
+    //       <CommentActionCellItem
+    //         refresh={refresh}
+    //         agreement_id={params.row.id}
+    //         eventTarget={eventTarget || null}
+    //       />
+    //     </Can>,
+    //   ],
+    // },
     {
       headerName: "Взыскатель",
       field: "collector_id",

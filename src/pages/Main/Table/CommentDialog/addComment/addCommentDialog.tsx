@@ -19,7 +19,7 @@ interface AddCommentDialogProps {
 export default function AddCommentDialog(props: AddCommentDialogProps) {
   const [text, setText] = React.useState<string>("");
   return (
-    <Dialog fullWidth maxWidth={"md"} open={props.open} onClose={props.onClose}>
+    <Dialog fullWidth maxWidth={"sm"} open={props.open} onClose={props.onClose}>
       <DialogTitle>{`Добавьте комментарий к соглашению ${props.agreementId}`}</DialogTitle>
       <Divider />
       <DialogContent>

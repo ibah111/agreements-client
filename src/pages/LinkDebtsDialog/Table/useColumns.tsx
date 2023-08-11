@@ -98,8 +98,10 @@ export default function useColumns(
         field: "status",
         valueGetter(params) {
           const status = params.row.status;
-          const status_name = dict.filter((item) => item.code === status);
-          return status_name.map((item) => item.name);
+          const status_name = dict
+            .filter((item) => item.code === status)
+            .map((item) => item.name);
+          return status_name;
         },
       },
       {
