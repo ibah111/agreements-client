@@ -220,14 +220,8 @@ export default function useGetColumns(
       field: "payable_status",
       type: "boolean",
       valueGetter: (params) => {
-        const statuses = params.row.DebtLinks?.map(
-          (item) => item.payable_status
-        );
-        if (!statuses) return;
-        for (const status of statuses) {
-          if (status === true) return true;
-          if (status === false) return false;
-        }
+        const value = params.row.payable_status || null;
+        return value;
       },
     },
     {

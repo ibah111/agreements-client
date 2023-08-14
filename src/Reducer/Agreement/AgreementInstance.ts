@@ -5,6 +5,7 @@ import {
   IsPositive,
   IsValidMoment,
   IsNumber,
+  IsBoolean,
 } from "../../Hooks/Validation/locale";
 import { AgreementData } from "./Agreement";
 import { DateType } from "../Utils/DateType";
@@ -124,6 +125,10 @@ export class AgreementInstance implements AgreementData {
   /** статус соглашения */
   @IsNotEmpty()
   statusAgreement: number;
+
+  @IsOptional()
+  @IsBoolean()
+  payable_status: boolean | null = false;
 
   @IsOptional()
   collector: string;
