@@ -8,11 +8,9 @@ interface ScheduleDialogProps {
   onClose: VoidFunction;
 }
 export default function ScheduleDialog(props: ScheduleDialogProps) {
-  const [open, setOpen] = React.useState(false);
-
   return (
     <>
-      <Dialog open={open} onClose={props.onClose} fullWidth>
+      <Dialog open={props.open} onClose={props.onClose} fullWidth>
         <DialogTitle>График платежей / Внесенные платежи</DialogTitle>
         <DialogContent>
           <Grid>
