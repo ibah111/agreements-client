@@ -24,6 +24,7 @@ import { round } from "../../../../utils/round";
 import getName from "../../../../Reducer/getName";
 import moment from "moment-timezone";
 import SyncOneIcon from "./SyncOneIcon/SyncOneIcon";
+import ScheduleIcon from "../ScheduleDialog/ScheduleIcon";
 interface RenderLinkProps {
   value: string;
 }
@@ -72,7 +73,7 @@ export default function useGetColumns(
     {
       field: "id",
       headerName: "ID",
-      width: 50,
+      width: 90,
       type: "number",
       editable: false,
     },
@@ -96,7 +97,7 @@ export default function useGetColumns(
       ...dateColumnType,
       field: "conclusion_date",
       headerName: "Дата заключения",
-      width: 100,
+      width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
@@ -431,10 +432,10 @@ export default function useGetColumns(
       renderCell: ({ value }) => <RenderLink value={value} />,
     },
     {
-      headerName: "ИП/Залог",
+      headerName: "ИП/Залог/График",
       field: "Card_IP",
       type: "actions",
-      width: 90,
+      width: 130,
       getActions: (params) => [
         <Can I={Action.Delete} a={Subject.Agreement}>
           <IpIcon
@@ -448,6 +449,11 @@ export default function useGetColumns(
             agreement_id={params.row.id}
             person_id={params.row.person_id}
           />
+          <ScheduleIcon
+            eventTarget={eventTarget || null}
+            refresh={refresh}
+            id_agreement={params.row.id}
+          />
         </Can>,
       ],
     },
@@ -455,7 +461,7 @@ export default function useGetColumns(
       headerName: "Действия",
       field: "actions",
       type: "actions",
-      width: 150,
+      width: 120,
       getActions: (params) => [
         <Can I={Action.Delete} a={Subject.Agreement}>
           <DeleteIcon

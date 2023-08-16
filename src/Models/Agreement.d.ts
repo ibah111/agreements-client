@@ -12,6 +12,8 @@ import type {
 import { Model } from "@sql-tools/sequelize-typescript";
 import { PurposeType } from "./PurposeType";
 import { Debt, LawAct, LawExec, Person } from "@contact/models";
+import { Comments } from "./Comments";
+import { Payments } from "./Payments";
 export class Agreement extends Model<
   InferAttributes<Agreement>,
   InferCreationAttributes<Agreement>,
@@ -74,11 +76,16 @@ export class Agreement extends Model<
    * Дата завершения
    */
   finish_date: moment.Moment | null;
+  /**
+   * Платёжный статус
+   */
+  payable_status: boolean | null;
   /** */
   statusAgreement: number;
   LawAct?: NonAttribute<LawAct>;
   Debt?: NonAttribute<Debt>;
   LawExec?: NonAttribute<LawExec>;
   Person?: NonAttribute<Person>;
-  Comments?: NonAttribute<Comment[]>;
+  Comments?: NonAttribute<Comments[]>;
+  Payments: NonAttribute<Payments[]>;
 }

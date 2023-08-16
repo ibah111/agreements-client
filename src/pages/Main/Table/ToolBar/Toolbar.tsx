@@ -10,7 +10,8 @@ import AddAgreement from "./AddAgreement";
 import CheckboxRowHeight from "./CheckboxRowHeight";
 import DeleteRowButton from "./DeleteRowButton";
 import SwitchTheme from "../../../../components/ThemeProvider/SwitchTheme/SwitchTheme";
-// import SyncAllButton from "./SyncAllButton";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import SyncAllButton from "./SyncAllButton";
 
 interface AgreementTableToolbarProps {
   refresh: VoidFunction;

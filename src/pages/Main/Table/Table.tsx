@@ -24,6 +24,8 @@ import CommentDialog from "./CommentDialog";
 import useLinkDebtsControl from "../../LinkDebtsDialog/useLinkDebtsControl";
 import LinkDebtsDialog from "../../LinkDebtsDialog";
 import useCommentControl from "./CommentDialog/hooks/useCommentControl";
+import useScheduleControl from "./ScheduleDialog/ScheduleDataGrid/useScheduleControl";
+import ScheduleDialog from "./ScheduleDialog/ScheduleDialog";
 
 export class EventDialog<Value = number | string | object> extends Event {
   constructor(type: CustomEvents, value: Value) {
@@ -38,6 +40,7 @@ export enum CustomEvents {
   onOpenZalogDialog = "onOpenZalogDialog",
   onOpenDeleteDialog = "onOpenDeleteDialog",
   onOpenCommentDialog = "onOpenCommentDialog",
+  onOpenScheduleDialog = "onOpenScheduleDialog",
 }
 
 export interface OnOpenZalogDialogProps {
@@ -84,6 +87,12 @@ export default function AgreementTable() {
     },
   });
   const commentDialogControl = useCommentControl({
+    DialogTarget,
+    onClose: () => {
+      handleClose();
+    },
+  });
+  const scheduleDialogControl = useScheduleControl({
     DialogTarget,
     onClose: () => {
       handleClose();
@@ -180,6 +189,13 @@ export default function AgreementTable() {
           id_agreement={commentDialogControl.commentAgreementId}
           open={commentDialogControl.openCommentDialog}
           onClose={commentDialogControl.handleCloseCommentDialog}
+        />
+      )}
+      {scheduleDialogControl.openSchedule && (
+        <ScheduleDialog
+          open={scheduleDialogControl.openSchedule}
+          id_agreement={scheduleDialogControl.agreementId}
+          onClose={scheduleDialogControl.handleCloseSchedule}
         />
       )}
     </Grid>

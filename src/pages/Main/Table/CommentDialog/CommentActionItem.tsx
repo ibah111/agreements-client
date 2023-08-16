@@ -13,15 +13,15 @@ export default function CommentActionCellItem(props: CommentsProps) {
       icon={<AddCommentIcon />}
       label="openCommentDialog"
       onClick={() => {
+        props.eventTarget?.dispatchEvent(
+          new EventDialog(CustomEvents.onOpenCommentDialog, props.agreement_id)
+        );
         enqueueSnackbar(
           `Открываю комментарии соглашения №: ${props.agreement_id}`,
           {
             variant: "info",
             autoHideDuration: 2500,
           }
-        );
-        props.eventTarget?.dispatchEvent(
-          new EventDialog(CustomEvents.onOpenCommentDialog, props.agreement_id)
         );
       }}
     />
