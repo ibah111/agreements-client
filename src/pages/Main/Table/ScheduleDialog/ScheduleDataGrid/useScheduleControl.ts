@@ -1,8 +1,5 @@
 import React from "react";
-import { Payments } from "../../../../../Models/Payments";
 import { CustomEvents, EventDialog } from "../../Table";
-import getSchedule from "../../../../../api/SchedulePayments/getSchedule";
-import { plainToInstance } from "class-transformer";
 interface useScheduleOptions {
   DialogTarget: EventTarget;
   onClose: VoidFunction;
@@ -10,15 +7,6 @@ interface useScheduleOptions {
 export default function useScheduleControl(options?: useScheduleOptions) {
   const [openSchedule, setOpenSchedule] = React.useState(false);
   const [agreementId, setAgreementId] = React.useState<number>(0);
-  const [rows, setRows] = React.useState<Payments[]>([]);
-
-  const request = React.useCallback(() => {
-    const req = getSchedule(agreementId).subscribe((res) => {
-      const data = plainToInstance(Payments, res);
-      setRows(data);
-    });
-    return req.unsubscribe.bind(req);
-  }, [agreementId]);
 
   React.useEffect(() => {
     const callback = ((e: EventDialog) => {
@@ -36,22 +24,14 @@ export default function useScheduleControl(options?: useScheduleOptions) {
       );
   }, [options?.DialogTarget]);
 
-  const handleOpenSchedule = React.useCallback((agreementId: number) => {
-    setOpenSchedule(true);
-    setAgreementId(agreementId);
-  }, []);
-
   const handleCloseSchedule = React.useCallback(() => {
     setOpenSchedule(false);
     setAgreementId(0);
   }, []);
 
   return {
-    rows,
     openSchedule,
     agreementId,
-    handleOpenSchedule,
     handleCloseSchedule,
-    request,
   };
 }

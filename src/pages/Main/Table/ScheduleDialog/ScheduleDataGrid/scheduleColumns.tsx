@@ -27,7 +27,8 @@ export function scheduleColumns() {
       headerName: "День платежа",
       width: 150,
       field: "pay_day",
-      type: "date",
+      align: "center",
+      type: "Date",
       valueGetter(params) {
         return getDateMoment(params.row.pay_day);
       },
@@ -37,20 +38,16 @@ export function scheduleColumns() {
       headerName: "Cумма платежа",
       width: 150,
       field: "sum_owe",
+      align: "center",
       type: "number",
     },
     {
       width: 70,
       headerName: "Статус",
+      headerAlign: "center",
       field: "status",
       type: "boolean",
-    },
-    {
-      headerName: "Пользователь",
-      description: "Кто создал внёс график",
-      field: "user",
-      type: "number",
-      valueGetter(params) {},
+      align: "center",
     },
   ];
   return scheduleColumns;

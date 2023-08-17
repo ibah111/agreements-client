@@ -27,7 +27,7 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
         <Divider />
         <DialogContent>
           <Grid>
-            <ScheduleTable />
+            <ScheduleTable id_agreement={props.id_agreement} />
           </Grid>
         </DialogContent>
       </Dialog>

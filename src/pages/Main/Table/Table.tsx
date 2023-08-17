@@ -95,7 +95,7 @@ export default function AgreementTable() {
   const scheduleDialogControl = useScheduleControl({
     DialogTarget,
     onClose: () => {
-      handleClose();
+      refresh();
     },
   });
   const [open, setOpen] = React.useState(false);
