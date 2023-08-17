@@ -8,15 +8,15 @@ import {
 import React from "react";
 import ScheduleForm from "./ScheduleForm";
 import ScheduleTable from "./ScheduleDataGrid/scheduleTable";
+import useScheduleTable from "./ScheduleDataGrid/useScheduleTable";
 interface ScheduleDialogProps {
   id_agreement: number;
   open: boolean;
   onClose: VoidFunction;
 }
 export default function ScheduleDialog(props: ScheduleDialogProps) {
-  const refresh = React.useCallback(() => {
-    return;
-  }, []);
+  const { refresh } = useScheduleTable(props.id_agreement);
+
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="lg">
@@ -24,7 +24,10 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
         <Divider />
         <DialogContent>
           <Grid container spacing={1}>
-            <ScheduleForm id_agreement={props.id_agreement} refresh={refresh} />
+            <ScheduleForm
+              id_agreement={props.id_agreement}
+              refreshTab={refresh}
+            />
           </Grid>
         </DialogContent>
         <Divider />

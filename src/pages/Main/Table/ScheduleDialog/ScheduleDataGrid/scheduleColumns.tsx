@@ -1,8 +1,11 @@
-import { GridColDef } from "@mui/x-data-grid-premium";
+import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import moment from "moment";
 import { Payments } from "../../../../../Models/Payments";
+import { Delete } from "@mui/icons-material";
+import deletePayment from "../../../../../api/SchedulePayments/deletePayment";
+import { enqueueSnackbar } from "notistack";
 
-export function scheduleColumns() {
+export function scheduleColumns(refresh: VoidFunction) {
   function getDateMoment(date: Date) {
     return moment(date).format("DD.MM.YYYY");
   }
@@ -42,12 +45,38 @@ export function scheduleColumns() {
       type: "number",
     },
     {
-      width: 70,
+      width: 100,
       headerName: "Статус",
       headerAlign: "center",
       field: "status",
       type: "boolean",
       align: "center",
+    },
+    {
+      width: 150,
+      headerName: "Действия",
+      headerAlign: "center",
+      field: "actions",
+      align: "center",
+      type: "actions",
+      getActions(params) {
+        return [
+          <GridActionsCellItem
+            label="Удалить"
+            icon={<Delete />}
+            onClick={() => {
+              if (!params.row.id) return;
+              deletePayment(params.row.id).subscribe(() => {
+                enqueueSnackbar(`Удалён платёж ${params.row.id}`, {
+                  variant: "warning",
+                  autoHideDuration: 3500,
+                });
+                refresh();
+              });
+            }}
+          />,
+        ];
+      },
     },
   ];
   return scheduleColumns;

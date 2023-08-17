@@ -5,11 +5,17 @@ import addPayment from "../../../../api/SchedulePayments/addPayment";
 import { enqueueSnackbar } from "notistack";
 interface FormProps {
   id_agreement: number;
-  refresh: VoidFunction;
+  refreshTab: VoidFunction;
 }
 export default function ScheduleForm(props: FormProps) {
   const [sum, setSum] = React.useState<number>(0);
   const [date, setDate] = React.useState<Date>();
+
+  const condition = () => {
+    if (sum === 0 || date === undefined) return true;
+    else if (sum >= 0 || date !== undefined) return false;
+  };
+
   return (
     <>
       <Grid xs={2} item>
@@ -31,7 +37,6 @@ export default function ScheduleForm(props: FormProps) {
           value={sum}
           onChange={(event) => {
             setSum(Number(event.target.value));
-            console.log(Number(event.target.value));
           }}
           InputProps={{
             endAdornment: <InputAdornment position="end">₽</InputAdornment>,
@@ -40,6 +45,7 @@ export default function ScheduleForm(props: FormProps) {
       </Grid>
       <Grid xs={2} item>
         <Button
+          disabled={condition()}
           size="large"
           color="info"
           variant="contained"
@@ -54,6 +60,7 @@ export default function ScheduleForm(props: FormProps) {
                 variant: "info",
                 autoHideDuration: 1000,
               });
+              props.refreshTab();
             });
           }}
         >
