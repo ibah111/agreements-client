@@ -14,14 +14,17 @@ interface ScheduleDialogProps {
   onClose: VoidFunction;
 }
 export default function ScheduleDialog(props: ScheduleDialogProps) {
+  const refresh = React.useCallback(() => {
+    return;
+  }, []);
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="lg">
         <DialogTitle>{`График платежей / Внесенные платежи / Соглашение №${props.id_agreement}`}</DialogTitle>
         <Divider />
         <DialogContent>
-          <Grid container>
-            <ScheduleForm id_agreement={props.id_agreement} />
+          <Grid container spacing={1}>
+            <ScheduleForm id_agreement={props.id_agreement} refresh={refresh} />
           </Grid>
         </DialogContent>
         <Divider />
