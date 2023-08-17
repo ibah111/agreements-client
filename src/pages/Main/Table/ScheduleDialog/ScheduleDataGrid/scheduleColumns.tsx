@@ -8,17 +8,23 @@ export function scheduleColumns() {
   }
   const scheduleColumns: GridColDef<Payments>[] = [
     {
+      headerAlign: "center",
+      headerName: "ID согл-я",
       field: "id_agreement",
       type: "number",
-      width: 90,
+      width: 100,
     },
     {
-      width: 90,
+      headerAlign: "center",
+      width: 100,
       field: "id",
-      headerName: "id платежа",
+      headerName: "ID платежа",
       description: "id платежа в графике",
+      type: "number",
     },
     {
+      headerAlign: "center",
+      headerName: "День платежа",
       width: 150,
       field: "pay_day",
       type: "date",
@@ -27,15 +33,24 @@ export function scheduleColumns() {
       },
     },
     {
+      headerAlign: "center",
+      headerName: "Cумма платежа",
       width: 150,
       field: "sum_owe",
       type: "number",
     },
     {
+      width: 70,
+      headerName: "Статус",
       field: "status",
+      type: "boolean",
     },
     {
+      headerName: "Пользователь",
+      description: "Кто создал внёс график",
       field: "user",
+      type: "number",
+      valueGetter(params) {},
     },
   ];
   return scheduleColumns;

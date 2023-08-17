@@ -1,5 +1,4 @@
 import React from "react";
-import { scheduleColumns } from "./scheduleColumns";
 import { Payments } from "../../../../../Models/Payments";
 import { CustomEvents, EventDialog } from "../../Table";
 import getSchedule from "../../../../../api/SchedulePayments/getSchedule";
@@ -8,8 +7,7 @@ interface useScheduleOptions {
   DialogTarget: EventTarget;
   onClose: VoidFunction;
 }
-export default function useScheduleControl(options: useScheduleOptions) {
-  const columns = scheduleColumns();
+export default function useScheduleControl(options?: useScheduleOptions) {
   const [openSchedule, setOpenSchedule] = React.useState(false);
   const [agreementId, setAgreementId] = React.useState<number>(0);
   const [rows, setRows] = React.useState<Payments[]>([]);
@@ -27,16 +25,16 @@ export default function useScheduleControl(options: useScheduleOptions) {
       setAgreementId(e.value as number);
       setOpenSchedule(true);
     }) as EventListener;
-    options.DialogTarget.addEventListener(
+    options?.DialogTarget.addEventListener(
       CustomEvents.onOpenScheduleDialog,
       callback
     );
     return () =>
-      options.DialogTarget.removeEventListener(
+      options?.DialogTarget.removeEventListener(
         CustomEvents.onOpenScheduleDialog,
         callback
       );
-  }, [options.DialogTarget]);
+  }, [options?.DialogTarget]);
 
   const handleOpenSchedule = React.useCallback((agreementId: number) => {
     setOpenSchedule(true);
@@ -49,7 +47,6 @@ export default function useScheduleControl(options: useScheduleOptions) {
   }, []);
 
   return {
-    columns,
     rows,
     openSchedule,
     agreementId,

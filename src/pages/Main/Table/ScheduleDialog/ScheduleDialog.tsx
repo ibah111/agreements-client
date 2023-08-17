@@ -1,4 +1,10 @@
-import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Grid,
+} from "@mui/material";
 import React from "react";
 import ScheduleForm from "./ScheduleForm";
 import ScheduleTable from "./ScheduleDataGrid/scheduleTable";
@@ -10,12 +16,16 @@ interface ScheduleDialogProps {
 export default function ScheduleDialog(props: ScheduleDialogProps) {
   return (
     <>
-      <Dialog open={props.open} onClose={props.onClose} fullWidth>
-        <DialogTitle>График платежей / Внесенные платежи</DialogTitle>
+      <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="lg">
+        <DialogTitle>{`График платежей / Внесенные платежи / Соглашение №${props.id_agreement}`}</DialogTitle>
+        <Divider />
         <DialogContent>
-          <Grid>
-            <ScheduleForm />
+          <Grid container>
+            <ScheduleForm id_agreement={props.id_agreement} />
           </Grid>
+        </DialogContent>
+        <Divider />
+        <DialogContent>
           <Grid>
             <ScheduleTable />
           </Grid>
