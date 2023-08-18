@@ -17,15 +17,10 @@ export class DebtCalcInstance implements Partial<CreationAttributes<DebtCalc>> {
   @DateType(false)
   @TransformDate(false)
   calc_date: moment.Moment;
-  int_sum: number;
   id?: number;
   is_cancel?: number;
   r_promise_id?: number;
   dsc?: string;
-  @IsValidMoment()
-  @DateType(false)
-  @TransformDate(false)
-  report_date?: moment.Moment;
   typ?: number;
   @IsValidMoment()
   @DateType(false)

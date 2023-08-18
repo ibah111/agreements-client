@@ -22,6 +22,7 @@ export default function ScheduleTable(props: ScheduleProps) {
 
   const [dRows, setDRows] = React.useState<DebtCalcInstance[]>([]);
   const { detailPanelColumns } = useDetailCols();
+
   const getDetailPanelContent = () => (
     <Stack
       sx={{ py: 2, height: "100%", boxSizing: "border-box" }}
@@ -66,6 +67,7 @@ export default function ScheduleTable(props: ScheduleProps) {
           const request_id = value[value.length - 1] as number;
           enqueueSnackbar(`Показываю зарегистированные платежи ${request_id}`, {
             variant: "info",
+            autoHideDuration: 1000,
           });
           getCalcsInMonth(request_id).subscribe(setDRows);
         }
