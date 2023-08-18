@@ -1,15 +1,12 @@
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
-import moment from "moment";
 import { Payments } from "../../../../../Models/Payments";
 import { Delete, Refresh } from "@mui/icons-material";
 import deletePayment from "../../../../../api/SchedulePayments/deletePayment";
 import { enqueueSnackbar } from "notistack";
 import updateStatus from "../../../../../api/SchedulePayments/updateStatus";
+import getDateMoment from "../../../../../utils/getDateMoment";
 
 export function scheduleColumns(refresh: VoidFunction) {
-  function getDateMoment(date: Date) {
-    return moment(date).format("DD.MM.YYYY");
-  }
   const scheduleColumns: GridColDef<Payments>[] = [
     {
       headerAlign: "center",

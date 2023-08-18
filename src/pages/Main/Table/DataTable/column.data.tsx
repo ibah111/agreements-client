@@ -25,6 +25,7 @@ import getName from "../../../../Reducer/getName";
 import moment from "moment-timezone";
 import SyncOneIcon from "./SyncOneIcon/SyncOneIcon";
 import ScheduleIcon from "../ScheduleDialog/ScheduleIcon";
+import getDateMoment from "../../../../utils/getDateMoment";
 interface RenderLinkProps {
   value: string;
 }
@@ -254,17 +255,21 @@ export default function useGetColumns(
       disableColumnMenu: true,
       headerName: "Дата посл.платежа",
       field: "lastPaymentDate",
-      type: "date",
+      type: "Date",
       editable: false,
       width: 125,
-      valueGetter: (params) => params.row.lastPaymentDate?.toDate() || null,
-    },
-    {
-      headerName: "Сумма платежей до соглашения",
-      description: "Сумма платежей до соглашения",
-      field: "sumBeforeAgr",
-      width: 150,
-      type: "number",
+      valueGetter: (params) => {
+        const arr = params.row.DebtLinks?.filter(
+          (item) => item.last_payment_date != null
+        )
+          .map((item) => item.last_payment_date)
+          .sort();
+
+        if (!arr) return;
+        const last = arr[arr?.length - 1] as unknown as Date;
+        console.log(last);
+        return getDateMoment(last);
+      },
     },
     {
       field: "finish_date",
@@ -324,7 +329,16 @@ export default function useGetColumns(
       width: 250,
       type: "Date",
       valueGetter: (params) => {
-        params.row.DebtLinks?.map((item) => item.first_payment_date);
+        const arr = params.row.DebtLinks?.filter(
+          (item) => item.first_payment_date != null
+        )
+          .map((item) => item.first_payment_date)
+          .sort();
+
+        if (!arr) return;
+        const first = arr[0] as unknown as Date;
+        console.log(first);
+        return getDateMoment(first);
       },
     },
     {
@@ -395,21 +409,6 @@ export default function useGetColumns(
         </>
       ),
     },
-    // {
-    //   headerName: "Доб.комментарий",
-    //   field: "add_comment",
-    //   width: 100,
-    //   type: "actions",
-    //   getActions: (params) => [
-    //     <Can I={Action.Delete} a={Subject.Agreement}>
-    //       <CommentActionCellItem
-    //         refresh={refresh}
-    //         agreement_id={params.row.id}
-    //         eventTarget={eventTarget || null}
-    //       />
-    //     </Can>,
-    //   ],
-    // },
     {
       headerName: "Взыскатель",
       field: "collector_id",

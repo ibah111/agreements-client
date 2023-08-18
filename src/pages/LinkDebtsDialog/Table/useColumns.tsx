@@ -49,6 +49,8 @@ export default function useColumns(
         },
       },
       {
+        align: "center",
+        headerAlign: "center",
         headerName: "Дата посл.платёж",
         field: "last_payment_date",
         type: "Date",
@@ -58,6 +60,8 @@ export default function useColumns(
         },
       },
       {
+        align: "center",
+        headerAlign: "center",
         headerName: "Посл.платёж",
         field: "last_payment",
         type: "number",
@@ -66,24 +70,29 @@ export default function useColumns(
         },
       },
       {
+        align: "center",
+        headerAlign: "center",
         headerName: "Дата перв.платежа",
         field: "first_payment_date",
         type: "Date",
         valueGetter(params) {
           if (params.row.first_payment_date === null) return;
-          return moment(params.row.last_payment_date).format("DD.MM.YYYY");
+          return moment(params.row.first_payment_date).format("DD.MM.YYYY");
         },
       },
       {
+        align: "center",
+        headerAlign: "center",
         headerName: "Перв.платеж",
         field: "first_payment",
         type: "number",
         valueGetter(params) {
-          if (params.row.first_payment === null) return;
-          return moment(params.row.last_payment_date).format("DD.MM.YYYY");
+          return params.row.first_payment;
         },
       },
       {
+        align: "center",
+        headerAlign: "center",
         headerName: "Портфель",
         field: "portfolio",
         valueFormatter(params) {
@@ -94,6 +103,8 @@ export default function useColumns(
         },
       },
       {
+        align: "center",
+        headerAlign: "center",
         headerName: "Статус",
         field: "status",
         valueGetter(params) {
