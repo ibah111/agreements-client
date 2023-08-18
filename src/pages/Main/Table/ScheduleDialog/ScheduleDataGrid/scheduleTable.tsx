@@ -1,9 +1,13 @@
 import { DataGridPremium } from "@mui/x-data-grid-premium";
 import { scheduleColumns } from "./scheduleColumns";
 import useScheduleTable from "./useScheduleTable";
-import getDetailPanelContent from "./DetailPanelContent/DetailPanelContent";
 import { enqueueSnackbar } from "notistack";
 import ScheduleToolbar from "./ScheduleToolbar/ScheduleToolbar";
+import getCalcsInMonth from "../../../../../api/SchedulePayments/getCalcsInMonth";
+import { Stack, Paper } from "@mui/material";
+import useDetailCols from "./DetailPanelContent/DetailPanelContent.columns";
+import React from "react";
+import { DebtCalcInstance } from "../../../../../Models/DebtCalc";
 
 interface ScheduleProps {
   id_agreement: number;
@@ -15,6 +19,30 @@ export default function ScheduleTable(props: ScheduleProps) {
     else return rows;
   };
   const columns = scheduleColumns(refresh);
+
+  const [dRows, setDRows] = React.useState<DebtCalcInstance[]>([]);
+  const { detailPanelColumns } = useDetailCols();
+  const getDetailPanelContent = () => (
+    <Stack
+      sx={{ py: 2, height: "100%", boxSizing: "border-box" }}
+      direction="column"
+    >
+      <Paper sx={{ flex: 1, mx: "auto", width: "90%", p: 1 }}>
+        <Stack direction="column" spacing={1} sx={{ height: 1 }}>
+          <DataGridPremium
+            density="compact"
+            columns={detailPanelColumns}
+            rows={dRows}
+            sx={{ flex: 1 }}
+            hideFooter
+            autoHeight
+            getRowId={(row) => row.id!}
+          />
+        </Stack>
+      </Paper>
+    </Stack>
+  );
+
   return (
     <DataGridPremium
       columnVisibilityModel={{
@@ -29,15 +57,17 @@ export default function ScheduleTable(props: ScheduleProps) {
       loading={loading}
       getDetailPanelHeight={() => "auto"}
       sx={{
+        flex: 1,
         height: 600,
       }}
       getDetailPanelContent={getDetailPanelContent}
       onDetailPanelExpandedRowIdsChange={(value) => {
-        console.log(value);
         if (value.length > 0) {
-          enqueueSnackbar(`Входящие платежи ${value}`, {
+          const request_id = value[value.length - 1] as number;
+          enqueueSnackbar(`Показываю зарегистированные платежи ${request_id}`, {
             variant: "info",
           });
+          getCalcsInMonth(request_id).subscribe(setDRows);
         }
       }}
       slots={{
