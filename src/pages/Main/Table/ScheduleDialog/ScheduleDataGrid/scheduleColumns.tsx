@@ -1,9 +1,10 @@
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import moment from "moment";
 import { Payments } from "../../../../../Models/Payments";
-import { Delete } from "@mui/icons-material";
+import { Delete, Refresh } from "@mui/icons-material";
 import deletePayment from "../../../../../api/SchedulePayments/deletePayment";
 import { enqueueSnackbar } from "notistack";
+import updateStatus from "../../../../../api/SchedulePayments/updateStatus";
 
 export function scheduleColumns(refresh: VoidFunction) {
   function getDateMoment(date: Date) {
@@ -70,6 +71,26 @@ export function scheduleColumns(refresh: VoidFunction) {
                 enqueueSnackbar(`Удалён платёж ${params.row.id}`, {
                   variant: "warning",
                   autoHideDuration: 3500,
+                });
+                refresh();
+              });
+            }}
+          />,
+          <GridActionsCellItem
+            label="Обновить"
+            icon={<Refresh />}
+            onClick={() => {
+              if (!params.row.id) {
+                console.log("id платежа нет");
+                return;
+              }
+              updateStatus({
+                id_agreement: params.row.id_agreement,
+                id_payment: params.row.id,
+              }).subscribe(() => {
+                enqueueSnackbar("Платёж обновлен", {
+                  variant: "info",
+                  autoHideDuration: 1000,
                 });
                 refresh();
               });

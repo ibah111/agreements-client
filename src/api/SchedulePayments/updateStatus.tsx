@@ -5,7 +5,7 @@ import { transformError } from "../../utils/processError";
 
 interface updateInput {
   id_agreement: number;
-  id_payments: number;
+  id_payment: number;
 }
 export default function updateStatus(props: updateInput) {
   return of(props).pipe(
