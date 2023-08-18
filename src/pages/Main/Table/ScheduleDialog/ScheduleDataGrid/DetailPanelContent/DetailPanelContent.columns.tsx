@@ -2,6 +2,7 @@ import { GridColDef } from "@mui/x-data-grid-premium";
 import { DebtCalcInstance } from "../../../../../../Models/DebtCalc";
 import useDict from "../../../../../../Hooks/useDict";
 import React from "react";
+import moment from "moment";
 
 export default function useDetailCols() {
   const purposes = useDict(130);
@@ -16,21 +17,16 @@ export default function useDetailCols() {
   const detailPanelColumns = React.useMemo<GridColDef<DebtCalcInstance>[]>(
     () => [
       {
-        field: "id",
-        headerName: "ID",
-        headerAlign: "center",
-        align: "center",
-      },
-      {
-        field: "calc_date",
         align: "center",
         headerAlign: "center",
         headerName: "Дата платежа",
-        width: 150,
-        type: "date",
+        type: "Date",
         valueGetter(params) {
-          return params.row.calc_date ? params.row.calc_date.toDate() : null;
+          if (params.row.calc_date === null) return;
+          return moment(params.row.calc_date).format("DD.MM.YYYY");
         },
+        field: "calc_date",
+        width: 150,
       },
       {
         field: "sum",
@@ -49,15 +45,15 @@ export default function useDetailCols() {
         valueOptions: selectPurposes,
       },
       {
-        field: "dt",
         align: "center",
         headerAlign: "center",
         headerName: "Дата занесения в КСК",
-        width: 150,
-        type: "date",
+
         valueGetter(params) {
-          return params.row.dt ? params.row.dt.toDate() : null;
+          return moment(params.row.dt).format("DD.MM.YYYY");
         },
+        field: "dt",
+        width: 150,
       },
     ],
     [selectPurposes]

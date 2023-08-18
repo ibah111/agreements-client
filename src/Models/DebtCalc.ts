@@ -5,7 +5,7 @@ import { DateType } from "../Reducer/Utils/DateType";
 import { TransformDate } from "../Reducer/Utils/TransformDate";
 import { HasOneAttribute } from "@sql-tools/association-literal";
 
-export class DebtCalcInstance implements CreationAttributes<DebtCalc> {
+export class DebtCalcInstance implements Partial<CreationAttributes<DebtCalc>> {
   parent_id: number;
   sum: number;
   @IsValidMoment()
@@ -22,11 +22,6 @@ export class DebtCalcInstance implements CreationAttributes<DebtCalc> {
   is_cancel?: number;
   r_promise_id?: number;
   dsc?: string;
-  r_currency_id?: number;
-  commission?: number;
-  id$?: number;
-  r_user_id?: number;
-  req_change?: number;
   @IsValidMoment()
   @DateType(false)
   @TransformDate(false)
@@ -40,21 +35,6 @@ export class DebtCalcInstance implements CreationAttributes<DebtCalc> {
   @DateType(false)
   @TransformDate(false)
   cancel_dt?: moment.Moment;
-  invoice_flag?: number;
-  r_req_user_id?: number;
-  r_bank_requisites_id?: number;
-  ext_id?: number;
-  payer_name?: string;
-  contract_number?: string;
-  ticket_number?: string;
   purpose?: number;
   PurposeDict?: HasOneAttribute<NonAttribute<Dict>>;
-  NUMBER_VALUE_1?: number;
-  NUMBER_VALUE_2?: number;
-  NUMBER_VALUE_3?: number;
-  NUMBER_VALUE_4?: number;
-  createdAt?: any;
-  updatedAt?: any;
-  deletedAt?: any;
-  version?: any;
 }
