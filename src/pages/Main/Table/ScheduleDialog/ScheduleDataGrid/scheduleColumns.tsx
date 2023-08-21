@@ -78,7 +78,6 @@ export function scheduleColumns(refresh: VoidFunction) {
             icon={<Refresh />}
             onClick={() => {
               if (!params.row.id) {
-                console.log("id платежа нет");
                 return;
               }
               updateStatus({

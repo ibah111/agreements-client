@@ -267,7 +267,6 @@ export default function useGetColumns(
 
         if (!arr) return;
         const last = arr[arr?.length - 1] as unknown as Date;
-        console.log(last);
         return getDateMoment(last);
       },
     },
@@ -337,7 +336,6 @@ export default function useGetColumns(
 
         if (!arr) return;
         const first = arr[0] as unknown as Date;
-        console.log(first);
         return getDateMoment(first);
       },
     },
