@@ -1,6 +1,5 @@
 import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
 import CommentTable from "./CommentTable";
-import AddCommentDialog from "./AddComment/AddCommentDialog";
 
 interface CommentDialogProps {
   id_agreement: number;
@@ -26,13 +25,6 @@ export default function CommentDialog(props: CommentDialogProps) {
           </Grid>
         </DialogContent>
       </Dialog>
-      {
-        <AddCommentDialog
-          open={false}
-          onClose={props.onClose}
-          agreementId={props.id_agreement}
-        />
-      }
     </>
   );
 }

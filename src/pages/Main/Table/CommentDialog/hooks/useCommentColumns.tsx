@@ -1,19 +1,30 @@
 import { GridColDef } from "@mui/x-data-grid-premium";
 import { Comments } from "../../../../../Models/Comments";
-import { Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 export default function useCommentColumns() {
   const commentColumns: GridColDef<Comments>[] = [
     {
-      align: "center",
+      align: "left",
       headerAlign: "center",
       width: 650,
       headerName: "Комментарий",
-      type: "string",
       field: "comment",
+      resizable: true,
+      flex: 1,
+
       renderCell(params) {
         const tt: string = params.value;
-        const tpy = tt.split(". ").join("\n");
-        return <Typography>{tpy}</Typography>;
+        const tpy = tt.split(". ").join(" ");
+        return (
+          <Grid
+            sx={{
+              whiteSpace: "break-spaces",
+            }}
+          >
+            {tpy}
+          </Grid>
+          // <pre style={{ overflow: "hidden" }}>{tpy}</pre>
+        );
       },
     },
     {
