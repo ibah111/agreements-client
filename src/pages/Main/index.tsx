@@ -17,7 +17,7 @@ export default function Main() {
                   noWrap={false}
                   sx={{ display: { xs: "none", sm: "block" } }}
                 >
-                  {`ПО Соглашения ${slice}`}
+                  {`ПО Соглашения`}
                 </Typography>
               </Grid>
             </Toolbar>

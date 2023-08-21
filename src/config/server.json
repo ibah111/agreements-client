@@ -1,4 +1,4 @@
 {
-  "server": "https://balezin.usb.ru:3022",
+  "server": "https://apps.usb.ru:3022",
   "oauth": "https://apps.usb.ru:3008"
 }
