@@ -1,3 +1,10 @@
+import { Grid } from "@mui/material";
+import Navigation from "../index.navigation";
+
 export default function DeletedDataIndex() {
-  return <></>;
+  return (
+    <Grid container height={"100vh"} direction={"column"}>
+      <Navigation />
+    </Grid>
+  );
 }
