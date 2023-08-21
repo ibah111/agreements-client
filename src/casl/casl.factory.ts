@@ -10,6 +10,9 @@ export enum Action {
   Delete = "delete",
 }
 export enum Subject {
+  Debt = "Debt",
+  Preview = "Preview",
+  Comments = "Comments",
   Agreement = "agreement",
   AgreementToDebt = "agreementToDebt",
   DebtCalc = "DebtCalc",

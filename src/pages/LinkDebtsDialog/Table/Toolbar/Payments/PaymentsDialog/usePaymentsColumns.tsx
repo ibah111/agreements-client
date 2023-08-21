@@ -2,6 +2,7 @@ import { GridColDef } from "@mui/x-data-grid-premium";
 import { DebtCalcInstance } from "../../../../../../Models/DebtCalc";
 import React from "react";
 import useDict from "../../../../../../Hooks/useDict";
+import { Grid } from "@mui/material";
 
 export default function usePaymentsColumns() {
   const purposes = useDict(130);
@@ -50,6 +51,18 @@ export default function usePaymentsColumns() {
         type: "string",
         field: "dsc",
         width: 400,
+        renderCell(params) {
+          const txt = params.value;
+          return (
+            <Grid
+              sx={{
+                whiteSpace: "break-spaces",
+              }}
+            >
+              {txt}
+            </Grid>
+          );
+        },
       },
       {
         align: "center",

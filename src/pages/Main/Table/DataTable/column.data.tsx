@@ -399,13 +399,11 @@ export default function useGetColumns(
       renderCell: (params: GridRenderCellParams) => (
         <>
           <ExpandableCell {...params} />
-          <Can I={Action.Delete} a={Subject.Agreement}>
-            <CommentActionCellItem
-              refresh={refresh}
-              agreement_id={params.row.id}
-              eventTarget={eventTarget || null}
-            />
-          </Can>
+          <CommentActionCellItem
+            refresh={refresh}
+            agreement_id={params.row.id}
+            eventTarget={eventTarget || null}
+          />
         </>
       ),
     },
@@ -480,7 +478,7 @@ export default function useGetColumns(
             }}
           />
         </Can>,
-        <Can I={Action.Create} a={Subject.AgreementToDebt}>
+        <Can I={Action.Create} a={Subject.Preview}>
           <SyncOneIcon
             id_agreement={params.row.id}
             refresh={refresh}

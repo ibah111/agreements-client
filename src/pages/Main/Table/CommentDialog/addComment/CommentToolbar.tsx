@@ -1,5 +1,7 @@
 import { GridToolbarContainer } from "@mui/x-data-grid-premium";
 import AddCommentButton from "./AddCommentButton";
+import { Can } from "../../../../../casl/casl";
+import { Action, Subject } from "../../../../../casl/casl.factory";
 
 interface CommentToolbarProps {
   refresh: VoidFunction;
@@ -8,7 +10,9 @@ interface CommentToolbarProps {
 export default function CommentToolbar(props: CommentToolbarProps) {
   return (
     <GridToolbarContainer>
-      <AddCommentButton setOpen={props.setOpen} />
+      <Can I={Action.Create} a={Subject.Comments}>
+        <AddCommentButton setOpen={props.setOpen} />
+      </Can>
     </GridToolbarContainer>
   );
 }

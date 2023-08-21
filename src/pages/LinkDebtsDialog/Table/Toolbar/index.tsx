@@ -6,6 +6,8 @@ import {
 } from "@mui/x-data-grid-premium";
 import AddDebtLinkButton from "./AddDebtLinkButton";
 import RefreshToolbarButton from "../../../../components/Utils/RefreshToolbarButton";
+import { Action, Subject } from "../../../../casl/casl.factory";
+import { Can } from "../../../../casl/casl";
 
 interface ToolbarProps {
   refresh: VoidFunction;
@@ -19,7 +21,9 @@ export default function Toolbar(props: ToolbarProps) {
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
       <RefreshToolbarButton refresh={props.refresh} />
-      <AddDebtLinkButton setOpen={props.setOpen} />
+      <Can I={Action.Create} a={Subject.Preview}>
+        <AddDebtLinkButton setOpen={props.setOpen} />
+      </Can>
     </GridToolbarContainer>
   );
 }
