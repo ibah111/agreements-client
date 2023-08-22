@@ -1,9 +1,11 @@
 import { GridColDef } from "@mui/x-data-grid-premium";
-import { Agreement } from "../../../Models/Agreement";
+
+import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
 import RestoreButton from "./RestoreButton";
+import getDateMoment from "../../../utils/getDateMoment";
 
 export default function columnDeleteData() {
-  const columns: GridColDef<Agreement>[] = [
+  const columns: GridColDef<AgreementInstance>[] = [
     {
       field: "id",
       headerAlign: "center",
@@ -19,16 +21,31 @@ export default function columnDeleteData() {
       align: "center",
       width: 150,
       type: "Date",
+      valueFormatter(params) {
+        return getDateMoment(params.value);
+      },
     },
     {
       field: "conclusion_date",
       headerName: "Дата заключения",
+      align: "center",
+      width: 150,
+      type: "Date",
+      valueFormatter(params) {
+        return getDateMoment(params.value);
+      },
     },
     {
       field: "finish_date",
       headerName: "Дата завершения",
       headerAlign: "center",
       align: "center",
+      width: 150,
+      type: "Date",
+      valueFormatter(params) {
+        if (params.value === null) return "";
+        return getDateMoment(params.value);
+      },
     },
     {
       field: "purpose",

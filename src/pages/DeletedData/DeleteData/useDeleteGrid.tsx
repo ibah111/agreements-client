@@ -14,5 +14,5 @@ export default function useDeleteGrid() {
   React.useEffect(() => {
     return render();
   }, [render]);
-  return { rows };
+  return { rows, load, render };
 }
