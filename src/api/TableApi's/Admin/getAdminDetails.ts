@@ -4,12 +4,10 @@ import { authRetry, get, transformAxios } from "@tools/rxjs-pipes";
 import { transformError } from "../../../utils/processError";
 
 export class User {
-  id: number;
   login: string;
 }
 
 export class Role {
-  id: number;
   name: string;
   title: string;
 }
