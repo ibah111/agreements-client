@@ -3,6 +3,7 @@ import useDeleteGrid from "./useDeleteGrid";
 import columnDeleteData from "./column.Delete";
 import React from "react";
 import DeleteToolbar from "./DeleteToolbar";
+import { Grid } from "@mui/material";
 
 export default function DeleteTable() {
   const { rows, render } = useDeleteGrid();
@@ -10,7 +11,7 @@ export default function DeleteTable() {
     onClose: render,
   });
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
-    right: ["actions"],
+    left: ["actions"],
   });
   const handlePinnedColumnsChange = React.useCallback(
     (updatedPinnedColumns: GridPinnedColumns) => {
@@ -19,19 +20,28 @@ export default function DeleteTable() {
     []
   );
   return (
-    <DataGridPremium
-      columns={cols}
-      rows={rows}
-      pinnedColumns={pinnedColumns}
-      onPinnedColumnsChange={handlePinnedColumnsChange}
-      slots={{
-        toolbar: DeleteToolbar,
+    <Grid
+      item
+      xs
+      sx={{
+        height: 400,
+        width: "100%",
       }}
-      slotProps={{
-        toolbar: {
-          render,
-        },
-      }}
-    />
+    >
+      <DataGridPremium
+        columns={cols}
+        rows={rows}
+        pinnedColumns={pinnedColumns}
+        onPinnedColumnsChange={handlePinnedColumnsChange}
+        slots={{
+          toolbar: DeleteToolbar,
+        }}
+        slotProps={{
+          toolbar: {
+            render,
+          },
+        }}
+      />
+    </Grid>
   );
 }
