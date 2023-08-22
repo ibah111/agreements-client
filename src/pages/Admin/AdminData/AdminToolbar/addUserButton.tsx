@@ -10,12 +10,14 @@ import {
 import React from "react";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import addUser from "../../../../api/TableApi's/Admin/addUser";
+import { enqueueSnackbar } from "notistack";
+
 export default function AddUserButton() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<string>("");
   const condition = () => {
-    if (value) return true;
-    return false;
+    if (value) return false;
+    return true;
   };
   return (
     <>
@@ -51,7 +53,16 @@ export default function AddUserButton() {
                   onClick={() => {
                     addUser({
                       login: value,
-                    });
+                    }).subscribe(() =>
+                      enqueueSnackbar("Пользователь добавлен", {
+                        variant: "success",
+                        autoHideDuration: 1000,
+                      })
+                    );
+                    setOpen(false);
+                    /**
+                     * refresh
+                     */
                   }}
                 >{`Добавить`}</Button>
               </Grid>
