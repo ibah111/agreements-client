@@ -1,10 +1,14 @@
 import { GridColDef } from "@mui/x-data-grid-premium";
 
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
-import RestoreButton from "./RestoreButton";
 import getDateMoment from "../../../utils/getDateMoment";
+import ActionButton from "./RestoreButton";
 
-export default function columnDeleteData() {
+interface DelDataProps {
+  onClose: VoidFunction;
+}
+
+export default function columnDeleteData(props: DelDataProps) {
   const columns: GridColDef<AgreementInstance>[] = [
     {
       field: "id",
@@ -144,9 +148,11 @@ export default function columnDeleteData() {
     },
     {
       field: "actions",
-      headerName: "Дейтвия",
+      headerName: "Действия",
       type: "actions",
-      getActions: (params) => [<RestoreButton id_agreement={params.row.id} />],
+      getActions: (params) => [
+        <ActionButton id_agreement={params.row.id} onClose={props.onClose} />,
+      ],
     },
   ];
   return columns;

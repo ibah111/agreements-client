@@ -1,28 +1,52 @@
 import { GridActionsCellItem } from "@mui/x-data-grid-premium";
-import restoreDeleted from "../../../api/TableApi's/restoreDeleted";
 import RestoreFromTrashIcon from "@mui/icons-material/RestoreFromTrash";
-import { enqueueSnackbar } from "notistack";
-import { Tooltip } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  Tooltip,
+} from "@mui/material";
+import React from "react";
 
 interface RestoreProps {
   id_agreement: number;
+  onClose: VoidFunction;
 }
 
-export default function RestoreButton(props: RestoreProps) {
+export default function ActionButton(props: RestoreProps) {
+  const [open, setOpen] = React.useState(false);
+
+  const QuizDialog = () => (
+    <Dialog
+      open={open}
+      fullWidth
+      maxWidth={"xl"}
+      onClose={() => setOpen(false)}
+    >
+      <DialogTitle>{`Удалить или восстановить соглашение ${props.id_agreement}`}</DialogTitle>
+      <DialogContent>
+        <Grid item container>
+          <Button onClick={() => {}} color="error">{`Удалить`}</Button>
+          <Button onClick={() => {}} color="success">{`Восстановить`}</Button>
+        </Grid>
+      </DialogContent>
+    </Dialog>
+  );
+
   return (
-    <Tooltip title={"Восстановить"}>
-      <GridActionsCellItem
-        icon={<RestoreFromTrashIcon />}
-        label="restore"
-        onClick={() => {
-          restoreDeleted(props.id_agreement).subscribe(() =>
-            enqueueSnackbar(`Соглашение №${props.id_agreement} восстановлено`, {
-              variant: "success",
-              autoHideDuration: 1000,
-            })
-          );
-        }}
-      />
-    </Tooltip>
+    <>
+      <Tooltip title={"Восстановить"}>
+        <GridActionsCellItem
+          icon={<RestoreFromTrashIcon />}
+          label="restore"
+          onClick={() => {
+            setOpen(true);
+          }}
+        />
+      </Tooltip>
+      {open && <QuizDialog />}
+    </>
   );
 }
