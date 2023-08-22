@@ -1,5 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid-premium";
 import { Agreement } from "../../../Models/Agreement";
+import RestoreButton from "./RestoreButton";
 
 export default function columnDeleteData() {
   const columns: GridColDef<Agreement>[] = [
@@ -123,6 +124,12 @@ export default function columnDeleteData() {
     {
       field: "statusAgreement",
       headerName: "Статус соглашения",
+    },
+    {
+      field: "actions",
+      headerName: "Дейтвия",
+      type: "actions",
+      getActions: (params) => [<RestoreButton id_agreement={params.row.id} />],
     },
   ];
   return columns;
