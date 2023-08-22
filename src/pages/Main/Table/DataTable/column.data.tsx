@@ -209,7 +209,11 @@ export default function useGetColumns(
       type: "number",
       width: 100,
       valueGetter(params) {
-        const sumAfterAgr = params.row.sumAfterAgr || 0;
+        const sumAfterAgr =
+          params.row.DebtLinks?.map((item) => item.sum_payments).reduce(
+            (prev, curr) => prev + curr,
+            0
+          ) || 0;
         const sum = params.row.sum || 0;
         const full_req = params.row.full_req || 0;
         if (sum) return round(sum - sumAfterAgr);
