@@ -5,6 +5,7 @@ import { transformError } from "../../../utils/processError";
 import { NonAttribute } from "@sql-tools/sequelize";
 
 export class User {
+  id?: number;
   login: string;
   Roles?: NonAttribute<Array<Role & { User_Role?: User_Role }>>;
 }

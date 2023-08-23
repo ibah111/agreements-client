@@ -5,8 +5,13 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { enqueueSnackbar } from "notistack";
 import getDateMoment from "../../../utils/getDateMoment";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
+import deleteUser from "../../../api/TableApi's/Admin/deleteUser";
 
-export default function columnsAdmin() {
+interface colsProps {
+  refresh: VoidFunction;
+}
+
+export default function columnsAdmin(props: colsProps) {
   const cols: GridColDef<User>[] = [
     {
       field: "id",
@@ -75,12 +80,13 @@ export default function columnsAdmin() {
             label="Delete"
             icon={<PersonRemoveIcon />}
             onClick={() => {
-              const user_id = params.row;
-              const role_id = params.row;
-              enqueueSnackbar("this method must delete user", {
-                autoHideDuration: 1000,
-              });
-              alert(`user_id: ${user_id}, role_id: ${role_id}`);
+              deleteUser(params.row.id!).subscribe(() =>
+                enqueueSnackbar("Пользователь удален", {
+                  variant: "warning",
+                  autoHideDuration: 2000,
+                })
+              );
+              props.refresh();
             }}
           />
         </Tooltip>,

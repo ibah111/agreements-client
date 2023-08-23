@@ -16,7 +16,7 @@ export default function AdminToolbar(props: ScheduleToolbarProps) {
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
       <RefreshToolbarButton refresh={props.refresh} />
-      <AddUserButton />
+      <AddUserButton refresh={props.refresh} />
     </GridToolbarContainer>
   );
 }
