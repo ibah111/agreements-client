@@ -10,6 +10,7 @@ import { enqueueSnackbar } from "notistack";
 import React from "react";
 import useAsyncMemo from "../../../../utils/asyncMemo";
 import getAllRoles from "../../../../api/TableApi's/Admin/getAllRoles";
+import { addRoleToUser } from "../../../../api/TableApi's/Admin/addRoleToUser";
 
 interface AddRoleProps {
   refresh: VoidFunction;
@@ -42,7 +43,10 @@ export function AddRoleDialog(props: AddRoleProps) {
           </Select>
           <Button
             onClick={() => {
-              enqueueSnackbar(`Роль присвоена`);
+              addRoleToUser({
+                user_id: props.id_user,
+                role_id: value,
+              }).subscribe(() => enqueueSnackbar(`Роль присвоена`));
             }}
           >{`Подтвердить`}</Button>
         </DialogContent>

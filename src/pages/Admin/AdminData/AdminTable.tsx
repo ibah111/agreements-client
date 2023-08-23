@@ -19,7 +19,6 @@ export class AdminEventDialog<Value = number | string | object> extends Event {
  */
 export enum AdminEvents {
   onAddRoleDialog = "onAddUserDialog",
-  onDeleteUserDialog = "onDeleteUserDialog",
 }
 
 export default function AdminTable() {
@@ -27,6 +26,7 @@ export default function AdminTable() {
   const { rows, refresh } = useAdminGrid();
   const cols = columnsAdmin({
     refresh: refresh,
+    eventTarget: DialogTarget,
   });
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     left: ["actions"],
@@ -69,7 +69,7 @@ export default function AdminTable() {
         <AddRoleDialog
           open={addRoleControl.open}
           refresh={addRoleControl.closeAddRoleDialog}
-          id_user={0}
+          id_user={addRoleControl.userId}
         />
       )}
     </>

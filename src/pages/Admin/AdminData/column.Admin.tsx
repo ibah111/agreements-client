@@ -6,9 +6,11 @@ import { enqueueSnackbar } from "notistack";
 import getDateMoment from "../../../utils/getDateMoment";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
 import deleteUser from "../../../api/TableApi's/Admin/deleteUser";
+import { AdminEventDialog, AdminEvents } from "./AdminTable";
 
 interface colsProps {
   refresh: VoidFunction;
+  eventTarget: EventTarget;
 }
 
 export default function columnsAdmin(props: colsProps) {
@@ -72,7 +74,11 @@ export default function columnsAdmin(props: colsProps) {
           <GridActionsCellItem
             label="addRole"
             icon={<AddModeratorIcon />}
-            onClick={() => {}}
+            onClick={() => {
+              props.eventTarget.dispatchEvent(
+                new AdminEventDialog(AdminEvents.onAddRoleDialog, params.row.id)
+              );
+            }}
           />
         </Tooltip>,
         <Tooltip title={"Удалить"}>
