@@ -2,12 +2,15 @@ import { of } from "rxjs";
 import { baseRequest } from "../../../utils/baseRequest";
 import { authRetry, get, transformAxios } from "@tools/rxjs-pipes";
 import { transformError } from "../../../utils/processError";
+import { NonAttribute } from "@sql-tools/sequelize";
 
 export class User {
   login: string;
+  Roles?: NonAttribute<Array<Role & { User_Role?: User_Role }>>;
 }
 
 export class Role {
+  id?: number;
   name: string;
   title: string;
 }
@@ -21,8 +24,8 @@ export class User_Role {
 }
 
 export default function getAdminUserRole() {
-  return of("/AG/getAllUserRole").pipe(
-    get<User_Role[]>(baseRequest),
+  return of("/AG/getAllUsers").pipe(
+    get<User[]>(baseRequest),
     transformAxios(),
     transformError(),
     authRetry()

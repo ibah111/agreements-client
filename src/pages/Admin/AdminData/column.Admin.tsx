@@ -1,12 +1,13 @@
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
-import { User_Role } from "../../../api/TableApi's/Admin/getAdminDetails";
+import { User } from "../../../api/TableApi's/Admin/getAdminDetails";
 import { Tooltip } from "@mui/material";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { enqueueSnackbar } from "notistack";
 import getDateMoment from "../../../utils/getDateMoment";
+import AddModeratorIcon from "@mui/icons-material/AddModerator";
 
 export default function columnsAdmin() {
-  const cols: GridColDef<User_Role>[] = [
+  const cols: GridColDef<User>[] = [
     {
       field: "id",
       align: "center",
@@ -15,25 +16,22 @@ export default function columnsAdmin() {
       headerName: "ID пользователя",
     },
     {
-      field: "user_id",
+      field: "login",
       align: "center",
       headerAlign: "center",
       width: 150,
       headerName: "Логин",
       type: "string",
-      valueGetter(params) {
-        if (params.row.User?.login === "guest") return "Гостевой профиль";
-        return params.row.User?.login;
-      },
     },
     {
-      field: "role_id",
+      field: "role",
       align: "center",
       headerAlign: "center",
       width: 150,
       headerName: "Роль",
+      type: "string",
       valueGetter(params) {
-        return params.row.Role?.title;
+        return params.row.Roles?.map((item) => item.title);
       },
     },
     {
@@ -54,9 +52,6 @@ export default function columnsAdmin() {
       headerAlign: "center",
       width: 150,
       headerName: "Последнее обновление",
-      /**
-       * copy date formattting
-       */
       type: "Date",
       valueGetter(params) {
         const date = params.value;
@@ -68,13 +63,20 @@ export default function columnsAdmin() {
       type: "actions",
       headerName: "Действия",
       getActions: (params) => [
+        <Tooltip title={"Добавить роль"}>
+          <GridActionsCellItem
+            label="addRole"
+            icon={<AddModeratorIcon />}
+            onClick={() => {}}
+          />
+        </Tooltip>,
         <Tooltip title={"Удалить"}>
           <GridActionsCellItem
             label="Delete"
             icon={<PersonRemoveIcon />}
             onClick={() => {
-              const user_id = params.row.user_id;
-              const role_id = params.row.role_id;
+              const user_id = params.row;
+              const role_id = params.row;
               enqueueSnackbar("this method must delete user", {
                 autoHideDuration: 1000,
               });
