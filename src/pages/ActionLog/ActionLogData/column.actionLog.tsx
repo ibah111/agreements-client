@@ -1,20 +1,24 @@
 import { GridColDef } from "@mui/x-data-grid-premium";
-import { ActionLogModel } from "../../../Models/RouterGridModels/ActionLog";
+import {
+  ActionLogModel,
+  obj_t,
+} from "../../../Models/RouterGridModels/ActionLog";
 import getDateMoment from "../../../utils/getDateMoment";
+import moment from "moment";
 
 export default function columnsActionLog() {
   const columns: GridColDef<ActionLogModel>[] = [
     {
       headerAlign: "center",
       align: "center",
-      width: 150,
+      width: 100,
       headerName: "ID действия",
       field: "id",
     },
     {
       headerAlign: "center",
       align: "center",
-      width: 150,
+      width: 100,
       headerName: "ID строки",
       field: "row_id",
     },
@@ -25,21 +29,18 @@ export default function columnsActionLog() {
       headerName: "Тип действия",
       field: "actionType",
       valueFormatter(params) {
-        /**
-         * Action object
-         */
         const obj = [
           {
             num: 1,
-            action: "Создал",
+            action: "Создано соглашение",
           },
           {
             num: 2,
-            action: "Изменил/Обновил",
+            action: "Изменено поле",
           },
           {
             num: 3,
-            action: "Удалил",
+            action: "Удалил соглашение",
           },
         ];
         const ret = obj.filter((item) => item.num === params.value);
@@ -52,6 +53,13 @@ export default function columnsActionLog() {
       width: 150,
       headerName: "Поле",
       field: "field",
+      valueGetter(params) {
+        const cell_value = params.value;
+        console.log(params.value);
+        return obj_t
+          .filter((item) => item.field === cell_value)
+          .map((item) => item.name);
+      },
     },
     {
       headerAlign: "center",
@@ -60,8 +68,13 @@ export default function columnsActionLog() {
       headerName: "Старое значение",
       field: "old_value",
       valueFormatter(params) {
+        /**
+         * Пустое значение
+         */
         if (params.value === null) return "Пустое значение";
-        // console.log(`id: ${params.id}, value: ${params.value}`);
+
+        if (Number(params.value)) return 0;
+        if (moment(params.value)) return "Пустая дата";
         return params.value;
       },
     },
