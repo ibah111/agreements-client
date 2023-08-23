@@ -24,8 +24,10 @@ export enum AdminEvents {
 
 export default function AdminTable() {
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
-  const { rows, render } = useAdminGrid();
-  const cols = columnsAdmin();
+  const { rows, refresh } = useAdminGrid();
+  const cols = columnsAdmin({
+    refresh: refresh,
+  });
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     left: ["actions"],
   });
@@ -38,9 +40,10 @@ export default function AdminTable() {
   const addRoleControl = useAddRoleDialog({
     DialogTarget,
     refresh: () => {
-      render();
+      refresh();
     },
   });
+
   return (
     <>
       <Grid
@@ -58,12 +61,17 @@ export default function AdminTable() {
           rows={rows}
           slots={{ toolbar: AdminToolbar }}
           slotProps={{
-            toolbar: { render },
+            toolbar: { refresh },
           }}
         />
       </Grid>
-      {addRoleControl.open && <AddRoleDialog />}
-      {}
+      {addRoleControl.open && (
+        <AddRoleDialog
+          open={addRoleControl.open}
+          refresh={addRoleControl.closeAddRoleDialog}
+          id_user={0}
+        />
+      )}
     </>
   );
 }

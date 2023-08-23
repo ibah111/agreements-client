@@ -11,8 +11,10 @@ import React from "react";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import addUser from "../../../../api/TableApi's/Admin/addUser";
 import { enqueueSnackbar } from "notistack";
-
-export default function AddUserButton() {
+interface BottomProps {
+  refresh: VoidFunction;
+}
+export default function AddUserButton(props: BottomProps) {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<string>("");
   const condition = () => {
@@ -60,9 +62,7 @@ export default function AddUserButton() {
                       })
                     );
                     setOpen(false);
-                    /**
-                     * refresh
-                     */
+                    props.refresh();
                   }}
                 >{`Добавить`}</Button>
               </Grid>

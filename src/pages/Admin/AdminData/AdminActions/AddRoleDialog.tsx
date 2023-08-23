@@ -11,14 +11,19 @@ import React from "react";
 import useAsyncMemo from "../../../../utils/asyncMemo";
 import getAllRoles from "../../../../api/TableApi's/Admin/getAllRoles";
 
-export function AddRoleDialog() {
-  const [open, setOpen] = React.useState(false);
+interface AddRoleProps {
+  refresh: VoidFunction;
+  open: boolean;
+  id_user: number;
+}
+
+export function AddRoleDialog(props: AddRoleProps) {
   const [value, setValue] = React.useState<number>(0);
   const roles = useAsyncMemo(getAllRoles, []);
 
   return (
     <>
-      <Dialog open={open}>
+      <Dialog open={props.open} onClose={props.refresh}>
         <DialogTitle>{`Дайте роль пользователю`}</DialogTitle>
         <DialogContent>
           <Select
