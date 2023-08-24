@@ -4,7 +4,6 @@ import {
   obj_t,
 } from "../../../Models/RouterGridModels/ActionLog";
 import getDateMoment from "../../../utils/getDateMoment";
-import moment from "moment";
 
 export default function columnsActionLog() {
   const columns: GridColDef<ActionLogModel>[] = [
@@ -55,7 +54,6 @@ export default function columnsActionLog() {
       field: "field",
       valueGetter(params) {
         const cell_value = params.value;
-        console.log(params.value);
         return obj_t
           .filter((item) => item.field === cell_value)
           .map((item) => item.name);
@@ -64,26 +62,19 @@ export default function columnsActionLog() {
     {
       headerAlign: "center",
       align: "center",
-      width: 150,
+      width: 400,
       headerName: "Старое значение",
       field: "old_value",
-      valueFormatter(params) {
-        /**
-         * Пустое значение
-         */
-        if (params.value === null) return "Пустое значение";
-
-        if (Number(params.value)) return 0;
-        if (moment(params.value)) return "Пустая дата";
-        return params.value;
-      },
     },
     {
       headerAlign: "center",
       align: "center",
-      width: 150,
+      width: 400,
       headerName: "Новое значение",
       field: "new_value",
+      valueGetter(params) {
+        return params.value;
+      },
     },
     {
       field: "createdAt",
@@ -108,6 +99,12 @@ export default function columnsActionLog() {
         const value = params.row.updatedAt;
         return getDateMoment(value);
       },
+    },
+    {
+      field: "user",
+      headerName: "Пользователь",
+      headerAlign: "center",
+      align: "center",
     },
   ];
   return columns;

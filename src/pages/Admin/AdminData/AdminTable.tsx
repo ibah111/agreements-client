@@ -6,6 +6,7 @@ import { Grid } from "@mui/material";
 import React from "react";
 import useAddRoleDialog from "./AdminActions/useAddRoleDialog";
 import { AddRoleDialog } from "./AdminActions/AddRoleDialog";
+import CustomPagination from "../../../components/CustomPagination/CustomPagination";
 
 export class AdminEventDialog<Value = number | string | object> extends Event {
   constructor(type: AdminEvents, value: Value) {
@@ -59,7 +60,8 @@ export default function AdminTable() {
           onPinnedColumnsChange={handlePinnedColumnsChange}
           columns={cols}
           rows={rows}
-          slots={{ toolbar: AdminToolbar }}
+          pagination
+          slots={{ toolbar: AdminToolbar, pagination: CustomPagination }}
           slotProps={{
             toolbar: { refresh },
           }}

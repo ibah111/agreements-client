@@ -4,6 +4,7 @@ import columnDeleteData from "./column.Delete";
 import React from "react";
 import DeleteToolbar from "./DeleteToolbar";
 import { Grid } from "@mui/material";
+import CustomPagination from "../../../components/CustomPagination/CustomPagination";
 
 export default function DeleteTable() {
   const { rows, render } = useDeleteGrid();
@@ -33,8 +34,10 @@ export default function DeleteTable() {
         rows={rows}
         pinnedColumns={pinnedColumns}
         onPinnedColumnsChange={handlePinnedColumnsChange}
+        pagination
         slots={{
           toolbar: DeleteToolbar,
+          pagination: CustomPagination,
         }}
         slotProps={{
           toolbar: {

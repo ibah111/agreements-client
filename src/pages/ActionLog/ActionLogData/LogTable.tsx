@@ -3,10 +3,11 @@ import columnsActionLog from "./column.actionLog";
 import useLogGrid from "./useLogGrid";
 import LogToolbar from "./LogToolbar";
 import { Grid } from "@mui/material";
+import CustomPagination from "../../../components/CustomPagination/CustomPagination";
 
 export default function LogTable() {
   const cols = columnsActionLog();
-  const { rows } = useLogGrid();
+  const { ...logTableProps } = useLogGrid();
   return (
     <Grid
       item
@@ -17,11 +18,16 @@ export default function LogTable() {
       }}
     >
       <DataGridPremium
+        {...logTableProps}
         columns={cols}
-        rows={rows}
+        pagination
         slots={{
           toolbar: LogToolbar,
+          pagination: CustomPagination,
         }}
+        paginationMode="server"
+        filterMode="server"
+        sortingMode="server"
       />
     </Grid>
   );
