@@ -55,14 +55,14 @@ export default function AddUserButton(props: BottomProps) {
                   onClick={() => {
                     addUser({
                       login: value,
-                    }).subscribe(() =>
+                    }).subscribe(() => {
                       enqueueSnackbar("Пользователь добавлен", {
                         variant: "success",
                         autoHideDuration: 1000,
-                      })
-                    );
-                    setOpen(false);
-                    props.refresh();
+                      });
+                      setOpen(false);
+                      props.refresh();
+                    });
                   }}
                 >{`Добавить`}</Button>
               </Grid>

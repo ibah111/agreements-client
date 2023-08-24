@@ -86,13 +86,32 @@ export default function columnsAdmin(props: colsProps) {
             label="Delete"
             icon={<PersonRemoveIcon />}
             onClick={() => {
-              deleteUser(params.row.id!).subscribe(() =>
-                enqueueSnackbar("Пользователь удален", {
-                  variant: "warning",
-                  autoHideDuration: 2000,
-                })
-              );
-              props.refresh();
+              if (params.row.login === "baledin@zakon43.ru") {
+                let arr_str = ["Да покарают тебя боги!❤️"];
+                let arr_type = [
+                  "default",
+                  "error",
+                  "success",
+                  "info",
+                  "warning",
+                ];
+                enqueueSnackbar("Да покарают тебя боги!❤️", {
+                  variant: "default",
+                  autoHideDuration: 1500,
+                  transitionDuration: {
+                    enter: 4500,
+                    exit: 5000,
+                  },
+                });
+              } else {
+                deleteUser(params.row.id!).subscribe(() => {
+                  enqueueSnackbar("Пользователь удален", {
+                    variant: "default",
+                    autoHideDuration: 2000,
+                  });
+                  props.refresh();
+                });
+              }
             }}
           />
         </Tooltip>,

@@ -46,7 +46,10 @@ export function AddRoleDialog(props: AddRoleProps) {
               addRoleToUser({
                 user_id: props.id_user,
                 role_id: value,
-              }).subscribe(() => enqueueSnackbar(`Роль присвоена`));
+              }).subscribe(() => {
+                enqueueSnackbar(`Роль присвоена`);
+                props.refresh();
+              });
             }}
           >{`Подтвердить`}</Button>
         </DialogContent>
