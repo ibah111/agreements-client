@@ -7,9 +7,9 @@ import { Grid } from "@mui/material";
 import CustomPagination from "../../../components/CustomPagination/CustomPagination";
 
 export default function DeleteTable() {
-  const { rows, render } = useDeleteGrid();
+  const { rows, refresh } = useDeleteGrid();
   const cols = columnDeleteData({
-    onClose: render,
+    onClose: refresh,
   });
   const [pinnedColumns, setPinnedColumns] = React.useState<GridPinnedColumns>({
     left: ["actions"],
@@ -41,7 +41,7 @@ export default function DeleteTable() {
         }}
         slotProps={{
           toolbar: {
-            render,
+            refresh,
           },
         }}
       />

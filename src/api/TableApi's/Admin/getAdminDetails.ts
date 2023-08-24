@@ -1,8 +1,18 @@
 import { of } from "rxjs";
 import { baseRequest } from "../../../utils/baseRequest";
-import { authRetry, get, transformAxios } from "@tools/rxjs-pipes";
+import {
+  authRetry,
+  post,
+  transformAxios,
+  transformFindAndCount,
+} from "@tools/rxjs-pipes";
 import { transformError } from "../../../utils/processError";
 import { NonAttribute } from "@sql-tools/sequelize";
+import {
+  GridPaginationModel,
+  GridFilterModel,
+  GridSortModel,
+} from "@mui/x-data-grid-premium";
 
 export class User {
   id?: number;
@@ -24,11 +34,25 @@ export class User_Role {
   Role?: Role;
 }
 
-export default function getAdminUserRole() {
-  return of("/AG/getAllUsers").pipe(
-    get<User[]>(baseRequest),
+export interface UserPage {
+  /**
+   * model instance
+   */
+  rows: User[];
+  count: number;
+}
+interface getAgreementInstanceParams {
+  paginationModel: GridPaginationModel;
+  filterModel: GridFilterModel;
+  sortModel: GridSortModel;
+}
+
+export default function getAdminUserRole(params: getAgreementInstanceParams) {
+  return of(params).pipe(
+    post<UserPage>(baseRequest, "/AG/getAllUsers"),
     transformAxios(),
     transformError(),
-    authRetry()
+    authRetry(),
+    transformFindAndCount(User)
   );
 }

@@ -24,7 +24,7 @@ export enum AdminEvents {
 
 export default function AdminTable() {
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
-  const { rows, refresh } = useAdminGrid();
+  const { rows, refresh } = useAdminGrid(DialogTarget);
   const cols = columnsAdmin({
     refresh: refresh,
     eventTarget: DialogTarget,
