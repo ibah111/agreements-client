@@ -2,7 +2,7 @@ import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import { User } from "../../../api/TableApi's/Admin/getAdminDetails";
 import { Tooltip } from "@mui/material";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
-import { enqueueSnackbar } from "notistack";
+import { SharedProps, enqueueSnackbar } from "notistack";
 import getDateMoment from "../../../utils/getDateMoment";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
 import deleteUser from "../../../api/TableApi's/Admin/deleteUser";
@@ -87,20 +87,23 @@ export default function columnsAdmin(props: colsProps) {
             icon={<PersonRemoveIcon />}
             onClick={() => {
               if (params.row.login === "baledin@zakon43.ru") {
-                let arr_str = ["Да покарают тебя боги!❤️"];
-                let arr_type = [
-                  "default",
-                  "error",
-                  "success",
-                  "info",
-                  "warning",
+                let items = [
+                  "Нельзя",
+                  "А что это ты делаешь?",
+                  "Тебе в детстве не говорили что нельзя удалять создателей? О_о",
                 ];
-                enqueueSnackbar("Да покарают тебя боги!❤️", {
-                  variant: "default",
+                let arr = items[Math.floor(Math.random() * items.length)];
+                let types = ["error", "info", "warning"];
+                let r_type = types[
+                  Math.floor(Math.random() * items.length)
+                ] as SharedProps;
+                enqueueSnackbar(arr, {
+                  //@ts-ignore
+                  variant: r_type,
                   autoHideDuration: 1500,
                   transitionDuration: {
-                    enter: 4500,
-                    exit: 5000,
+                    enter: 2250,
+                    exit: 1000,
                   },
                 });
               } else {
