@@ -21,7 +21,7 @@ export default function Toolbar(props: ToolbarProps) {
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
       <RefreshToolbarButton refresh={props.refresh} />
-      <Can I={Action.Create} a={Subject.Preview}>
+      <Can I={Action.Create} a={Subject.AgreementToDebt}>
         <AddDebtLinkButton setOpen={props.setOpen} />
       </Can>
     </GridToolbarContainer>

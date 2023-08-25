@@ -23,7 +23,6 @@ export default function useCommentColumns() {
           >
             {tpy}
           </Grid>
-          // <pre style={{ overflow: "hidden" }}>{tpy}</pre>
         );
       },
     },
@@ -34,7 +33,11 @@ export default function useCommentColumns() {
       headerName: "Автор",
       field: "user",
       valueGetter(params) {
-        return params.row.User.login;
+        if (params.row.User === null) {
+          return "";
+        } else {
+          return params.row.User.login;
+        }
       },
     },
   ];

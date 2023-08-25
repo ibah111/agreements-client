@@ -12,6 +12,8 @@ import React from "react";
 import restoreDeleted from "../../../api/TableApi's/restoreDeleted";
 import { enqueueSnackbar } from "notistack";
 import forceDeleted from "../../../api/TableApi's/forceDelete";
+import { Can } from "../../../casl/casl";
+import { Action, Subject } from "../../../casl/casl.factory";
 
 interface RestoreProps {
   id_agreement: number;
@@ -32,34 +34,38 @@ export default function ActionButton(props: RestoreProps) {
       <DialogContent>
         <Grid item container>
           <Grid item xs={6}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                forceDeleted(props.id_agreement).subscribe(() => {
-                  enqueueSnackbar("Соглашение удалено", {
-                    variant: "warning",
-                    autoHideDuration: 1000,
+            <Can I={Action.Delete} a={Subject.Admin}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  forceDeleted(props.id_agreement).subscribe(() => {
+                    enqueueSnackbar("Соглашение удалено", {
+                      variant: "warning",
+                      autoHideDuration: 1000,
+                    });
+                    props.onClose();
                   });
-                  props.onClose();
-                });
-              }}
-              color="error"
-            >{`Удалить`}</Button>
+                }}
+                color="error"
+              >{`Удалить`}</Button>
+            </Can>
           </Grid>
           <Grid item xs={6}>
-            <Button
-              variant="contained"
-              onClick={() => {
-                restoreDeleted(props.id_agreement).subscribe(() => {
-                  enqueueSnackbar("Соглашение восстановлено", {
-                    variant: "success",
-                    autoHideDuration: 1000,
+            <Can I={Action.Restore} a={Subject.Admin}>
+              <Button
+                variant="contained"
+                onClick={() => {
+                  restoreDeleted(props.id_agreement).subscribe(() => {
+                    enqueueSnackbar("Соглашение восстановлено", {
+                      variant: "success",
+                      autoHideDuration: 1000,
+                    });
+                    props.onClose();
                   });
-                  props.onClose();
-                });
-              }}
-              color="success"
-            >{`Восстановить`}</Button>
+                }}
+                color="success"
+              >{`Восстановить`}</Button>
+            </Can>
           </Grid>
         </Grid>
       </DialogContent>

@@ -7,6 +7,8 @@ import getDateMoment from "../../../utils/getDateMoment";
 import AddModeratorIcon from "@mui/icons-material/AddModerator";
 import deleteUser from "../../../api/TableApi's/Admin/deleteUser";
 import { AdminEventDialog, AdminEvents } from "./AdminTable";
+import { Can } from "../../../casl/casl";
+import { Action, Subject } from "../../../casl/casl.factory";
 
 interface colsProps {
   refresh: VoidFunction;
@@ -70,54 +72,63 @@ export default function columnsAdmin(props: colsProps) {
       type: "actions",
       headerName: "Действия",
       getActions: (params) => [
-        <Tooltip title={"Добавить роль"}>
-          <GridActionsCellItem
-            label="addRole"
-            icon={<AddModeratorIcon />}
-            onClick={() => {
-              props.eventTarget.dispatchEvent(
-                new AdminEventDialog(AdminEvents.onAddRoleDialog, params.row.id)
-              );
-            }}
-          />
-        </Tooltip>,
-        <Tooltip title={"Удалить"}>
-          <GridActionsCellItem
-            label="Delete"
-            icon={<PersonRemoveIcon />}
-            onClick={() => {
-              if (params.row.login === "baledin@zakon43.ru") {
-                let items = [
-                  "Нельзя",
-                  "А что это ты делаешь?",
-                  "Тебе в детстве не говорили что нельзя удалять создателей? О_о",
-                ];
-                let arr = items[Math.floor(Math.random() * items.length)];
-                let types = ["error", "info", "warning"];
-                let r_type = types[
-                  Math.floor(Math.random() * items.length)
-                ] as SharedProps;
-                enqueueSnackbar(arr, {
-                  //@ts-ignore
-                  variant: r_type,
-                  autoHideDuration: 1500,
-                  transitionDuration: {
-                    enter: 2250,
-                    exit: 1000,
-                  },
-                });
-              } else {
-                deleteUser(params.row.id!).subscribe(() => {
-                  enqueueSnackbar("Пользователь удален", {
-                    variant: "default",
-                    autoHideDuration: 2000,
-                  });
-                  props.refresh();
-                });
-              }
-            }}
-          />
-        </Tooltip>,
+        <>
+          <Can I={Action.Create} a={Subject.Admin}>
+            <Tooltip title={"Добавить роль"}>
+              <GridActionsCellItem
+                label="addRole"
+                icon={<AddModeratorIcon />}
+                onClick={() => {
+                  props.eventTarget.dispatchEvent(
+                    new AdminEventDialog(
+                      AdminEvents.onAddRoleDialog,
+                      params.row.id
+                    )
+                  );
+                }}
+              />
+            </Tooltip>
+          </Can>
+          <Can I={Action.Create} a={Subject.Admin}>
+            <Tooltip title={"Удалить"}>
+              <GridActionsCellItem
+                label="Delete"
+                icon={<PersonRemoveIcon />}
+                onClick={() => {
+                  if (params.row.login === "baledin@zakon43.ru") {
+                    let items = [
+                      "Нельзя",
+                      "А что это ты делаешь?",
+                      "Тебе в детстве не говорили что нельзя удалять создателей? О_о",
+                    ];
+                    let arr = items[Math.floor(Math.random() * items.length)];
+                    let types = ["error", "info", "warning"];
+                    let r_type = types[
+                      Math.floor(Math.random() * items.length)
+                    ] as SharedProps;
+                    enqueueSnackbar(arr, {
+                      //@ts-ignore
+                      variant: r_type,
+                      autoHideDuration: 1500,
+                      transitionDuration: {
+                        enter: 2250,
+                        exit: 1000,
+                      },
+                    });
+                  } else {
+                    deleteUser(params.row.id!).subscribe(() => {
+                      enqueueSnackbar("Пользователь удален", {
+                        variant: "default",
+                        autoHideDuration: 2000,
+                      });
+                      props.refresh();
+                    });
+                  }
+                }}
+              />
+            </Tooltip>
+          </Can>
+        </>,
       ],
     },
   ];

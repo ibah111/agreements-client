@@ -140,7 +140,7 @@ export default function useColumns(
         description: "Удалить",
         type: "actions",
         getActions: (params) => [
-          <Can I={Action.Delete} a={Subject.Agreement}>
+          <Can I={Action.Delete} a={Subject.AgreementToDebt}>
             <DeleteButton
               debtId={params.row.id_debt}
               agreementId={params.row.id_agreement}

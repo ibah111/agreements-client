@@ -7,6 +7,7 @@ interface CommentToolbarProps {
   refresh: VoidFunction;
   setOpen: VoidFunction;
 }
+
 export default function CommentToolbar(props: CommentToolbarProps) {
   return (
     <GridToolbarContainer>

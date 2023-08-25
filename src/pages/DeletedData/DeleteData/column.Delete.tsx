@@ -3,6 +3,8 @@ import { GridColDef } from "@mui/x-data-grid-premium";
 import { AgreementInstance } from "../../../Reducer/Agreement/AgreementInstance";
 import getDateMoment from "../../../utils/getDateMoment";
 import ActionButton from "./RestoreButton";
+import { Can } from "../../../casl/casl";
+import { Action, Subject } from "../../../casl/casl.factory";
 
 interface DelDataProps {
   onClose: VoidFunction;
@@ -151,7 +153,9 @@ export default function columnDeleteData(props: DelDataProps) {
       headerName: "Действия",
       type: "actions",
       getActions: (params) => [
-        <ActionButton id_agreement={params.row.id} onClose={props.onClose} />,
+        <Can I={Action.Read} a={Subject.Admin}>
+          <ActionButton id_agreement={params.row.id} onClose={props.onClose} />
+        </Can>,
       ],
     },
   ];

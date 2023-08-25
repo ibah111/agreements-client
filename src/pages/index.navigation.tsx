@@ -1,28 +1,41 @@
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, AppBar } from "@mui/material";
 import React from "react";
 import { NavLink, NavLinkProps } from "react-router-dom";
+import { Action, Subject } from "../casl/casl.factory";
+import { useAbility } from "@casl/react";
+import { CaslContext } from "../casl/casl";
 
 interface MenuItem {
   name: string;
   path: string;
+  action?: Action;
+  subject?: Subject;
 }
 
 const useMenu = (): MenuItem[] => [
   {
     name: "Главная",
     path: "/",
+    subject: Subject.Agreement,
+    action: Action.Read,
   },
   {
     name: "Админ",
     path: "/Admin",
+    action: Action.Read,
+    subject: Subject.Admin,
   },
   {
     name: "Журнал",
     path: "/ActionLog",
+    action: Action.Read,
+    subject: Subject.Admin,
   },
   {
     name: "Удалено",
     path: "/DeletedData",
+    action: Action.Read,
+    subject: Subject.Admin,
   },
 ];
 
@@ -44,7 +57,7 @@ const ReactNavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
 
 export default function Navigation() {
   const pages = useMenu();
-
+  const ability = useAbility(CaslContext);
   const OldNav = () => (
     <>
       <Grid
@@ -55,27 +68,42 @@ export default function Navigation() {
         columnSpacing={1}
       >
         {pages.map((page, index) => {
-          return (
-            <Grid item key={index}>
-              <Button
-                sx={(theme) => ({
-                  whiteSpace: "nowrap",
-                  "&.ActiveLink": {
-                    background: theme.palette.action.selected,
-                  },
-                })}
-                variant="outlined"
-                component={ReactNavLink}
-                to={page.path}
-              >
-                {page.name}
-              </Button>
-            </Grid>
-          );
+          if (
+            page.action &&
+            page.subject &&
+            ability.can(page.action, page.subject)
+          ) {
+            return (
+              <Grid item key={index}>
+                <Button
+                  sx={(theme) => ({
+                    whiteSpace: "nowrap",
+                    "&.ActiveLink": {
+                      background: theme.palette.action.selected,
+                    },
+                    color: "white",
+                  })}
+                  variant="text"
+                  component={ReactNavLink}
+                  to={page.path}
+                >
+                  {page.name}
+                </Button>
+              </Grid>
+            );
+          } else {
+            return <div key={index}></div>;
+          }
         })}
       </Grid>
     </>
   );
 
-  return <OldNav />;
+  return (
+    <AppBar position="static">
+      <Grid container>
+        <OldNav />
+      </Grid>
+    </AppBar>
+  );
 }

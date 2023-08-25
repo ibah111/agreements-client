@@ -8,6 +8,7 @@ export enum Action {
   Update = "update",
   Permit = "permit",
   Delete = "delete",
+  Restore = "restore",
 }
 export enum Subject {
   Debt = "Debt",
@@ -16,6 +17,7 @@ export enum Subject {
   Agreement = "agreement",
   AgreementToDebt = "agreementToDebt",
   DebtCalc = "DebtCalc",
+  Admin = "Admin",
 }
 export type Subjects = Subject | "all";
 export type AppAbility = PureAbility<[Action, Subjects]>;
@@ -26,9 +28,11 @@ export function createUserAbility(user?: AuthUserSuccess) {
   can(Action.Read, Subject.Agreement);
   if (!user) return build();
   if (roles?.includes("moderator")) {
-    can([Action.Create, Action.Update], Subject.Agreement);
-    can([Action.Create, Action.Read], Subject.AgreementToDebt);
+    can([Action.Create, Action.Update, Action.Delete], Subject.Agreement);
+    can([Action.Create, Action.Read, Action.Delete], Subject.AgreementToDebt);
     can(Action.Read, Subject.DebtCalc);
+    can([Action.Read, Action.Restore], Subject.Admin);
+    can([Action.Create], Subject.Comments);
   }
   if (roles?.includes("admin")) {
     can(Action.Manage, "all");
