@@ -1,8 +1,51 @@
 import { Grid, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import React from "react";
+import { NavLink, NavLinkProps } from "react-router-dom";
+
+interface MenuItem {
+  name: string;
+  path: string;
+}
+
+const useMenu = (): MenuItem[] => [
+  {
+    name: "Главная",
+    path: "/",
+  },
+  {
+    name: "Админ",
+    path: "/Admin",
+  },
+  {
+    name: "Журнал",
+    path: "/ActionLog",
+  },
+  {
+    name: "Удалено",
+    path: "/DeletedData",
+  },
+];
+
+const ReactNavLink = React.forwardRef<HTMLAnchorElement, NavLinkProps>(
+  (props, ref) => {
+    return (
+      <NavLink
+        ref={ref}
+        {...props}
+        className={({ isActive }) => {
+          return isActive
+            ? `${props.className} ActiveLink`
+            : (props.className as string);
+        }}
+      />
+    );
+  }
+);
 
 export default function Navigation() {
-  return (
+  const pages = useMenu();
+
+  const OldNav = () => (
     <>
       <Grid
         sx={{
@@ -11,27 +54,28 @@ export default function Navigation() {
         container
         columnSpacing={1}
       >
-        <Grid item>
-          <Button variant="outlined" component={Link} to={"/"}>
-            Main
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button variant="outlined" component={Link} to={"/Admin"}>
-            Admin
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button variant="outlined" component={Link} to={"/ActionLog"}>
-            Action log
-          </Button>
-        </Grid>
-        <Grid item>
-          <Button variant="outlined" component={Link} to={"/DeletedData"}>
-            Deleted data
-          </Button>
-        </Grid>
+        {pages.map((page, index) => {
+          return (
+            <Grid item key={index}>
+              <Button
+                sx={(theme) => ({
+                  whiteSpace: "nowrap",
+                  "&.ActiveLink": {
+                    background: theme.palette.action.selected,
+                  },
+                })}
+                variant="outlined"
+                component={ReactNavLink}
+                to={page.path}
+              >
+                {page.name}
+              </Button>
+            </Grid>
+          );
+        })}
       </Grid>
     </>
   );
+
+  return <OldNav />;
 }
