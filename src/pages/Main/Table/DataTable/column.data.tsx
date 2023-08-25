@@ -489,6 +489,18 @@ export default function useGetColumns(
         </Can>,
       ],
     },
+    {
+      field: "debt_count",
+      headerName: "Кол-во долгов",
+      width: 50,
+      description: "Количество долгов",
+      type: "number",
+      editable: false,
+      valueGetter(params) {
+        const count = params.row.debt_count;
+        return count;
+      },
+    },
   ];
   return columns.map<GridColDef<AgreementInstance>>((item) => ({
     ...item,

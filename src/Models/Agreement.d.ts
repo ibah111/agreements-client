@@ -88,4 +88,6 @@ export class Agreement extends Model<
   Person?: NonAttribute<Person>;
   Comments?: NonAttribute<Comments[]>;
   Payments: NonAttribute<Payments[]>;
+
+  debt_count: number;
 }

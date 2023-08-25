@@ -64,7 +64,7 @@ export function useGrid(
         "portfolio",
         "payable_status",
       ],
-      right: ["finish_date", "Card_IP", "actions"],
+      right: ["debt_count", "finish_date", "Card_IP", "actions"],
     });
   const [filterModel, onFilterModelChange] = React.useState<GridFilterModel>({
     items: [],

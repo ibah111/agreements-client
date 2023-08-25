@@ -22,6 +22,7 @@ export default function SyncOneIcon(props: UpdateButtonProps) {
             enqueueSnackbar(`Соглашение ${props.id_agreement} обновлено`, {
               variant: "success",
             });
+            props.refresh();
           });
         }}
       />

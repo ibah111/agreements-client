@@ -160,4 +160,7 @@ export class AgreementInstance implements AgreementData {
   firstPaymentDate?: moment.Moment;
   sumAfterAgr: number | null;
   sumBeforeAgr: number | null;
+
+  @IsOptional()
+  debt_count: number;
 }

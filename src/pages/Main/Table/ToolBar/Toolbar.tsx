@@ -12,6 +12,8 @@ import DeleteRowButton from "./DeleteRowButton";
 import SwitchTheme from "../../../../components/ThemeProvider/SwitchTheme/SwitchTheme";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import SyncAllButton from "./SyncAllButton";
+import { Can } from "../../../../casl/casl";
+import { Action, Subject } from "../../../../casl/casl.factory";
 
 interface AgreementTableToolbarProps {
   refresh: VoidFunction;
@@ -29,7 +31,10 @@ export default function AgreementTableToolbar(
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
       <RefreshToolbarButton refresh={props.refresh} />
-      {/* <SyncAllButton refresh={props.refresh} /> */}
+      <Can I={Action.Update} a={Subject.Admin}>
+        <SyncAllButton refresh={props.refresh} />
+      </Can>
+
       <AddAgreement handleOpen={props.handleOpen} />
       <DeleteRowButton refresh={props.refresh} />
       <CheckboxRowHeight onClick={props.refreshHeight} />
