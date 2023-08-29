@@ -7,4 +7,5 @@ export class Payments {
   sum_owe: number;
   status: boolean;
   user?: User;
+  x: number;
 }

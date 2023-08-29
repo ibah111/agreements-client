@@ -10,6 +10,7 @@ interface FormProps {
 export default function ScheduleForm(props: FormProps) {
   const [sum, setSum] = React.useState<number>(0);
   const [date, setDate] = React.useState<Date>();
+  const [count, setCount] = React.useState<number>(1);
 
   const condition = () => {
     if (sum === 0 || date === undefined) return true;
@@ -44,6 +45,19 @@ export default function ScheduleForm(props: FormProps) {
         />
       </Grid>
       <Grid xs={2} item>
+        <TextField
+          label="Количество платежей"
+          type="number"
+          value={count}
+          onChange={(event) => {
+            setCount(Number(event.target.value));
+          }}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">₽</InputAdornment>,
+          }}
+        />
+      </Grid>
+      <Grid xs={2} item>
         <Button
           disabled={condition()}
           size="large"
@@ -55,6 +69,7 @@ export default function ScheduleForm(props: FormProps) {
               pay_day: date!,
               sum_owe: sum,
               status: false,
+              x: count,
             }).subscribe(() => {
               enqueueSnackbar("Платёж добавлен", {
                 variant: "info",
