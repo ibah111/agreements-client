@@ -196,6 +196,7 @@ export default function AgreementTable() {
           open={scheduleDialogControl.openSchedule}
           id_agreement={scheduleDialogControl.agreementId}
           onClose={scheduleDialogControl.handleCloseSchedule}
+          DialogTarget={DialogTarget}
         />
       )}
     </Grid>

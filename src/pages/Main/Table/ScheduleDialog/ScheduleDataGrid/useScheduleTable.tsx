@@ -3,7 +3,10 @@ import { Payments } from "../../../../../Models/Payments";
 import getSchedule from "../../../../../api/SchedulePayments/getSchedule";
 import { scheduleColumns } from "./scheduleColumns";
 
-export default function useScheduleTable(id_agreement: number) {
+export default function useScheduleTable(
+  id_agreement: number,
+  DialogTarget: EventTarget
+) {
   const [schedule, setSchedule] = React.useState<Payments[]>();
   const [loading, setLoading] = React.useState(false);
 
@@ -13,7 +16,6 @@ export default function useScheduleTable(id_agreement: number) {
     request.add(() => setLoading(false));
     return request.unsubscribe.bind(request);
   }, [id_agreement]);
-  const DialogTarget = React.useMemo(() => new EventTarget(), []);
   const columns = scheduleColumns(refresh, DialogTarget);
 
   React.useEffect(() => {

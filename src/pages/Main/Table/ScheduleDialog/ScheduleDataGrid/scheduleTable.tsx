@@ -16,24 +16,27 @@ export class ScheduleEventsClass<
   value: Value;
 }
 
-interface ScheduleProps {
-  id_agreement: number;
-  refresh: VoidFunction;
-}
-
 export enum ScheduleEvents {
   onEditPayment = "onEditPayment",
 }
 
+interface ScheduleProps {
+  id_agreement: number;
+  refresh: VoidFunction;
+}
 export default function ScheduleTable(props: ScheduleProps) {
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
   const { rows, loading, refresh, columns } = useScheduleTable(
-    props.id_agreement
+    props.id_agreement,
+    DialogTarget
   );
   const check_rows = () => {
     if (!rows) return [];
     else return rows;
   };
+  /**
+   * target
+   */
 
   const updateControls = useUpdateFormControl({
     DialogTarget,
@@ -70,11 +73,14 @@ export default function ScheduleTable(props: ScheduleProps) {
           toolbar: { refresh },
         }}
       />
-      <UpdateForm
-        id_payment={updateControls.paymentId}
-        open={updateControls.open}
-        refresh={updateControls.closeDialog}
-      />
+
+      {updateControls.open && (
+        <UpdateForm
+          open={updateControls.open}
+          id_payment={updateControls.paymentId}
+          refresh={updateControls.closeDialog}
+        />
+      )}
     </>
   );
 }

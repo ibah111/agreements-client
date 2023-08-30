@@ -13,9 +13,10 @@ interface ScheduleDialogProps {
   id_agreement: number;
   open: boolean;
   onClose: VoidFunction;
+  DialogTarget: EventTarget;
 }
 export default function ScheduleDialog(props: ScheduleDialogProps) {
-  const { refresh } = useScheduleTable(props.id_agreement);
+  const { refresh } = useScheduleTable(props.id_agreement, props.DialogTarget);
 
   return (
     <>
@@ -24,7 +25,7 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
         <Divider />
         <DialogContent>
           <Grid container spacing={1}>
-            <ScheduleForm id_agreement={props.id_agreement} refresh={refresh} />
+            <ScheduleForm id_agreement={props.id_agreement} />
           </Grid>
         </DialogContent>
         <Divider />
