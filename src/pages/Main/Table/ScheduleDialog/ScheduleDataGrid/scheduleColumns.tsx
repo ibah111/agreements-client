@@ -1,12 +1,17 @@
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import { Payments } from "../../../../../Models/Payments";
 import { Delete, Refresh } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
 import deletePayment from "../../../../../api/SchedulePayments/deletePayment";
 import { enqueueSnackbar } from "notistack";
 import updateStatus from "../../../../../api/SchedulePayments/updateStatus";
 import getDateMoment from "../../../../../utils/getDateMoment";
+import { ScheduleEvents, ScheduleEventsClass } from "./scheduleTable";
 
-export function scheduleColumns(refresh: VoidFunction) {
+export function scheduleColumns(
+  refresh: VoidFunction,
+  eventTarget: EventTarget
+) {
   const scheduleColumns: GridColDef<Payments>[] = [
     {
       headerAlign: "center",
@@ -59,6 +64,18 @@ export function scheduleColumns(refresh: VoidFunction) {
       type: "actions",
       getActions(params) {
         return [
+          <GridActionsCellItem
+            label="Edit"
+            icon={<EditIcon />}
+            onClick={() => {
+              eventTarget?.dispatchEvent(
+                new ScheduleEventsClass(
+                  ScheduleEvents.onEditPayment,
+                  params.row.id
+                )
+              );
+            }}
+          />,
           <GridActionsCellItem
             label="Удалить"
             icon={<Delete />}

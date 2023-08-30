@@ -5,7 +5,7 @@ import addPayment from "../../../../api/SchedulePayments/addPayment";
 import { enqueueSnackbar } from "notistack";
 interface FormProps {
   id_agreement: number;
-  refreshTab: VoidFunction;
+  refresh: VoidFunction;
 }
 export default function ScheduleForm(props: FormProps) {
   const [sum, setSum] = React.useState<number>(0);
@@ -75,7 +75,7 @@ export default function ScheduleForm(props: FormProps) {
                 variant: "info",
                 autoHideDuration: 1000,
               });
-              props.refreshTab();
+              props.refresh();
             });
           }}
         >

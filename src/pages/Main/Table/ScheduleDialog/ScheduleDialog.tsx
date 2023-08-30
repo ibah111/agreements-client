@@ -24,16 +24,16 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
         <Divider />
         <DialogContent>
           <Grid container spacing={1}>
-            <ScheduleForm
-              id_agreement={props.id_agreement}
-              refreshTab={refresh}
-            />
+            <ScheduleForm id_agreement={props.id_agreement} refresh={refresh} />
           </Grid>
         </DialogContent>
         <Divider />
         <DialogContent>
           <Grid>
-            <ScheduleTable id_agreement={props.id_agreement} />
+            <ScheduleTable
+              id_agreement={props.id_agreement}
+              refresh={refresh}
+            />
           </Grid>
         </DialogContent>
       </Dialog>
