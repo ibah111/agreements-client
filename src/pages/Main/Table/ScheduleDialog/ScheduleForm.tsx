@@ -6,12 +6,13 @@ import { enqueueSnackbar } from "notistack";
 import useScheduleTable from "./ScheduleDataGrid/useScheduleTable";
 interface FormProps {
   id_agreement: number;
+  DialogTarget: EventTarget;
 }
 export default function ScheduleForm(props: FormProps) {
   const [sum, setSum] = React.useState<number>(0);
   const [date, setDate] = React.useState<Date>();
   const [count, setCount] = React.useState<number>(1);
-  const { refresh } = useScheduleTable(props.id_agreement);
+  const { refresh } = useScheduleTable(props.id_agreement, props.DialogTarget);
   const condition = () => {
     if (sum === 0 || date === undefined) return true;
     else if (sum >= 0 || date !== undefined) return false;
@@ -51,9 +52,6 @@ export default function ScheduleForm(props: FormProps) {
           value={count}
           onChange={(event) => {
             setCount(Number(event.target.value));
-          }}
-          InputProps={{
-            endAdornment: <InputAdornment position="end">₽</InputAdornment>,
           }}
         />
       </Grid>

@@ -25,7 +25,10 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
         <Divider />
         <DialogContent>
           <Grid container spacing={1}>
-            <ScheduleForm id_agreement={props.id_agreement} />
+            <ScheduleForm
+              id_agreement={props.id_agreement}
+              DialogTarget={props.DialogTarget}
+            />
           </Grid>
         </DialogContent>
         <Divider />

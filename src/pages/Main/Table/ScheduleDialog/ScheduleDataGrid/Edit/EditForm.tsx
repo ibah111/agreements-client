@@ -26,27 +26,9 @@ export default function UpdateForm(props: updateFormProps) {
     if (sum === 0 || date === undefined) return true;
     else if (sum! >= 0 || date !== undefined) return false;
   };
-
   return (
     <Dialog open={props.open} onClose={props.refresh} fullWidth maxWidth={"sm"}>
       <DialogTitle>{`Обновить данные платежа ${props.id_payment}`}</DialogTitle>
-      <Divider />
-      <DialogContent>
-        <Grid container spacing={1} alignItems="baseline">
-          <Grid item>
-            <DatePicker disabled={true} />
-          </Grid>
-          <Grid item>
-            <TextField
-              disabled={true}
-              type="number"
-              InputProps={{
-                endAdornment: <InputAdornment position="end">₽</InputAdornment>,
-              }}
-            />
-          </Grid>
-        </Grid>
-      </DialogContent>
       <Divider />
       <DialogContent>
         <Grid container spacing={1} alignItems="baseline">
