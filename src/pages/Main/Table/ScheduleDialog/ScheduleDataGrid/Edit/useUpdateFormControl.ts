@@ -1,6 +1,8 @@
 import React from "react";
 import { ScheduleEvents, ScheduleEventsClass } from "../scheduleTable";
 import getPayment from "../../../../../../api/SchedulePayments/getPayment";
+import { enqueueSnackbar } from "notistack";
+import moment from "moment";
 
 interface UpdateFormControlOptions {
   DialogTarget: EventTarget;
@@ -20,17 +22,16 @@ export default function useUpdateFormControl(
     const callback = ((e: ScheduleEventsClass) => {
       setPaymentId(e.value as number);
       setOpen(true);
-      getPayment(e.value as number).subscribe((params) => {
-        setPrevDate(params.pay_day);
-        setPrevSum(params.sum_owe);
-      });
     }) as EventListener;
-
+    getPayment(paymentId).subscribe((params) => {
+      setPrevDate(params.pay_day);
+      setPrevSum(params.sum_owe);
+    });
     options?.DialogTarget.addEventListener(
       ScheduleEvents.onEditPayment,
       callback
     );
-  }, [options?.DialogTarget, prevDate, prevSum]);
+  }, [options?.DialogTarget, paymentId, prevDate, prevSum]);
 
   const closeDialog = React.useCallback(() => {
     setPaymentId(0);
@@ -38,5 +39,13 @@ export default function useUpdateFormControl(
     options?.onClose?.();
   }, [options]);
 
-  return { open, closeDialog, paymentId, prevDate, prevSum };
+  return {
+    open,
+    closeDialog,
+    paymentId,
+    prevDate,
+    prevSum,
+    setPrevDate,
+    setPrevSum,
+  };
 }

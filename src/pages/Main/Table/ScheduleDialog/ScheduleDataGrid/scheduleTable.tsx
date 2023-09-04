@@ -3,7 +3,7 @@ import useScheduleTable from "./useScheduleTable";
 import ScheduleToolbar from "./ScheduleToolbar/ScheduleToolbar";
 import DetailPage from "./DetailPanelContent/DetailPage";
 import React from "react";
-import useUpdateFormControl from "./Edit/useEdit";
+import useUpdateFormControl from "./Edit/useUpdateFormControl";
 import UpdateForm from "./Edit/EditForm";
 
 export class ScheduleEventsClass<
