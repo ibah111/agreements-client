@@ -19,6 +19,7 @@ export function scheduleColumns(
       field: "id_agreement",
       type: "number",
       width: 100,
+      aggregable: false,
     },
     {
       headerAlign: "center",
@@ -27,8 +28,10 @@ export function scheduleColumns(
       headerName: "ID платежа",
       description: "id платежа в графике",
       type: "number",
+      aggregable: false,
     },
     {
+      aggregable: false,
       headerAlign: "center",
       headerName: "День платежа",
       width: 150,
@@ -48,6 +51,26 @@ export function scheduleColumns(
       type: "number",
     },
     {
+      headerAlign: "center",
+      headerName: "Осталось/Переплачено",
+      width: 150,
+      field: "sum_left",
+      align: "center",
+      type: "number",
+    },
+    {
+      headerAlign: "center",
+      align: "center",
+      field: "calc_id",
+      width: 75,
+      headerName: "Кол-во платежей",
+      description: "Количество привязанных платежей к графику",
+      valueGetter(params) {
+        return params.row.Calcs?.map((i) => i.id_debt_calc).length;
+      },
+    },
+    {
+      aggregable: false,
       width: 100,
       headerName: "Статус",
       headerAlign: "center",
@@ -56,6 +79,7 @@ export function scheduleColumns(
       align: "center",
     },
     {
+      aggregable: false,
       width: 150,
       headerName: "Действия",
       headerAlign: "center",

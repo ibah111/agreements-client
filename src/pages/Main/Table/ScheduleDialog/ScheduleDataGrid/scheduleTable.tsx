@@ -53,7 +53,6 @@ export default function ScheduleTable(props: ScheduleProps) {
           id_agreement: false,
         }}
         disableColumnPinning
-        disableAggregation
         disableRowGrouping
         columns={columns}
         rows={check_rows()}
