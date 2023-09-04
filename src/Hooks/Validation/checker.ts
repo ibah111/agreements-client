@@ -21,7 +21,7 @@ export class TranslateMessage {
 
 export default function checker<T extends object, F>(
   example: ClassConstructor<T>,
-  name: string,
+  name: keyof T,
   value: F,
   additional?: T
 ): CheckerResult {
@@ -40,9 +40,9 @@ export default function checker<T extends object, F>(
     },
     { enableImplicitConversion: true }
   );
-  result.required = requiredCheck(dataNull, name);
+  result.required = requiredCheck(dataNull, name as string);
   const errors = validateSync(data, { skipUndefinedProperties: true });
-  result.error = errorCheck(errors, name);
-  result.helperText = helperCheck(errors, name);
+  result.error = errorCheck(errors, name as string);
+  result.helperText = helperCheck(errors, name as string);
   return result;
 }
