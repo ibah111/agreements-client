@@ -80,3 +80,61 @@ export default function useField<
     ...additionalData,
   };
 }
+
+type KeysToTuple<
+  Obj extends object,
+  T extends SimpleKeys<Obj>
+> = T extends SimpleKeys<Obj> ? Field<Obj, T> : never;
+
+export function useForm<T extends object, Keys extends SimpleKeys<T>>(
+  fields: KeysToTuple<T, Keys>[],
+  onSubmit: (formData: T) => void,
+  initValues?: T
+) {
+  const handleSubmit = React.useCallback(() => {
+    const formData = {} as T;
+    for (const field of fields) {
+      //@ts-expect-error Типы не смог свести
+      formData[field.name] = field.value;
+    }
+    onSubmit(formData);
+  }, [fields, onSubmit]);
+
+  const setForm = React.useCallback(
+    (instance: T) => {
+      for (const field of fields) {
+        const instanceField = instance[field.name];
+        //@ts-expect-error Типы не смог свести
+        field.onChange(instanceField);
+      }
+    },
+    [fields]
+  );
+
+  const getFormData = React.useCallback(() => {
+    const formData = {} as T;
+    for (const field of fields) {
+      //@ts-expect-error Типы не смог свести
+      formData[field.name] = field.value;
+    }
+    return formData;
+  }, [fields]);
+
+  const getErrors = React.useCallback(() => {
+    const formData = {} as Record<keyof T, string>;
+    for (const field of fields) {
+      //@ts-expect-error Типы не смог свести
+      formData[field.name] = field.helperText;
+    }
+    return formData;
+  }, [fields]);
+
+  React.useEffect(() => {
+    if (initValues) {
+      setForm(initValues);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return { handleSubmit, setForm, getFormData, getErrors };
+}
