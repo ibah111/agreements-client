@@ -1,7 +1,8 @@
 import React from "react";
 import type moment from "moment-timezone";
-import checker from "../Hooks/Validation/checker";
+import checker from "./Validation/checker";
 import { ClassConstructor } from "class-transformer";
+import useAdditionalCheckerData from "./Validation/useAdditionalData";
 
 export type IsSimple<
   Item extends object,
@@ -49,6 +50,8 @@ export default function useField<
     checker(example, name, initValue, validationAdditionalData);
   }, [example, initValue, name, validationAdditionalData]);
 
+  const additionalData = useAdditionalCheckerData(example, name);
+
   const onChange = React.useCallback(
     (value: Example[Key]) => {
       const result = checker(
@@ -74,5 +77,6 @@ export default function useField<
     name,
     resetValue,
     value: field || "",
+    ...additionalData,
   };
 }
