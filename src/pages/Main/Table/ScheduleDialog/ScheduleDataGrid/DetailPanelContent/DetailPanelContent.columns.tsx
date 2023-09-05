@@ -17,6 +17,13 @@ export default function useDetailCols() {
   const detailPanelColumns = React.useMemo<GridColDef<DebtCalcInstance>[]>(
     () => [
       {
+        field: "parent_id",
+        align: "center",
+        headerAlign: "center",
+        headerName: "ID долга",
+        description: "По какому долгу был внесен платеж",
+      },
+      {
         align: "center",
         headerAlign: "center",
         headerName: "Дата платежа",
@@ -48,7 +55,6 @@ export default function useDetailCols() {
         align: "center",
         headerAlign: "center",
         headerName: "Дата занесения в КСК",
-
         valueGetter(params) {
           return moment(params.row.dt).format("DD.MM.YYYY");
         },

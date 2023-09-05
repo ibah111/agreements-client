@@ -6,7 +6,7 @@ import deletePayment from "../../../../../api/SchedulePayments/deletePayment";
 import { enqueueSnackbar } from "notistack";
 import updateStatus from "../../../../../api/SchedulePayments/updateStatus";
 import getDateMoment from "../../../../../utils/getDateMoment";
-import { ScheduleEvents, ScheduleEventsClass } from "./scheduleTable";
+import { ScheduleEventsClass, ScheduleEvents } from "../ScheduleDialog";
 
 export function scheduleColumns(
   refresh: VoidFunction,

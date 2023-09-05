@@ -3,16 +3,15 @@ import { DatePicker } from "@mui/x-date-pickers-pro";
 import React from "react";
 import addPayment from "../../../../api/SchedulePayments/addPayment";
 import { enqueueSnackbar } from "notistack";
-import useScheduleTable from "./ScheduleDataGrid/useScheduleTable";
 interface FormProps {
   id_agreement: number;
   DialogTarget: EventTarget;
+  refresh: () => void;
 }
 export default function ScheduleForm(props: FormProps) {
   const [sum, setSum] = React.useState<number>(0);
   const [date, setDate] = React.useState<Date>();
   const [count, setCount] = React.useState<number>(1);
-  const { refresh } = useScheduleTable(props.id_agreement, props.DialogTarget);
   const condition = () => {
     if (sum === 0 || date === undefined) return true;
     else if (sum >= 0 || date !== undefined) return false;
@@ -73,7 +72,7 @@ export default function ScheduleForm(props: FormProps) {
                 variant: "info",
                 autoHideDuration: 1000,
               });
-              refresh();
+              props.refresh();
             });
           }}
         >

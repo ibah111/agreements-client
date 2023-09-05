@@ -1,5 +1,5 @@
 import React from "react";
-import { ScheduleEvents, ScheduleEventsClass } from "../scheduleTable";
+import { ScheduleEvents, ScheduleEventsClass } from "../../ScheduleDialog";
 
 interface UpdateFormControlOptions {
   DialogTarget: EventTarget;

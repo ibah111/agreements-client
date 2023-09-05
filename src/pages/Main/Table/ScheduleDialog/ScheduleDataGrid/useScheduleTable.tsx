@@ -13,7 +13,9 @@ export default function useScheduleTable(
   const refresh = React.useCallback(() => {
     setLoading(true);
     const request = getSchedule(id_agreement).subscribe(setSchedule);
-    request.add(() => setLoading(false));
+    request.add(() => {
+      setLoading(false);
+    });
     return request.unsubscribe.bind(request);
   }, [id_agreement]);
   const columns = scheduleColumns(refresh, DialogTarget);
