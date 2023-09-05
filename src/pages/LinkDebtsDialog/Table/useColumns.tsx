@@ -93,6 +93,12 @@ export default function useColumns(
       {
         align: "center",
         headerAlign: "center",
+        headerName: "Имя продукта",
+        field: "name",
+      },
+      {
+        align: "center",
+        headerAlign: "center",
         headerName: "Портфель",
         field: "portfolio",
         valueFormatter(params) {
@@ -118,7 +124,7 @@ export default function useColumns(
       {
         align: "center",
         headerAlign: "center",
-        width: 200,
+        width: 150,
         field: "Payments",
         headerName: "Платежи",
         description: "Платежи",
@@ -134,7 +140,7 @@ export default function useColumns(
       {
         align: "center",
         headerAlign: "center",
-        width: 200,
+        width: 150,
         field: "Delete",
         headerName: "Удалить связь",
         description: "Удалить",

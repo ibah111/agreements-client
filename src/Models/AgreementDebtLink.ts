@@ -22,4 +22,5 @@ export default class AgreementDebtsLink {
   portfolio: number;
   sum_payments: number;
   status: number;
+  name: string;
 }
