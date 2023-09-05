@@ -3,8 +3,8 @@ import useScheduleTable from "./useScheduleTable";
 import ScheduleToolbar from "./ScheduleToolbar/ScheduleToolbar";
 import DetailPage from "./DetailPanelContent/DetailPage";
 import React from "react";
-import useUpdateFormControl from "./Edit/useUpdateFormControl";
-import UpdateForm from "./Edit/EditForm";
+import useUpdateFormControl from "./UpdateForm/useUpdateFormControl";
+import UpdateForm from "./UpdateForm/UpdateForm";
 
 export class ScheduleEventsClass<
   Value = number | string | object

@@ -13,6 +13,8 @@ import { DatePicker } from "@mui/x-date-pickers-pro";
 import React from "react";
 import editPayment from "../../../../../../api/SchedulePayments/editPayment";
 import { enqueueSnackbar } from "notistack";
+import getPayment from "../../../../../../api/SchedulePayments/getPayment";
+import moment from "moment";
 
 interface updateFormProps {
   id_payment: number;
@@ -20,31 +22,46 @@ interface updateFormProps {
   refresh: VoidFunction;
 }
 
-export default function UpdateForm(props: updateFormProps) {
+export default function UpdateForm({
+  refresh,
+  id_payment,
+  open,
+}: updateFormProps) {
   const [date, setDate] = React.useState<Date>();
-  const [sum, setSum] = React.useState<number>();
+  const [sum, setSum] = React.useState<number>(0);
   const condition = () => {
     if (sum === 0 || date === undefined) return true;
     else if (sum! >= 0 || date !== undefined) return false;
   };
-
+  const [prevSum, setPrevSum] = React.useState(0);
+  const [prevDate, setPrevDate] = React.useState<Date>();
+  React.useEffect(() => {
+    getPayment(id_payment).subscribe((payment) => {
+      setPrevSum(payment.sum_owe);
+      setPrevDate(payment.pay_day);
+    });
+  });
   return (
-    <Dialog open={props.open} onClose={props.refresh} fullWidth maxWidth={"sm"}>
-      <DialogTitle>{`Обновить данные платежа ${props.id_payment}`}</DialogTitle>
+    <Dialog open={open} onClose={refresh} fullWidth maxWidth={"sm"}>
+      <DialogTitle>{`Обновить данные платежа ${id_payment}`}</DialogTitle>
       <Divider />
       <DialogContent>
         <Grid container spacing={1} alignItems="baseline">
           <Grid item>
-            <DatePicker disabled={true} label="Cтарая дата платежа" />
+            <DatePicker
+              value={moment(prevDate)}
+              disabled={true}
+              label="Cтарая дата платежа"
+            />
           </Grid>
           <Grid item>
             <TextField
-              disabled={true}
-              label="Старый мес.платёж"
+              disabled
+              value={prevSum}
               InputProps={{
                 endAdornment: <InputAdornment position="end">₽</InputAdornment>,
               }}
-            />
+            >{`Старая сумма к оплате`}</TextField>
           </Grid>
         </Grid>
       </DialogContent>
@@ -84,7 +101,7 @@ export default function UpdateForm(props: updateFormProps) {
               fullWidth
               variant="contained"
               onClick={() => {
-                editPayment(props.id_payment, {
+                editPayment(id_payment, {
                   pay_day: date!,
                   sum_owe: sum!,
                 }).subscribe(() => {
@@ -92,7 +109,7 @@ export default function UpdateForm(props: updateFormProps) {
                     variant: "success",
                     autoHideDuration: 1500,
                   });
-                  props.refresh();
+                  refresh();
                 });
               }}
             >
