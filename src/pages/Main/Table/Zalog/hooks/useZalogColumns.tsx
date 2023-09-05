@@ -66,7 +66,7 @@ export default function useZalogColumns(
       valueGetter: getParam(54),
     },
     {
-      headerName: "Delete",
+      headerName: "Удалить",
       field: "actions",
       type: "actions",
       getActions: (params) => [

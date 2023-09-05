@@ -8,7 +8,10 @@ export default function createPersonPropertyLink(
   id_person_property: number
 ) {
   return of({ id_agreement, id_person_property }).pipe(
-    post<boolean>(baseRequest, `/PersonProperty`),
+    post<boolean>(
+      baseRequest,
+      `/PersonProperty/createLinkPersonPropertyToAgreement `
+    ),
     transformAxios(),
     transformError(),
     authRetry()

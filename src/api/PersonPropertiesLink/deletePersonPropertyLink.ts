@@ -8,7 +8,10 @@ export default function deletePersonPropertyLink(
   id_person_property: number
 ) {
   return of({ id_agreement, id_person_property }).pipe(
-    remove<boolean>(baseRequest, `/PersonProperty`),
+    remove<boolean>(
+      baseRequest,
+      `/PersonProperty/deleteLinkPersonPropertyToAgreement`
+    ),
     transformAxios(),
     transformError(),
     authRetry()

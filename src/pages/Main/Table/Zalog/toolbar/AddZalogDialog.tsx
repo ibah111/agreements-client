@@ -27,8 +27,8 @@ export default function AddZalogDialog(props: AddZalogDialogProps) {
     "" as unknown as number
   );
   const properties = useAsyncMemo(
-    () => getPersonProperty(props.id_person),
-    [props.id_person],
+    () => getPersonProperty(props.id_agreement),
+    [props.id_agreement],
     []
   );
   React.useEffect(() => {
@@ -76,21 +76,29 @@ export default function AddZalogDialog(props: AddZalogDialogProps) {
           >
             {properties.map((item) => (
               <MenuItem key={item.id} value={item.id}>
-                {`ID: ${
-                  item.id
-                }, Статус залога: ${item.StatusDict?.name.toLocaleLowerCase()}; ${item.PersonPropertyParams?.find(
-                  (item) => item.r_property_typ_params_id === 3
-                )?.value.toLowerCase()} ${item.PersonPropertyParams?.find(
-                  (item) => item.r_property_typ_params_id === 7
-                )?.value.toLowerCase()}, VIN: ${
+                {`ID: ${item.id}, Статус залога: ${
+                  item.StatusDict?.name.toLocaleLowerCase() || ""
+                }; ${
+                  item.PersonPropertyParams?.find(
+                    (item) => item.r_property_typ_params_id === 3
+                  )?.value.toLowerCase() || ""
+                }, Название: ${
+                  item.PersonPropertyParams?.find(
+                    (item) => item.r_property_typ_params_id === 7
+                  )?.value.toLowerCase() || ""
+                }, VIN: "${
                   item.PersonPropertyParams?.find(
                     (item) => item.r_property_typ_params_id === 6
-                  )?.value
-                }, Гос.номер: ${
+                  )?.value || ""
+                }", Гос.номер: "${
                   item.PersonPropertyParams?.find(
                     (item) => item.r_property_typ_params_id === 5
-                  )?.value
-                }`}
+                  )?.value || ""
+                }", Тип ТС: "${
+                  item.PersonPropertyParams?.find(
+                    (item) => item.r_property_typ_params_id === 47
+                  )?.value || ""
+                }"`}
               </MenuItem>
             ))}
           </GridSelectField>

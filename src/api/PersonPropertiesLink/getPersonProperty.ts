@@ -4,8 +4,8 @@ import { baseRequest } from "../../utils/baseRequest";
 import { PersonProperty } from "@contact/models";
 import { transformError } from "../../utils/processError";
 
-export default function getPersonProperty(person_id: number) {
-  return of(`PersonProperty/${person_id}`).pipe(
+export default function getPersonProperty(id_agreement: number) {
+  return of(`/PersonProperty/getPersonProperties/${id_agreement}`).pipe(
     get<PersonProperty[]>(baseRequest),
     transformAxios(),
     transformError(),
