@@ -7,6 +7,8 @@ import { enqueueSnackbar } from "notistack";
 import updateStatus from "../../../../../api/SchedulePayments/updateStatus";
 import getDateMoment from "../../../../../utils/getDateMoment";
 import { ScheduleEventsClass, ScheduleEvents } from "../ScheduleDialog";
+import { Can } from "../../../../../casl/casl";
+import { Action, Subject } from "../../../../../casl/casl.factory";
 
 export function scheduleColumns(
   refresh: VoidFunction,
@@ -88,51 +90,55 @@ export function scheduleColumns(
       type: "actions",
       getActions(params) {
         return [
-          <GridActionsCellItem
-            label="Edit"
-            icon={<EditIcon />}
-            onClick={() => {
-              eventTarget?.dispatchEvent(
-                new ScheduleEventsClass(
-                  ScheduleEvents.onEditPayment,
-                  params.row.id
-                )
-              );
-            }}
-          />,
-          <GridActionsCellItem
-            label="Удалить"
-            icon={<Delete />}
-            onClick={() => {
-              if (!params.row.id) return;
-              deletePayment(params.row.id).subscribe(() => {
-                enqueueSnackbar(`Удалён платёж ${params.row.id}`, {
-                  variant: "warning",
-                  autoHideDuration: 3500,
+          <Can I={Action.Create} a={Subject.AgreementToDebt}>
+            <GridActionsCellItem
+              label="Edit"
+              icon={<EditIcon />}
+              onClick={() => {
+                eventTarget?.dispatchEvent(
+                  new ScheduleEventsClass(
+                    ScheduleEvents.onEditPayment,
+                    params.row.id
+                  )
+                );
+              }}
+            />
+            <GridActionsCellItem
+              label="Удалить"
+              icon={<Delete />}
+              onClick={() => {
+                if (!params.row.id) return;
+                deletePayment(params.row.id).subscribe(() => {
+                  enqueueSnackbar(`Удалён платёж ${params.row.id}`, {
+                    variant: "warning",
+                    autoHideDuration: 3500,
+                  });
+                  refresh();
                 });
-                refresh();
-              });
-            }}
-          />,
-          <GridActionsCellItem
-            label="Обновить"
-            icon={<Refresh />}
-            onClick={() => {
-              if (!params.row.id) {
-                return;
-              }
-              updateStatus({
-                id_agreement: params.row.id_agreement,
-                id_payment: params.row.id,
-              }).subscribe(() => {
-                enqueueSnackbar("Платёж обновлен", {
-                  variant: "info",
-                  autoHideDuration: 1000,
+              }}
+            />
+          </Can>,
+          <Can I={Action.Permit} a={Subject.DebtCalc}>
+            <GridActionsCellItem
+              label="Обновить"
+              icon={<Refresh />}
+              onClick={() => {
+                if (!params.row.id) {
+                  return;
+                }
+                updateStatus({
+                  id_agreement: params.row.id_agreement,
+                  id_payment: params.row.id,
+                }).subscribe(() => {
+                  enqueueSnackbar("Платёж обновлен", {
+                    variant: "info",
+                    autoHideDuration: 1000,
+                  });
+                  refresh();
                 });
-                refresh();
-              });
-            }}
-          />,
+              }}
+            />
+          </Can>,
         ];
       },
     },

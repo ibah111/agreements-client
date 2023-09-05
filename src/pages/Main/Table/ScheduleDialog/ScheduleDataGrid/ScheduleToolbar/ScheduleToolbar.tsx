@@ -8,6 +8,9 @@ import RefreshToolbarButton from "../../../../../../components/Utils/RefreshTool
 import { Button } from "@mui/material";
 import updatePayments from "../../../../../../api/SchedulePayments/updatePayments";
 import { enqueueSnackbar } from "notistack";
+import { Can } from "../../../../../../casl/casl";
+import { Action, Subject } from "../../../../../../casl/casl.factory";
+
 interface ScheduleToolbarProps {
   refresh: VoidFunction;
   id_agreement: number;
@@ -22,7 +25,9 @@ export default function ScheduleToolbar({
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
       <RefreshToolbarButton refresh={refresh} />
-      <UpdatePayments id_agreement={id_agreement} refresh={refresh} />
+      <Can I={Action.Create} a={Subject.AgreementToDebt}>
+        <UpdatePayments id_agreement={id_agreement} refresh={refresh} />
+      </Can>
     </GridToolbarContainer>
   );
 }
