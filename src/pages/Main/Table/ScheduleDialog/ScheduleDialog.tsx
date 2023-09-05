@@ -89,7 +89,7 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
                 toolbar: ScheduleToolbar,
               }}
               slotProps={{
-                toolbar: { refresh },
+                toolbar: { refresh: refresh, id_agreement: props.id_agreement },
               }}
             />
             {updateControls.open && (
