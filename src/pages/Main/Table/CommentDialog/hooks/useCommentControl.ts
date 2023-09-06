@@ -1,12 +1,10 @@
 import React from "react";
-import useCommentColumns from "./useCommentColumns";
 import { CustomEvents, EventDialog } from "../../Table";
 interface useCommentControlOptions {
   DialogTarget: EventTarget;
   onClose: VoidFunction;
 }
 export default function useCommentControl(options: useCommentControlOptions) {
-  const commentColumns = useCommentColumns();
   const [openCommentDialog, setOpenCommentDialog] = React.useState(false);
   const [commentAgreementId, setCommentAgreementId] = React.useState<number>(0);
 
@@ -35,7 +33,6 @@ export default function useCommentControl(options: useCommentControlOptions) {
   }, []);
   return {
     commentAgreementId,
-    columns: commentColumns,
     openCommentDialog,
     handleOpenCommentDialog,
     handleCloseCommentDialog,

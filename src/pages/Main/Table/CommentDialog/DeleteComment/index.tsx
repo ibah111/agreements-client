@@ -5,8 +5,9 @@ import { enqueueSnackbar } from "notistack";
 
 interface Props {
   id_comment: number;
+  refresh: VoidFunction;
 }
-export default function DeleteCommentButton({ id_comment }: Props) {
+export default function DeleteCommentButton({ id_comment, refresh }: Props) {
   return (
     <GridActionsCellItem
       label="delete"
@@ -16,6 +17,7 @@ export default function DeleteCommentButton({ id_comment }: Props) {
           enqueueSnackbar("Комментарий удалён", {
             variant: "info",
           });
+          refresh();
         });
       }}
     />

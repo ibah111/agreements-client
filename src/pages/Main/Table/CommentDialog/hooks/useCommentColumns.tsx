@@ -2,7 +2,10 @@ import { GridColDef } from "@mui/x-data-grid-premium";
 import { Comments } from "../../../../../Models/Comments";
 import { Grid } from "@mui/material";
 import DeleteCommentButton from "../DeleteComment";
-export default function useCommentColumns() {
+import { Can } from "../../../../../casl/casl";
+import { Action, Subject } from "../../../../../casl/casl.factory";
+
+export default function useCommentColumns(refresh: () => void) {
   const commentColumns: GridColDef<Comments>[] = [
     {
       align: "left",
@@ -49,7 +52,11 @@ export default function useCommentColumns() {
       field: "actions",
       type: "actions",
       getActions(params) {
-        return [<DeleteCommentButton id_comment={params.row.id} />];
+        return [
+          <Can I={Action.Delete} a={Subject.AgreementToDebt}>
+            <DeleteCommentButton id_comment={params.row.id} refresh={refresh} />
+          </Can>,
+        ];
       },
     },
   ];

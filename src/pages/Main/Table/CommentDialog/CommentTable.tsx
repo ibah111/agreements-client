@@ -8,7 +8,6 @@ interface CommentTableProps {
   agreementId: number;
 }
 export default function CommentTable(props: CommentTableProps) {
-  const columns = useCommentColumns();
   const { loading, rows, refresh } = useCommentTable(props.agreementId);
   const [open, setOpen] = React.useState(false);
   const handleOpenComments = React.useCallback(() => {
@@ -18,11 +17,12 @@ export default function CommentTable(props: CommentTableProps) {
     setOpen(false);
     refresh();
   }, [refresh]);
+  const commentColumns = useCommentColumns(refresh);
   return (
     <>
       <DataGridPremium
         loading={loading}
-        columns={columns}
+        columns={commentColumns}
         rows={rows}
         hideFooter
         slots={{ toolbar: CommentToolbar }}
