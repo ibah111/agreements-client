@@ -1,6 +1,7 @@
 import { GridColDef } from "@mui/x-data-grid-premium";
 import { Comments } from "../../../../../Models/Comments";
 import { Grid } from "@mui/material";
+import DeleteCommentButton from "../DeleteComment";
 export default function useCommentColumns() {
   const commentColumns: GridColDef<Comments>[] = [
     {
@@ -38,6 +39,17 @@ export default function useCommentColumns() {
         } else {
           return params.row.User.login;
         }
+      },
+    },
+    {
+      align: "center",
+      headerAlign: "center",
+      headerName: "Действия",
+      width: 200,
+      field: "actions",
+      type: "actions",
+      getActions(params) {
+        return [<DeleteCommentButton id_comment={params.row.id} />];
       },
     },
   ];
