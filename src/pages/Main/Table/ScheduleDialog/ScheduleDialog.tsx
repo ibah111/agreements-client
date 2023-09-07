@@ -14,6 +14,8 @@ import DetailPage from "./ScheduleDataGrid/DetailPanelContent/DetailPage";
 import ScheduleToolbar from "./ScheduleDataGrid/ScheduleToolbar/ScheduleToolbar";
 import UpdateForm from "./ScheduleDataGrid/UpdateForm/UpdateForm";
 import { enqueueSnackbar } from "notistack";
+import editPayment from "../../../../api/SchedulePayments/editPayment";
+import { Payments } from "../../../../Models/Payments";
 
 interface ScheduleDialogProps {
   id_agreement: number;
@@ -51,6 +53,9 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
       refresh();
     },
   });
+
+  const [payment, setPayment] = React.useState<number>();
+
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="lg">
@@ -92,8 +97,27 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
               slotProps={{
                 toolbar: { refresh: refresh, id_agreement: props.id_agreement },
               }}
-              onCellDoubleClick={() => {
-                enqueueSnackbar("abaoba");
+              editMode="row"
+              onRowEditStart={(params) => {
+                const initValue = params.row as Payments;
+                console.log(initValue, params.reason);
+                setPayment(initValue.sum_owe);
+              }}
+              processRowUpdate={(newValue, oldValue) => {
+                console.log(newValue);
+                setPayment(newValue.sum_owe);
+                editPayment(oldValue.id as number, {
+                  pay_day: new Date(),
+                  sum_owe: newValue.sum_owe,
+                }).subscribe(() =>
+                  enqueueSnackbar(
+                    `${oldValue.sum_owe} был изменен на ${newValue.sum_owe}`
+                  )
+                );
+                return newValue;
+              }}
+              onProcessRowUpdateError={(e) => {
+                enqueueSnackbar(`Возникла ошибка ${e}`, { variant: "error" });
               }}
             />
             {updateControls.open && (

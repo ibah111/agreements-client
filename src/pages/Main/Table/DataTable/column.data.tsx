@@ -118,7 +118,7 @@ export default function useGetColumns(
       width: 100,
       sortable: false,
       filterable: false,
-      editable: true,
+      editable: false,
       type: "Date",
       valueGetter: (params) => {
         return moment(params.row.PersonPreview.birth_date).format("DD.MM.YYYY");

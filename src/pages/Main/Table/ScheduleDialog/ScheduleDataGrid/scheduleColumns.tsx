@@ -5,10 +5,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import deletePayment from "../../../../../api/SchedulePayments/deletePayment";
 import { enqueueSnackbar } from "notistack";
 import updateStatus from "../../../../../api/SchedulePayments/updateStatus";
-import getDateMoment from "../../../../../utils/getDateMoment";
 import { ScheduleEventsClass, ScheduleEvents } from "../ScheduleDialog";
 import { Can } from "../../../../../casl/casl";
 import { Action, Subject } from "../../../../../casl/casl.factory";
+import { dateColumnType } from "../../../../../utils/DateCol";
+import getDateMoment from "../../../../../utils/getDateMoment";
+import { DatePicker } from "@mui/x-date-pickers-pro";
 
 export function scheduleColumns(
   refresh: VoidFunction,
@@ -22,6 +24,7 @@ export function scheduleColumns(
       type: "number",
       width: 100,
       aggregable: false,
+      editable: false,
     },
     {
       headerAlign: "center",
@@ -31,17 +34,19 @@ export function scheduleColumns(
       description: "id платежа в графике",
       type: "number",
       aggregable: false,
+      editable: false,
     },
     {
-      aggregable: false,
-      headerAlign: "center",
-      headerName: "День платежа",
-      width: 150,
       field: "pay_day",
-      align: "center",
+      headerName: "День платежа",
       type: "Date",
+      width: 100,
+      editable: true,
       valueGetter(params) {
         return getDateMoment(params.row.pay_day);
+      },
+      renderEditCell(params) {
+        return <DatePicker></DatePicker>;
       },
     },
     {
@@ -51,6 +56,7 @@ export function scheduleColumns(
       field: "sum_owe",
       align: "center",
       type: "number",
+      editable: true,
     },
     {
       headerAlign: "center",
