@@ -27,11 +27,9 @@ export default function UpdateForm({
   id_payment,
   open,
 }: updateFormProps) {
-  const [date, setDate] = React.useState<Date>();
-  const [sum, setSum] = React.useState<number>(0);
   const condition = () => {
-    if (sum === 0 || date === undefined) return true;
-    else if (sum! >= 0 || date !== undefined) return false;
+    if (prevSum === 0 || prevDate === undefined) return true;
+    else if (prevSum! >= 0 || prevDate !== undefined) return false;
   };
   const [prevSum, setPrevSum] = React.useState(0);
   const [prevDate, setPrevDate] = React.useState<Date>();
@@ -44,27 +42,6 @@ export default function UpdateForm({
   return (
     <Dialog open={open} onClose={refresh} fullWidth maxWidth={"sm"}>
       <DialogTitle>{`Обновить данные платежа ${id_payment}`}</DialogTitle>
-      <Divider />
-      <DialogContent>
-        <Grid container spacing={1} alignItems="baseline">
-          <Grid item>
-            <DatePicker
-              value={moment(prevDate)}
-              disabled={true}
-              label="Cтарая дата платежа"
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-              disabled
-              value={prevSum}
-              InputProps={{
-                endAdornment: <InputAdornment position="end">₽</InputAdornment>,
-              }}
-            >{`Старая сумма к оплате`}</TextField>
-          </Grid>
-        </Grid>
-      </DialogContent>
       <Divider textAlign="center">
         <Chip label="Изменяем" />
       </Divider>
@@ -73,11 +50,11 @@ export default function UpdateForm({
           <Grid item>
             <DatePicker
               label="Дата платежа"
-              value={date}
+              value={moment(prevDate)}
               onChange={(value) => {
                 if (typeof value === "string") {
                 } else {
-                  return setDate(value!);
+                  return setPrevDate(value!.toDate());
                 }
               }}
             />
@@ -86,9 +63,9 @@ export default function UpdateForm({
             <TextField
               label="Мес.платёж"
               type="number"
-              value={sum}
+              value={prevSum}
               onChange={(event) => {
-                setSum(Number(event.target.value));
+                setPrevSum(Number(event.target.value));
               }}
               InputProps={{
                 endAdornment: <InputAdornment position="end">₽</InputAdornment>,
@@ -102,8 +79,8 @@ export default function UpdateForm({
               variant="contained"
               onClick={() => {
                 editPayment(id_payment, {
-                  pay_day: date!,
-                  sum_owe: sum!,
+                  pay_day: prevDate!,
+                  sum_owe: prevSum!,
                 }).subscribe(() => {
                   enqueueSnackbar("Платёж изменён", {
                     variant: "success",

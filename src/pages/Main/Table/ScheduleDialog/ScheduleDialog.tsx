@@ -13,6 +13,7 @@ import useUpdateFormControl from "./ScheduleDataGrid/UpdateForm/useUpdateFormCon
 import DetailPage from "./ScheduleDataGrid/DetailPanelContent/DetailPage";
 import ScheduleToolbar from "./ScheduleDataGrid/ScheduleToolbar/ScheduleToolbar";
 import UpdateForm from "./ScheduleDataGrid/UpdateForm/UpdateForm";
+import { enqueueSnackbar } from "notistack";
 
 interface ScheduleDialogProps {
   id_agreement: number;
@@ -90,6 +91,9 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
               }}
               slotProps={{
                 toolbar: { refresh: refresh, id_agreement: props.id_agreement },
+              }}
+              onCellDoubleClick={() => {
+                enqueueSnackbar("abaoba");
               }}
             />
             {updateControls.open && (

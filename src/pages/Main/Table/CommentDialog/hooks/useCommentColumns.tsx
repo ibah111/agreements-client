@@ -1,11 +1,16 @@
-import { GridColDef } from "@mui/x-data-grid-premium";
+import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid-premium";
 import { Comments } from "../../../../../Models/Comments";
 import { Grid } from "@mui/material";
 import DeleteCommentButton from "../DeleteComment";
 import { Can } from "../../../../../casl/casl";
 import { Action, Subject } from "../../../../../casl/casl.factory";
+import { Edit } from "@mui/icons-material";
+import { CommentEventsClass, CommentEvents } from "../CommentTable";
 
-export default function useCommentColumns(refresh: () => void) {
+export default function useCommentColumns(
+  refresh: () => void,
+  eventTarget: EventTarget
+) {
   const commentColumns: GridColDef<Comments>[] = [
     {
       align: "left",
@@ -55,6 +60,20 @@ export default function useCommentColumns(refresh: () => void) {
         return [
           <Can I={Action.Delete} a={Subject.AgreementToDebt}>
             <DeleteCommentButton id_comment={params.row.id} refresh={refresh} />
+          </Can>,
+          <Can I={Action.Delete} a={Subject.AgreementToDebt}>
+            <GridActionsCellItem
+              label="Edit"
+              icon={<Edit />}
+              onClick={() => {
+                eventTarget?.dispatchEvent(
+                  new CommentEventsClass(
+                    CommentEvents.onEditComment,
+                    params.row.id
+                  )
+                );
+              }}
+            />
           </Can>,
         ];
       },

@@ -4,7 +4,7 @@ import { baseRequest } from "../../utils/baseRequest";
 import { transformError } from "../../utils/processError";
 
 interface EditData {
-  newCommentTxt: string;
+  comment: string;
   id_agreement: number;
 }
 
