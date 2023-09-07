@@ -10,7 +10,7 @@ interface FormProps {
 }
 export default function ScheduleForm(props: FormProps) {
   const [sum, setSum] = React.useState<number>(0);
-  const [date, setDate] = React.useState<Date>();
+  const [date, setDate] = React.useState<moment.Moment>();
   const [count, setCount] = React.useState<number>(1);
   const condition = () => {
     if (sum === 0 || date === undefined) return true;

@@ -15,7 +15,6 @@ import ScheduleToolbar from "./ScheduleDataGrid/ScheduleToolbar/ScheduleToolbar"
 import UpdateForm from "./ScheduleDataGrid/UpdateForm/UpdateForm";
 import { enqueueSnackbar } from "notistack";
 import editPayment from "../../../../api/SchedulePayments/editPayment";
-import { Payments } from "../../../../Models/Payments";
 
 interface ScheduleDialogProps {
   id_agreement: number;
@@ -53,8 +52,6 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
       refresh();
     },
   });
-
-  const [payment, setPayment] = React.useState<number>();
 
   return (
     <>
@@ -97,22 +94,14 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
               slotProps={{
                 toolbar: { refresh: refresh, id_agreement: props.id_agreement },
               }}
-              editMode="row"
-              onRowEditStart={(params) => {
-                const initValue = params.row as Payments;
-                console.log(initValue, params.reason);
-                setPayment(initValue.sum_owe);
-              }}
               processRowUpdate={(newValue, oldValue) => {
-                console.log(newValue);
-                setPayment(newValue.sum_owe);
                 editPayment(oldValue.id as number, {
-                  pay_day: new Date(),
+                  pay_day: newValue.pay_day,
                   sum_owe: newValue.sum_owe,
                 }).subscribe(() =>
-                  enqueueSnackbar(
-                    `${oldValue.sum_owe} был изменен на ${newValue.sum_owe}`
-                  )
+                  enqueueSnackbar(`Изменено`, {
+                    variant: "info",
+                  })
                 );
                 return newValue;
               }}

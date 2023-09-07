@@ -32,7 +32,7 @@ export default function UpdateForm({
     else if (prevSum! >= 0 || prevDate !== undefined) return false;
   };
   const [prevSum, setPrevSum] = React.useState(0);
-  const [prevDate, setPrevDate] = React.useState<Date>();
+  const [prevDate, setPrevDate] = React.useState<moment.Moment>();
   React.useEffect(() => {
     getPayment(id_payment).subscribe((payment) => {
       setPrevSum(payment.sum_owe);
@@ -54,7 +54,7 @@ export default function UpdateForm({
               onChange={(value) => {
                 if (typeof value === "string") {
                 } else {
-                  return setPrevDate(value!.toDate());
+                  return setPrevDate(value!);
                 }
               }}
             />

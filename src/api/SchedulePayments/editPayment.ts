@@ -4,7 +4,7 @@ import { authRetry, patch, transformAxios } from "@tools/rxjs-pipes";
 import { transformError } from "../../utils/processError";
 
 interface EditInput {
-  pay_day: Date;
+  pay_day: moment.Moment;
   sum_owe: number;
 }
 

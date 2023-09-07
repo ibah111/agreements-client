@@ -9,8 +9,6 @@ import { ScheduleEventsClass, ScheduleEvents } from "../ScheduleDialog";
 import { Can } from "../../../../../casl/casl";
 import { Action, Subject } from "../../../../../casl/casl.factory";
 import { dateColumnType } from "../../../../../utils/DateCol";
-import getDateMoment from "../../../../../utils/getDateMoment";
-import { DatePicker } from "@mui/x-date-pickers-pro";
 
 export function scheduleColumns(
   refresh: VoidFunction,
@@ -37,17 +35,11 @@ export function scheduleColumns(
       editable: false,
     },
     {
+      ...dateColumnType,
       field: "pay_day",
       headerName: "День платежа",
-      type: "Date",
-      width: 100,
+      width: 150,
       editable: true,
-      valueGetter(params) {
-        return getDateMoment(params.row.pay_day);
-      },
-      renderEditCell(params) {
-        return <DatePicker></DatePicker>;
-      },
     },
     {
       headerAlign: "center",
