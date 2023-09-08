@@ -39,9 +39,32 @@ export default function UpdateForm({
       setPrevDate(payment.pay_day);
     });
   });
+  const [date, setDate] = React.useState<moment.Moment>();
+  const [sum, setSum] = React.useState<number>(0);
   return (
     <Dialog open={open} onClose={refresh} fullWidth maxWidth={"sm"}>
       <DialogTitle>{`Обновить данные платежа ${id_payment}`}</DialogTitle>
+      <Divider />
+      <DialogContent>
+        <Grid container spacing={1} alignItems="baseline">
+          <Grid item>
+            <DatePicker
+              value={moment(prevDate)}
+              disabled={true}
+              label="Cтарая дата платежа"
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              disabled
+              value={prevSum}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">₽</InputAdornment>,
+              }}
+            >{`Старая сумма к оплате`}</TextField>
+          </Grid>
+        </Grid>
+      </DialogContent>
       <Divider textAlign="center">
         <Chip label="Изменяем" />
       </Divider>
@@ -50,11 +73,11 @@ export default function UpdateForm({
           <Grid item>
             <DatePicker
               label="Дата платежа"
-              value={moment(prevDate)}
+              value={moment(date)}
               onChange={(value) => {
                 if (typeof value === "string") {
                 } else {
-                  return setPrevDate(value!);
+                  return setDate(moment(value));
                 }
               }}
             />
@@ -63,9 +86,9 @@ export default function UpdateForm({
             <TextField
               label="Мес.платёж"
               type="number"
-              value={prevSum}
+              value={sum}
               onChange={(event) => {
-                setPrevSum(Number(event.target.value));
+                setSum(Number(event.target.value));
               }}
               InputProps={{
                 endAdornment: <InputAdornment position="end">₽</InputAdornment>,
@@ -79,8 +102,8 @@ export default function UpdateForm({
               variant="contained"
               onClick={() => {
                 editPayment(id_payment, {
-                  pay_day: prevDate!,
-                  sum_owe: prevSum!,
+                  pay_day: moment(date!),
+                  sum_owe: sum!,
                 }).subscribe(() => {
                   enqueueSnackbar("Платёж изменён", {
                     variant: "success",
