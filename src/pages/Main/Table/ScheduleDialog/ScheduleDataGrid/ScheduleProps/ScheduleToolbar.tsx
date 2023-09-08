@@ -47,7 +47,7 @@ function UpdatePayments({ id_agreement, refresh }: ScheduleToolbarProps) {
       variant="contained"
       size="small"
     >
-      {`Обновить платежи`}
+      {`Расчитать платежи`}
     </Button>
   );
 }
