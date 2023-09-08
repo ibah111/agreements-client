@@ -345,7 +345,7 @@ export default function useGetColumns(
     },
     {
       headerName: "Наличие ИД",
-      field: "new_reg_doc",
+      field: "reg_doc",
       width: 150,
       type: "singleSelect",
       valueOptions:

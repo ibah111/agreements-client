@@ -89,7 +89,7 @@ export class AgreementInstance implements AgreementData {
    * Наличие ИД в регистраторе
    */
   @IsOptional()
-  new_reg_doc: number;
+  reg_doc: number;
   /**
    * Регистратор
    */

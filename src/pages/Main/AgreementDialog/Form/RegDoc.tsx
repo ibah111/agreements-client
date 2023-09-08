@@ -5,7 +5,7 @@ import useAsyncMemo from "../../../../utils/asyncMemo";
 
 export default function RegDocType() {
   const regDoc = useAsyncMemo(getRegDoc, []);
-  const data = useAgreementData("new_reg_doc");
+  const data = useAgreementData("reg_doc");
   return (
     <Grid xs={2} item>
       <FormControl error={data.error} fullWidth>
