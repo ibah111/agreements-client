@@ -9,6 +9,8 @@ import { ScheduleEventsClass, ScheduleEvents } from "../ScheduleDialog";
 import { Can } from "../../../../../casl/casl";
 import { Action, Subject } from "../../../../../casl/casl.factory";
 import { dateColumnType } from "../../../../../utils/DateCol";
+import DoneIcon from "@mui/icons-material/Done";
+import CloseIcon from "@mui/icons-material/Close";
 
 export function scheduleColumns(
   refresh: VoidFunction,
@@ -70,13 +72,19 @@ export function scheduleColumns(
       },
     },
     {
-      aggregable: false,
+      aggregable: true,
       width: 100,
       headerName: "Статус",
       headerAlign: "center",
       field: "status",
-      type: "boolean",
       align: "center",
+      renderCell(params) {
+        /**
+         * Костыльный костыль
+         */
+        if (params.value === true) return <DoneIcon />;
+        if (params.value === false) return <CloseIcon />;
+      },
     },
     {
       aggregable: false,

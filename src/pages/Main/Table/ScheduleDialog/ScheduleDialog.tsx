@@ -8,10 +8,15 @@ import {
 import React from "react";
 import ScheduleForm from "./ScheduleForm";
 import useScheduleTable from "./ScheduleDataGrid/useScheduleTable";
-import { DataGridPremium } from "@mui/x-data-grid-premium";
+import {
+  DataGridPremium,
+  GRID_AGGREGATION_FUNCTIONS,
+  GridAggregationFunction,
+  GridAggregationModel,
+} from "@mui/x-data-grid-premium";
 import useUpdateFormControl from "./ScheduleDataGrid/UpdateForm/useUpdateFormControl";
 import DetailPage from "./ScheduleDataGrid/DetailPanelContent/DetailPage";
-import ScheduleToolbar from "./ScheduleDataGrid/ScheduleToolbar/ScheduleToolbar";
+import ScheduleToolbar from "./ScheduleDataGrid/ScheduleProps/ScheduleToolbar";
 import UpdateForm from "./ScheduleDataGrid/UpdateForm/UpdateForm";
 import { enqueueSnackbar } from "notistack";
 import editPayment from "../../../../api/SchedulePayments/editPayment";
@@ -53,6 +58,21 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
     },
   });
 
+  const booleanCount: GridAggregationFunction<boolean | number> = {
+    label: "Осталось",
+    apply: (params) => {
+      const falseArr = params.values.filter((i) => i === false).length;
+
+      return falseArr;
+    },
+  };
+
+  const [aggregationModel, setAggregationModel] =
+    React.useState<GridAggregationModel>({
+      sum_owe: "sum",
+      sum_left: "sum",
+      status: "booleanCount",
+    });
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="lg">
@@ -108,6 +128,12 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
               onProcessRowUpdateError={(e) => {
                 enqueueSnackbar(`Возникла ошибка ${e}`, { variant: "error" });
               }}
+              aggregationFunctions={{
+                ...GRID_AGGREGATION_FUNCTIONS,
+                booleanCount: booleanCount,
+              }}
+              aggregationModel={aggregationModel}
+              onAggregationModelChange={setAggregationModel}
             />
             {updateControls.open && (
               <UpdateForm
