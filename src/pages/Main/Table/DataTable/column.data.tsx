@@ -361,6 +361,20 @@ export default function useGetColumns(
       width: 150,
       editable: true,
       type: "string",
+      valueFormatter(params) {
+        if (params.value) {
+          const txt = params.value as string;
+          const newtxt = txt.split(", ").join("\n");
+          return newtxt;
+        }
+      },
+      renderCell({ formattedValue }) {
+        return (
+          <Typography sx={{ whiteSpace: "pre-line" }}>
+            {formattedValue}
+          </Typography>
+        );
+      },
     },
     {
       headerName: "Наличие в архиве",
@@ -368,6 +382,20 @@ export default function useGetColumns(
       width: 150,
       editable: true,
       type: "string",
+      valueFormatter(params) {
+        if (params.value) {
+          const txt = params.value as string;
+          const newtxt = txt.split(", ").join("\n");
+          return newtxt;
+        }
+      },
+      renderCell({ formattedValue }) {
+        return (
+          <Typography sx={{ whiteSpace: "pre-line" }}>
+            {formattedValue}
+          </Typography>
+        );
+      },
     },
     {
       field: "receipt_dt",
@@ -480,7 +508,7 @@ export default function useGetColumns(
             }}
           />
         </Can>,
-        <Can I={Action.Create} a={Subject.Preview}>
+        <Can I={Action.Update} a={Subject.Agreement}>
           <SyncOneIcon
             id_agreement={params.row.id}
             refresh={refresh}
