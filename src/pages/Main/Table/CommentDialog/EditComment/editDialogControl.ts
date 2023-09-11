@@ -29,7 +29,8 @@ export default function useEditControl(opts: useEditControlOptions) {
   const handleCloseEditDialog = React.useCallback(() => {
     setOpenEdit(false);
     setCommentId(0);
-  }, []);
+    opts.onClose();
+  }, [opts]);
 
   return { openEdit, commentId, handleOpenEditDialog, handleCloseEditDialog };
 }

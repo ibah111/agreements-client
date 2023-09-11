@@ -49,7 +49,6 @@ export default function EditDialog(props: Props) {
                 fullWidth
                 onChange={(event) => {
                   setComment(event.target.value);
-                  enqueueSnackbar(`${comment}`);
                 }}
                 value={comment}
                 onKeyDown={(event) => {

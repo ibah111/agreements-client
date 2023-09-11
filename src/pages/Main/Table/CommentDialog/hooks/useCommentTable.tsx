@@ -8,7 +8,9 @@ export default function useCommentTable(agreementId: number) {
 
   const refresh = React.useCallback(() => {
     setLoading(true);
-    const sub = getComments(agreementId).subscribe(setComments);
+    const sub = getComments(agreementId).subscribe((res) => {
+      setComments(res);
+    });
     sub.add(() => setLoading(false));
     return sub.unsubscribe.bind(sub);
   }, [agreementId]);
