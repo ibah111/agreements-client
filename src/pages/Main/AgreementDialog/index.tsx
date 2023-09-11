@@ -1,4 +1,7 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Button,
   Dialog,
   DialogActions,
@@ -6,6 +9,7 @@ import {
   DialogTitle,
   Divider,
   Grid,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import MonthPerDay from "./Form/MonthPerDay";
@@ -32,6 +36,8 @@ import { useSnackbar } from "notistack";
 import Sum from "./Form/Maths/Sum";
 import Comment from "./Form/Comment";
 import FullReq from "./Form/Maths/FullReq";
+import findAllByPersonId from "../../../api/findAllByPersonId";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -56,11 +62,40 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
     dispatch(resetAgreement());
     props.fullClose();
   }, [dispatch, props]);
+
+  const [res, setRes] = React.useState<number>();
+  const [ids, setIds] = React.useState<number[]>();
+  React.useEffect(() => {
+    if (props.person.id)
+      findAllByPersonId(props.person.id).subscribe((res) => {
+        setRes(res.length);
+        setIds(res.map((i) => i.id));
+      });
+  }, [enqueueSnackbar, props.person.id]);
+
   return (
     <>
       <Dialog open={props.open} onClose={handleClose} maxWidth="lg" fullWidth>
+        <DialogTitle
+          alignSelf={"center"}
+        >{`Данные из КСК по человеку. Кол-во соглашений на человека: ${res}.`}</DialogTitle>
+        <Divider />
+
+        {res! > 0 && (
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>{`ID соглашений`}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography>{`${ids}`}</Typography>
+            </AccordionDetails>
+          </Accordion>
+        )}
         <DialogContent sx={{ flexGrow: 1 }}>
-          <DialogTitle alignSelf={"center"}>Контакт базовые данные</DialogTitle>
           <Grid item container spacing={1}>
             <PersonID person={props.person} />
             <PersonFIO person={props.person} />
