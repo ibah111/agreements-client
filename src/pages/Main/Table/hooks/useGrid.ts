@@ -79,14 +79,19 @@ export function useGrid(
       paginationModel,
       filterModel,
       sortModel,
-    }).subscribe((res) => {
-      if (res) {
-        setRowCount(res.count);
-        setRows(res.rows);
-      }
-    });
-    sub.add(() => {
-      setLoading(false);
+    }).subscribe({
+      next: (res) => {
+        if (res) {
+          setRowCount(res.count);
+          setRows(res.rows);
+        }
+      },
+      error: () => {
+        setLoading(false);
+      },
+      complete: () => {
+        setLoading(false);
+      },
     });
     return sub.unsubscribe.bind(sub);
   }, [filterModel, paginationModel, sortModel]);
@@ -106,15 +111,14 @@ export function useGrid(
         DialogTarget,
         pinnedColumns
       ),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
+      refresh,
       ability,
       agreementType,
-      purposes,
       regDoc,
       status,
-      collectors,
       portfolios,
+      collectors,
       DialogTarget,
       pinnedColumns,
     ]

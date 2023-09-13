@@ -6,7 +6,6 @@ import syncOne from "../../../../../api/Preview/syncOne";
 interface UpdateButtonProps {
   id_agreement: number;
   refresh: VoidFunction;
-  eventTarget: EventTarget;
 }
 
 export default function SyncOneIcon(props: UpdateButtonProps) {

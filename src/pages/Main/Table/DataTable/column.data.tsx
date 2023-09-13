@@ -493,7 +493,6 @@ export default function useGetColumns(
         <Can I={Action.Delete} a={Subject.Agreement}>
           <DeleteIcon
             eventTarget={eventTarget || null}
-            refresh={refresh}
             agreementId={params.row.id}
           />
         </Can>,
@@ -509,11 +508,7 @@ export default function useGetColumns(
           />
         </Can>,
         <Can I={Action.Update} a={Subject.Agreement}>
-          <SyncOneIcon
-            id_agreement={params.row.id}
-            refresh={refresh}
-            eventTarget={eventTarget || null}
-          />
+          <SyncOneIcon id_agreement={params.row.id} refresh={refresh} />
         </Can>,
       ],
     },

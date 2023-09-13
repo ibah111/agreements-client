@@ -34,7 +34,6 @@ export default function AgreementTableToolbar(
       <Can I={Action.Update} a={Subject.Admin}>
         <SyncAllButton refresh={props.refresh} />
       </Can>
-
       <AddAgreement handleOpen={props.handleOpen} />
       <DeleteRowButton refresh={props.refresh} />
       <CheckboxRowHeight onClick={props.refreshHeight} />

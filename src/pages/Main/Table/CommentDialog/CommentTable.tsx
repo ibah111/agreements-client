@@ -3,7 +3,7 @@ import useCommentColumns from "./hooks/useCommentColumns";
 import useCommentTable from "./hooks/useCommentTable";
 import CommentToolbar from "./AddComment/CommentToolbar";
 import React from "react";
-import AddCommentDialog from "./AddComment/addCommentDialog";
+import AddCommentDialog from "./AddComment/AddCommentDialog";
 import EditDialog from "./EditComment/EditDialog";
 import useEditControl from "./EditComment/editDialogControl";
 export class CommentEventsClass<

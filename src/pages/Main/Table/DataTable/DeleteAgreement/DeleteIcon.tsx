@@ -4,7 +4,6 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { GridActionsCellItem } from "@mui/x-data-grid-premium";
 import { CustomEvents, EventDialog } from "../../Table";
 interface DeleteProps {
-  refresh: VoidFunction;
   agreementId: number;
   eventTarget: EventTarget | null;
 }
