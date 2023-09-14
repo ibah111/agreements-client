@@ -25,7 +25,7 @@ import useLinkDebtsControl from "../../LinkDebtsDialog/useLinkDebtsControl";
 import LinkDebtsDialog from "../../LinkDebtsDialog";
 import useCommentControl from "./CommentDialog/hooks/useCommentControl";
 import useScheduleControl from "./ScheduleDialog/ScheduleDataGrid/useScheduleControl";
-import ScheduleDialog from "./ScheduleDialog/ScheduleDialog";
+import ScheduleLinkDialogGrid from "./ScheduleDialog/ScheduleLinkDialogGrid";
 
 export class EventDialog<Value = number | string | object> extends Event {
   constructor(type: CustomEvents, value: Value) {
@@ -192,11 +192,10 @@ export default function AgreementTable() {
         />
       )}
       {scheduleDialogControl.openSchedule && (
-        <ScheduleDialog
+        <ScheduleLinkDialogGrid
           open={scheduleDialogControl.openSchedule}
           id_agreement={scheduleDialogControl.agreementId}
           onClose={scheduleDialogControl.handleCloseSchedule}
-          DialogTarget={DialogTarget}
         />
       )}
     </Grid>
