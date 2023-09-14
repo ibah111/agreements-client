@@ -1,4 +1,4 @@
-import { CustomEvents, EventDialog, OnOpenZalogDialogProps } from "../Table";
+import { CustomEvents, EventDialog, OnOpenDialogProps } from "../Table";
 import { CarCrash } from "@mui/icons-material";
 import { GridActionsCellItem } from "@mui/x-data-grid-premium";
 
@@ -18,10 +18,10 @@ export default function ZalogIcon(props: ZalogProps) {
       color={"inherit"}
       onClick={() => {
         props.eventTarget?.dispatchEvent(
-          new EventDialog<OnOpenZalogDialogProps>(
-            CustomEvents.onOpenZalogDialog,
-            { agreementId: props.agreement_id, personId: props.person_id }
-          )
+          new EventDialog<OnOpenDialogProps>(CustomEvents.onOpenZalogDialog, {
+            agreementId: props.agreement_id,
+            personId: props.person_id,
+          })
         );
       }}
     />

@@ -1,5 +1,5 @@
 import React from "react";
-import { CustomEvents, EventDialog, OnOpenZalogDialogProps } from "../../Table";
+import { CustomEvents, EventDialog, OnOpenDialogProps } from "../../Table";
 
 interface useZalogControlsOptions {
   DialogTarget: EventTarget;
@@ -14,7 +14,7 @@ export default function useZalogControls(options?: useZalogControlsOptions) {
   const [personId, setPersonId] = React.useState<number>(0);
 
   React.useEffect(() => {
-    const callback = ((e: EventDialog<OnOpenZalogDialogProps>) => {
+    const callback = ((e: EventDialog<OnOpenDialogProps>) => {
       setAgrementId(e.value.agreementId);
       setPersonId(e.value.personId);
       setOpenZalog(true);

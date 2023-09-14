@@ -1,8 +1,6 @@
 import React from "react";
 import { ScheduleLinkModel } from "./ScheduleLinkModel";
-export enum ScheduleLinkDialogEvent {
-  onOpenScheduleDialogCreate = "onOpenScheduleDialogCreate",
-}
+import { randomInt } from "@mui/x-data-grid-generator";
 export class EventScheduleDialog<
   Value = number | string | object
 > extends Event {
@@ -12,14 +10,29 @@ export class EventScheduleDialog<
   }
   value: Value;
 }
+export enum ScheduleLinkDialogEvent {
+  onOpenScheduleDialogCreate = "onOpenScheduleDialogCreate",
+}
 interface useGridControlOptions {
   DialogTarget: EventTarget;
   onClose: VoidFunction;
 }
 export function ScheduleLinkControl(options: useGridControlOptions) {
+  //TODO API REQ FOR SET ROWS
   const [rows, setRows] = React.useState<ScheduleLinkModel[]>([]);
   const [open, setOpen] = React.useState(false);
   const [id, setId] = React.useState<number>(0);
+  let idCounter = 0;
+  const createRandomRow = () => {
+    idCounter += 1;
+    return {
+      id: idCounter,
+      id_debt: randomInt(250, 1000),
+      contract: randomInt(1234534, 4356789),
+      schedule_type: randomInt(1, 2),
+    };
+  };
+  const testRows = [createRandomRow(), createRandomRow()];
   React.useEffect(() => {
     const callback = ((e: EventScheduleDialog) => {
       setId(e.value as number);
@@ -42,6 +55,7 @@ export function ScheduleLinkControl(options: useGridControlOptions) {
   }, []);
 
   return {
+    testRows,
     rows,
     id,
     open,
