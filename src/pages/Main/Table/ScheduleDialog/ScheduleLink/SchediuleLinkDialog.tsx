@@ -6,6 +6,8 @@ import ScheduleDialog from "../ScheduleDialog";
 import { ScheduleLinkControl } from "./ScheduleLinkControl";
 import { ScheduleLinkToolbar } from "./ScheduleToolbar";
 import { ScheduleSelectDebt } from "./ScheduleSelectDebt";
+import getAllSchedulesByAgreement from "../../../../../api/SchedulePayments/getAllSchedulesByAgreement";
+import { ScheduleLinkModel } from "./ScheduleLinkModel";
 interface Props {
   id_agreement: number;
   id_person: number;
@@ -18,16 +20,16 @@ interface Props {
  * @returns
  */
 export default function ScheduleLinkDialog(props: Props) {
+  const [rows, setRows] = React.useState<ScheduleLinkModel[]>([]);
   React.useEffect(() => {
     //ApiRequest with id_agreement
-  });
+    getAllSchedulesByAgreement(props.id_agreement).subscribe(setRows);
+  }, [props.id_agreement]);
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
-  const { open, id, rows, testRows, handleCloseSchedule } = ScheduleLinkControl(
-    {
-      onClose: props.onClose,
-      DialogTarget: DialogTarget,
-    }
-  );
+  const { open, handleCloseSchedule } = ScheduleLinkControl({
+    onClose: props.onClose,
+    DialogTarget: DialogTarget,
+  });
   const columns = getColumns({
     DialogTarget,
   });
@@ -54,7 +56,7 @@ export default function ScheduleLinkDialog(props: Props) {
           >
             <DataGridPremium
               columns={columns}
-              rows={testRows}
+              rows={rows}
               slots={{ toolbar: ScheduleLinkToolbar }}
               slotProps={{
                 toolbar: {
@@ -64,7 +66,11 @@ export default function ScheduleLinkDialog(props: Props) {
             />
           </Grid>
           {openSelect && (
-            <ScheduleSelectDebt open={openSelect} onClose={handleCloseSLD} />
+            <ScheduleSelectDebt
+              open={openSelect}
+              onClose={handleCloseSLD}
+              id_agreement={props.id_agreement}
+            />
           )}
           {open && (
             <ScheduleDialog

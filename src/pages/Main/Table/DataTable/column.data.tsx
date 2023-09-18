@@ -480,6 +480,7 @@ export default function useGetColumns(
             eventTarget={eventTarget || null}
             refresh={refresh}
             id_agreement={params.row.id}
+            person_id={params.row.person_id}
           />
         </Can>,
       ],

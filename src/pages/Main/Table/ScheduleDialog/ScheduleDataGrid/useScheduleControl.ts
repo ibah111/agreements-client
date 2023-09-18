@@ -29,7 +29,8 @@ export default function useScheduleControl(options?: useScheduleOptions) {
   const handleCloseSchedule = React.useCallback(() => {
     setOpenSchedule(false);
     setAgreementId(0);
-  }, []);
+    options?.onClose();
+  }, [options]);
 
   return {
     openSchedule,

@@ -6,6 +6,7 @@ interface ScheduleProps {
   eventTarget: EventTarget | null;
   refresh: VoidFunction;
   id_agreement: number;
+  person_id: number;
 }
 
 export default function ScheduleIcon(props: ScheduleProps) {
@@ -17,7 +18,10 @@ export default function ScheduleIcon(props: ScheduleProps) {
       color="inherit"
       onClick={() => {
         props.eventTarget?.dispatchEvent(
-          new EventDialog(CustomEvents.onOpenScheduleDialog, props.id_agreement)
+          new EventDialog(CustomEvents.onOpenScheduleDialog, {
+            agreementId: props.id_agreement,
+            personId: props.person_id,
+          })
         );
       }}
     />

@@ -9,13 +9,13 @@ interface useZalogControlsOptions {
 export default function useZalogControls(options?: useZalogControlsOptions) {
   const [openZalog, setOpenZalog] = React.useState<boolean>(false);
 
-  const [agreementId, setAgrementId] = React.useState<number>(0);
+  const [agreementId, setAgreementId] = React.useState<number>(0);
 
   const [personId, setPersonId] = React.useState<number>(0);
 
   React.useEffect(() => {
     const callback = ((e: EventDialog<OnOpenDialogProps>) => {
-      setAgrementId(e.value.agreementId);
+      setAgreementId(e.value.agreementId);
       setPersonId(e.value.personId);
       setOpenZalog(true);
     }) as EventListener;
@@ -30,12 +30,8 @@ export default function useZalogControls(options?: useZalogControlsOptions) {
       );
   }, [options?.DialogTarget]);
 
-  const handleOpenZalog = React.useCallback((num: number) => {
-    setAgrementId(num);
-    setOpenZalog(true);
-  }, []);
   const handleCloseZalog = React.useCallback(() => {
-    setAgrementId(0);
+    setAgreementId(0);
     setOpenZalog(false);
     options?.onClose?.();
   }, [options]);
@@ -43,7 +39,6 @@ export default function useZalogControls(options?: useZalogControlsOptions) {
     personId,
     agreementId,
     openZalog,
-    handleOpenZalog,
     handleCloseZalog,
   };
 }
