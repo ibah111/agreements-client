@@ -38,6 +38,7 @@ import Comment from "./Form/Comment";
 import FullReq from "./Form/Maths/FullReq";
 import findAllByPersonId from "../../../api/findAllByPersonId";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Car from "./Form/Car";
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -75,7 +76,15 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
 
   return (
     <>
-      <Dialog open={props.open} onClose={handleClose} maxWidth="lg" fullWidth>
+      <Dialog
+        open={props.open}
+        onClose={() => {
+          handleClose();
+          dispatch(resetAgreement());
+        }}
+        maxWidth="lg"
+        fullWidth
+      >
         <DialogTitle
           alignSelf={"center"}
         >{`Данные из КСК по человеку. Кол-во соглашений на человека: ${res}.`}</DialogTitle>
@@ -115,6 +124,8 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <FinishDate />
             <MonthPerDay />
             <FullReq />
+            {/* {agreement.agreement_type === 2 && <Car />} */}
+            <Car />
             <Sum />
             <Discount />
             <Divider />

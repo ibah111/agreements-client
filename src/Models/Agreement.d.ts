@@ -90,4 +90,6 @@ export class Agreement extends Model<
   Payments: NonAttribute<Payments[]>;
 
   debt_count: number;
+
+  car: string | null;
 }

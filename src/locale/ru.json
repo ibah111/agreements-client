@@ -12,7 +12,7 @@
       "IsPositive": "Значение должно быть больше нуля",
       "DateRangeBeforeMin": "Дата должна быть минимум с {{minDate}}",
       "DateRangeAfterMax": "Дата должна быть до {{maxDate}}",
-      "isNumber": "Введите цифру" 
+      "isNumber": "Введите цифру"
     },
     "Agreement": {
       "discount": "Дисконт",
@@ -24,6 +24,7 @@
       "conclusion_date": "Дата заключения",
       "finish_date": "Дата завершения",
       "statusAgreement": "Статус",
+      "car": "Машина",
       "errors_popup": {
         "null": "Значение равно null",
         "length>=": "В поле \"$t(form.Agreement.{{property}})\" должно быть больше или равно {{constraint1}}",
@@ -36,7 +37,6 @@
         "DateRangeBeforeMin": "Дата в поле \"$t(form.Agreement.{{property}})\" должна быть минимум с {{minDate}}",
         "DateRangeAfterMax": "Дата в поле \"$t(form.Agreement.{{property}})\" должна быть до {{maxDate}}",
         "isNumber": "Поле \"$t(form.Agreement.{{property}})\" должно быть введено число"
-
       }
     }
   },

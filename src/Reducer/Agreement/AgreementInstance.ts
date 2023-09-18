@@ -61,7 +61,7 @@ export class AgreementInstance implements AgreementData {
   /**
    * Полный размер требования
    */
-  @ValidateIf((o) => o.agreement_type !== 5)
+  @ValidateIf((o) => [1, 3, 4, 6, 7].includes(o.agreement_type))
   @IsPositive()
   @IsNumber()
   full_req: number | null;
@@ -163,4 +163,8 @@ export class AgreementInstance implements AgreementData {
 
   @IsOptional()
   debt_count: number;
+
+  @ValidateIf((o) => [2].includes(o.agreement_type))
+  @IsNotEmpty()
+  car: string | null;
 }

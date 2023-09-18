@@ -76,7 +76,7 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="lg">
-        <DialogTitle>{`График платежей / Внесенные платежи / Соглашение №${props.id_agreement}`}</DialogTitle>
+        <DialogTitle>{`График платежей / Внесенные платежи`}</DialogTitle>
         <Divider />
         <DialogContent>
           <Grid container spacing={1}>
