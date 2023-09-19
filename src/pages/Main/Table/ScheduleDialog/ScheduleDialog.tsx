@@ -22,7 +22,7 @@ import { enqueueSnackbar } from "notistack";
 import editPayment from "../../../../api/SchedulePayments/editPayment";
 
 interface ScheduleDialogProps {
-  id_agreement: number;
+  id: number;
   open: boolean;
   onClose: VoidFunction;
   DialogTarget: EventTarget;
@@ -43,7 +43,7 @@ export enum ScheduleEvents {
 export default function ScheduleDialog(props: ScheduleDialogProps) {
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
   const { rows, loading, refresh, columns } = useScheduleTable(
-    props.id_agreement,
+    props.id,
     DialogTarget
   );
   const check_rows = () => {
@@ -76,12 +76,12 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="lg">
-        <DialogTitle>{`График платежей / Внесенные платежи`}</DialogTitle>
+        <DialogTitle>{`График платежей / Внесенные платежи / ID графика ${props.id}`}</DialogTitle>
         <Divider />
         <DialogContent>
           <Grid container spacing={1}>
             <ScheduleForm
-              id_agreement={props.id_agreement}
+              id_schedule={props.id}
               DialogTarget={props.DialogTarget}
               refresh={refresh}
             />
@@ -112,7 +112,7 @@ export default function ScheduleDialog(props: ScheduleDialogProps) {
                 toolbar: ScheduleToolbar,
               }}
               slotProps={{
-                toolbar: { refresh: refresh, id_agreement: props.id_agreement },
+                toolbar: { refresh: refresh, id_schedule: props.id },
               }}
               processRowUpdate={(newValue, oldValue) => {
                 editPayment(oldValue.id as number, {

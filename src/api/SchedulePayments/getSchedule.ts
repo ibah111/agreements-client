@@ -9,8 +9,8 @@ import {
 import { Payments } from "../../Models/Payments";
 import { transformError } from "../../utils/processError";
 
-export default function getSchedule(id_agreement: number) {
-  return of(`/Payments/${id_agreement}`).pipe(
+export default function getSchedule(id_schedule: number) {
+  return of(`/Payments/getSchedule/${id_schedule}`).pipe(
     get<Payments[]>(baseRequest),
     transformAxios(),
     transformInstance(Payments),

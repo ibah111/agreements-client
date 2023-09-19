@@ -23,7 +23,7 @@ export default function ScheduleLinkDialog(props: Props) {
     id_agreement: props.id_agreement,
   });
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
-  const { open, handleCloseSchedule } = ScheduleLinkControl({
+  const { open, handleCloseSchedule, scheduleId } = ScheduleLinkControl({
     DialogTarget: DialogTarget,
     onClose: () => refresh(),
   });
@@ -75,10 +75,10 @@ export default function ScheduleLinkDialog(props: Props) {
           )}
           {open && (
             <ScheduleDialog
-              id_agreement={props.id_agreement}
               open={open}
               onClose={handleCloseSchedule}
               DialogTarget={DialogTarget}
+              id={scheduleId}
             />
           )}
         </DialogContent>

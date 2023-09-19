@@ -133,7 +133,7 @@ export function scheduleColumns(
                   return;
                 }
                 updateStatus({
-                  id_agreement: params.row.id_agreement,
+                  id_agreement: params.row.id_schedule,
                   id_payment: params.row.id,
                 }).subscribe(() => {
                   enqueueSnackbar("Платёж обновлен", {

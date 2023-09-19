@@ -13,10 +13,10 @@ import { Action, Subject } from "../../../../../../casl/casl.factory";
 
 interface ScheduleToolbarProps {
   refresh: VoidFunction;
-  id_agreement: number;
+  id_schedule: number;
 }
 export default function ScheduleToolbar({
-  id_agreement,
+  id_schedule,
   refresh,
 }: ScheduleToolbarProps) {
   return (
@@ -26,17 +26,17 @@ export default function ScheduleToolbar({
       <GridToolbarDensitySelector />
       <RefreshToolbarButton refresh={refresh} />
       <Can I={Action.Create} a={Subject.AgreementToDebt}>
-        <UpdatePayments id_agreement={id_agreement} refresh={refresh} />
+        <UpdatePayments id_schedule={id_schedule} refresh={refresh} />
       </Can>
     </GridToolbarContainer>
   );
 }
 
-function UpdatePayments({ id_agreement, refresh }: ScheduleToolbarProps) {
+function UpdatePayments({ id_schedule, refresh }: ScheduleToolbarProps) {
   return (
     <Button
       onClick={() => {
-        updatePayments(id_agreement).subscribe(() => {
+        updatePayments(id_schedule).subscribe(() => {
           enqueueSnackbar("Обновляю платежи", {
             autoHideDuration: 1000,
             variant: "info",

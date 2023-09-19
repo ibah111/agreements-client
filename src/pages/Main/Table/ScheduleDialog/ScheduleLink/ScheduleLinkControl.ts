@@ -17,9 +17,10 @@ interface useGridControlOptions {
 }
 export function ScheduleLinkControl(options: useGridControlOptions) {
   const [open, setOpen] = React.useState(false);
-
+  const [scheduleId, setScheduleId] = React.useState<number>(0);
   React.useEffect(() => {
     const callback = ((e: EventScheduleDialog) => {
+      setScheduleId(e.value as number);
       setOpen(true);
     }) as EventListener;
     options?.DialogTarget.addEventListener(
@@ -38,6 +39,7 @@ export function ScheduleLinkControl(options: useGridControlOptions) {
   }, []);
 
   return {
+    scheduleId,
     open,
     handleCloseSchedule,
   };

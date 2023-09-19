@@ -4,7 +4,7 @@ import React from "react";
 import addPayment from "../../../../api/SchedulePayments/addPayment";
 import { enqueueSnackbar } from "notistack";
 interface FormProps {
-  id_agreement: number;
+  id_schedule: number;
   DialogTarget: EventTarget;
   refresh: () => void;
 }
@@ -62,7 +62,7 @@ export default function ScheduleForm(props: FormProps) {
           variant="contained"
           onClick={() => {
             addPayment({
-              id_agreement: props.id_agreement,
+              id_schedule: props.id_schedule,
               pay_day: date!,
               sum_owe: sum,
               status: false,

@@ -37,6 +37,13 @@ export function ScheduleSelectDebt(props: Props) {
   }
 
   const [debtId, setDebtId] = React.useState<number>(0);
+
+  const buttonCondition = (type: number, id: number) => {
+    if (!type) return true;
+    if (type === 1 || (type === 2 && id)) return false;
+    if (type === 2) return true;
+  };
+
   return (
     <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="sm">
       <DialogTitle>{`Привязать`}</DialogTitle>
@@ -91,7 +98,7 @@ export function ScheduleSelectDebt(props: Props) {
                   </MenuItem>
                   {debt.map((i) => (
                     <MenuItem key={i.id} value={i.id}>
-                      {i.name}
+                      {`Имя: " ${i.name} ", КД: " ${i.contract} "`}
                     </MenuItem>
                   ))}
                 </Select>
@@ -110,6 +117,7 @@ export function ScheduleSelectDebt(props: Props) {
           />
           <Grid container item>
             <Button
+              disabled={buttonCondition(numberType, debtId)}
               variant="contained"
               onClick={() => {
                 createScheduleLinks({

@@ -11,7 +11,7 @@ export class Calcs {
 }
 export class Payments {
   id?: number;
-  id_agreement: number;
+  id_schedule: number;
   @IsValidMoment()
   @IsNotEmpty()
   @DateType(false)
