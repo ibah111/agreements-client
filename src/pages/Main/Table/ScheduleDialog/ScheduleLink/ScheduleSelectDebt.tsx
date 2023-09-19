@@ -32,23 +32,25 @@ export function ScheduleSelectDebt(props: Props) {
 
   const [numberType, setNumberType] = React.useState<number>(0);
 
-  function typeCondition(value: number) {
+  const typeCondition = React.useCallback((value: number) => {
     if (value !== 2) return true;
-  }
-
+  }, []);
   const [debtId, setDebtId] = React.useState<number>(0);
 
-  const contract = debt.find((i) => i.id === debtId)?.contract;
+  const contract = React.useMemo(
+    () => debt.find((i) => i.id === debtId)?.contract,
+    [debt, debtId]
+  );
 
-  const buttonCondition = (type: number, id: number) => {
+  const buttonCondition = React.useCallback((type: number, id: number) => {
     if (!type) return true;
     if (type === 1 || (type === 2 && id)) return false;
     if (type === 2) return true;
-  };
+  }, []);
 
   return (
     <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="sm">
-      <DialogTitle>{`Привязать`}</DialogTitle>
+      <DialogTitle>Привязать</DialogTitle>
       <Divider />
       <DialogContent>
         {/**
@@ -99,7 +101,7 @@ export function ScheduleSelectDebt(props: Props) {
                   </MenuItem>
                   {debt.map((i) => (
                     <MenuItem key={i.id} value={i.id}>
-                      {`Имя: " ${i.name} ", КД: " ${i.contract} "`}
+                      Имя: {i.name} ", КД: {i.contract}
                     </MenuItem>
                   ))}
                 </Select>
