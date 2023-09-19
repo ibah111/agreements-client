@@ -1,4 +1,3 @@
-import { Debt } from "@contact/models";
 import {
   Button,
   Dialog,
@@ -14,10 +13,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import getAllScheduleTypes from "../../../../../api/SchedulePayments/getAllScheduleTypes";
-import { enqueueSnackbar } from "notistack";
 import useAsyncMemo from "../../../../../utils/asyncMemo";
 import getAvailableSchedulesForSchedule from "../../../../../api/SchedulePayments/getAvailableSchedulesForSchedule";
 import createScheduleLinks from "../../../../../api/SchedulePayments/createScheduleLink";
+import { enqueueSnackbar } from "notistack";
 interface Props {
   open: boolean;
   onClose: VoidFunction;
@@ -112,17 +111,19 @@ export function ScheduleSelectDebt(props: Props) {
           <Grid container item>
             <Button
               variant="contained"
-              onClick={(event) => {
-                /**
-                 * ApiCall
-                 */
+              onClick={() => {
                 createScheduleLinks({
                   id_agreement: props.id_agreement,
                   schedule_type: numberType,
                   id_debt: debtId,
-                }).subscribe(() => props.onClose);
+                }).subscribe(() => {
+                  enqueueSnackbar("Создано", {
+                    variant: "success",
+                  });
+                  props.onClose();
+                });
               }}
-            >{`PROP`}</Button>
+            >{`Создать`}</Button>
           </Grid>
         </DialogActions>
       </DialogContent>

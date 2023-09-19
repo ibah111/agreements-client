@@ -6,10 +6,13 @@ import {
   EventScheduleDialog,
   ScheduleLinkDialogEvent,
 } from "./ScheduleLinkControl";
+import { Delete } from "@mui/icons-material";
+import deleteScheduleLink from "../../../../../api/SchedulePayments/deleteSchedule";
 interface props {
   DialogTarget: EventTarget;
+  refresh: VoidFunction;
 }
-export function getColumns(p: props) {
+export function getColumns(props: props) {
   const columns: GridColDef<ScheduleLinkModel>[] = [
     {
       headerName: "ID графика",
@@ -18,12 +21,15 @@ export function getColumns(p: props) {
     {
       headerName: "ID Долга",
       field: "id_debt",
+      valueFormatter(params) {
+        if (params.value === 0) return "График на все долги";
+      },
     },
     {
       headerName: "КД",
       field: "contract",
       valueFormatter(params) {
-        return `КД №${params.value}`;
+        if (params.value) return `КД №${params.value}`;
       },
     },
     {
@@ -45,12 +51,24 @@ export function getColumns(p: props) {
             label="Schedule"
             icon={<PaymentsIcon />}
             onClick={() => {
-              p.DialogTarget.dispatchEvent(
+              props.DialogTarget.dispatchEvent(
                 new EventScheduleDialog(
                   ScheduleLinkDialogEvent.onOpenScheduleDialogCreate,
                   params.row.id
                 )
               );
+            }}
+          />
+        </Tooltip>,
+        <Tooltip title={"Удалить график"}>
+          <GridActionsCellItem
+            label="DeleteSchedule"
+            icon={<Delete />}
+            onClick={() => {
+              const id = params.row.id;
+              deleteScheduleLink(id).subscribe(() => {
+                props.refresh();
+              });
             }}
           />
         </Tooltip>,

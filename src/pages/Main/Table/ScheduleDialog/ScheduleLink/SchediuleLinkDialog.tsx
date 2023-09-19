@@ -6,8 +6,7 @@ import ScheduleDialog from "../ScheduleDialog";
 import { ScheduleLinkControl } from "./ScheduleLinkControl";
 import { ScheduleLinkToolbar } from "./ScheduleToolbar";
 import { ScheduleSelectDebt } from "./ScheduleSelectDebt";
-import getAllSchedulesByAgreement from "../../../../../api/SchedulePayments/getAllSchedulesByAgreement";
-import { ScheduleLinkModel } from "./ScheduleLinkModel";
+import useScheduleGrid from "./useScheduleGrid";
 interface Props {
   id_agreement: number;
   id_person: number;
@@ -20,18 +19,17 @@ interface Props {
  * @returns
  */
 export default function ScheduleLinkDialog(props: Props) {
-  const [rows, setRows] = React.useState<ScheduleLinkModel[]>([]);
-  React.useEffect(() => {
-    //ApiRequest with id_agreement
-    getAllSchedulesByAgreement(props.id_agreement).subscribe(setRows);
-  }, [props.id_agreement]);
+  const { loading, refresh, rows } = useScheduleGrid({
+    id_agreement: props.id_agreement,
+  });
   const DialogTarget = React.useMemo(() => new EventTarget(), []);
   const { open, handleCloseSchedule } = ScheduleLinkControl({
-    onClose: props.onClose,
     DialogTarget: DialogTarget,
+    onClose: () => refresh(),
   });
   const columns = getColumns({
     DialogTarget,
+    refresh,
   });
 
   const [openSelect, setOpenSelect] = React.useState(false);
@@ -39,9 +37,11 @@ export default function ScheduleLinkDialog(props: Props) {
   const handleOpenSLD = React.useCallback(() => {
     setOpenSelect(true);
   }, []);
+
   const handleCloseSLD = React.useCallback(() => {
     setOpenSelect(false);
-  }, []);
+    refresh();
+  }, [refresh]);
 
   return (
     <>
@@ -55,6 +55,7 @@ export default function ScheduleLinkDialog(props: Props) {
             }}
           >
             <DataGridPremium
+              loading={loading}
               columns={columns}
               rows={rows}
               slots={{ toolbar: ScheduleLinkToolbar }}
