@@ -38,6 +38,8 @@ export function ScheduleSelectDebt(props: Props) {
 
   const [debtId, setDebtId] = React.useState<number>(0);
 
+  const contract = debt.find((i) => i.id === debtId)?.contract;
+
   const buttonCondition = (type: number, id: number) => {
     if (!type) return true;
     if (type === 1 || (type === 2 && id)) return false;
@@ -90,7 +92,6 @@ export function ScheduleSelectDebt(props: Props) {
                   label="Debt"
                   onChange={(event) => {
                     setDebtId(Number(event.target.value));
-                    console.log(event.target.value);
                   }}
                 >
                   <MenuItem value="">
@@ -124,6 +125,7 @@ export function ScheduleSelectDebt(props: Props) {
                   id_agreement: props.id_agreement,
                   schedule_type: numberType,
                   id_debt: debtId,
+                  contract: contract,
                 }).subscribe(() => {
                   enqueueSnackbar("Создано", {
                     variant: "success",

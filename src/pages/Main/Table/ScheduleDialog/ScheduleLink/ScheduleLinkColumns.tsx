@@ -28,8 +28,9 @@ export function getColumns(props: props) {
     {
       headerName: "КД",
       field: "contract",
+
       valueFormatter(params) {
-        if (params.value) return `КД №${params.value}`;
+        if (params.value) return `${params.value}`;
       },
     },
     {

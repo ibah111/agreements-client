@@ -6,6 +6,7 @@ interface InputData {
   id_agreement: number;
   schedule_type: number;
   id_debt?: number;
+  contract?: string;
 }
 export default function createScheduleLinks(data: InputData) {
   return of(data).pipe(

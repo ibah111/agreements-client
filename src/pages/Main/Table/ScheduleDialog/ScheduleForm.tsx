@@ -16,7 +16,13 @@ export default function ScheduleForm(props: FormProps) {
     if (sum === 0 || date === undefined) return true;
     else if (sum >= 0 || date !== undefined) return false;
   };
-
+  const sendObject = {
+    id_schedule: props.id_schedule,
+    pay_day: date!,
+    sum_owe: sum,
+    status: false,
+    x: count,
+  };
   return (
     <>
       <Grid xs={2} item>
@@ -72,6 +78,7 @@ export default function ScheduleForm(props: FormProps) {
                 variant: "info",
                 autoHideDuration: 1000,
               });
+              console.log(sendObject);
               props.refresh();
             });
           }}
