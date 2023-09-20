@@ -2,6 +2,7 @@ import { Grid, TextField, InputAdornment } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../../Reducer";
 import { setAgreementProperty } from "../../../../../Reducer/Agreement/Agreement";
 import { numberRound } from "../../../../../utils/numberRound";
+import { NumericFormatCustom } from "./CustomMathComponent";
 
 export default function Discount() {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export default function Discount() {
         }
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
+          inputComponent: NumericFormatCustom as any,
         }}
         value={numberRound(maths)}
         helperText={"Значение подсчитывается само"}

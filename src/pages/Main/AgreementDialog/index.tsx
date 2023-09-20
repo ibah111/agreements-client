@@ -124,8 +124,8 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <FinishDate />
             <MonthPerDay />
             <FullReq />
-            {/* {agreement.agreement_type === 2 && <Car />} */}
-            <Car />
+            {agreement.agreement_type === 2 && <Car />}
+
             <Sum />
             <Discount />
             <Divider />

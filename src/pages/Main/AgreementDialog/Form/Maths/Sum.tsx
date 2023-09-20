@@ -2,6 +2,8 @@ import { Grid, TextField, InputAdornment } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../../Reducer";
 import { setAgreementProperty } from "../../../../../Reducer/Agreement/Agreement";
 import useAgreementData from "../../../../../Hooks/useAgreementData";
+import React from "react";
+import { NumericFormatCustom } from "./CustomMathComponent";
 
 export default function Sum() {
   const dispatch = useAppDispatch();
@@ -10,7 +12,6 @@ export default function Sum() {
   return (
     <Grid xs={2} item>
       <TextField
-        type="number"
         label="Сумма с дисконтом"
         onChange={(event) =>
           dispatch(
@@ -20,13 +21,14 @@ export default function Sum() {
             ])
           )
         }
-        InputProps={{
-          endAdornment: <InputAdornment position="end">₽</InputAdornment>,
-        }}
         value={data.value}
         required={data.required}
         error={data.error}
         helperText={data.helperText}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">₽</InputAdornment>,
+          inputComponent: NumericFormatCustom as any,
+        }}
       />
     </Grid>
   );

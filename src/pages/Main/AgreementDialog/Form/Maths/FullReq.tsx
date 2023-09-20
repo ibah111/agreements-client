@@ -2,7 +2,8 @@ import { Grid, TextField, InputAdornment } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../../Reducer";
 import { setAgreementProperty } from "../../../../../Reducer/Agreement/Agreement";
 import useAgreementData from "../../../../../Hooks/useAgreementData";
-
+import React from "react";
+import { NumericFormatCustom } from "./CustomMathComponent";
 export default function FullReq() {
   const agreement_type = useAppSelector(
     (state) => state.Agreement.agreement_type
@@ -12,7 +13,6 @@ export default function FullReq() {
   return (
     <Grid xs={2} item>
       <TextField
-        type="number"
         label="Полный размер требования"
         onChange={(event) =>
           dispatch(
@@ -22,13 +22,14 @@ export default function FullReq() {
             ])
           )
         }
-        InputProps={{
-          endAdornment: <InputAdornment position="end">₽</InputAdornment>,
-        }}
         value={data.value}
         helperText={data.helperText}
         required={data.required}
         error={data.error}
+        InputProps={{
+          endAdornment: <InputAdornment position="end">₽</InputAdornment>,
+          inputComponent: NumericFormatCustom as any,
+        }}
       />
     </Grid>
   );
