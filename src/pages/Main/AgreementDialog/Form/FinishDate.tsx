@@ -14,7 +14,7 @@ export default function FinishDate() {
     (state) => state.Agreement.conclusion_date
   );
   const dates = React.useMemo(
-    () => ({ minDate: moment(min_fd_value), maxDate: moment() }),
+    () => ({ minDate: moment(min_fd_value) }),
     [min_fd_value]
   );
   return (
