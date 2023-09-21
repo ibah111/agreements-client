@@ -3,6 +3,7 @@ import { DatePicker } from "@mui/x-date-pickers-pro";
 import React from "react";
 import addPayment from "../../../../api/SchedulePayments/addPayment";
 import { enqueueSnackbar } from "notistack";
+import { NumericFormatCustom } from "../../AgreementDialog/Form/Maths/CustomMathComponent";
 interface FormProps {
   id_schedule: number;
   DialogTarget: EventTarget;
@@ -40,23 +41,25 @@ export default function ScheduleForm(props: FormProps) {
       <Grid xs={2} item>
         <TextField
           label="Мес.платёж"
-          type="number"
           value={sum}
           onChange={(event) => {
             setSum(Number(event.target.value));
           }}
           InputProps={{
             endAdornment: <InputAdornment position="end">₽</InputAdornment>,
+            inputComponent: NumericFormatCustom as any,
           }}
         />
       </Grid>
       <Grid xs={2} item>
         <TextField
           label="Количество платежей"
-          type="number"
           value={count}
           onChange={(event) => {
             setCount(Number(event.target.value));
+          }}
+          InputProps={{
+            inputComponent: NumericFormatCustom as any,
           }}
         />
       </Grid>

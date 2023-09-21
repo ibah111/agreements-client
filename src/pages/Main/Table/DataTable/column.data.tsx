@@ -20,7 +20,6 @@ import IpIcon from "../CardIpDialog/IpIcon";
 import { getAlign, getPinnedStyle } from "./additional.settings";
 import DeleteIcon from "./DeleteAgreement/DeleteIcon";
 import CommentActionCellItem from "../CommentDialog/CommentActionItem";
-import { round } from "../../../../utils/round";
 import getName from "../../../../Reducer/getName";
 import moment from "moment-timezone";
 import SyncOneIcon from "./SyncOneIcon/SyncOneIcon";
@@ -208,17 +207,6 @@ export default function useGetColumns(
       field: "sum_remains",
       type: "number",
       width: 100,
-      valueGetter(params) {
-        const sumAfterAgr =
-          params.row.DebtLinks?.map((item) => item.sum_payments).reduce(
-            (prev, curr) => prev + curr,
-            0
-          ) || 0;
-        const sum = params.row.sum || 0;
-        const full_req = params.row.full_req || 0;
-        if (sum) return round(sum - sumAfterAgr);
-        else if (full_req) return round(full_req - sumAfterAgr);
-      },
     },
     {
       width: 100,
