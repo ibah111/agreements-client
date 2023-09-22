@@ -178,21 +178,20 @@ export default function useGetColumns(
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
-      valueGetter(params) {
-        const discount = params.row.discount;
-        const full_req = params.row.full_req;
-        const sum = params.row.sum;
-        if (sum) return sum;
-        if (full_req && discount) return full_req - discount;
-        if (full_req) return full_req;
-        else return 0;
-      },
+      // valueGetter(params) {
+      //   const discount = params.row.discount;
+      //   const full_req = params.row.full_req;
+      //   const sum = params.row.sum;
+      //   if (sum) return sum;
+      //   if (full_req && discount) return full_req - discount;
+      //   if (full_req) return full_req;
+      //   else return 0;
+      // },
     },
     {
-      disableColumnMenu: true,
       headerName: "Плат.после соглашения",
       description: "Сумма платежей после соглашения",
-      field: "sumAfterAgr",
+      field: "sum_payments_after",
       width: 100,
       type: "number",
       valueGetter: (params) => {

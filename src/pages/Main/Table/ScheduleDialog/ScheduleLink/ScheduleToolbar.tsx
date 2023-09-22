@@ -14,7 +14,9 @@ export function ScheduleLinkToolbar(props: TB) {
         onClick={() => {
           props.setOpenSelect();
         }}
-      >{`Создать график`}</Button>
+      >
+        Создать график
+      </Button>
     </GridToolbarContainer>
   );
 }

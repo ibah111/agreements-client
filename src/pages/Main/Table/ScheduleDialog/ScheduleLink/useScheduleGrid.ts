@@ -11,14 +11,17 @@ export default function useScheduleGrid(props: Props) {
 
   const refresh = React.useCallback(() => {
     setLoading(true);
-    getAllSchedulesByAgreement(props.id_agreement).subscribe((res) => {
-      setRows(res);
-      setLoading(false);
-    });
+    const sub = getAllSchedulesByAgreement(props.id_agreement).subscribe(
+      (res) => {
+        setRows(res);
+        setLoading(false);
+      }
+    );
+    return sub.unsubscribe.bind(sub);
   }, [props.id_agreement]);
 
   React.useEffect(() => {
-    return refresh;
+    return refresh();
   }, [refresh]);
 
   return {

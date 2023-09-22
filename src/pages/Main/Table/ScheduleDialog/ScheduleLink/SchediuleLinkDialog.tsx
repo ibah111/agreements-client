@@ -13,11 +13,6 @@ interface Props {
   open: boolean;
   onClose: VoidFunction;
 }
-/**
- * ScheduleLinkDialog as SLD
- * @param props
- * @returns
- */
 export default function ScheduleLinkDialog(props: Props) {
   const { loading, refresh, rows } = useScheduleGrid({
     id_agreement: props.id_agreement,
@@ -46,7 +41,9 @@ export default function ScheduleLinkDialog(props: Props) {
   return (
     <>
       <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="xl">
-        <DialogTitle>{`Графики на соглашение ${props.id_agreement}, ${props.id_person}`}</DialogTitle>
+        <DialogTitle>
+          Графики на соглашение {props.id_agreement}, {props.id_person}
+        </DialogTitle>
         <DialogContent>
           <Grid
             sx={{
