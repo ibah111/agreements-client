@@ -115,9 +115,9 @@ export default function useGetColumns(
       headerName: "ДР должника",
       field: "birth_date",
       width: 100,
-      sortable: false,
-      filterable: false,
       editable: false,
+      filterable: false,
+      sortable: false,
       type: "Date",
       valueGetter: (params) => {
         return moment(params.row.PersonPreview.birth_date).format("DD.MM.YYYY");

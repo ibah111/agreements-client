@@ -75,7 +75,7 @@ export default function LinkDialog(props: LinkDialogProps) {
                   debt.account
                 }, Сумма кредита: ${debt.debt_sum}, Полный размер кредита: ${
                   debt.total_sum
-                }`}
+                }, Статус: ${debt.status}`}
               </MenuItem>
             ))}
           </GridSelectField>

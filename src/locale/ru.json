@@ -25,6 +25,7 @@
       "finish_date": "Дата завершения",
       "statusAgreement": "Статус",
       "car": "Машина",
+      "comment": "Комментарий",
       "errors_popup": {
         "null": "Значение равно null",
         "length>=": "В поле \"$t(form.Agreement.{{property}})\" должно быть больше или равно {{constraint1}}",
