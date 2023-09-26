@@ -167,7 +167,7 @@ export default function useGetColumns(
           return discount;
         } else if (full_req && sum) {
           return full_req - sum;
-        } else if (discount === null) return 0;
+        } else if (discount === 0 || null) return 0;
         else return 0;
       },
     },
@@ -243,11 +243,12 @@ export default function useGetColumns(
       },
     },
     {
-      disableColumnMenu: true,
+      filterable: false,
+      sortable: false,
+      editable: false,
       headerName: "Дата посл.платежа",
       field: "lastPaymentDate",
       type: "Date",
-      editable: false,
       width: 125,
       valueGetter: (params) => {
         const arr = params.row.DebtLinks?.filter(
@@ -262,8 +263,8 @@ export default function useGetColumns(
       },
     },
     {
-      field: "finish_date",
       ...dateColumnType,
+      field: "finish_date",
       headerName: "Дата завершения",
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),

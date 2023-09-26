@@ -9,6 +9,10 @@ export default function Discount() {
   const agreement = useAppSelector((state) => state.Agreement);
   const full_req = agreement.full_req || 0;
   const sum = agreement.sum || 0;
+  const condition = (value: number): number => {
+    if (value > 0) return maths;
+    return 0;
+  };
   const maths = full_req - sum;
   return (
     <Grid xs={2} item>
@@ -16,14 +20,17 @@ export default function Discount() {
         label="Дисконт"
         onChange={() =>
           dispatch(
-            setAgreementProperty(["discount", maths ? Number(maths) : ""])
+            setAgreementProperty([
+              "discount",
+              condition(sum) ? Number(condition(sum)) : 0,
+            ])
           )
         }
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
           inputComponent: NumericFormatCustom as any,
         }}
-        value={numberRound(maths)}
+        value={numberRound(condition(sum))}
         helperText={"Значение подсчитывается само"}
         disabled
       />

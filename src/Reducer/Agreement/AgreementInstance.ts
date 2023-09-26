@@ -68,7 +68,6 @@ export class AgreementInstance implements AgreementData {
   /**
    * дисконт
    */
-  @IsPositive()
   @IsOptional()
   discount: number | null;
   /**
