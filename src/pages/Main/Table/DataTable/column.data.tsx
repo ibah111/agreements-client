@@ -68,7 +68,6 @@ export default function useGetColumns(
     label: port.name,
     value: port.id,
   }));
-
   const columns: GridColDef<AgreementInstance>[] = [
     {
       field: "id",
@@ -178,15 +177,6 @@ export default function useGetColumns(
       width: 100,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "number",
-      // valueGetter(params) {
-      //   const discount = params.row.discount;
-      //   const full_req = params.row.full_req;
-      //   const sum = params.row.sum;
-      //   if (sum) return sum;
-      //   if (full_req && discount) return full_req - discount;
-      //   if (full_req) return full_req;
-      //   else return 0;
-      // },
     },
     {
       headerName: "Плат.после соглашения",
@@ -330,6 +320,13 @@ export default function useGetColumns(
         const first = arr[0] as unknown as Date;
         return getDateMoment(first);
       },
+    },
+    {
+      field: "car",
+      headerName: "Машина",
+      width: 150,
+      type: "string",
+      editable: ability.can(Action.Update, Subject.Agreement),
     },
     {
       headerName: "Наличие ИД",

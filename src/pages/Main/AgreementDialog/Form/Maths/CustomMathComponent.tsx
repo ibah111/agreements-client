@@ -24,8 +24,10 @@ export const NumericFormatCustom = React.forwardRef<
           },
         });
       }}
+      allowedDecimalSeparators={[".", ","]}
       thousandSeparator={" "}
       valueIsNumericString
+      allowNegative={false}
     />
   );
 });
