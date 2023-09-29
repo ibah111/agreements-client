@@ -24,7 +24,7 @@ export const NumericFormatCustom = React.forwardRef<
           },
         });
       }}
-      allowedDecimalSeparators={[".", ","]}
+      allowedDecimalSeparators={[".", ",", "/"]}
       thousandSeparator={" "}
       valueIsNumericString
       allowNegative={false}

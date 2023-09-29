@@ -2,7 +2,6 @@ import { Grid, TextField, InputAdornment } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../../../../Reducer";
 import { setAgreementProperty } from "../../../../../Reducer/Agreement/Agreement";
 import useAgreementData from "../../../../../Hooks/useAgreementData";
-import React from "react";
 import { NumericFormatCustom } from "./CustomMathComponent";
 export default function FullReq() {
   const agreement_type = useAppSelector(

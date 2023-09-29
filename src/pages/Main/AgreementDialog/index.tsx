@@ -53,17 +53,14 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
   const { enqueueSnackbar } = useSnackbar();
   const agreement = useAppSelector((state) => state.Agreement);
   const dispatch = useAppDispatch();
-
   const handleClose = React.useCallback(() => {
     dispatch(resetAgreement());
     props.onClose();
   }, [dispatch, props]);
-
   const handleFullClose = React.useCallback(() => {
     dispatch(resetAgreement());
     props.fullClose();
   }, [dispatch, props]);
-
   const [res, setRes] = React.useState<number>();
   const [ids, setIds] = React.useState<number[]>();
   React.useEffect(() => {
@@ -73,7 +70,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         setIds(res.map((i) => i.id));
       });
   }, [enqueueSnackbar, props.person.id]);
-
   return (
     <>
       <Dialog
