@@ -68,6 +68,11 @@ export default function useGetColumns(
     label: port.name,
     value: port.id,
   }));
+  collectors.map((item) => ({ label: item.f, value: item.id }));
+  const n_collectors = [
+    { label: "Нет", value: 0 },
+    ...collectors.map((item) => ({ label: item.f, value: item.id })),
+  ];
   const columns: GridColDef<AgreementInstance>[] = [
     {
       field: "id",
@@ -429,7 +434,7 @@ export default function useGetColumns(
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
       valueOptions: () => {
-        return collectors.map((item) => ({ label: item.f, value: item.id }));
+        return n_collectors;
       },
       valueGetter(params) {
         return params.row.collector_id || "";
