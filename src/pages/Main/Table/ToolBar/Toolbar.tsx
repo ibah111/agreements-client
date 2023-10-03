@@ -3,14 +3,13 @@ import {
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
   GridToolbarDensitySelector,
+  GridToolbarExport,
 } from "@mui/x-data-grid-premium";
 import RefreshToolbarButton from "../../../../components/Utils/RefreshToolbarButton";
-
 import AddAgreement from "./AddAgreement";
 import CheckboxRowHeight from "./CheckboxRowHeight";
 import DeleteRowButton from "./DeleteRowButton";
 import SwitchTheme from "../../../../components/ThemeProvider/SwitchTheme/SwitchTheme";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import SyncAllButton from "./SyncAllButton";
 import { Can } from "../../../../casl/casl";
 import { Action, Subject } from "../../../../casl/casl.factory";
@@ -30,12 +29,17 @@ export default function AgreementTableToolbar(
       <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
+      <GridToolbarExport />
       <RefreshToolbarButton refresh={props.refresh} />
       <Can I={Action.Update} a={Subject.Admin}>
         <SyncAllButton refresh={props.refresh} />
       </Can>
-      <AddAgreement handleOpen={props.handleOpen} />
-      <DeleteRowButton refresh={props.refresh} />
+      <Can I={Action.Create} a={Subject.Agreement}>
+        <AddAgreement handleOpen={props.handleOpen} />
+      </Can>
+      <Can I={Action.Delete} a={Subject.Agreement}>
+        <DeleteRowButton refresh={props.refresh} />
+      </Can>
       <CheckboxRowHeight onClick={props.refreshHeight} />
     </GridToolbarContainer>
   );

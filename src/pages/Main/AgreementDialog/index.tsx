@@ -8,7 +8,10 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  FormControl,
   Grid,
+  MenuItem,
+  Select,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -17,7 +20,7 @@ import TaskLink from "./Form/TaskLink";
 import PersonID from "./DisableForm/PersonID";
 import PersonFIO from "./DisableForm/PersonFIO";
 import BirthDate from "./DisableForm/BirthDate";
-import { Person } from "@contact/models";
+import { Person, PersonProperty } from "@contact/models";
 import ConclusionDate from "./Form/ConclusionDate";
 import createAgreement from "../../../api/createAgreement";
 import { useAppDispatch, useAppSelector } from "../../../Reducer";
@@ -39,6 +42,23 @@ import FullReq from "./Form/Maths/FullReq";
 import findAllByPersonId from "../../../api/findAllByPersonId";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Car from "./Form/Car";
+import useAgreementForm from "./useAgreementForm";
+import useAgreementData from "../../../Hooks/useAgreementData";
+import useAsyncMemo from "../../../utils/asyncMemo";
+import getPersonPropertyParam from "../../../api/PersonPropertiesLink/getPersonPropertyParam";
+
+export enum AgreementCreateEvents {
+  onOpenCar = "onOpenCar",
+}
+export class AgreementEventDialog<
+  Value = number | string | object
+> extends Event {
+  constructor(type: AgreementCreateEvents, value: Value) {
+    super(type);
+    this.value = value;
+  }
+  value: Value;
+}
 interface CreateAgreementDialogProps {
   open: boolean;
   onClose: () => void;
@@ -70,6 +90,14 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         setIds(res.map((i) => i.id));
       });
   }, [enqueueSnackbar, props.person.id]);
+
+  const AgreementDialogTarget = React.useMemo(() => new EventTarget(), []);
+  const carDialog = useAgreementForm({
+    id_person: props.person.id,
+    DialogTarget: AgreementDialogTarget,
+    onClose: () => props?.onClose(),
+  });
+
   return (
     <>
       <Dialog
@@ -85,7 +113,6 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
           alignSelf={"center"}
         >{`Данные из КСК по человеку. Кол-во соглашений на человека: ${res}.`}</DialogTitle>
         <Divider />
-
         {res! > 0 && (
           <Accordion>
             <AccordionSummary
@@ -119,7 +146,12 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <StatusAgreementType />
             <FinishDate />
             <MonthPerDay />
-            {agreement.agreement_type === 2 && <Car />}
+            {agreement.agreement_type === 2 && (
+              <Car
+                eventTarget={AgreementDialogTarget}
+                id_person={props.person.id}
+              />
+            )}
             <FullReq />
             <Sum />
             <Discount />
@@ -162,6 +194,89 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
           </Button>
         </DialogActions>
       </Dialog>
+      {carDialog.openCar && (
+        <CarDialog
+          open={carDialog.openCar}
+          onClose={carDialog.closeCarDialog}
+          id_person={props.person.id}
+        />
+      )}
     </>
+  );
+}
+
+interface CarDialogProps {
+  open: boolean;
+  onClose: VoidFunction;
+  id_person: number;
+}
+function CarDialog(props: CarDialogProps) {
+  const properties = useAsyncMemo(
+    () => getPersonPropertyParam(props.id_person),
+    [props.id_person],
+    []
+  );
+  const agreement_type = useAppSelector(
+    (state) => state.Agreement.agreement_type
+  );
+  const data = useAgreementData("car", { agreement_type });
+
+  const valueCarGetter = (
+    person_properties: PersonProperty[],
+    key_id: number
+  ): string => {
+    const items = person_properties.map((item) => {
+      function itemFind(rr_id: number) {
+        return (
+          item.PersonPropertyParams?.find(
+            (i) =>
+              i.r_property_typ_params_id === rr_id && i.parent_id === key_id
+          )?.value || ""
+        );
+      }
+      const name = itemFind(7);
+      const vin = itemFind(6);
+      const govNumber = itemFind(5);
+      const carType = itemFind(47);
+      const idk = itemFind(3);
+      return name + vin + govNumber + carType + idk;
+    });
+    return items.reduce((p, c) => p + " " + c);
+  };
+
+  return (
+    <Dialog open={props.open} onClose={props.onClose} fullWidth>
+      <DialogTitle>Выберите машину, id_person: {props.id_person}</DialogTitle>
+      <Divider />
+      <DialogContent>
+        <FormControl fullWidth>
+          <Select
+            onChange={(event) => {
+              data.onChange(String(event.target.value));
+            }}
+          >
+            <MenuItem value={""}>Не выбрано</MenuItem>
+            {properties.map((item) => (
+              <MenuItem
+                key={item.id}
+                value={valueCarGetter(properties, item.id)}
+              >
+                {valueCarGetter(properties, item.id)}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Grid>
+          <Button
+            variant="contained"
+            onClick={() => {
+              props.onClose();
+            }}
+          >
+            Submit
+          </Button>
+        </Grid>
+      </DialogContent>
+    </Dialog>
   );
 }

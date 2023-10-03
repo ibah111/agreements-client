@@ -77,7 +77,7 @@ export default function useGetColumns(
     {
       field: "id",
       headerName: "ID",
-      width: 90,
+      width: 100,
       type: "number",
       editable: false,
     },
@@ -103,6 +103,11 @@ export default function useGetColumns(
       headerName: "Дата заключения",
       width: 150,
       editable: ability.can(Action.Update, Subject.Agreement),
+    },
+    {
+      field: "person_id",
+      headerName: "ID должника",
+      width: 100,
     },
     {
       headerName: "ФИО должника",
@@ -203,7 +208,7 @@ export default function useGetColumns(
       width: 100,
     },
     {
-      width: 100,
+      width: 50,
       headerName: "Платежный статус",
       field: "payable_status",
       type: "boolean",
@@ -267,7 +272,7 @@ export default function useGetColumns(
     {
       headerName: "Статус",
       field: "statusAgreement",
-      width: 100,
+      width: 50,
       editable: ability.can(Action.Update, Subject.Agreement),
       type: "singleSelect",
       valueOptions:
@@ -279,7 +284,7 @@ export default function useGetColumns(
     {
       headerName: "Портфель",
       field: "portfolio",
-      width: 150,
+      width: 125,
       type: "singleSelect",
       valueOptions: selectPortfolio,
       valueFormatter: (params) => {

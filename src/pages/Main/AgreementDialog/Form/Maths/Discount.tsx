@@ -14,23 +14,21 @@ export default function Discount() {
     return 0;
   };
   const maths = full_req - sum;
+  const f_val = numberRound(condition(sum));
   return (
     <Grid xs={2} item>
       <TextField
         label="Дисконт"
-        onChange={() =>
+        onChange={() => {
           dispatch(
-            setAgreementProperty([
-              "discount",
-              condition(sum) ? Number(condition(sum)) : 0,
-            ])
-          )
-        }
+            setAgreementProperty(["discount", f_val ? Number(f_val) : 0])
+          );
+        }}
         InputProps={{
           endAdornment: <InputAdornment position="end">₽</InputAdornment>,
           inputComponent: NumericFormatCustom as any,
         }}
-        value={numberRound(condition(sum))}
+        value={f_val}
         helperText={"Значение подсчитывается само"}
         disabled
       />

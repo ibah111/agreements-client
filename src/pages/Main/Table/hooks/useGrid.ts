@@ -58,6 +58,7 @@ export function useGrid(
         GRID_CHECKBOX_SELECTION_COL_DEF.field,
         "id",
         "statusAgreement",
+        "person_id",
         "FIO",
         "birth_date",
         "conclusion_date",

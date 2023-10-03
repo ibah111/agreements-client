@@ -1,8 +1,13 @@
-import { Grid, TextField } from "@mui/material";
+import { Grid, IconButton, InputAdornment, TextField } from "@mui/material";
 import useAgreementData from "../../../../Hooks/useAgreementData";
 import { useAppSelector } from "../../../../Reducer";
-
-export default function Car() {
+import DriveEtaIcon from "@mui/icons-material/DriveEta";
+import { AgreementCreateEvents, AgreementEventDialog } from "..";
+interface CarProps {
+  eventTarget: EventTarget;
+  id_person: number;
+}
+export default function Car(props: CarProps) {
   const agreement_type = useAppSelector(
     (state) => state.Agreement.agreement_type
   );
@@ -20,6 +25,24 @@ export default function Car() {
         helperText={data.helperText}
         error={data.error}
         required={data.required}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => {
+                  props.eventTarget.dispatchEvent(
+                    new AgreementEventDialog(
+                      AgreementCreateEvents.onOpenCar,
+                      props.id_person
+                    )
+                  );
+                }}
+              >
+                <DriveEtaIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
     </Grid>
   );
