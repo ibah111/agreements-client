@@ -3,7 +3,6 @@ import {
   GridToolbarColumnsButton,
   GridToolbarFilterButton,
   GridToolbarDensitySelector,
-  GridToolbarExport,
 } from "@mui/x-data-grid-premium";
 import RefreshToolbarButton from "../../../../components/Utils/RefreshToolbarButton";
 import AddAgreement from "./AddAgreement";
@@ -13,6 +12,8 @@ import SwitchTheme from "../../../../components/ThemeProvider/SwitchTheme/Switch
 import SyncAllButton from "./SyncAllButton";
 import { Can } from "../../../../casl/casl";
 import { Action, Subject } from "../../../../casl/casl.factory";
+import DownloadFilterButton from "./DownloadFilterButton";
+import ResetPinned from "./ResetPinned";
 
 interface AgreementTableToolbarProps {
   refresh: VoidFunction;
@@ -27,9 +28,10 @@ export default function AgreementTableToolbar(
     <GridToolbarContainer>
       <SwitchTheme />
       <GridToolbarColumnsButton />
-      <GridToolbarFilterButton />
       <GridToolbarDensitySelector />
-      <GridToolbarExport />
+      <GridToolbarFilterButton />
+      <DownloadFilterButton />
+      <ResetPinned />
       <RefreshToolbarButton refresh={props.refresh} />
       <Can I={Action.Update} a={Subject.Admin}>
         <SyncAllButton refresh={props.refresh} />
