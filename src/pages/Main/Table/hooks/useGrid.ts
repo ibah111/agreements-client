@@ -18,7 +18,20 @@ import useAsyncMemo from "../../../../utils/asyncMemo";
 import GetColumns from "../DataTable/column.data";
 import getAllCollectors from "../../../../api/getAllCollectors";
 import getPortfolio from "../../../../api/getPortfolio";
-
+export const initialPinned = {
+  left: [
+    GRID_CHECKBOX_SELECTION_COL_DEF.field,
+    "id",
+    "statusAgreement",
+    "person_id",
+    "FIO",
+    "birth_date",
+    "conclusion_date",
+    "portfolio",
+    "payable_status",
+  ],
+  right: ["debt_count", "finish_date", "Card_IP", "actions"],
+};
 interface GridResult<T extends GridValidRowModel> {
   columns: GridColDef<T>[];
   pinnedColumns: GridPinnedColumns;
@@ -53,20 +66,7 @@ export function useGrid(
   const [loading, setLoading] = React.useState(false);
   const [rows, setRows] = React.useState<AgreementInstance[]>([]);
   const [pinnedColumns, onPinnedColumnsChange] =
-    React.useState<GridPinnedColumns>({
-      left: [
-        GRID_CHECKBOX_SELECTION_COL_DEF.field,
-        "id",
-        "statusAgreement",
-        "person_id",
-        "FIO",
-        "birth_date",
-        "conclusion_date",
-        "portfolio",
-        "payable_status",
-      ],
-      right: ["debt_count", "finish_date", "Card_IP", "actions"],
-    });
+    React.useState<GridPinnedColumns>(initialPinned);
   const [filterModel, onFilterModelChange] = React.useState<GridFilterModel>({
     items: [],
   });
