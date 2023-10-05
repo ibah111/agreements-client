@@ -52,7 +52,7 @@ function ExpandableCell({ value }: GridRenderCellParams) {
   );
 }
 
-export default function useGetColumns(
+export default function GetColumns(
   refresh: () => void,
   ability: AppAbility,
   agreementType: IdTitle[],
@@ -80,6 +80,7 @@ export default function useGetColumns(
       width: 100,
       type: "number",
       editable: false,
+      sortable: false,
     },
     {
       field: "contract",
@@ -121,12 +122,12 @@ export default function useGetColumns(
       },
     },
     {
+      ...dateColumnType,
+      sortable: false,
       headerName: "ДР должника",
       field: "birth_date",
       width: 100,
       editable: false,
-      filterable: false,
-      sortable: false,
       type: "Date",
       valueGetter: (params) => {
         return moment(params.row.PersonPreview.birth_date).format("DD.MM.YYYY");
@@ -154,12 +155,12 @@ export default function useGetColumns(
       type: "number",
       editable: ability.can(Action.Update, Subject.Agreement),
       valueGetter(params) {
-        const discount = params.row.discount;
+        // const discount = params.row.discount;
         const full_req = params.row.full_req;
-        const sum = params.row.sum;
+        // const sum = params.row.sum;
         if (full_req) return full_req;
-        if (discount && sum) return discount + sum;
-        if (sum) return sum;
+        // if (discount && sum) return discount + sum;
+        // if (sum) return sum;
       },
     },
     {
@@ -232,7 +233,7 @@ export default function useGetColumns(
     {
       headerName: "Последний платеж",
       description: "Последний зарег. платеж из контакта",
-      field: "lastPayment",
+      field: "last_payment",
       width: 150,
       type: "number",
       editable: false,
@@ -243,11 +244,10 @@ export default function useGetColumns(
       },
     },
     {
-      filterable: false,
-      sortable: false,
+      ...dateColumnType,
       editable: false,
       headerName: "Дата посл.платежа",
-      field: "lastPaymentDate",
+      field: "last_payment_date",
       type: "Date",
       width: 125,
       valueGetter: (params) => {
@@ -282,6 +282,7 @@ export default function useGetColumns(
         })) || [],
     },
     {
+      sortable: false,
       headerName: "Портфель",
       field: "portfolio",
       width: 125,
@@ -307,16 +308,17 @@ export default function useGetColumns(
     {
       headerName: "Первый платеж по соглашению",
       description: "Первый платеж по соглашению первого связанного долга",
-      field: "firstPayment",
+      field: "first_payment",
       width: 150,
       type: "number",
       valueGetter: (params) =>
         params.row.DebtLinks?.map((item) => item.first_payment)[0] || null,
     },
     {
+      ...dateColumnType,
       headerName: "Дата первого платежа",
       description: "Дата первого платежа",
-      field: "firstPaymentDate",
+      field: "first_payment_date",
       width: 250,
       type: "Date",
       valueGetter: (params) => {
