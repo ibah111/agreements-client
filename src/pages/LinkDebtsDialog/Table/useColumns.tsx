@@ -70,26 +70,32 @@ export default function useColumns(
         },
       },
       {
-        align: "center",
+        field: "sum_payments",
+        headerName: "Сумма платежей после соглашения",
         headerAlign: "center",
-        headerName: "Дата перв.платежа",
-        field: "first_payment_date",
-        type: "Date",
-        valueGetter(params) {
-          if (params.row.first_payment_date === null) return;
-          return moment(params.row.first_payment_date).format("DD.MM.YYYY");
-        },
-      },
-      {
         align: "center",
-        headerAlign: "center",
-        headerName: "Перв.платеж",
-        field: "first_payment",
-        type: "number",
-        valueGetter(params) {
-          return params.row.first_payment;
-        },
       },
+      // {
+      //   align: "center",
+      //   headerAlign: "center",
+      //   headerName: "Дата перв.платежа",
+      //   field: "first_payment_date",
+      //   type: "Date",
+      //   valueGetter(params) {
+      //     if (params.row.first_payment_date === null) return;
+      //     return moment(params.row.first_payment_date).format("DD.MM.YYYY");
+      //   },
+      // },
+      // {
+      //   align: "center",
+      //   headerAlign: "center",
+      //   headerName: "Перв.платеж",
+      //   field: "first_payment",
+      //   type: "number",
+      //   valueGetter(params) {
+      //     return params.row.first_payment;
+      //   },
+      // },
       {
         align: "center",
         headerAlign: "center",
