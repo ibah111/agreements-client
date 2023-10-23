@@ -6,6 +6,7 @@ import { Can } from "../../../../../casl/casl";
 import { Action, Subject } from "../../../../../casl/casl.factory";
 import { Edit } from "@mui/icons-material";
 import { CommentEventsClass, CommentEvents } from "../CommentTable";
+import getDateMoment from "../../../../../utils/getDateMoment";
 
 export default function useCommentColumns(
   refresh: () => void,
@@ -47,6 +48,16 @@ export default function useCommentColumns(
         } else {
           return params.row.User.login;
         }
+      },
+    },
+    {
+      field: "createdAt",
+      align: "center",
+      headerAlign: "center",
+      headerName: "Дата",
+      type: "Date",
+      valueFormatter(params) {
+        return getDateMoment(params.value);
       },
     },
     {
