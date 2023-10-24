@@ -92,4 +92,6 @@ export class Agreement extends Model<
   debt_count: number;
 
   car: string | null;
+
+  one_day_payment_date: moment.Moment | null;
 }

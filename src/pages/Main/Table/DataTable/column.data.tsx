@@ -231,6 +231,13 @@ export default function GetColumns(
       },
     },
     {
+      ...dateColumnType,
+      field: "one_day_date_payment",
+      headerName: "Дата единовременного платежа",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
       headerName: "Последний платеж",
       description: "Последний зарег. платеж из контакта",
       field: "last_payment",
@@ -259,6 +266,7 @@ export default function GetColumns(
 
         if (!arr) return;
         const last = arr[arr?.length - 1] as unknown as Date;
+
         return getDateMoment(last);
       },
     },

@@ -145,25 +145,20 @@ export class AgreementInstance implements AgreementData {
   DebtLinks?: AgreementDebtsLink[];
   Comments?: Comments[];
 
-  firstPayment: number | null;
-  lastPayment: number | null;
-  @IsValidMoment()
-  @IsOptional()
-  @DateType(false)
-  @TransformDate(false)
-  lastPaymentDate?: moment.Moment;
-  @IsValidMoment()
-  @IsOptional()
-  @DateType(false)
-  @TransformDate(false)
-  firstPaymentDate?: moment.Moment;
-  sumAfterAgr: number | null;
-  sumBeforeAgr: number | null;
-
   @IsOptional()
   debt_count: number;
 
   @ValidateIf((o) => [2].includes(o.agreement_type))
   @IsNotEmpty()
   car: string | null;
+
+  @ValidateIf((o) => o.month_pay_day === null)
+  @DateRange({
+    minDate: moment(),
+  })
+  @IsValidMoment()
+  @DateType(false)
+  @TransformDate(false)
+  @IsNotEmpty()
+  one_day_payment_date: moment.Moment | null;
 }
