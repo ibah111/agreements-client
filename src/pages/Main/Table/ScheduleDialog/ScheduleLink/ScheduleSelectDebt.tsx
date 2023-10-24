@@ -101,7 +101,7 @@ export function ScheduleSelectDebt(props: Props) {
                   </MenuItem>
                   {debt.map((i) => (
                     <MenuItem key={i.id} value={i.id}>
-                      Имя: {i.name} ", КД: {i.contract}
+                      ID долга: {i.id} , Имя: {i.name} , КД: {i.contract}
                     </MenuItem>
                   ))}
                 </Select>

@@ -10,8 +10,10 @@ import {
   Divider,
   FormControl,
   Grid,
+  IconButton,
   MenuItem,
   Select,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -46,6 +48,8 @@ import useAgreementForm from "./useAgreementForm";
 import useAgreementData from "../../../Hooks/useAgreementData";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import getPersonPropertyParam from "../../../api/PersonPropertiesLink/getPersonPropertyParam";
+import OneDayPaymentDate from "./Form/OneDayPaymentDate";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 export enum AgreementCreateEvents {
   onOpenCar = "onOpenCar",
@@ -137,6 +141,15 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         <Divider />
         <DialogTitle alignSelf={"center"}>
           {`Запишите данные соглашения`}
+          <Tooltip title="Сбросить данные">
+            <IconButton
+              onClick={() => {
+                dispatch(resetAgreement());
+              }}
+            >
+              <RefreshIcon />
+            </IconButton>
+          </Tooltip>
         </DialogTitle>
         <Divider />
         <DialogContent sx={{ flexGrow: 1 }}>
@@ -146,6 +159,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <StatusAgreementType />
             <FinishDate />
             <MonthPerDay />
+            <OneDayPaymentDate />
             {agreement.agreement_type === 2 && (
               <Car
                 eventTarget={AgreementDialogTarget}
@@ -246,35 +260,37 @@ function CarDialog(props: CarDialogProps) {
 
   return (
     <Dialog open={props.open} onClose={props.onClose} fullWidth>
-      <DialogTitle>Выберите машину, id_person: {props.id_person}</DialogTitle>
+      <DialogTitle>Выберите машину</DialogTitle>
       <Divider />
       <DialogContent>
-        <FormControl fullWidth>
-          <Select
-            onChange={(event) => {
-              data.onChange(String(event.target.value));
-            }}
-          >
-            <MenuItem value={""}>Не выбрано</MenuItem>
-            {properties.map((item) => (
-              <MenuItem
-                key={item.id}
-                value={valueCarGetter(properties, item.id)}
-              >
-                {valueCarGetter(properties, item.id)}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Grid>
-          <Button
-            variant="contained"
-            onClick={() => {
-              props.onClose();
-            }}
-          >
-            Submit
-          </Button>
+        <Grid container spacing={1}>
+          <FormControl fullWidth>
+            <Select
+              onChange={(event) => {
+                data.onChange(String(event.target.value));
+              }}
+            >
+              <MenuItem value={""}>Не выбрано / Имущества нет</MenuItem>
+              {properties.map((item) => (
+                <MenuItem
+                  key={item.id}
+                  value={valueCarGetter(properties, item.id)}
+                >
+                  {valueCarGetter(properties, item.id)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Grid item>
+            <Button
+              variant="contained"
+              onClick={() => {
+                props.onClose();
+              }}
+            >
+              Submit
+            </Button>
+          </Grid>
         </Grid>
       </DialogContent>
     </Dialog>
