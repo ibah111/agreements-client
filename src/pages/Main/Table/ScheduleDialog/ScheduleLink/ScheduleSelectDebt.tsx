@@ -29,7 +29,7 @@ export function ScheduleSelectDebt(props: Props) {
     [],
     []
   );
-  const type = useAsyncMemo(getAllScheduleTypes, []);
+  const type = useAsyncMemo(() => getAllScheduleTypes(props.id_agreement), []);
 
   const [numberType, setNumberType] = React.useState<number>(0);
 
@@ -55,7 +55,7 @@ export function ScheduleSelectDebt(props: Props) {
 
   return (
     <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Привязать {debtId}</DialogTitle>
+      <DialogTitle>Привязать</DialogTitle>
       <Divider />
       <DialogContent>
         {/**
@@ -118,7 +118,7 @@ export function ScheduleSelectDebt(props: Props) {
            * CourtDoc
            */}
           <Grid item xs>
-            {debtId !== null && (
+            {numberType === 2 && (
               <FormControl fullWidth>
                 <InputLabel id="court-doc-num-label">
                   Гражданское дело
