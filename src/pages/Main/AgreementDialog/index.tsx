@@ -48,8 +48,8 @@ import useAgreementForm from "./useAgreementForm";
 import useAgreementData from "../../../Hooks/useAgreementData";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import getPersonPropertyParam from "../../../api/PersonPropertiesLink/getPersonPropertyParam";
-import OneDayPaymentDate from "./Form/OneDayPaymentDate";
 import RefreshIcon from "@mui/icons-material/Refresh";
+// import OneDayPaymentDate from "./Form/OneDayPaymentDate";
 
 export enum AgreementCreateEvents {
   onOpenCar = "onOpenCar",
@@ -159,7 +159,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <StatusAgreementType />
             <FinishDate />
             <MonthPerDay />
-            <OneDayPaymentDate />
+            {/* {agreement.month_pay_day !== null && <OneDayPaymentDate />} */}
             {agreement.agreement_type === 2 && (
               <Car
                 eventTarget={AgreementDialogTarget}
@@ -248,14 +248,15 @@ function CarDialog(props: CarDialogProps) {
           )?.value || ""
         );
       }
+
       const name = itemFind(7);
       const vin = itemFind(6);
       const govNumber = itemFind(5);
       const carType = itemFind(47);
       const idk = itemFind(3);
-      return name + vin + govNumber + carType + idk;
+      return name + " " + vin + " " + govNumber + " " + carType + " " + idk;
     });
-    return items.reduce((p, c) => p + " " + c);
+    return items.reduce((p, c) => p + c);
   };
 
   return (
