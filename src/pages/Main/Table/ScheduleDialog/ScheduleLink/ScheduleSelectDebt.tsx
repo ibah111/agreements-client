@@ -17,6 +17,7 @@ import useAsyncMemo from "../../../../../utils/asyncMemo";
 import getAvailableSchedulesForSchedule from "../../../../../api/SchedulePayments/getAvailableSchedulesForSchedule";
 import createScheduleLinks from "../../../../../api/SchedulePayments/createScheduleLink";
 import { enqueueSnackbar } from "notistack";
+import getCourtDocs from "../../../../../api/SchedulePayments/getCourtDocs";
 interface Props {
   open: boolean;
   onClose: VoidFunction;
@@ -48,9 +49,13 @@ export function ScheduleSelectDebt(props: Props) {
     if (type === 2) return true;
   }, []);
 
+  const [courtDocNum, setCourtDocNum] = React.useState<string>("");
+
+  const courtDocsNums = useAsyncMemo(() => getCourtDocs(debtId), [], []);
+
   return (
     <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Привязать</DialogTitle>
+      <DialogTitle>Привязать {debtId}</DialogTitle>
       <Divider />
       <DialogContent>
         {/**
@@ -101,7 +106,40 @@ export function ScheduleSelectDebt(props: Props) {
                   </MenuItem>
                   {debt.map((i) => (
                     <MenuItem key={i.id} value={i.id}>
-                      ID долга: {i.id} , Имя: {i.name} , КД: {i.contract}
+                      ID долга: {i.id} , Имя: {i.name} , КД: {i.contract} , Имя
+                      продукта: {i.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+          </Grid>
+          {/**
+           * CourtDoc
+           */}
+          <Grid item xs>
+            {debtId !== null && (
+              <FormControl fullWidth>
+                <InputLabel id="court-doc-num-label">
+                  Гражданское дело
+                </InputLabel>
+                <Select
+                  disabled={typeCondition(numberType)}
+                  labelId="court-doc-num-label"
+                  label="court_doc_num"
+                  onChange={(event) => {
+                    setCourtDocNum(String(event.target.value));
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>Не выбрано или не найден долг</em>
+                  </MenuItem>
+                  {courtDocsNums.map((i) => (
+                    <MenuItem
+                      key={i.id}
+                      value={i.court_doc_num || "*Номера нет*"}
+                    >
+                      ID долга: {i.id} Гражданское дело: {i.court_doc_num}
                     </MenuItem>
                   ))}
                 </Select>
@@ -128,6 +166,7 @@ export function ScheduleSelectDebt(props: Props) {
                   schedule_type: numberType,
                   id_debt: debtId,
                   contract: contract,
+                  court_doc_num: courtDocNum,
                 }).subscribe(() => {
                   enqueueSnackbar("Создано", {
                     variant: "success",

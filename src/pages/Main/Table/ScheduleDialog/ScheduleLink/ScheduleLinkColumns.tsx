@@ -28,18 +28,32 @@ export function getColumns(props: props) {
     {
       headerName: "КД",
       field: "contract",
-
       valueFormatter(params) {
         if (params.value) return `${params.value}`;
       },
     },
     {
+      field: "name",
+      headerName: "Имя продукта",
+      type: "string",
+    },
+    {
+      field: "court_doc_num",
+      headerName: "Гражданское дело",
+      description: "№ Исп.документа",
+      type: "string",
+    },
+    {
       headerName: "Тип графика",
       field: "schedule_type",
       valueFormatter(params) {
-        const V = params.value;
-        if (V === 1) return "Общий";
-        if (V === 2) return "По КД";
+        const st = {
+          1: "Общий",
+          2: "По КД",
+        };
+        const V = params.value as number;
+        //@ts-expect-error
+        return st[V];
       },
     },
     {
