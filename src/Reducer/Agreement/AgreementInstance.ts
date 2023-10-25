@@ -130,9 +130,6 @@ export class AgreementInstance implements AgreementData {
   payable_status: boolean | null = false;
 
   @IsOptional()
-  collector: string;
-
-  @IsOptional()
   collector_id: number;
 
   @IsOptional()
@@ -148,8 +145,9 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   debt_count: number;
 
-  @ValidateIf((o) => [2].includes(o.agreement_type))
-  @IsNotEmpty()
+  // @ValidateIf((o) => [2].includes(o.agreement_type))
+  // @IsNotEmpty()
+  @IsOptional()
   car: string | null;
 
   @ValidateIf((o) => o.month_pay_day === null)

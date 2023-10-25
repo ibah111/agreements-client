@@ -23,8 +23,8 @@ export default function Car(props: CarProps) {
         }}
         value={data.value}
         helperText={data.helperText}
-        error={data.error}
-        required={data.required}
+        color="warning"
+        focused
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

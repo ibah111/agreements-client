@@ -155,12 +155,9 @@ export default function GetColumns(
       type: "number",
       editable: ability.can(Action.Update, Subject.Agreement),
       valueGetter(params) {
-        // const discount = params.row.discount;
         const full_req = params.row.full_req;
-        // const sum = params.row.sum;
         if (full_req) return full_req;
-        // if (discount && sum) return discount + sum;
-        // if (sum) return sum;
+        if (!full_req && params.row.car) return params.row.car;
       },
     },
     {

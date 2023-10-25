@@ -160,7 +160,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             <FinishDate />
             <MonthPerDay />
             {/* {agreement.month_pay_day !== null && <OneDayPaymentDate />} */}
-            {agreement.agreement_type === 2 && (
+            {[2, 5].includes(agreement.agreement_type) && (
               <Car
                 eventTarget={AgreementDialogTarget}
                 id_person={props.person.id}
