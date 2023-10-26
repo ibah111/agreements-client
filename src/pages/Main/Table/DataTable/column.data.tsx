@@ -80,7 +80,6 @@ export default function GetColumns(
       width: 100,
       type: "number",
       editable: false,
-      sortable: false,
     },
     {
       field: "contract",
@@ -287,7 +286,6 @@ export default function GetColumns(
         })) || [],
     },
     {
-      sortable: false,
       headerName: "Портфель",
       field: "portfolio",
       width: 125,

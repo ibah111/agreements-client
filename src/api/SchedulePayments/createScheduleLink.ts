@@ -8,7 +8,7 @@ interface InputData {
   name: string;
   id_debt?: number;
   contract?: string;
-  court_doc_num?: string;
+  document_number?: string;
 }
 export default function createScheduleLinks(data: InputData) {
   return of(data).pipe(

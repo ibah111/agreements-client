@@ -18,7 +18,7 @@ import getAvailableSchedulesForSchedule from "../../../../../api/SchedulePayment
 import createScheduleLinks from "../../../../../api/SchedulePayments/createScheduleLink";
 import { enqueueSnackbar } from "notistack";
 import getCourtDocs from "../../../../../api/SchedulePayments/getCourtDocs";
-import { LawAct, LawExec } from "@contact/models";
+import { LawAct } from "@contact/models";
 interface Props {
   open: boolean;
   onClose: VoidFunction;
@@ -49,7 +49,7 @@ export function ScheduleSelectDebt(props: Props) {
     if (type === 2) return true;
   }, []);
 
-  const [courtDocNum, setCourtDocNum] = React.useState<string>("");
+  const [documentNumber, setDocumentNumber] = React.useState<string>("");
 
   const [courtDocsNums, setCourtDocsNums] = React.useState<LawAct[]>([]);
 
@@ -126,7 +126,7 @@ export function ScheduleSelectDebt(props: Props) {
                   labelId="exec_number_label"
                   label="exec_number_label"
                   onChange={(event) => {
-                    setCourtDocNum(String(event.target.value));
+                    setDocumentNumber(String(event.target.value));
                   }}
                   onOpen={() =>
                     getCourtDocs(debtId).subscribe(setCourtDocsNums)
@@ -168,7 +168,7 @@ export function ScheduleSelectDebt(props: Props) {
                   id_debt: debtId,
                   contract: data?.contract,
                   name: data?.name || "",
-                  court_doc_num: courtDocNum,
+                  document_number: documentNumber,
                 }).subscribe(() => {
                   enqueueSnackbar("Создано", {
                     variant: "success",

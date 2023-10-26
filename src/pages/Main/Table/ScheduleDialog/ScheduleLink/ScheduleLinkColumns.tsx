@@ -38,7 +38,7 @@ export function getColumns(props: props) {
       type: "string",
     },
     {
-      field: "court_doc_num",
+      field: "document_number",
       headerName: "Гражданское дело",
       description: "№ Исп.документа",
       type: "string",
