@@ -5,6 +5,7 @@ import { transformError } from "../../utils/processError";
 interface InputData {
   id_agreement: number;
   schedule_type: number;
+  name: string;
   id_debt?: number;
   contract?: string;
   court_doc_num?: string;

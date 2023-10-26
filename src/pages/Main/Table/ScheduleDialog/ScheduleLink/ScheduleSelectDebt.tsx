@@ -38,10 +38,9 @@ export function ScheduleSelectDebt(props: Props) {
   }, []);
   const [debtId, setDebtId] = React.useState<number>(0);
 
-  const contract = React.useMemo(
-    () => debt.find((i) => i.id === debtId)?.contract,
-    [debt, debtId]
-  );
+  const data = React.useMemo(() => {
+    return debt.find((i) => i.id === debtId);
+  }, [debt, debtId]);
 
   const buttonCondition = React.useCallback((type: number, id: number) => {
     if (!type) return true;
@@ -55,7 +54,7 @@ export function ScheduleSelectDebt(props: Props) {
 
   return (
     <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Привязать</DialogTitle>
+      <DialogTitle>Привязать {debtId}</DialogTitle>
       <Divider />
       <DialogContent>
         {/**
@@ -99,6 +98,7 @@ export function ScheduleSelectDebt(props: Props) {
                   label="Debt"
                   onChange={(event) => {
                     setDebtId(Number(event.target.value));
+                    getCourtDocs(Number(event.target.value));
                   }}
                 >
                   <MenuItem value="">
@@ -139,7 +139,7 @@ export function ScheduleSelectDebt(props: Props) {
                       key={i.id}
                       value={i.court_doc_num || "*Номера нет*"}
                     >
-                      ID долга: {i.id} Гражданское дело: {i.court_doc_num}
+                      {i.court_doc_num}
                     </MenuItem>
                   ))}
                 </Select>
@@ -165,7 +165,8 @@ export function ScheduleSelectDebt(props: Props) {
                   id_agreement: props.id_agreement,
                   schedule_type: numberType,
                   id_debt: debtId,
-                  contract: contract,
+                  contract: data?.contract,
+                  name: data?.name || "",
                   court_doc_num: courtDocNum,
                 }).subscribe(() => {
                   enqueueSnackbar("Создано", {

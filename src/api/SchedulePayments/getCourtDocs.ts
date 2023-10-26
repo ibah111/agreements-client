@@ -5,7 +5,7 @@ import { transformError } from "../../utils/processError";
 import { LawExec } from "@contact/models";
 
 export default function getCourtDocs(id_debt: number) {
-  return of().pipe(
+  return of(`/Payments/getCourtDocs/${id_debt}`).pipe(
     get<LawExec[]>(baseRequest),
     transformAxios(),
     transformError(),
