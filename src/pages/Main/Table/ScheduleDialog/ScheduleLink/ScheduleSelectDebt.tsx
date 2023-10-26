@@ -18,7 +18,7 @@ import getAvailableSchedulesForSchedule from "../../../../../api/SchedulePayment
 import createScheduleLinks from "../../../../../api/SchedulePayments/createScheduleLink";
 import { enqueueSnackbar } from "notistack";
 import getCourtDocs from "../../../../../api/SchedulePayments/getCourtDocs";
-import { LawExec } from "@contact/models";
+import { LawAct, LawExec } from "@contact/models";
 interface Props {
   open: boolean;
   onClose: VoidFunction;
@@ -51,11 +51,11 @@ export function ScheduleSelectDebt(props: Props) {
 
   const [courtDocNum, setCourtDocNum] = React.useState<string>("");
 
-  const [courtDocsNums, setCourtDocsNums] = React.useState<LawExec[]>([]);
+  const [courtDocsNums, setCourtDocsNums] = React.useState<LawAct[]>([]);
 
   return (
     <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="sm">
-      <DialogTitle>Привязать {debtId}</DialogTitle>
+      <DialogTitle>Привязать</DialogTitle>
       <Divider />
       <DialogContent>
         {/**
@@ -120,13 +120,11 @@ export function ScheduleSelectDebt(props: Props) {
           <Grid item xs>
             {debtId && (
               <FormControl fullWidth>
-                <InputLabel id="court-doc-num-label">
-                  Гражданское дело
-                </InputLabel>
+                <InputLabel id="exec_number_label">Гражданское дело</InputLabel>
                 <Select
                   disabled={typeCondition(numberType)}
-                  labelId="court-doc-num-label"
-                  label="court_doc_num"
+                  labelId="exec_number_label"
+                  label="exec_number_label"
                   onChange={(event) => {
                     setCourtDocNum(String(event.target.value));
                   }}
@@ -140,9 +138,9 @@ export function ScheduleSelectDebt(props: Props) {
                   {courtDocsNums.map((i) => (
                     <MenuItem
                       key={i.id}
-                      value={i.court_doc_num || "*Номера нет*"}
+                      value={i.exec_number || "*Номера нет*"}
                     >
-                      {i.court_doc_num}
+                      {i.exec_number}
                     </MenuItem>
                   ))}
                 </Select>
