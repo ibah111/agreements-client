@@ -18,6 +18,7 @@ import getAvailableSchedulesForSchedule from "../../../../../api/SchedulePayment
 import createScheduleLinks from "../../../../../api/SchedulePayments/createScheduleLink";
 import { enqueueSnackbar } from "notistack";
 import getCourtDocs from "../../../../../api/SchedulePayments/getCourtDocs";
+import { LawExec } from "@contact/models";
 interface Props {
   open: boolean;
   onClose: VoidFunction;
@@ -50,7 +51,7 @@ export function ScheduleSelectDebt(props: Props) {
 
   const [courtDocNum, setCourtDocNum] = React.useState<string>("");
 
-  const courtDocsNums = useAsyncMemo(() => getCourtDocs(debtId), [], []);
+  const [courtDocsNums, setCourtDocsNums] = React.useState<LawExec[]>([]);
 
   return (
     <Dialog open={props.open} onClose={props.onClose} fullWidth maxWidth="sm">
@@ -98,7 +99,6 @@ export function ScheduleSelectDebt(props: Props) {
                   label="Debt"
                   onChange={(event) => {
                     setDebtId(Number(event.target.value));
-                    getCourtDocs(Number(event.target.value));
                   }}
                 >
                   <MenuItem value="">
@@ -118,7 +118,7 @@ export function ScheduleSelectDebt(props: Props) {
            * CourtDoc
            */}
           <Grid item xs>
-            {numberType === 2 && (
+            {debtId && (
               <FormControl fullWidth>
                 <InputLabel id="court-doc-num-label">
                   Гражданское дело
@@ -130,9 +130,12 @@ export function ScheduleSelectDebt(props: Props) {
                   onChange={(event) => {
                     setCourtDocNum(String(event.target.value));
                   }}
+                  onOpen={() =>
+                    getCourtDocs(debtId).subscribe(setCourtDocsNums)
+                  }
                 >
                   <MenuItem value="">
-                    <em>Не выбрано или не найден долг</em>
+                    <em>Не выбрано или не надйено ГД</em>
                   </MenuItem>
                   {courtDocsNums.map((i) => (
                     <MenuItem
