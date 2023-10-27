@@ -18,6 +18,13 @@ export default function TablePayments({ id }: TablePaymentsProps) {
   );
   return (
     <DataGridPremium
+      initialState={{
+        aggregation: {
+          model: {
+            sum: "sum",
+          },
+        },
+      }}
       pinnedColumns={pinnedColumns}
       onPinnedColumnsChange={handlePinnedColumnsChange}
       columns={columns}
