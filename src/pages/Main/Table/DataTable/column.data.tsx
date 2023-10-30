@@ -203,6 +203,12 @@ export default function GetColumns(
       field: "sum_remains",
       type: "number",
       width: 100,
+      valueGetter(params) {
+        const sum_remains = params.row.sum_remains;
+        const car = params.row.car;
+        if (car) return car;
+        if (!car) return sum_remains;
+      },
     },
     {
       width: 50,
@@ -236,35 +242,18 @@ export default function GetColumns(
     {
       headerName: "Последний платеж",
       description: "Последний зарег. платеж из контакта",
-      field: "last_payment",
+      field: "preview_last_payment_sum",
       width: 150,
       type: "number",
       editable: false,
-      valueGetter: (params) => {
-        const value =
-          params.row.DebtLinks?.map((item) => item.last_payment) || [];
-        return value?.reduce((prev, curr) => prev + curr, 0);
-      },
     },
     {
       ...dateColumnType,
       editable: false,
       headerName: "Дата посл.платежа",
-      field: "last_payment_date",
+      field: "preview_last_payment_date",
       type: "Date",
       width: 125,
-      valueGetter: (params) => {
-        const arr = params.row.DebtLinks?.filter(
-          (item) => item.last_payment_date != null
-        )
-          .map((item) => item.last_payment_date)
-          .sort();
-
-        if (!arr) return;
-        const last = arr[arr?.length - 1] as unknown as Date;
-
-        return getDateMoment(last);
-      },
     },
     {
       ...dateColumnType,

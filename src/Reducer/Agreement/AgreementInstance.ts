@@ -166,4 +166,7 @@ export class AgreementInstance implements AgreementData {
 
   @IsOptional()
   preview_last_payment_sum: number | null;
+
+  @IsOptional()
+  sum_remains: number | null;
 }
