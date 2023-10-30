@@ -94,4 +94,8 @@ export class Agreement extends Model<
   car: string | null;
 
   one_day_payment_date: moment.Moment | null;
+
+  preview_last_payment_date: moment.Moment | null;
+
+  preview_last_payment_sum: number | null;
 }

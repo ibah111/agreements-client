@@ -145,8 +145,6 @@ export class AgreementInstance implements AgreementData {
   @IsOptional()
   debt_count: number;
 
-  // @ValidateIf((o) => [2].includes(o.agreement_type))
-  // @IsNotEmpty()
   @IsOptional()
   car: string | null;
 
@@ -159,4 +157,13 @@ export class AgreementInstance implements AgreementData {
   @TransformDate(false)
   @IsNotEmpty()
   one_day_payment_date: moment.Moment | null;
+
+  @IsValidMoment()
+  @DateType(false)
+  @TransformDate(false)
+  @IsOptional()
+  preview_last_payment_date: moment.Moment | null;
+
+  @IsOptional()
+  preview_last_payment_sum: number | null;
 }
