@@ -8,6 +8,8 @@ import TablePayments from "./Toolbar/Payments/PaymentsDialog/TablePayments";
 import useColumns from "./useColumns";
 import useTable from "./useTable";
 import { useSnackbar } from "notistack";
+import ContactLogTable from "./Toolbar/ContactLog";
+import useContactLogControls from "./Toolbar/ContactLog/useContactLogControls";
 
 interface TableProps {
   agreementId: number;
@@ -27,12 +29,24 @@ export default function Table(props: TableProps) {
   }, [refresh]);
   const { openPayments, handleOpen, handleClose, debtId } = useOpenPayments();
   const columns = useColumns(props.agreementId, refresh, handleOpen);
+  /**
+   *
+   */
+  const { openCl, closeContactLog, openContactLog } = useContactLogControls();
+
   return (
     <>
       <DataGridPremium
         getRowId={(row) => row.id_debt}
         hideFooter
-        slotProps={{ toolbar: { refresh, setOpen: handleOpenLinks } }}
+        slotProps={{
+          toolbar: {
+            refresh,
+            setOpen: handleOpenLinks,
+            setOpenLog: openContactLog,
+            id_agreement: props.agreementId,
+          },
+        }}
         slots={{ toolbar: Toolbar }}
         rows={rows}
         columns={columns}
@@ -65,6 +79,13 @@ export default function Table(props: TableProps) {
             </Grid>
           </DialogContent>
         </Dialog>
+      )}
+      {openCl && (
+        <ContactLogTable
+          open={openCl}
+          onClose={closeContactLog}
+          id_agreement={props.agreementId}
+        />
       )}
     </>
   );
