@@ -1,4 +1,4 @@
-import { Dialog } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
 import { DataGridPremium } from "@mui/x-data-grid-premium";
 import useContactLogHook from "./useContactLogHook";
 interface TableProps {
@@ -11,8 +11,17 @@ export default function ContactLogTable(props: TableProps) {
     id_agreement: props.id_agreement,
   });
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
-      <DataGridPremium {...gridProps} getRowId={(row) => row.id} />;
+    <Dialog open={props.open} onClose={props.onClose} maxWidth="lg" fullWidth>
+      <DialogTitle>Контактная информация по должникам</DialogTitle>
+      <DialogContent>
+        <Grid
+          sx={{
+            height: 500,
+          }}
+        >
+          <DataGridPremium {...gridProps} getRowId={(row) => row.id} />
+        </Grid>
+      </DialogContent>
     </Dialog>
   );
 }
