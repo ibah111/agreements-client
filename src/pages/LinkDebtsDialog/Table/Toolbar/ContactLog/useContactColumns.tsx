@@ -8,14 +8,13 @@ export default function useContactColumns() {
   const columns: GridColDef<ContactLog>[] = [
     {
       field: "r_debt_id",
-      headerName: "ID долга",
+      headerName: "Долг",
     },
     {
       field: "r_phone_id",
-      headerName: "ID телефона",
+      headerName: "Телефон",
       valueGetter(params) {
-        const number2 = params.row.Phone?.number2;
-        return number2;
+        return params.row.Phone?.number;
       },
       renderCell(params) {
         return (
@@ -57,7 +56,7 @@ export default function useContactColumns() {
       field: "r_debt_guarantor_id",
       headerName: "Поручитель",
       valueGetter(params) {
-        return params.row.DebtGuarantor?.fio;
+        return params.row.DebtGuarantor?.fio || "Поручитель на указан";
       },
     },
   ];
