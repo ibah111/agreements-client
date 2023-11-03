@@ -124,11 +124,10 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography>{`ID соглашений`}</Typography>
+              <Typography variant="h6" color={"black"}>
+                ID соглашений {ids?.join(", ")}
+              </Typography>
             </AccordionSummary>
-            <AccordionDetails>
-              <Typography>{`${ids}`}</Typography>
-            </AccordionDetails>
           </Accordion>
         )}
         <DialogContent sx={{ flexGrow: 1 }}>
