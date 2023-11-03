@@ -7,7 +7,13 @@ interface AddDebtLinkButtonProps {
 
 export default function AddDebtLinkButton(props: AddDebtLinkButtonProps) {
   return (
-    <Button startIcon={<Add />} size="small" onClick={props.setOpen}>
+    <Button
+      startIcon={<Add />}
+      size="small"
+      onClick={props.setOpen}
+      variant="outlined"
+      color="success"
+    >
       Связать долг
     </Button>
   );

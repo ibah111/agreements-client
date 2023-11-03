@@ -14,6 +14,8 @@ export default function ContactLogButton(props: LogProps) {
         }
       >
         <Button
+          variant="outlined"
+          color="warning"
           startIcon={<YoutubeSearchedForIcon />}
           onClick={() => {
             props.setOpen();
