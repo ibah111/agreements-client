@@ -4,9 +4,10 @@ import { ContactLog } from "@contact/models";
 import getContactLog from "../../../../../api/ContactLog/getContactLog";
 interface LogProps {
   id_agreement: number;
+  DialogTarget: EventTarget;
 }
 export default function useContactLogHook(props: LogProps) {
-  const columns = useContactColumns();
+  const columns = useContactColumns(props.DialogTarget);
   const [rows, setRows] = React.useState<ContactLog[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
 
