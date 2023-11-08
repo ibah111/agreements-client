@@ -25,6 +25,7 @@ import moment from "moment-timezone";
 import SyncOneIcon from "./SyncOneIcon/SyncOneIcon";
 import ScheduleIcon from "../ScheduleDialog/ScheduleIcon";
 import getDateMoment from "../../../../utils/getDateMoment";
+import { Collector } from "../../../../api/getAllCollectors";
 interface RenderLinkProps {
   value: string;
 }
@@ -59,7 +60,7 @@ export default function GetColumns(
   regDocs: IdTitle[],
   status: IdTitle[],
   portfolios: Portfolio[],
-  collectors: User[],
+  collectors: Collector[],
   eventTarget: EventTarget,
   pinned: GridPinnedColumns
 ) {
@@ -68,10 +69,16 @@ export default function GetColumns(
     label: port.name,
     value: port.id,
   }));
-  collectors.map((item) => ({ label: item.f, value: item.id }));
+  collectors.map((item) => ({
+    label: getName(item.fio, item.department_name),
+    value: item.id,
+  }));
   const n_collectors = [
     { label: "Нет", value: 0 },
-    ...collectors.map((item) => ({ label: item.f, value: item.id })),
+    ...collectors.map((item) => ({
+      label: getName(item.fio, item.department_name),
+      value: item.id,
+    })),
   ];
   const columns: GridColDef<AgreementInstance>[] = [
     {

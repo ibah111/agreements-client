@@ -1,6 +1,5 @@
 import {
   Accordion,
-  AccordionDetails,
   AccordionSummary,
   Button,
   Dialog,
@@ -49,19 +48,22 @@ import useAgreementData from "../../../Hooks/useAgreementData";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import getPersonPropertyParam from "../../../api/PersonPropertiesLink/getPersonPropertyParam";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import useAddCollector from "./AddCollectorDialog/useAddCollector";
+import AddCollectiorDialog from "./AddCollectorDialog/AddCollectorGrid";
 // import OneDayPaymentDate from "./Form/OneDayPaymentDate";
 
 export enum AgreementCreateEvents {
   onOpenCar = "onOpenCar",
+  onAddCollector = "onAddCollector",
 }
 export class AgreementEventDialog<
   Value = number | string | object
 > extends Event {
-  constructor(type: AgreementCreateEvents, value: Value) {
+  constructor(type: AgreementCreateEvents, value?: Value) {
     super(type);
     this.value = value;
   }
-  value: Value;
+  value?: Value;
 }
 interface CreateAgreementDialogProps {
   open: boolean;
@@ -101,7 +103,10 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
     DialogTarget: AgreementDialogTarget,
     onClose: () => props?.onClose(),
   });
-
+  const collectorDialog = useAddCollector({
+    DialogTarget: AgreementDialogTarget,
+    onClose: () => props.onClose(),
+  });
   return (
     <>
       <Dialog
@@ -174,7 +179,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
             {agreement.reg_doc === 3 && <Archive />}
             <ActionsForGet />
             <ReceiptDt />
-            <Collector />
+            <Collector eventTarget={AgreementDialogTarget} />
             <Comment />
             <TaskLink />
           </Grid>
@@ -212,6 +217,12 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
           open={carDialog.openCar}
           onClose={carDialog.closeCarDialog}
           id_person={props.person.id}
+        />
+      )}
+      {collectorDialog.openAddCollectorDialog && (
+        <AddCollectiorDialog
+          open={collectorDialog.openAddCollectorDialog}
+          onClose={collectorDialog.closeAddCollectorDialog}
         />
       )}
     </>
