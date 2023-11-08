@@ -5,7 +5,7 @@ import { User } from "@contact/models";
 import { transformError } from "../../utils/processError";
 
 export default function SearchUser(fio: string) {
-  return of(fio).pipe(
+  return of({ fio }).pipe(
     post<User[]>(baseRequest, "/collector/searchUser"),
     transformAxios(),
     transformError(),

@@ -5,11 +5,16 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
-import { DataGridPremium, GridColDef } from "@mui/x-data-grid-premium";
+import {
+  DataGridPremium,
+  GridActionsCellItem,
+  GridColDef,
+} from "@mui/x-data-grid-premium";
 import React from "react";
 import useSearchUser from "./useSearchUser";
 import { User } from "@contact/models";
 import getName from "../../../../Reducer/getName";
+import AddIcon from "@mui/icons-material/Add";
 
 interface CollectorDialogProps {
   open: boolean;
@@ -31,14 +36,15 @@ export default function AddCollectiorDialog({
       <DialogTitle>Добавить взыскателя</DialogTitle>
       <DialogContent>
         <Grid container direction={"column"} sx={{ height: "60vh" }}>
-          <Grid item spacing={1}>
-            <Grid>
+          <Grid item container alignItems={"center"} xs={1} spacing={1}>
+            <Grid item xs={6}>
               <TextField
+                label="ФИО"
                 size="small"
                 value={fio}
                 onChange={(event) => {
                   setFio(event.target.value as string);
-                  setTimeout(search, 1000);
+                  search();
                 }}
               />
             </Grid>
@@ -87,7 +93,13 @@ function useColumns() {
       field: "actions",
       headerName: "Действия",
       type: "actions",
-      getActions: () => [],
+      getActions: () => [
+        <GridActionsCellItem
+          icon={<AddIcon />}
+          onClick={() => {}}
+          label="collector-label"
+        />,
+      ],
     },
   ];
   return columns.map<GridColDef<User>>((items) => ({
