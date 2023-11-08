@@ -4,9 +4,6 @@ import useContactLogHook from "./useContactLogHook";
 import ContactLogToolbar from "./ContactLogToolbar/ContactLogToolbar";
 import useContactHeight from "./useContactHeight";
 import React from "react";
-import PhoneDialog from "./PhoneGrid";
-import useControlFunction, { keysEnum } from "./testUtils/useControl";
-import TestGrid from "./TestGrid";
 interface TableProps {
   open: boolean;
   onClose: VoidFunction;
@@ -21,12 +18,6 @@ export default function ContactLogTable(props: TableProps) {
 
   const { getRowHeight, changeRowHeight } = useContactHeight();
 
-  const { openState, onClose, value } = useControlFunction(keysEnum.phoneOpen, {
-    DialogTarget,
-    onClose: () => {
-      return;
-    },
-  });
   return (
     <Dialog open={props.open} onClose={props.onClose} maxWidth="lg" fullWidth>
       <DialogTitle>Контактная информация по должникам</DialogTitle>
@@ -48,8 +39,6 @@ export default function ContactLogTable(props: TableProps) {
             getRowHeight={getRowHeight}
           />
         </Grid>
-        {/* {openState && <PhoneDialog open={openState} onClose={onClose} />}
-        {openState && <TestGrid open={openState} onClose={onClose} />} */}
       </DialogContent>
     </Dialog>
   );

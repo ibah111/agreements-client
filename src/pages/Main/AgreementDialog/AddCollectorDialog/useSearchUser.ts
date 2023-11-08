@@ -1,5 +1,5 @@
 import React from "react";
-import SearchUser from "../../../../api/SearchUser/SearchUser";
+import SearchUser from "../../../../api/Collector/SearchCollector";
 import { User } from "@contact/models";
 interface props {
   fio: string;
@@ -16,12 +16,7 @@ export default function useSearchUser({ fio }: props) {
     return sub.unsubscribe.bind(sub);
   }, [fio]);
   React.useEffect(() => {
-    const handler = setTimeout(() => {
-      search();
-    }, 500);
-    return () => {
-      clearTimeout(handler);
-    };
+    return search();
   }, [fio, search]);
   return {
     rows,

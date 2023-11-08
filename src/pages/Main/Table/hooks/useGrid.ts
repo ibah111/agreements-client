@@ -16,7 +16,7 @@ import { IdTitle } from "../../../../Models/IdTitle";
 import { AgreementInstance } from "../../../../Reducer/Agreement/AgreementInstance";
 import useAsyncMemo from "../../../../utils/asyncMemo";
 import GetColumns from "../DataTable/column.data";
-import getAllCollectors from "../../../../api/getAllCollectors";
+import getAllCollectors from "../../../../api/Collector/getAllCollectors";
 import getPortfolio from "../../../../api/getPortfolio";
 export const initialPinned = {
   left: [

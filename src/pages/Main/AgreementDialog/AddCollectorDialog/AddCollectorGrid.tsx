@@ -15,6 +15,9 @@ import useSearchUser from "./useSearchUser";
 import { User } from "@contact/models";
 import getName from "../../../../Reducer/getName";
 import AddIcon from "@mui/icons-material/Add";
+import { enqueueSnackbar } from "notistack";
+import CreateCollector from "../../../../api/Collector/CreateCollector";
+import getAllCollectors from "../../../../api/Collector/getAllCollectors";
 
 interface CollectorDialogProps {
   open: boolean;
@@ -25,7 +28,9 @@ export default function AddCollectiorDialog({
   onClose,
   open,
 }: CollectorDialogProps) {
-  const cols = useColumns();
+  const cols = useColumns({
+    onClose,
+  });
   const [fio, setFio] = React.useState<string>("");
   const { loading, rows, search } = useSearchUser({
     fio,
@@ -64,8 +69,10 @@ export default function AddCollectiorDialog({
     </Dialog>
   );
 }
-
-function useColumns() {
+interface t {
+  onClose: VoidFunction;
+}
+function useColumns({ onClose }: t) {
   const columns: GridColDef<User>[] = [
     {
       field: "id_contact",
@@ -93,10 +100,22 @@ function useColumns() {
       field: "actions",
       headerName: "Действия",
       type: "actions",
-      getActions: () => [
+      getActions: (params) => [
         <GridActionsCellItem
           icon={<AddIcon />}
-          onClick={() => {}}
+          onClick={() =>
+            CreateCollector({
+              id_contact: params.row.id,
+              fio: getName(params.row.f, params.row.i),
+              department_name: params.row.Department?.name || "",
+            }).subscribe(() => {
+              enqueueSnackbar("Добавлено", {
+                variant: "success",
+              });
+              onClose();
+              getAllCollectors();
+            })
+          }
           label="collector-label"
         />,
       ],

@@ -48,8 +48,8 @@ import useAgreementData from "../../../Hooks/useAgreementData";
 import useAsyncMemo from "../../../utils/asyncMemo";
 import getPersonPropertyParam from "../../../api/PersonPropertiesLink/getPersonPropertyParam";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import useAddCollector from "./AddCollectorDialog/useAddCollector";
 import AddCollectiorDialog from "./AddCollectorDialog/AddCollectorGrid";
+import useAddCollector from "./AddCollectorDialog/useAddCollector";
 // import OneDayPaymentDate from "./Form/OneDayPaymentDate";
 
 export enum AgreementCreateEvents {

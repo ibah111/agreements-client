@@ -11,7 +11,7 @@ import { dateColumnType } from "../../../../utils/DateCol";
 import { Can } from "../../../../casl/casl";
 import { Action, AppAbility, Subject } from "../../../../casl/casl.factory";
 import { CustomEvents, EventDialog } from "../Table";
-import { Portfolio, User } from "@contact/models";
+import { Portfolio } from "@contact/models";
 import { IdTitle } from "../../../../Models/IdTitle";
 import ZalogIcon from "../Zalog/ZalogIcon";
 import React from "react";
@@ -25,7 +25,7 @@ import moment from "moment-timezone";
 import SyncOneIcon from "./SyncOneIcon/SyncOneIcon";
 import ScheduleIcon from "../ScheduleDialog/ScheduleIcon";
 import getDateMoment from "../../../../utils/getDateMoment";
-import { Collector } from "../../../../api/getAllCollectors";
+import { Collector } from "../../../../Models/Collector";
 interface RenderLinkProps {
   value: string;
 }
