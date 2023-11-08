@@ -12,6 +12,9 @@ import useAsyncMemo from "../../../../utils/asyncMemo";
 import getName from "../../../../Reducer/getName";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { AgreementCreateEvents, AgreementEventDialog } from "..";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { enqueueSnackbar } from "notistack";
+import deleteCollector from "../../../../api/Collector/deleteCollector";
 
 interface CollectorProps {
   eventTarget: EventTarget;
@@ -52,6 +55,18 @@ export default function Collector({ eventTarget }: CollectorProps) {
           {collectors.map((collector) => (
             <MenuItem key={collector.id} value={collector.id_contact}>
               {getName(collector.fio, collector.department_name)}
+              <IconButton
+                size="small"
+                onClick={() =>
+                  deleteCollector(collector.id).subscribe(() => {
+                    enqueueSnackbar("Успешно удалено", {
+                      variant: "info",
+                    });
+                  })
+                }
+              >
+                <DeleteIcon />
+              </IconButton>
             </MenuItem>
           ))}
         </Select>
