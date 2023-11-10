@@ -50,6 +50,7 @@ import getPersonPropertyParam from "../../../api/PersonPropertiesLink/getPersonP
 import RefreshIcon from "@mui/icons-material/Refresh";
 import AddCollectiorDialog from "./AddCollectorDialog/AddCollectorGrid";
 import useAddCollector from "./AddCollectorDialog/useAddCollector";
+import getAllCollectors from "../../../api/Collector/getAllCollectors";
 // import OneDayPaymentDate from "./Form/OneDayPaymentDate";
 
 export enum AgreementCreateEvents {
@@ -95,6 +96,7 @@ export default function AgreementDialog(props: CreateAgreementDialogProps) {
         setRes(res.length);
         setIds(res.map((i) => i.id));
       });
+    getAllCollectors();
   }, [enqueueSnackbar, props.person.id]);
 
   const AgreementDialogTarget = React.useMemo(() => new EventTarget(), []);

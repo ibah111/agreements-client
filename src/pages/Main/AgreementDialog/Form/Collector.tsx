@@ -15,12 +15,14 @@ import { AgreementCreateEvents, AgreementEventDialog } from "..";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { enqueueSnackbar } from "notistack";
 import deleteCollector from "../../../../api/Collector/deleteCollector";
+import { Collector as C } from "../../../../Models/Collector";
+import React from "react";
 
-interface CollectorProps {
+interface AddCollectorProps {
   eventTarget: EventTarget;
 }
 
-function AddCollector({ eventTarget }: CollectorProps) {
+function AddCollector({ eventTarget }: AddCollectorProps) {
   return (
     <IconButton
       onClick={() => {
@@ -34,9 +36,15 @@ function AddCollector({ eventTarget }: CollectorProps) {
   );
 }
 
+interface CollectorProps {
+  eventTarget: EventTarget;
+}
+
 export default function Collector({ eventTarget }: CollectorProps) {
   const data = useAgreementData("collector_id");
-  const collectors = useAsyncMemo(getAllCollectors, [], []);
+  // const collectors = useAsyncMemo(getAllCollectors, [], []);
+  const [collectors, setTestCollectors] = React.useState<C[]>([]);
+
   return (
     <Grid xs={2} item>
       <FormControl fullWidth>
@@ -47,6 +55,7 @@ export default function Collector({ eventTarget }: CollectorProps) {
           label={"Взыскатель"}
           //@ts-ignore
           onChange={(e) => data.onChange(e.target.value)}
+          onClick={() => getAllCollectors().subscribe(setTestCollectors)}
           value={data.value || ""}
         >
           <MenuItem>
@@ -62,6 +71,7 @@ export default function Collector({ eventTarget }: CollectorProps) {
                     enqueueSnackbar("Успешно удалено", {
                       variant: "info",
                     });
+                    getAllCollectors();
                   })
                 }
               >

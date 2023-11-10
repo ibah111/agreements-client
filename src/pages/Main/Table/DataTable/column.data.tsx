@@ -77,7 +77,7 @@ export default function GetColumns(
     { label: "Нет", value: 0 },
     ...collectors.map((item) => ({
       label: getName(item.fio, item.department_name),
-      value: item.id,
+      value: item.id_contact,
     })),
   ];
   const columns: GridColDef<AgreementInstance>[] = [
