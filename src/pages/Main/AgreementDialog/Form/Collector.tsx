@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import useAgreementData from "../../../../Hooks/useAgreementData";
 import getAllCollectors from "../../../../api/Collector/getAllCollectors";
-import useAsyncMemo from "../../../../utils/asyncMemo";
 import getName from "../../../../Reducer/getName";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { AgreementCreateEvents, AgreementEventDialog } from "..";
