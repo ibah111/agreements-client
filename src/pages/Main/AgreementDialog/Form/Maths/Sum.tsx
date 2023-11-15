@@ -17,7 +17,7 @@ export default function Sum() {
           dispatch(
             setAgreementProperty([
               "sum",
-              event.target.value ? Number(event.target.value) : 0,
+              event.target.value ? Number(event.target.value) : "",
             ])
           )
         }

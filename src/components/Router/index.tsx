@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ActionLog from "../../pages/ActionLog";
 import AdminPanelIndex from "../../pages/Admin";
 import DeletedDataIndex from "../../pages/DeletedData";
-
 import Main from "../../pages/Main";
 
 export default function Router() {

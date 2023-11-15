@@ -9,7 +9,6 @@ interface body {
   department_name: string;
 }
 export default function CreateCollector(body: body) {
-  console.log(body);
   return of(body).pipe(
     post<body>(baseRequest, "/collector/createCollector"),
     transformAxios(),
