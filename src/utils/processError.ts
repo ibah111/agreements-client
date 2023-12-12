@@ -23,6 +23,8 @@ interface ResultError {
   e: unknown;
 }
 export default function processError(e: unknown, name?: string) {
+  //@ts-ignore
+  const error = e.response.data.error as string;
   return of(e).pipe(
     map<unknown, ResultError>((e) => {
       if (isValidationErrors(e)) {
@@ -63,12 +65,24 @@ export default function processError(e: unknown, name?: string) {
           if (e.response.status === 401) {
             return { e, addon: "retry" };
           }
+
           store.dispatch(
             addMessage({
               message: `${e.message}`,
               options: {
                 variant: "error",
-                autoHideDuration: 1000,
+                autoHideDuration: 3500,
+                preventDuplicate: true,
+              },
+            })
+          );
+          store.dispatch(
+            addMessage({
+              message: error,
+              options: {
+                variant: "error",
+                autoHideDuration: 3500,
+                preventDuplicate: true,
               },
             })
           );
