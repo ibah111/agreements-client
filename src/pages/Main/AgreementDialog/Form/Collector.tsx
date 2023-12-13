@@ -14,8 +14,8 @@ import { AgreementCreateEvents, AgreementEventDialog } from "..";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { enqueueSnackbar } from "notistack";
 import deleteCollector from "../../../../api/Collector/deleteCollector";
-import { Collector as C } from "../../../../Models/Collector";
 import React from "react";
+import useAsyncMemo from "../../../../utils/asyncMemo";
 
 interface AddCollectorProps {
   eventTarget: EventTarget;
@@ -41,9 +41,7 @@ interface CollectorProps {
 
 export default function Collector({ eventTarget }: CollectorProps) {
   const data = useAgreementData("collector_id");
-  // const collectors = useAsyncMemo(getAllCollectors, [], []);
-  const [collectors, setTestCollectors] = React.useState<C[]>([]);
-
+  const collectors = useAsyncMemo(getAllCollectors, [], []);
   return (
     <Grid xs={2} item>
       <FormControl fullWidth>
@@ -54,7 +52,6 @@ export default function Collector({ eventTarget }: CollectorProps) {
           label={"Взыскатель"}
           //@ts-ignore
           onChange={(e) => data.onChange(e.target.value)}
-          onClick={() => getAllCollectors().subscribe(setTestCollectors)}
           value={data.value || ""}
           MenuProps={{
             sx: {
