@@ -56,6 +56,11 @@ export default function Collector({ eventTarget }: CollectorProps) {
           onChange={(e) => data.onChange(e.target.value)}
           onClick={() => getAllCollectors().subscribe(setTestCollectors)}
           value={data.value || ""}
+          MenuProps={{
+            sx: {
+              height: 400,
+            },
+          }}
         >
           <MenuItem>
             <em>Не выбрано</em>
