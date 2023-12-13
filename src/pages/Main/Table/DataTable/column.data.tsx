@@ -213,7 +213,8 @@ export default function GetColumns(
       valueGetter(params) {
         const sum_remains = params.row.sum_remains;
         const car = params.row.car;
-        if (car) return car;
+        if (sum_remains === 0) return sum_remains;
+        if (sum_remains! > 0 && car) return car;
         if (!car) return sum_remains;
       },
     },
