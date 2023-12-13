@@ -65,27 +65,40 @@ export default function processError(e: unknown, name?: string) {
           if (e.response.status === 401) {
             return { e, addon: "retry" };
           }
-
           store.dispatch(
             addMessage({
               message: `${e.message}`,
               options: {
                 variant: "error",
                 autoHideDuration: 3500,
-                preventDuplicate: true,
               },
             })
           );
-          store.dispatch(
-            addMessage({
-              message: error,
-              options: {
-                variant: "error",
-                autoHideDuration: 3500,
-                preventDuplicate: true,
-              },
-            })
-          );
+          /**
+           * Обработчик ошибок
+           */
+          if (error) {
+            store.dispatch(
+              addMessage({
+                message: error,
+                options: {
+                  variant: "error",
+                  autoHideDuration: 3500,
+                },
+              })
+            );
+          } else {
+            store.dispatch(
+              addMessage({
+                message:
+                  "Произошла непредвиденная ошибка, обратитесь к администратору",
+                options: {
+                  variant: "error",
+                  autoHideDuration: 7500,
+                },
+              })
+            );
+          }
         }
       }
       return { e };
